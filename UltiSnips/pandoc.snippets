@@ -36,3 +36,9 @@ snippet kbd "myUltiSnips" i
 <kbd>${VISUAL}$1</kbd>$0
 endsnippet
 
+snippet git "myUltiSnips" b
+git clone git@github.com:`!v g:snips_author`/$1.git
+mv $1/* $1/.* . && rm $1
+$0
+endsnippet
+

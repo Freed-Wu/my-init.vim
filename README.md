@@ -1,98 +1,38 @@
-myInit.vim
-==========
+# my-init.vim
+A backup for the config file of my computer.
 
-This is my init.vim. Just for reference.
+[Screenshots](https://zhuanlan.zhihu.com/p/107065105)
 
-![vim screenshot]
+## Usage ##
 
-## Construction ##
+Configure vim.
 
-```
-|-- undefined
-    |-- .gitignore
-    |-- .gvimrc //gvim run control file
-    |-- easyvim.vim //like notepad, for newbie to use temporaryly
-    |-- init.vim //vim/nvim run control file
-    |-- LICENSE
-    |-- README.md
-    |-- autoload //function user defined
-    |   |-- ...
-    |-- bitmaps //icon for tool bar and title bar user defined
-    |   |-- vim.ico
-    |-- etc //system environment variables configure file
-    |   |-- cygwin.sh
-    |-- ftdetect //filetype detect file user defined
-    |   |-- filetype.vim
-    |-- ftplugin //filetype plugin user defined
-    |   |-- arduino.vim
-    |   |-- ...
-    |-- img //images for README.md
-    |   |-- vim.png
-    |-- neoformat //formater run control file
-    |   |-- astylerc
-    |   |-- ...
-    |-- UltiSnips //snippets for UltiSnips
-    |   |-- all.snippets
-    |   |-- ...
-    |-- vim-gutentags //tags run control file
-    |   |-- default.ctags
-    |   |-- ...
-    |-- vim-pandoc //pandoc run control file
-    |   |-- reference.docx
-    |   |-- ...
-    |-- vim-splash //ascii images for vim-splash
-    |   |-- Yoda.txt
-    |   |-- ...
-    |-- vim-template //templates for vim-template
-        |-- =template=.asm
-        |-- ...
-```
+## Install ##
 
-*Note:* Add `set nocompatiable` in `.vimrc`.
-If OS is Windows/NT, add `set encoding=utf-8`, too.
-
-## Style ##
-
-- Use 8 bit tab to indent file.
-- Use snake_case to name variables.
-- Use MixedCase to name commands.
-
-## Environment Variables ##
-
-### Vim Environment Variables ###
-
-```{vim}
-let $USER = 'Freed-Wu'
-let g:mapleader = ' '
-let g:maplocalleader = ';'
-```
-
-### System Environment Variables ###
-
-#### Windows/NT ####
-
-```{powershell}
-./etc/windows.ps1
-```
-
-### GNU/Unix-like ####
-
-Add environment variables in system configure file.
-
-e.g.
+[Config others](https://github.com/Freed-Wu/my-dotfiles.vim)
 
 ```{bash}
-vim /etc/profile.d/user.sh
+git clone git@github.com:Freed-Wu/my-init.vim.git ~/.config/nvim
+# vimim need it
+aria2c https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/vimim/vimim.pinyin_quote_sogou.txt -d ~/.config/nvim/etc/user.sh
+# for GNU
+sudo mv /etc/vim/vimrc /etc/vim/example.vimrc
+sudo mv /etc/vim/gvimrc /etc/vim/example.gvimrc
+sudo ln -s ~/.config/nvim/etc/user.sh /etc/profile.d
+# for Windows
+~/.config/nvim/etc/windows.ps1
 ```
 
-## Hotkey ##
+## Customize ##
+
+### Hotkey ###
 
 Press `<Leader>`, `<LocalLedaer>`, `g`, `z`, `[`, `]`, `i`, `a`, `I`, `A` to see
 hotkey prompt.
 
 *NOTE*: `i`, `a`, `I`, `A` is text object which only can work in visual mode.
 
-## Plugin ##
+### Plugin ###
 
 ```{vim}
 if dein#load_state($GITWORKSPACE) && !v:vim_did_enter
@@ -108,5 +48,9 @@ endif
 
 *NOTE*: don't recommend use `dein#load_toml()` which is slow than `dein#add()`
 
-[vim screenshot]: img/vim.png
+## Style ##
+
+- Use 8 bit tab to indent file.
+- Use snake_case to name variables.
+- Use MixedCase to name commands.
 

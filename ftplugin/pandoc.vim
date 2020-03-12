@@ -16,7 +16,12 @@ setlocal foldtext=foldtext()
 setlocal makeprg=pandoc\ --smart\ -o\ %<.docx\ %
 
 if executable('tree')
-	nnoremap <buffer> <LocalLeader>o :.read !tree<CR>
+	if has('unix')
+		nnoremap <buffer> <LocalLeader>o :.read !tree -a<CR>
+		nnoremap <buffer> <LocalLeader>O :.read !tree -d<CR>
+	else
+		nnoremap <buffer> <LocalLeader>o :.read !tree<CR>
+	endif
 endif
 inoremap <buffer> * *
 inoremap <buffer> ** **
