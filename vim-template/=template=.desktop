@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version = 1.0
+Name=%FILE%
+GenericName=%FILE%
+GenericName[zh_CN]=%FILE%
+Type=Application
+Exec=%HERE%
+Icon=
+Terminal=false
+Categories=Application;Network;
+Comment=
+Comment[zh_CN]=
+

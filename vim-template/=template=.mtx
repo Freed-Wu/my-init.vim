@@ -1,0 +1,22 @@
+TeX: \font\scm="SimSun" at 10pt
+TeX: \largemusicsize\scm
+Title: %HERE%
+Composer: 
+Width: 180mm
+Style: Singer Piano
+Bars/Line: 4
+Flats: 1
+Meter: 4/4
+Space: 0 0 6
+
+U: Dm  ~  C          | B%  ~  G7        | A7              | Dm             |
+   rp | rp | rp | rp |:
+   L:
+   d4d  d8   e4d e8  | f4d  f8  g4d g8  | a4 g    f  e    | d r    d  r    |:
+   d4 f za  c-  e zg | b- d zf  g- b zd | a cs ze a- c ze | d f za d- f za |:
+
+U: Dm                | ~                    | ~                 | Gm              |
+   d  e    f   g     | ( b4d a8 ) a2        | a4  d    d   a    | ( a4d g8 )  g2  |
+L:1. 每 条 大 街 小 巷 每 个 人 的 嘴 里
+L:2. 好 好 冰 雪 溶 解 真 是 好 的 消 息
+

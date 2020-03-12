@@ -1,0 +1,2 @@
+setlocal makeprg=powershell\ %:p
+

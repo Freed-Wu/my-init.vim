@@ -1,0 +1,498 @@
+%&"main"
+% Fakesection 检错
+% Fakesubsubsection 宏包
+\RequirePackage[l2tabu, orthodox]{nag}
+% XXX: use nag at first to make all packages effecitive <03-11-19> %
+% Fakesubsubsection 编译器
+
+\documentclass[twoside, openright, notitlepage]{report}
+% Fakesection 基础
+% Fakesubsection 文字
+% Fakesubsubsection 颜色
+\usepackage[x11names]{xcolor}
+% XXX: conflict with microtype <02-11-19> %
+% Fakesubsubsection 长度
+\usepackage{printlen}
+\uselengthunit{mm}
+% Fakesubsubsection 效果
+\usepackage{ulem}
+% Fakesubsubsection 字体
+\usepackage[no-math]{fontspec}
+% XXX: use no-math to avoid conflict with mtxlatex <02-11-19> %
+\setmainfont{Times New Roman}
+% XXX: load ctex before siunitx to avoid \ohm ineffective <04-10-19> %
+\usepackage[
+	UTF8,
+	heading = true,
+	zihao = -4,
+	sub4section,
+]{ctex}
+\ctexset{
+	chapter = {
+		name = ,
+		number = \arabic{chapter},
+		aftername = \hspace{1\ccwd},
+		format = \ifthenelse{\value{chapter}=0}{\centering}{}
+		\zihao{3}\heiti\bfseries,
+		beforeskip = 0.5\ccwd,
+		afterskip = 0.5\ccwd,
+	},
+	section = {
+		aftername = \hspace{1\ccwd},
+		format = \ifthenelse{\value{chapter}=0}{\centering}{}
+		\zihao{-3}\heiti\bfseries,
+		beforeskip = 0.5\ccwd,
+		afterskip = 0.5\ccwd,
+	},
+	subsection = {
+		format = \zihao{4}\heiti\bfseries,
+	}
+}
+\setCJKfamilyfont{zhsong}[
+	AutoFakeBold = 2.17,
+	AutoFakeSlant = 0.5,
+]{SimSun}
+\renewcommand*{\songti}{\CJKfamily{zhsong}}
+% XXX: load newtxtext before textcomp to avoid option clash <04-10-19> %
+\usepackage{newtxtext}
+% Fakesubsubsection 字符边框
+\usepackage{varwidth}
+% Fakesubsection 断行
+\usepackage{fvextra}
+% Fakesubsection 标点
+% XXX: load csquotes after fvextra to avoid warning <04-10-19> %
+\usepackage{csquotes}
+% Fakesubsubsection 中文引号
+\DeclareQuoteStyle{zh}
+{\symbol{"201C}}%“
+{\symbol{"201D}}%”
+{\symbol{"2018}}%‘
+{\symbol{"2019}}%’
+\setquotestyle{zh}
+% Fakesubsubsection 日文引号
+\DeclareQuoteStyle{ja}
+{\symbol{"300E}}%『
+{\symbol{"300F}}%』
+{\symbol{"300C}}%「
+{\symbol{"300D}}%」
+% Fakesubsubsection 书名号
+\DeclareQuoteStyle{book}
+{\symbol{"300A}}%《
+{\symbol{"300B}}%》
+{\symbol{"3008}}%〈
+{\symbol{"3009}}%〉
+\usepackage[super]{nth}
+% Fakesubsection 样式
+% Fakesubsubsection 目录
+\usepackage{titletoc}
+\titlecontents{chapter}[0pt]{\filright}{\contentspush{\thecontentslabel}}{}
+{\titlerule*{.}\contentspage}
+% Fakesubsubsection 章节
+% Fakesubsubsection 图表
+\usepackage{caption}
+\captionsetup[figure]{labelsep=space}
+\captionsetup[table]{labelsep=space}
+\captionsetup{font=small}
+\DeclareCaptionFont{blue}{\color{LightSteelBlue3}}
+\setlength{\abovecaptionskip}{0.5\ccwd}
+\setlength{\belowcaptionskip}{0.5\ccwd}
+% Fakesubsubsection 子图表
+\usepackage{subcaption}
+% Fakesubsubsection 公式
+\setlength{\abovedisplayskip}{0.5em}
+\setlength{\belowdisplayskip}{0.5em}
+% Fakesubsubsection 列表
+\usepackage{enumitem}
+\setlist[enumerate, 1]{
+	fullwidth,
+	label = (\arabic*),
+	font = \textup,
+	itemindent = 2em,
+}
+\setlist[enumerate, 2]{
+	fullwidth,
+	label = (\alph*),
+	font = \textup,
+	itemindent = 4em,
+}
+% Fakesubsubsection 代码
+% XXX: need -shell-escape & pygmentize <04-10-19> %
+\usepackage{minted}
+\usepackage{boxie}
+% XXX: conflict with fancybox <02-11-19> %
+% Fakesubsubsection 问答
+\usepackage{exercise}
+\usepackage{tasks}
+\renewcommand{\ExerciseName}{问题}
+\renewcommand{\AnswerName}{回答}
+\renewcommand{\listexercisename}{问题}
+% Fakesubsubsection 改动
+
+% Fakesection 插入
+% Fakesubsection 目录
+\usepackage[nottoc]{tocbibind}
+% Fakesubsection 表格
+% Fakesubsubsection 三线
+\usepackage{booktabs}
+% Fakesubsubsection 对角线
+\usepackage{diagbox}
+% Fakesubsubsection 合并列
+\usepackage{multicol}
+% Fakesubsubsection 合并行
+\usepackage{multirow}
+% Fakesubsubsection 分割单元格
+\usepackage{makecell}
+% Fakesubsubsection 短表
+\usepackage{tabu}
+% Fakesubsubsection 长表
+\usepackage{longtable}
+% Fakesubsubsection 彩色表
+\usepackage{colortbl}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbuselibrary{breakable}
+\tcbuselibrary{theorems}
+\tcbuselibrary{listings}
+\tcbuselibrary{xparse}
+% XXX: need -shell-escape & pygmentize <04-10-19> %
+\tcbuselibrary{minted}
+% Fakesubsubsection 导入数据
+\usepackage{csvsimple}
+% Fakesubsection 图形
+% Fakesubsubsection 插图
+\usepackage{graphicx}
+\graphicspath{{fig/}{fig/\arabic{chapter}/}}
+% XXX: use '../' to make subfiles can find path <03-11-19> %
+% Fakesubsubsection 环绕
+\usepackage{wrapfig}
+% Fakesubsubsection 图片重叠
+\usepackage{overpic}
+% Fakesubsection 符号
+% Fakesubsubsection 数学符号
+\usepackage{newtxmath}
+\usepackage{bm}
+\numberwithin{Exercise}{chapter}
+\numberwithin{Answer}{chapter}
+% Fakesubsubsection 数学符号放缩
+\usepackage{relsize}
+% Fakesubsubsection 公式
+\usepackage{cases}
+\usepackage{physics}
+% Fakesubsubsection 单位
+\usepackage{siunitx}
+\sisetup{mode=text}
+% Fakesubsubsection 计算机
+% Fakesubsection 媒体
+\usepackage{media9}
+% Fakesubsection 链接
+\usepackage{hyperref}
+\hypersetup{%
+	colorlinks = true,
+	linkcolor = gray!50!black,
+	citecolor = gray!50!black,
+	backref = page
+}
+% Fakesubsection 批注
+\usepackage{todonotes}
+\usepackage{cooltooltips}
+\usepackage{pdfcomment}
+% Fakesubsection 文本框
+\usepackage{boxedminipage2e}
+% Fakesubsection 页眉页脚
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{
+	\pagestyle{fancy}
+}
+
+% Fakesection 设计
+% Fakesubsection 水印
+\usepackage{wallpaper}
+% Fakesubsection 音乐
+\usepackage{mtxlatex}
+\mtxlatex
+% Fakesubsection 主题
+
+% Fakesubsection 图库
+% Fakesubsubsection 大学标志
+\usepackage[njust]{cnlogo}
+% Fakesubsubsection 幻灯片
+\usepackage{pifont}
+% Fakesubsubsection 徽标
+\usepackage{hologo}
+% Fakesubsubsection 条形码
+\usepackage{ean13isbn}
+% Fakesubsubsection 二维码
+\usepackage{qrcode}
+% Fakesection 布局
+% Fakesubsection 页面
+\usepackage{geometry}
+% Fakesubsection 缩进
+\usepackage{indentfirst}
+% Fakesubsection 间距
+\usepackage{setspace}
+\usepackage[
+	restoremathleading=false,
+	UseMSWordMultipleLineSpacing,
+	MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+% Fakesection 引用
+% Fakesubsection 脚注
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\thempfootnote}{\fnsymbol{mpfootnote}}
+% Fakesubsection 引文
+\usepackage{morewrites}
+\usepackage[
+	square, comma, numbers, super, sort&compress, longnamesfirst, sectionbib,
+	nonamebreak
+]{natbib}
+% Fakesubsection 题注
+\usepackage{epigraph}
+% Fakesubsection 索引
+\usepackage{makeidx}
+\makeindex
+
+% Fakesection 特殊功能
+% Fakesubsection 页数统计
+\usepackage{lastpage}
+% Fakesubsection 数学表达式
+\usepackage{calc}
+% Fakesubsection 条件编译
+\usepackage{subfiles}
+% XXX: use subfiles at last to make all packages effecitive <03-11-19> %
+
+\begin{document}
+
+% Fakesection 扉页
+
+\newcommand{\Title}{毕业设计说明书}
+
+\begin{titlepage}
+	\centering
+	\begin{spacing}{1}
+		\zihao{4}
+		\vspace{0.5\ccwd}
+
+		\vspace{1\ccwd}
+
+		\njustwhole[njust][0.2]
+
+		\vspace{0.2\ccwd}
+
+		\fontsize{45pt}{45pt}\selectfont\heiti
+		\Title
+
+		\zihao{-1}
+		\vspace{2\ccwd}
+	\end{spacing}
+
+	\begin{spacing}{1.5}
+		\zihao{3}
+		\begin{tabu} to 12.59cm
+			{@{}X[c, 3.2cm]@{}X[c, 4cm]@{}
+			X[c, 2.22cm]@{}X[c, 3.89cm]@{}}
+			\textbf{作　　者：} &
+			\underline{\makebox[4cm][c]{\kaishu 吴振宇}} &
+			\textbf{学　号：} &
+			\underline{\makebox[3.89cm][c]{\kaishu 916101630117}} \\
+			\textbf{学　　院：} &
+			\multicolumn{3}{c}{\underline{\makebox[10.11cm][c]
+			{\kaishu 电子工程与光电技术学院}}} \\
+			\textbf{专业(方向)：} &
+			\multicolumn{3}{c}{
+			\underline{\makebox[10.11cm][c]{\kaishu 电子信息工程}}} \\
+			\textbf{班　　级：} &
+			\multicolumn{3}{c}{
+			\underline{\makebox[10.11cm][c]{\kaishu 电信4班}}} \\
+			\textbf{题　　目：} &
+			\multicolumn{3}{c}{
+			\underline{\makebox[10.11cm][c]{\kaishu}}} \\
+			\textbf{} &
+			\multicolumn{3}{c}{
+			\underline{\makebox[10.11cm][c]{\kaishu}}}
+		\end{tabu}
+		\vspace{0em}
+	\end{spacing}
+
+	\begin{spacing}{1}
+		\zihao{3}
+		\vspace{3\ccwd}
+
+		\zihao{-3}
+		\textbf{指导者：}\underline{\makebox[15.5\ccwd][c]{}}
+
+		\zihao{5}
+		\hspace{5em}（姓名）\hspace{11em}（专业技术职务）
+
+		\zihao{-3}
+		　　　　\underline{\makebox[15.5\ccwd][c]{}}
+
+		\zihao{5}
+		\hspace{5em}（姓名）\hspace{11em}（专业技术职务）
+
+		\zihao{-3}
+		\textbf{评阅者：}\underline{\makebox[15.5\ccwd][c]{}}
+
+		\zihao{5}
+		\hspace{5em}（姓名）\hspace{11em}（专业技术职务）
+
+		\zihao{3}
+		\vspace{2\ccwd}
+
+		\zihao{-2}
+		\number\year 年\number\month 月
+	\end{spacing}
+	\vspace{0em}
+\end{titlepage}
+
+% Fakesection 声明
+
+\renewcommand{\abstractname}{\zihao{3}\heiti 声\hspace{2\ccwd}明}
+\begin{abstract}
+	\zihao{4}
+
+	我声明，本\Title 及其研究工作和所取得的成果是本人在导师的指导下独立完成
+	的。研究过程中利用的所有资料均已在参考文献中列出，其他人员或机构对
+	本\Title 工作做出的贡献也已在致谢部分说明。
+
+	本\Title 不涉及任何秘密，南京理工大学有权保存其电子和纸质文档，可以借阅
+	或网上公布其部分或全部内容，可以向有关部门或机构送交并授权保存、借阅或网
+	上公布其部分或全部内容。
+
+	\vspace{2\ccwd}
+
+	\begin{flushright}
+		学生签名：\hspace{8em}
+
+		\vspace{1\ccwd}
+
+		年\hspace{3em}月\hspace{3em}日
+
+		\vspace{2\ccwd}
+
+		指导教师签名：\hspace{8em}
+
+		\vspace{1\ccwd}
+
+		年\hspace{3em}月\hspace{3em}日
+	\end{flushright}
+\end{abstract}
+
+% Fakesection 摘要页眉页脚
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[LC, RC]{}
+\fancyhead[LE, RO]{}
+\fancyhead[RE, LO]{}
+\fancyfoot[LC, RC]{}
+\fancyfoot[LE, RO]{}
+\fancyfoot[RE, LO]{}
+
+% Fakesection 摘要
+
+\newpage
+
+\begin{center}
+	\zihao{3}\renewcommand{\CJKglue}{\hskip 2pt}\heiti \Title 中文摘要
+
+	\vspace{0.3em}
+
+	\begin{boxedminipage}[][18cm]{\linewidth}
+		\begin{spacing}{1.5}
+			\zihao{-4}
+
+			\vspace{1\ccwd}
+
+			本文\cite{}
+
+			\vspace{2\ccwd}
+
+			\noindent\textbf{关键词}\hspace{1\ccwd}
+
+		\end{spacing}
+	\end{boxedminipage}
+\end{center}
+
+% Fakesection 英文摘要
+
+\newpage
+
+\begin{center}
+	\zihao{3}\renewcommand{\CJKglue}{\hskip 2pt}\heiti \Title 英文摘要
+
+	\vspace{0.3em}
+
+	\begin{boxedminipage}[][18cm]{\linewidth}
+		\begin{spacing}{1.5}
+			\zihao{3}
+
+			\vspace{1em}
+
+			\begin{tabu} to \linewidth{@{}X[l]@{}X[l, 8]@{}}
+				\textbf{Title} &
+				\hspace{2em}\underline{
+				\makebox[15em][c]{\zihao{4}\songti }} \\
+				\phantom{Title} &
+				\hspace{2em}\underline{
+				\makebox[15em][c]{\zihao{4}\songti }} \\
+			\end{tabu}
+
+			\textbf{Abstract}
+
+			\zihao{-4}
+
+			\vspace{2em}
+
+			\noindent\textbf{Keywords}\hspace{1em}
+
+		\end{spacing}
+	\end{boxedminipage}
+\end{center}
+
+% Fakesection 目录页眉页脚
+
+\newpage
+
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[LC, RC]{\zihao{-2}\Title}
+\fancyhead[LE, RO]{\zihao{5}第\thepage 页}
+\fancyhead[RE, LO]{}
+
+% Fakesection 目录
+
+\pagenumbering{roman}
+
+\setcounter{tocdepth}{2}
+
+\renewcommand{\contentsname}{\zihao{3}\heiti 目次}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\mbox{}
+\newpage
+
+\listofexercises
+
+\newpage
+\mbox{}
+\newpage
+
+\pagenumbering{arabic}
+
+% Fakesection 正文
+
+\subfile{subfile/}
+
+% Fakesection 参考文献
+
+\setcounter{chapter}{0}
+
+\addcontentsline{toc}{chapter}{参考文献}
+
+\bibliographystyle{gbt7714-plain}
+\bibliography{bib/main}
+
+\end{document}
+

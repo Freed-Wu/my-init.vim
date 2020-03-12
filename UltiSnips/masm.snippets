@@ -1,0 +1,142 @@
+priority -30
+
+snippet seg "myUltiSnips" b
+${1:d}${1/(d)$|(c)$|(s)$|(.*)/(?1:ate)(?2:oda)(?3:tack)/} segment
+push$2
+$0
+$1 ends
+endsnippet
+snippet pro "myUltiSnips" b
+${1:i}${1/(m)$|(i)$|(.*)/(?1:ain)(?2:nt)/} proc ${2:f}${2/(f)$|(n)$|(.*)/(?1:ar)(?2:ear)/}
+ret
+$1 endp
+endsnippet
+snippet push "myUltiSnips" b
+push $1
+push$0
+pop $1
+endsnippet
+snippet delay "myUltiSnips" b
+mov di,20000
+delay:
+mov si,30000
+delay1:
+dec si
+jnz delay1
+dec di
+jnz delay
+endsnippet
+snippet . "myUltiSnips" A
+.${1:m}${1/(m)$|(s)$|(d)$|(c)$|(.*)/(?1:odel small)(?2:tack)(?3:ata)(?4:ode)/}
+$0
+endsnippet
+
+# algorithm {{{1 #
+snippet int "myUltiSnips" b
+;中断数据${1:0}${1/(0)$|(1)$|(.*)/(?1:9)(?2:c)/} ${2:kdbint}
+old_cs$1 dw ?
+old_ip$1 dw ?
+old_mask$1 dw ?
+
+
+;取原中断向量
+mov al,$1h
+mov ah,35h
+int 21h
+mov old_cs$1,es
+mov old_ip$1,bx
+cli
+;设新中断向量
+push ds
+lea dx,$2
+mov ax,seg $2
+mov ds,ax
+mov al,$1h
+mov ah,25h
+int 21h
+pop ds
+;取原中断标志位
+in al,${3:21}h
+mov old_mask$1,ax
+;设新中断屏蔽位
+and al,${4:0fd}h
+out $3h,al
+sti
+
+;延时
+mov di,20000
+delay:
+mov si,30000
+delay1:
+dec si
+jnz delay1
+dec di
+jnz delay
+
+cli
+;恢复原中断向量
+push ds
+mov dx,old_ip$1
+mov ax,old_cs$1
+mov ds,ax
+mov al,09h
+mov ah,25h
+int 21h
+pop ds
+;恢复原中断标志位
+mov ax,old_mask$1
+out 21h,al
+sti
+
+${VISUAL}$5
+
+$2 proc near
+$0
+cli
+mov al,20h
+out 20h,al
+sti
+iret
+$2 endp
+
+endsnippet
+snippet display_hex "myUltiSnips" b
+display_hex proc near
+	push ax
+	push cx
+	push dx
+
+	mov ch,2
+	mov cl,4
+nextb:
+	rol al,cl
+	push ax
+	mov dl,al
+	;将数字转换为16进制数字ASCII
+	and dl,0fh
+	or dl,30h
+	cmp dl,3ah
+	jl abcdef
+	add dl,7h
+abcdef:
+	;输出16进制数字ASCII
+	mov ah,2
+	int 21h
+	pop ax
+	dec ch
+	jnz nextb
+	;输出分割符
+	mov ah,2
+	mov dl,'${1:,}'
+	int 21h
+
+	pop dx
+	pop cx
+	pop ax
+	ret
+display_hex endp
+
+$0
+endsnippet
+# 1}}} algorithm #
+

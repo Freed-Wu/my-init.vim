@@ -1,0 +1,15 @@
+priority -30
+
+snippet create "myUltiSnips" b
+CREATE TABLE ${1:tbl}(
+   $1_id INT NOT NULL AUTO_INCREMENT,
+   title VARCHAR(${2:100}) NOT NULL,
+   $1_date DATE,
+   PRIMARY KEY ( $1_id )
+);$0
+endsnippet
+
+snippet load "myUltiSnips" b
+load data local infile 'src/$1.csv' into table $1 fields terminated by '${2:,}';$0
+endsnippet
+

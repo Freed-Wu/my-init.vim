@@ -1,0 +1,69 @@
+priority -30
+
+# Ultisnip {{{1 #
+snippet pri "myUltiSnips" b
+priority -30$0
+endsnippet
+snippet ex "myUltiSnips" b
+extends ${VISUAL}$1
+
+$0
+endsnippet
+snippet con "myUltiSnips" b
+context "math()"
+snip$0
+endsnippet
+snippet snip "myUltiSnips" b
+snippet $1 "myUltiSnips" ${2:b}
+\$0${VISUAL}$0endsnippet
+endsnippet
+snippet $/ "myUltiSnips" i
+\${${1:1}:${2:a}}\$\{$1/($2)$|($3)$|(.*)/(?1:$4)(?2:$5)/}$0
+endsnippet
+snippet $| "myUltiSnips" i
+$|($1)$|$0
+endsnippet
+snippet ) "myUltiSnips" i
+)(?${1:1}:$2)$0
+endsnippet
+snippet $ "myUltisnips" i
+${${1:1}:${VISUAL}$2}$0
+endsnippet
+snippet ` "myUltiSnips" i
+\`!${1:p}${1/(p)$|(v)$|(.*)/(?1: snip.rv=snip.)(?2: strftime("%Y"))/}${2:b}${2/(b)$|(f)$|(.*)/(?1:asename or "fileName")(?2:n)/}$0
+endsnippet
+snippet `! "myUltiSnips" i
+\`!v printf('%i', &$1)$0
+endsnippet
+# 1}}} Ultisnip #
+
+# python {{{1 #
+snippet make1 "myUltiSnips" b
+\`!p
+box = make_box(${1:56})
+snip.rv = box[0]
+snip += box[1]$0
+endsnippet
+snippet make2 "myUltiSnips" b
+box = make_box(${1:56})
+snip.rv = box[2]
+\`
+\`!p
+box = make_box($1)
+snip.rv = box[1]$0
+endsnippet
+snippet make3 "myUltiSnips" b
+box = make_box(${1:56})
+snip.rv = box[2]
+snip += box[3]
+\`
+\$0$0
+endsnippet
+# 1}}} python #
+
+# latex {{{1 #
+snippet sec "myUltiSnips" i
+\${1:se}\${1/(c)$|(se)$|(subs)$|(f)$|(t)$|(subf)$|(subt)$|(.*)/(?1:hapter)(?2:ction)(?3:ection)(?4:igure)(?5:able)(?6:igure)(?7:able)/}$0
+endsnippet
+# 1}}} latex #
+

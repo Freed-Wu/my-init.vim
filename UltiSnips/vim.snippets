@@ -1,0 +1,188 @@
+priority -30
+
+global !p
+from vimsnippets import foldmarker, make_box, get_comment_format
+endglobal
+
+# Vim {{{1 #
+snippet ' :' "myUltiSnips" ir
+ :<C-u>$0
+endsnippet
+snippet '"?\s*fold' "myUltiSnips" br
+`!p snip.rv = get_comment_format()[0]` ${1:${VISUAL}} `!p snip.rv = foldmarker()[0]`${2:3} `!p snip.rv = get_comment_format()[2]`
+$0
+`!p snip.rv = get_comment_format()[0]` $2`!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
+endsnippet
+snippet ' \* ' "myUltiSnips" ir
+*.$0
+endsnippet
+snippet \ "myUltiSnips" i
+\| $0
+endsnippet
+snippet le "myUltiSnips" b
+let ${1:g:}${2:textobj_$3_no_default_key_mappings} = ${0:1}
+endsnippet
+snippet f "myUltiSnips" b
+function! init#${1:`!p snip.rv=snip.basename or "fileName"`}#main($2) "{{{
+	$0
+endfunction "}}}
+endsnippet
+snippet make "myUltiSnips" b
+setlocal makeprg=${VISUAL}$1\ %:p$0
+endsnippet
+snippet hi "myUltiSnips" b
+highlight $1 gui${1:f}g=$2${3: guibg=}$0
+endsnippet
+snippet au "myUltiSnips" b
+augroup init_$1 "{{{
+	autocmd!
+	aut$0
+augroup END "}}}
+endsnippet
+snippet aut "myUltiSnips" b
+autocmd ${1:B}${1/(B)$|(F)$|(V)$|(C)$|(S)$|(I)$|(T)$|(.*)/(?1:ufRead,BufNewFile)(?2:iletype)(?3:imEnter)(?4:olorscheme)(?5:ourcePre)(?6:nsertEnter)(?7:erminalOpen)/} ${2:*} ${VISUAL}$0
+endsnippet
+snippet xn "myUltiSnips" i
+xnoremap $1 $2<CR>$0
+endsnippet
+snippet in "myUltiSnips" i
+inoremap $1 $2<CR>$0
+endsnippet
+snippet map "myUltiSnips" i
+map <buffer>$0
+endsnippet
+snippet exe "myUltiSnips" i
+execute '${1:normal!$2 }$3'$0
+endsnippet
+snippet toggle "myUltiSnips" b
+function! init#$1_toggle#main() "{{{
+	if !exists('g:$1_toggle')
+		let g:$1_toggle = 1
+	endif
+	if g:$1_toggle
+		$3
+	else
+		$5
+	endif
+	let g:$1_toggle=!g:$1_toggle
+endfunction "}}}
+endsnippet
+snippet dir "myUltiSnips" b
+let s:$1_${2:d}${2/(d)$|(c)$|(.*)/(?1:ata)(?2:onfig)/} = \$VIM${2/(d)$|(c)$|(.*)/(?1:DATA)(?2:CONFIG)/}.'/${VISUAL}$3'
+if !isdirectory(s:$1_$2${2/(d)$|(c)$|(.*)/(?1:ata)(?2:onfig)/})
+	call mkdir(s:$1_$2${2/(d)$|(c)$|(.*)/(?1:ata)(?2:onfig)/}, 'p')
+endif$0
+endsnippet
+snippet file "myUltiSnips"
+let s:$1 = s:$2.'/${VISUAL}$3'
+if filereadable(s:$1)
+	let g:$1 = readfile(s:$1)
+endif$0
+endsnippet
+snippet < "myUltiSnips" i
+<${1:L}${1/(L)$|(Le)$|(E)$|(B)$|(N)$|(S)$|(C)$|(T)$|(P)$|(.*)/(?1:ocalLeader)(?2:ader)(?3:sc)(?4:ar)(?5:op)(?6:pace)(?7:R)(?8:ab)(?9:lug)/}>$0
+endsnippet
+snippet <c "myUltiSnips" iA
+<C-$0
+endsnippet
+snippet <m "myUltiSnips" iA
+<M-$0
+endsnippet
+snippet <s "myUltiSnips" iA
+<S-$0
+endsnippet
+snippet <b "myUltiSnips" iA
+<buffer$0
+endsnippet
+snippet '< ' "myUltiSnips" iAr
+ < $0
+endsnippet
+snippet '% ' "myUltiSnips" ir
+%:p$0
+endsnippet
+snippet %:p "myUltiSnips" i
+%:p:h$0
+endsnippet
+snippet warn "myUltiSnips" i
+echohl WarningMsg
+echo "$1"
+echohl None$0
+endsnippet
+snippet ',, ' "myUltiSnips" ir
+,*.$0 
+endsnippet
+snippet has "myUltiSnips" i
+has('${1:p}${1/(p)$|(r)$|(n)$|(g)$|(w)$|(pe)$|(u)$|(.*)/(?1:ython)(?2:uby)(?3:vim)(?4:ui_running)(?5:in32)(?6:rl)(?7:nix)/}')$0
+endsnippet
+snippet exec "myUltiSnips" i
+executable('$1')$0
+endsnippet
+snippet exp "myUltiSnips" i
+expand('${1:%:}$2')$0
+endsnippet
+snippet '& ' "myUltiSnips" ir
+&${1:f}${1/(f)$|(b)$|(g)$|(m)$|(c)$|(t)$|(h)$|(e)$|(.*)/(?1:iletype)(?2:uftype)(?3:uifont)(?4:odifiable)(?5:olumns)(?6:extwidth)(?7:elplang)(?8:xpangtab)/}$0
+endsnippet
+snippet v: "myUltiSnips" i
+v:${1:v}${1/(v)$|(e)$|(.*)/(?1:im_did_enter)(?2:rrmsg)/}$0
+endsnippet
+# 1}}} Vim #
+
+# VimL {{{1 #
+snippet silent "myUltiSnips" b
+silent! %substitute/$1/$2/g
+$0
+endsnippet
+snippet new "myUltiSnips" b
+new ${1:i}${1/(i)$|(o)$|(.*)/(?1:n)(?2:ut)/}/${2:$i}.${3:csv}
+write
+bdelete
+$0
+endsnippet
+snippet nr "myUltiSnips" i
+nr2char(getchar())$0
+endsnippet
+snippet so "myUltiSnips" b
+source <sfile>:p:h/${1:log}.vim$0
+endsnippet
+# 1}}} VimL #
+
+# python {{{1 #
+snippet py "myUltiSnips" b
+python${1:3} << EOF
+$0
+EOF
+endsnippet
+# 1}}} python #
+
+# dein {{{1 #
+snippet add "myUltiSnips" b
+call dein#add('${VISUAL}$0')
+endsnippet
+snippet "', " "myUltiSnips" ir
+', {
+			\ '${1:o}${1/(o)$|(d)$|(b)$|(i)$|(.*)/(?1:n_ft)(?2:epends)(?3:uild)(?4:f)/}': '$2',
+			\ }$0
+endsnippet
+# 1}}} dein #
+
+# vim-which-key {{{1 #
+snippet name "myUltiSnips" i
+			\ '$1':{
+			\ 'name': '+$2',
+			\ },$0
+endsnippet
+snippet '\\ '' "myUltiSnips" br
+\ '${1:o}${1/(o)$|(d)$|(b)$|(i)$|(.*)/(?1:n_ft)(?2:epends)(?3:uild)(?4:f)/}': '${VISUAL}$0
+endsnippet
+snippet which "myUltiSnips" i
+nnoremap <silent><nowait>$1 :<c-u>WhichKey '$1'<CR>
+xnoremap <silent><nowait>$1 :<c-u>WhichKeyVisual '$1'<CR>
+let g:which_key_map_$2 = {
+			\ 'name':"choose a key about $3",
+$0
+			\ }
+call which_key#register('$1', "g:which_key_map_$2")
+endsnippet
+# 1}}} vim-which-key #
+

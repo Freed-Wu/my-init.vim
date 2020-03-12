@@ -1,0 +1,20 @@
+priority -30
+
+extends txt
+
+snippet meta "HTML <meta>" w
+<meta name="${1:a}${1/(a)$|(d)$|(k)$|(c)$|(.*)/(?1:uthor)(?2:escription)(?3:eywords)(?4:opyright)/}" content="${2:Freed-Wu}"`!p x(snip)`>
+endsnippet
+snippet step "myUltiSnips" b
+<div class="step${1: slide}" data-x="$2" data-y="$3">
+$3
+</div>
+
+$0
+endsnippet
+snippet video "myUltiSnips" b
+<video id="video$1" width="$2" height="$3" autoplay>
+	<source src="video/$3.${4:webm}" type="video/$4">
+</video>$0
+endsnippet
+

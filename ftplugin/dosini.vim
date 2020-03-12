@@ -1,0 +1,2 @@
+setlocal indentexpr=GetGitconfigIndent()
+

@@ -1,0 +1,22 @@
+priority -30
+
+snippet set "myUltiSnips" b
+set_location_assignment PIN_$1 -to $2
+set$0
+endsnippet
+
+snippet file "myUltiSnips" b
+set_global_assignment -name ${2/(v)$|(b)$|(vw)$|(m)$|(mi)$|(q)$|(.*)/(?1:VERILOG)(?2:BDF)(?3:VECTOR_WAVEFORM)(?4:MIF)(?5:MISC)(?6:QIP)/}_FILE $1.${2:v}${2/(v)$|(b)$|(vw)$|(m)$|(mi)$|(q)$|(.*)/(?1:)(?2:df)(?3:vwf)(?4:if)(?5:sc)(?6:ip)/}
+$0
+endsnippet
+
+snippet sim "myUltiSnips" b
+set_global_assignment -name SIMULATION_MODE ${1:F}${1/(F)$|(T)$|(")$|(.*)/(?1:FUNCTIONAL)(?2:IMING)(?3:TIMING USING FAST TIMING MODEL")/}
+$0
+endsnippet
+
+snippet ins "myUltiSnips" b
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to $1
+$0
+endsnippet
+

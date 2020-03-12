@@ -1,0 +1,24 @@
+priority -30
+
+snippet del "myUltiSnips" b
+del /s/q *.$1
+del$0
+endsnippet
+snippet rd "myUltiSnips" b
+rd /s/q $1
+rd$0
+endsnippet
+#匹配大小写
+snippet ford "myUltiSnips" b
+for /f "delims=" %%i in ('dir /b/s/o-d/ad^|findstr /c:"$1"') do (
+	rd /s/q "%%i"
+)
+endsnippet
+#不匹配大小写
+snippet forD "myUltiSnips" b
+for /f %%i in ('dir /b /o-d /s "$1"') do (
+	rd /s/q "%%i"
+)
+$0
+endsnippet
+

@@ -1,0 +1,2 @@
+setlocal makeprg=cmd\ %:p
+

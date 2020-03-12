@@ -1,0 +1,4 @@
+digraph G{
+{ a b c} -> { d e f %HERE%}
+}
+

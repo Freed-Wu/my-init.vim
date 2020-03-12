@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title>%HERE%</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="author" content="Freed-Wu" />
+		<meta name="copyright" content="All Rights Reserved">
+		<link href="//fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+		<link href="css/impress-demo.css" rel="stylesheet" />
+		<link rel="shortcut icon" href="img/favicon.png" />
+		<link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+		<link rel="icon" href="img/animated_favicon.gif" type="image/gif" />
+	</head>
+	<body>
+		<body class="impress-not-supported">
+			<div class="fallback-message">
+				<p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+				<p>尊驾的浏览器太老土啦！<b>无法满足impress.js的要求</b>，现在你只能看到一些最朴素的演示画面。</p>
+				<p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or<b>Firefox</b> browser.</p>
+				<p>为了欣赏漂亮的演示画面，请使用先进、优雅、快速、美丽、免费的现代浏览器，比如 <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> 。</p>
+			</div>
+
+			<div class="hint">
+				<p>Use a spacebar or arrow keys to navigate</p>
+				<p>使用空格或者方向键来移动</p>
+			</div>
+			<script>
+				if ("ontouchstart" in document.documentElement) {
+					document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p><p>向左或向右拖动屏幕来移动</p>";
+				}
+			</script>
+
+			<div id="impress">
+
+				<div class="step" style="font-size:100px" data-x="0" data-y="0">
+				</div>
+
+				<div id="overview" class="step" data-x="3000" data-y="3000" data-z="3000"></div>
+
+			</div>
+
+			<script src="js/impress.js"></script>
+			<script>impress().init();</script>
+
+		</body>
+	</body>
+</html>
+

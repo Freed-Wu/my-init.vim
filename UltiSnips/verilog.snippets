@@ -1,0 +1,89 @@
+priority -30
+
+snippet inc "myUltiSnips" b
+\`include "$1.v"$0
+endsnippet
+
+snippet def "myUltiSnips" b
+\`define $1 $0
+endsnippet
+
+snippet ifd "myUltiSnips" b
+\`ifdef $1
+$2
+\`else
+$3
+\`endif
+$0
+endsnippet
+
+snippet pa "myUltiSnips" b
+parameter $1 = $2;
+$0
+endsnippet
+
+snippet int "myUltiSnips" i
+integer $1;
+$0
+endsnippet
+
+snippet re "myUltiSnips" b
+reg [$1:$2] $3;
+$0
+endsnippet
+
+snippet wi "myUltiSnips" b
+wire [$1:$2] $3;
+$0
+endsnippet
+
+snippet as "myUltiSnips" b
+assign $1 = $2;
+$0
+endsnippet
+
+snippet po "myUltiSnips" i
+posedge $0
+endsnippet
+
+snippet ne "myUltiSnips" i
+negedge $0
+endsnippet
+
+snippet for "myUltiSnips" b
+for($1;$2;$3)
+$0
+endsnippet
+
+snippet in "myUltiSnips" b
+initial begin
+$0
+end
+endsnippet
+
+snippet ta "myUltiSnips" b
+task $1;
+$0
+endtask
+endsnippet
+
+snippet f "myUltiSnips" b
+function $1
+$0
+endfunction
+endsnippet
+
+snippet di "myUltiSnips" i
+$display("%t: $1", $realtime, $2);
+$0
+endsnippet
+
+snippet mo "myUltiSnips" i
+$monitor("%t: $1", $realtime, $2);
+$0
+endsnippet
+
+snippet fi "myUltiSnips" i
+$finish;$0
+endsnippet
+

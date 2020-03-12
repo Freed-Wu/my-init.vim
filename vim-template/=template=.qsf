@@ -1,0 +1,7 @@
+set_global_assignment -name FAMILY "Cyclone III"
+set_global_assignment -name DEVICE EP3C25F324C8
+set_global_assignment -name TOP_LEVEL_ENTITY display
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 9.1
+set_global_assignment -name LAST_QUARTUS_VERSION 9.1
+set_global_assignment -name SIMULATION_MODE FUNCTIONAL
+

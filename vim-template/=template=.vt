@@ -1,0 +1,47 @@
+`include "%FILE%.v"
+`timescale 1 ns / 1 ns
+
+module main;
+
+parameter CLK = 1e9 / 48e6;
+parameter RST = 2e9;
+
+reg clk = 0;
+reg rst = 0;
+
+initial begin
+	#(RST / 2) rst = ~rst;
+	#RST rst = ~rst;
+	#(RST * 10) $finish;
+end
+
+always begin
+	#(CLK / 2) clk = ~clk;
+end
+
+reg %HERE%;
+wire ;
+%FILE% %FILE%_1
+(
+	.(),
+);
+
+//actual testing flows
+initial begin
+	//variables initialization
+	task_1(var_1)
+	$stop;
+end
+
+//necessary control logic for testbench module test flow
+always@() begin
+
+end
+
+task task_1;
+	input ;
+	output ;
+endtask
+
+endmodule
+

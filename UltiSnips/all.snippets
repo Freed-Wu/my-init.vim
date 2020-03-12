@@ -1,0 +1,570 @@
+priority -40
+
+global !p
+from vimsnippets import foldmarker, make_box, get_comment_format
+endglobal
+
+snippet ：： "myUltiSnips" iA
+；$0
+endsnippet
+
+# box {{{1 #
+snippet bx "Box" b
+`!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
+│ ${1:${VISUAL}} │
+`!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
+$0
+endsnippet
+snippet box "A nice box with the current comment symbol" b
+`!p
+box = make_box(len(t[1]))
+snip.rv = box[0]
+snip += box[1]
+`${1:${VISUAL}}`!p
+box = make_box(len(t[1]))
+snip.rv = box[2]
+snip += box[3]`
+$0
+endsnippet
+snippet bbox "A nice box over the full width" b
+`!p
+if not snip.c:
+	width = int(vim.eval("&textwidth - (virtcol('.') == 1 ? 0 : virtcol('.'))")) or 71
+	box = make_box(len(t[1]), width)
+	snip.rv = box[0]
+	snip += box[1]
+	`${1:${VISUAL}}`!p
+	box = make_box(len(t[1]), width)
+	snip.rv = box[2]
+	snip += box[3]`
+
+$0
+endsnippet
+snippet '\s*fold' "myUltiSnips" br
+`!p snip.rv = get_comment_format()[0]` ${1:${VISUAL}} `!p snip.rv = foldmarker()[0]`${2:1} `!p snip.rv = get_comment_format()[2]`
+$0
+`!p snip.rv = get_comment_format()[0]` $2`!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
+
+endsnippet
+# 1}}} box #
+
+# info {{{1 #
+snippet us "myUltiSnips" i
+\$USER$0
+endsnippet
+# 1}}} info #
+
+# vimL {{{1 #
+snippet '\s*mode' "myUltiSnips" br
+`!p snip.rv = get_comment_format()[0]` vim: set `!v &expandtab ? printf('') : printf('no')`et ft =`!v printf('%s', &filetype)` fdm =`!v printf('%s', &foldmethod)` ts =`!v printf('%i', &tabstop)` sw =`!v printf('%i', &shiftwidth)` sts =`!v printf('%i', &softtabstop)`: `!p snip.rv = get_comment_format()[2]`$0
+endsnippet
+# 1}}} vimL #
+
+# vim-template {{{1 #
+snippet here "myUltiSnips" i
+%HERE%$0
+endsnippet
+snippet file "myUltiSnips" i
+%FILE%$0
+endsnippet
+snippet year "myUltiSnips" i
+%YEAR%$0
+endsnippet
+snippet user "myUltiSnips" i
+%USER%$0
+endsnippet
+snippet mail "myUltiSnips" i
+%MAIL%$0
+endsnippet
+snippet license "myUltiSnips" i
+%LICENSE%$0
+endsnippet
+# 1}}} vim-template #
+
+# latex-text-font {{{1 #
+snippet ita "myUltiSnips" i
+\textit{${1:${VISUAL:text}}}$0
+endsnippet
+snippet bf "myUltiSnips" i
+\textbf{${1:${VISUAL}}}$0
+endsnippet
+snippet under "myUltiSnips" i
+\underline{${1:${VISUAL}}}$0
+endsnippet
+snippet sc "myUltiSnips" i
+\textsc{${1:${VISUAL}}}$0
+endsnippet
+snippet sf "myUltiSnips" i
+\textsf{${1:${VISUAL}}}$0
+endsnippet
+snippet rm "myUltiSnips" i
+\textrm{${1:${VISUAL}}}$0
+endsnippet
+snippet tt "myUltiSnips" i
+\texttt{${1:${VISUAL}}}$0
+endsnippet
+snippet tsub "myUltiSnips" i
+\textsubscript{${1:${VISUAL}}}$0
+endsnippet
+snippet tsup "myUltiSnips" i
+\textsuperscript{${1:${VISUAL}}}$0
+endsnippet
+# 1}}} latex-text-font #
+
+# latex-text-symbol {{{1 #
+snippet $ "myUltiSnips" i
+$${VISUAL}$1$ $0
+endsnippet
+
+priority -30
+
+snippet $$ "myUltiSnips" i
+$$ ${VISUAL}$1 $$$0
+endsnippet
+
+priority -40
+
+snippet si "myUltiSnips" i
+\SI{${VISUAL}$1}{\\$0}
+endsnippet
+snippet an "myUltiSnips" i
+\ang{${VISUAL}$1;$2;$3}$0
+endsnippet
+# 1}}} latex-text-symbol #
+
+global !p
+texMathZones = [
+	'texMathZone'+x for x in [
+		'A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F', 'FS', 'G',
+		'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS', 'DS', 'V',
+		'W', 'X', 'Y', 'Z'
+	]
+]
+texIgnoreMathZones = ['texMathText']
+texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
+texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
+ignore = texIgnoreMathZoneIds[0]
+def math():
+	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+	try:
+		first = next(
+			i for i in reversed(synstackids)
+			if i in texIgnoreMathZoneIds or i in texMathZoneIds
+		)
+		return first != ignore
+	except StopIteration:
+		return False
+endglobal
+
+# latex-math-python {{{1 #
+context "math()"
+snippet sympy "sympy block " w
+sympy $1 endsympy$0
+endsnippet
+context "math()"
+snippet 'sympy(.*)endsympy' "evaluate sympy" wr
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
+		      .replace('^', '**') \
+		      .replace('{', '(') \
+		   .replace('}', ')') + ')')
+`
+endsnippet
+context "math()"
+snippet math "mathematica block" w
+math $1 endmath$0
+endsnippet
+context "math()"
+snippet 'math(.*)endmath' "evaluate mathematica" wr
+`!p
+import subprocess
+code = 'ToString[' + match.group(1) + ', TeXForm]'
+snip.rv = subprocess.check_output(['wolframscript', '-code', code])
+`
+endsnippet
+# 1}}} latex-math-python #
+
+# latex-math-function {{{1 #
+context "math()"
+snippet hat "myUltiSnips" i
+\hat{$1}$0
+endsnippet
+context "math()"
+snippet int "myUltiSnips" i
+\int\nolimits_{${1:-\infty}}^${2:\infty} $0
+endsnippet
+context "math()"
+snippet sum "myUltiSnips" i
+\sum_{${1:i} = ${2:-\infty}}^${3:\infty} $0
+endsnippet
+context "math()"
+snippet pro "myUltiSnips" i
+\prod_{${1:i} = ${2:-\infty}}^${3:\infty} $0
+endsnippet
+context "math()"
+snippet mat "myUltiSnips" b
+\begin{matrix}
+$0
+\end{matrix}
+endsnippet
+context "math()"
+snippet lef "myUltiSnips" i
+\left ${1:(}$3\right ${2:)}$0
+endsnippet
+context "math()"
+snippet bp "myUltiSnips" i
+\big($1${VISUAL}\big)$0
+endsnippet
+context "math()"
+snippet Bp "myUltiSnips" i
+\Big($1${VISUAL}\Big)$0
+endsnippet
+context "math()"
+snippet bbp "myUltiSnips" i
+\BIG($1${VISUAL}\BIG)$0
+endsnippet
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+context "math()"
+snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+context "math()"
+snippet '([A-Za-z])_' "auto subscript2" wr
+`!p snip.rv = match.group(1)`_{${1:${VISUAL}}}$0
+endsnippet
+context "math()"
+snippet ^ "auto subscript2" w
+^{${1:${VISUAL}}}$0
+endsnippet
+context "math()"
+snippet '([A-Za-z])\^(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}
+endsnippet
+context "math()"
+snippet bin "myUltiSnips" i
+($1)_{(2)} $0
+endsnippet
+context "math()"
+snippet sq "myUltiSnips" i
+\sqrt{$1}$0
+endsnippet
+context "math()"
+snippet __ "myUltiSnips" iA
+_\mathrm{${VISUAL}$1}$0
+endsnippet
+context "math()"
+snippet lim "myUltiSnips" i
+\\${1:s}${1/(s)$|(i)$|(.*)/(?1:um)(?2:nt)/}\limits_{${2:n}=${3:-\infty}}{${4:+\infty}}$0
+endsnippet
+context "math()"
+snippet fr "myUltiSnips" i
+\dfrac{${VISUAL}$1}{$2}$0
+endsnippet
+context "math()"
+snippet over "myUltiSnips" i
+\overline{${1:${VISUAL}}}$0
+endsnippet
+# 1}}} latex-math-function #
+
+# latex-math-font {{{1 #
+context "math()"
+snippet mf "myUltiSnips" i
+\mathfrak{${1:${VISUAL}}}$0
+endsnippet
+context "math()"
+snippet mc "myUltiSnips" i
+\mathcal{${1:${VISUAL}}}$0
+endsnippet
+context "math()"
+snippet ms "myUltiSnips" i
+\mathscr{${1:${VISUAL}}}$0
+endsnippet
+# 1}}} latex-math-font #
+
+# latex-math-symbol {{{1 #
+context "math()"
+snippet ..0 "myUltiSnips" iA
+\emptyset $0
+endsnippet
+context "math()"
+snippet .1 "myUltiSnips" iA
+\parallel $0
+endsnippet
+context "math()"
+snippet ..6 "myUltiSnips" iA
+\partial $0
+endsnippet
+context "math()"
+snippet ..8 "myUltiSnips" iA
+\infty $0
+endsnippet
+context "math()"
+snippet .= "myUltiSnips" iA
+\equiv $0
+endsnippet
+context "math()"
+snippet .\ "myUltiSnips" iA
+\setminus $0
+endsnippet
+context "math()"
+snippet .: "myUltiSnips" iA
+\cdot $0
+endsnippet
+context "math()"
+snippet .* "myUltiSnips" iA
+\times $0
+endsnippet
+context "math()"
+snippet .< "myUltiSnips" iA
+\langle $0
+endsnippet
+context "math()"
+snippet .> "myUltiSnips" iA
+\rangle $0
+endsnippet
+context "math()"
+snippet .H "myUltiSnips" iA
+\hbar $0
+endsnippet
+context "math()"
+snippet .[ "myUltiSnips" iA
+\subseteq $0
+endsnippet
+context "math()"
+snippet .] "myUltiSnips" iA
+\supseteq $0
+endsnippet
+context "math()"
+snippet .( "myUltiSnips" iA
+\subset $0
+endsnippet
+context "math()"
+snippet .) "myUltiSnips" iA
+\supset $0
+endsnippet
+context "math()"
+snippet .A "myUltiSnips" iA
+\forall $0
+endsnippet
+context "math()"
+snippet .E "myUltiSnips" iA
+\exists $0
+endsnippet
+context "math()"
+snippet .jj "myUltiSnips" iA
+\downarrow $0
+endsnippet
+context "math()"
+snippet .jJ "myUltiSnips" iA
+\Downarrow $0
+endsnippet
+context "math()"
+snippet .jk "myUltiSnips" iA
+\uparrow $0
+endsnippet
+context "math()"
+snippet .jK "myUltiSnips" iA
+\Uparrow $0
+endsnippet
+context "math()"
+snippet .jh "myUltiSnips" iA
+\leftarrow $0
+endsnippet
+context "math()"
+snippet .jH "myUltiSnips" iA
+\Leftarrow $0
+endsnippet
+context "math()"
+snippet .jl "myUltiSnips" iA
+\rightarrow $0
+endsnippet
+context "math()"
+snippet .jL "myUltiSnips" iA
+\Rightarrow $0
+endsnippet
+context "math()"
+snippet .a "myUltiSnips" iA
+\alpha$0
+endsnippet
+context "math()"
+snippet .b "myUltiSnips" iA
+\beta$0
+endsnippet
+context "math()"
+snippet .c "myUltiSnips" iA
+\chi$0
+endsnippet
+context "math()"
+snippet .d "myUltiSnips" iA
+\delta$0
+endsnippet
+context "math()"
+snippet .e "myUltiSnips" iA
+\epsilon$0
+endsnippet
+context "math()"
+snippet .f "myUltiSnips" iA
+\phi$0
+endsnippet
+context "math()"
+snippet .g "myUltiSnips" iA
+\gamma$0
+endsnippet
+context "math()"
+snippet .h "myUltiSnips" iA
+\eta$0
+endsnippet
+context "math()"
+snippet .i "myUltiSnips" iA
+\iota$0
+endsnippet
+context "math()"
+snippet .k "myUltiSnips" iA
+\kappa$0
+endsnippet
+context "math()"
+snippet .l "myUltiSnips" iA
+\lambda$0
+endsnippet
+context "math()"
+snippet .m "myUltiSnips" iA
+\mu$0
+endsnippet
+context "math()"
+snippet .n "myUltiSnips" iA
+\nu$0
+endsnippet
+context "math()"
+snippet .p "myUltiSnips" iA
+\pi$0
+endsnippet
+context "math()"
+snippet .q "myUltiSnips" iA
+\theta$0
+endsnippet
+context "math()"
+snippet .r "myUltiSnips" iA
+\rho$0
+endsnippet
+context "math()"
+snippet .s "myUltiSnips" iA
+\sigma$0
+endsnippet
+context "math()"
+snippet .t "myUltiSnips" iA
+\tau$0
+endsnippet
+context "math()"
+snippet .y "myUltiSnips" iA
+\psi$0
+endsnippet
+context "math()"
+snippet .u "myUltiSnips" iA
+\upsilon$0
+endsnippet
+context "math()"
+snippet .w "myUltiSnips" iA
+\omega$0
+endsnippet
+context "math()"
+snippet .z "myUltiSnips" iA
+\zeta$0
+endsnippet
+context "math()"
+snippet .x "myUltiSnips" iA
+\xi$0
+endsnippet
+context "math()"
+snippet .G "myUltiSnips" iA
+\Gamma$0
+endsnippet
+context "math()"
+snippet .D "myUltiSnips" iA
+\Delta$0
+endsnippet
+context "math()"
+snippet .F "myUltiSnips" iA
+\Phi$0
+endsnippet
+context "math()"
+snippet .G "myUltiSnips" iA
+\Gamma$0
+endsnippet
+context "math()"
+snippet .L "myUltiSnips" iA
+\Lambda$0
+endsnippet
+context "math()"
+snippet .P "myUltiSnips" iA
+\Pi$0
+endsnippet
+context "math()"
+snippet .Q "myUltiSnips" iA
+\Theta$0
+endsnippet
+context "math()"
+snippet .S "myUltiSnips" iA
+\Sigma$0
+endsnippet
+context "math()"
+snippet .U "myUltiSnips" iA
+\Upsilon$0
+endsnippet
+context "math()"
+snippet .W "myUltiSnips" iA
+\Omega$0
+endsnippet
+context "math()"
+snippet .X "myUltiSnips" iA
+\Xi$0
+endsnippet
+context "math()"
+snippet .Y "myUltiSnips" iA
+\Psi$0
+endsnippet
+context "math()"
+snippet .ve "myUltiSnips" iA
+\varepsilon$0
+endsnippet
+context "math()"
+snippet .vf "myUltiSnips" iA
+\varphi$0
+endsnippet
+context "math()"
+snippet .vk "myUltiSnips" iA
+\varkappa$0
+endsnippet
+context "math()"
+snippet .vq "myUltiSnips" iA
+\vartheta$0
+endsnippet
+context "math()"
+snippet .vr "myUltiSnips" iA
+\varrho$0
+endsnippet
+context "math()"
+snippet .v1 "myUltiSnips" iA
+\varparallel$0
+endsnippet
+context "math()"
+snippet .vj "myUltiSnips" iA
+\jmath$0
+endsnippet
+context "math()"
+snippet .vi "myUltiSnips" iA
+\imath$0
+endsnippet
+context "math()"
+snippet "\s*-" "myUltiSnips" iAr
+ - $0
+endsnippet
+# 1}}} latex-math-symbol #
+

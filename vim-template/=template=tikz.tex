@@ -1,0 +1,145 @@
+%&"main"
+% Fakesection 检错
+% Fakesubsubsection 宏包
+\RequirePackage[l2tabu, orthodox]{nag}
+% XXX: use nag at first to make all packages effecitive <03-11-19> %
+% Fakesubsubsection 编译器
+\RequirePackage{ifxetex}
+\RequireXeTeX
+
+\documentclass{standalone}
+% Fakesection 基础
+% Fakesubsection 文字
+% Fakesubsubsection 颜色
+\usepackage[x11names]{xcolor}
+% XXX: conflict with microtype <02-11-19> %
+% Fakesubsubsection 长度
+\usepackage{printlen}
+\uselengthunit{mm}
+% Fakesubsubsection 效果
+\usepackage{ulem}
+% Fakesubsubsection 字体
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% XXX: load ctex before siunitx to avoid \ohm ineffective <04-10-19> %
+\usepackage[
+	UTF8,
+	fontset = windows,
+	heading = true,
+	zihao = -4,
+	sub4section,
+]{ctex}
+\setCJKfamilyfont{zhsong}[
+	AutoFakeBold = 2.17,
+	AutoFakeSlant = 0.5,
+]{SimSun}
+\renewcommand*{\songti}{\CJKfamily{zhsong}}
+% XXX: load newtxtext before textcomp to avoid option clash <04-10-19> %
+\usepackage{newtxtext}
+% Fakesubsubsection 字符边框
+\usepackage{varwidth}
+% Fakesubsection 断行
+\usepackage{fvextra}
+% Fakesubsection 标点
+% XXX: load csquotes after fvextra to avoid warning <04-10-19> %
+\usepackage{csquotes}
+% Fakesubsubsection Unicode引号样式
+\DeclareQuoteStyle{ucstyle}% style name
+{\symbol{"201C}}% opening outer mark
+{\symbol{"201D}}% closing outer mark
+{\symbol{"2018}}% opening inner mark
+{\symbol{"2019}}% closing inner mark
+% Fakesubsubsection 传统中文样式
+\DeclareQuoteStyle{cnzhstyle}% style name
+{\symbol{"300E}}% opening outer mark
+{\symbol{"300F}}% closing outer mark
+{\symbol{"300C}}% opening inner mark
+{\symbol{"300D}}% closing inner mark
+\setquotestyle{cnzhstyle}
+% Fakesubsubsection 书名号样式
+\DeclareQuoteStyle{zhtitlestyle}% style name
+{\symbol{"300A}}% opening outer mark
+{\symbol{"300B}}% closing outer mark
+{\symbol{"3008}}% opening inner mark
+{\symbol{"3009}}% closing inner mark
+
+% Fakesection 插入
+% Fakesubsection 图形
+% Fakesubsubsection 插图
+\usepackage{graphicx}
+\graphicspath{{fig/}{etc/}}
+% Fakesubsubsection 环绕
+\usepackage{wrapfig}
+% Fakesubsubsection 图片重叠
+\usepackage{overpic}
+% Fakesubsubsection 徽标
+\usepackage{hologo}
+% Fakesubsubsection 条形码
+\usepackage{ean13isbn}
+% Fakesubsubsection 二维码
+\usepackage{qrcode}
+% Fakesubsection 符号
+% Fakesubsubsection 数学符号
+% XXX: avoid siunitx's \ohm ineffective <04-10-19> %
+\def\ohm\relax
+\usepackage{txfonts}
+\usepackage{amsfonts}
+% XXX: load amsmath after txfonts to avoid error <04-10-19> %
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{textcomp}
+\usepackage{bm}
+% Fakesubsubsection 幻灯片符号
+\usepackage{pifont}
+% Fakesubsubsection 大数学符号
+\usepackage{exscale}
+% Fakesubsubsection 数学符号放缩
+\usepackage{relsize}
+% Fakesubsubsection 公式
+\usepackage{cases}
+\usepackage{physics}
+% Fakesubsubsection 单位
+\usepackage{siunitx}
+% Fakesubsubsection 计算机
+
+% Fakesection 设计
+% Fakesubsection 水印
+\usepackage{wallpaper}
+% Fakesubsection 主题
+% Fakesubsection 绘图
+% Fakesubsubsection 绘图 pst
+\usepackage{pstricks}
+% Fakesubsubsection 绘图 pgf
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{pgfmath}
+\usepackage{pgf-pie}
+% Fakesubsubsection 绘图 tikz
+\usepackage{scsnowman}
+\usepackage{circuitikz}
+\usepackage{tikzpeople}
+\usepackage{tikzducks}
+\usepackage{flowchart}
+\usepackage{smartdiagram}
+\usepackage[edges]{forest}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{patterns}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{chains}
+\usetikzlibrary{mindmap}
+\usetikzlibrary{graphs}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shadows.blur}
+\usetikzlibrary{shadings}
+
+\begin{document}
+\begin{tikzpicture}[scale=1, transform shape]
+	\tikzset{node distance=1.5cm}
+	
+\end{tikzpicture}
+
+\end{document}
+
