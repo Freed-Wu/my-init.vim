@@ -4,8 +4,8 @@ if (expand('%:p:h') =~ substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:
 	call init#map#main()
 endif
 
-setlocal indentexpr =pymode#indent#get_indent(v:lnum)
+setlocal indentexpr=pymode#indent#get_indent(v:lnum)
 
-nnoremap <buffer> <C-w>d $:execute 'split '.expand('%:p:h').'/'.expand('<cword>').'.snippets'<CR>
-nnoremap <buffer> gd $:execute 'split '.expand('%:p:h').'/'.expand('<cword>').'.snippets'<CR>
+nnoremap <buffer> <C-w>d $:split %:p:h/<cword>.snippets<CR>
+nnoremap <buffer> gd $:edit %:p:h/<cword>.snippets<CR>
 

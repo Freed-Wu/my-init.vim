@@ -1,8 +1,10 @@
 if (expand('%:p:h') =~ substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~ substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~ $USER
 	setlocal nomodifiable
 	setlocal readonly
-	"call init#map#main()
-else
+	call init#map#main()
+endif
+
+if expand('%:p:t:r') == 'README'
 	setlocal spell
 endif
 
@@ -13,7 +15,7 @@ call vimtex#init()
 setlocal foldmethod=expr
 setlocal foldexpr=StackedMarkdownFolds()
 setlocal foldtext=foldtext()
-setlocal makeprg=pandoc\ --smart\ -o\ %<.docx\ %
+setlocal makeprg=pandoc\ -o\ %<.docx\ %
 
 if executable('tree')
 	if has('unix')
@@ -23,8 +25,10 @@ if executable('tree')
 		nnoremap <buffer> <LocalLeader>o :.read !tree<CR>
 	endif
 endif
-inoremap <buffer> * *
-inoremap <buffer> ** **
+inoremap <nowait> <buffer> * *
+inoremap <nowait> <buffer> <Bar> <Bar>
+nnoremap <buffer> gsp :<C-u>Defx -auto-cd -new ~/.pandoc<CR>
+nnoremap <buffer> gK :silent !texdoc<Space>
 inoremap <buffer> <C-x><C-x> <Plug>(github-complete-manual-completion)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
@@ -66,7 +70,9 @@ nmap <buffer> <LocalLeader>rr <Plug>(pandoc-keyboard-ref-insert)
 nmap <buffer> <localleader>rg <Plug>(pandoc-keyboard-ref-goto)
 nmap <buffer> <localleader>rb <Plug>(pandoc-keyboard-ref-backfrom)
 nnoremap <buffer> <LocalLeader>lt :TOC<CR><C-w>L:execute 'vertical resize '.g:columns<CR>
-nmap <buffer> gs <Plug>MarkdownPreviewToggle
+nmap <buffer> gss <Plug>MarkdownPreview
+nmap <buffer> gS <Plug>StopMarkdownPreview
+nmap <buffer> gsS <Plug>MarkdownPreviewToggle
 xmap <buffer> if <Plug>(textobj-markdown-chunk-i)
 xmap <buffer> af <Plug>(textobj-markdown-chunk-a)
 xmap <buffer> iF <Plug>(textobj-markdown-Bchunk-i)

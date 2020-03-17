@@ -77,16 +77,34 @@ setlocal makeprg=xelatex\ -initialize\ -shell-escape\ \"&xelatex\"\ mylatexforma
 setlocal keywordprg=:silent\ !texdoc
 setlocal isfname-={,}
 setlocal iskeyword-=:
-setlocal path+=$TEXWORKSPACE/**1
-setlocal path+=$TEXRUNTIME/tex/**2
+if exists('$TEXWORKSPACE')
+	setlocal path+=$TEXWORKSPACE/**1
+elseif has('unix')
+	setlocal path+=$HOME/.texlive/texmf-var/tex/latex/**1
+elseif has('win32')
+	setlocal path+=C:/Program\ Files/texlive/texmf-local/tex/latex/local
+endif
+if exists('$TEXRUNTIME')
+	setlocal path+=$TEXRUNTIME/**3
+elseif has('unix')
+	setlocal path+=/usr/share/texmf-dist/**3
+elseif has('win32')
+	setlocal path+=C:/Program\ Files/texlive/2019/texmf-dist/**3
+endif
 "setlocal indentexpr=BuckyTexIndent()
 setlocal indentexpr=VimtexIndentExpr()
 setlocal spell
 
 inoremap <buffer> ; ;<C-g>u
 nnoremap <buffer> gK :silent !texdoc<Space>
+if exists('$MYTEXRC')
+	nnoremap <buffer> gS :split $MYTEXRC<CR>
+elseif has('unix')
+	nnoremap <buffer> gS :split /usr/share/texmf-dist/web2c/texmf.cnf<CR>
+elseif has('win32')
+	nnoremap <buffer> gS :split C:/Program\ Files/texlive/2019/texmf.cnf<CR>
+endif
 nnoremap <buffer> <LocalLeader>c :call init#clean#main(b:clean)<CR>
-nnoremap <buffer> <LocalLeader>G :split $MYTEXRC<CR>
 nnoremap <buffer> <LocalLeader>b :Rooter<CR>:split bib/main.bib<CR>
 nmap <buffer> <LocalLeader>i <plug>(vimtex-cmd-create)
 xmap <buffer> <LocalLeader>i <plug>(vimtex-cmd-create)

@@ -3,42 +3,50 @@ priority -30
 snippet url "myUltiSnips" i
 <${VISUAL}http://${1:url}>$0
 endsnippet
-snippet im "myUltiSnips" i
+snippet src "myUltiSnips" i
 <img src="${VISUAL}$1" width="${2:100}" align=${3:center} />$0
 endsnippet
+snippet img "Image"
+![${1:${VISUAL}}](img/$2${1/.+/ "/}$1${1/.+/"/})
 
+$0
+endsnippet
 snippet sec "Section" b
 # ${1:${VISUAL}} #
 $0
 endsnippet
-
 snippet ssec "Sub Section" b
 ## ${1:${VISUAL}} ##
 $0
 endsnippet
-
 snippet sssec "SubSub Section" b
 ### ${1:${VISUAL}} ###
 $0
 endsnippet
-
 snippet par "Paragraph" b
 #### ${1:${VISUAL}} ####
 $0
 endsnippet
-
 snippet spar "Paragraph" b
 ##### ${1:${VISUAL}} #####
 $0
 endsnippet
-
 snippet kbd "myUltiSnips" i
 <kbd>${VISUAL}$1</kbd>$0
 endsnippet
-
 snippet git "myUltiSnips" b
 git clone git@github.com:`!v g:snips_author`/$1.git
 mv $1/* $1/.* . && rm $1
 $0
+endsnippet
+snippet ch "myUltiSnips" b
+sudo chown $USERNAME ${1:.}${2: -R}
+sudo chgrp $USERNAME $1$2
+$0
+endsnippet
+snippet -- "myUltiSnips" b
+---
+
+---$0
 endsnippet
 

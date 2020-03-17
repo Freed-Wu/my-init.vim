@@ -9,19 +9,12 @@ if expand('%') == 'option-window'
 endif
 
 if expand('%:p') == $MYVIMRC
-	autocmd! BufWritePost $MYVIMRC source $MYVIMRC
-	if has('win32')
-		autocmd! BufWritePost $MYVIMRC AirlineRefresh
-					\| AirlineRefresh
-	endif
-	autocmd! BufWritePost $MYVIMRC setlocal foldmethod=marker
-				\| FullscreenStart
 	setlocal path+=$GITHUBWORKSPACE
 	setlocal iskeyword+=.,/,-
-	nnoremap <buffer><silent> gd :execute 'edit '.$GITHUBWORKSPACE.'/'.expand('<cword>').'/doc/*.txt'<CR>
-	nnoremap <buffer><silent> gD :execute 'edit '.$GITHUBWORKSPACE.'/'.expand('<cword>').'/README*'<CR>
-	nnoremap <buffer><silent> <C-w>d :execute 'split '.$GITHUBWORKSPACE.'/'.expand('<cword>').'/doc/*.txt'<CR>
-	nnoremap <buffer><silent> <C-w>D :execute 'split '.$GITHUBWORKSPACE.'/'.expand('<cword>').'/README*'<CR>
+	nnoremap <buffer><silent> gd :edit $GITHUBWORKSPACE/<cword>/doc/*.txt<CR>
+	nnoremap <buffer><silent> gD :edit $GITHUBWORKSPACE/<cword>/README*<CR>
+	nnoremap <buffer><silent> <C-w>d :split $GITHUBWORKSPACE/<cword>/doc/*.txt<CR>
+	nnoremap <buffer><silent> <C-w>D :split $GITHUBWORKSPACE/<cword>/README*<CR>
 endif
 
 if expand('%:p:h') == expand($VIMCONFIG.'/ftdetect')

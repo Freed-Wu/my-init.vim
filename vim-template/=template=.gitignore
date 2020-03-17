@@ -1,6 +1,6 @@
-*
-!.gitignore
-!LICENSE
-!README.md
-!%HERE%
+/*
+!/.gitignore
+!/LICENSE
+!/README.md
+!/%HERE%
 
