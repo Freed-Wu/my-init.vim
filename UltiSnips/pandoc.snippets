@@ -11,6 +11,19 @@ snippet img "Image"
 
 $0
 endsnippet
+snippet tab "Table"
+![${1:${VISUAL}}](tab/$2${1/.+/ "/}$1${1/.+/"/})
+
+$0
+endsnippet
+snippet cbl "Codeblock" b
+\`\`\`{.$1}
+$2
+\`\`\`
+
+$0
+endsnippet
+
 snippet sec "Section" b
 # ${1:${VISUAL}} #
 $0

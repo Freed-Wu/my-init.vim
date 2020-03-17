@@ -11,17 +11,16 @@ autocmd BufNewFile,BufRead *.txt execute 'set filetype='.(expand('%:p:t') == 'do
 " 1}}} Text "
 
 " Data_Exchange {{{1 "
-autocmd BufNewFile,BufRead =template=.editor setfiletype dosini
+autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf, setfiletype dosini
+autocmd BufNewFile,BufRead .gitignore,*.ctags,*doxyfile,zathurarc setfiletype conf
+autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 autocmd BufNewFile,BufRead tags,tags-*,*.tags,*.tags.temp setfiletype tags
-autocmd BufNewFile,BufRead *astylerc,.gitignore,*.ctags,*doxyfile setfiletype conf
 autocmd BufNewFile,BufRead *.sublime-project,*.vsconfig,*.jscsrc,*.jshintrc,*.plan setfiletype json
 autocmd BufNewFile,BufRead *.mdl setfiletype yaml
 autocmd BufNewFile,BufRead *.opensslconf,*.qdocconf,*.eclipseproduct,*.DsnWrk,*.PrjPCB,*.PrjMbdStructure,*.PrjMbd,*.PrjMbdStructure,*.LIBPKG,*.OutJob,*.BomDoc,*.Harness,*.wspos,*.jlink,*.dni,*.pjt,*.mac,*.qws,SumatraPDF-settings.txt setfiletype toml
 autocmd BufNewFile,BufRead *.theme,*.desktop,*.cache,*.list,*.directory setfiletype desktop
-autocmd BufNewFile,BufRead *.inx,*.projectspec,*.xaml,*.pyproj,*.cof,*.stp setfiletype xml
+autocmd BufNewFile,BufRead *.inx,*.projectspec,*.xaml,*.pyproj,*.cof,*.stp,tesseract_opencl_profile_devices.dat setfiletype xml
 autocmd BufRead,BufNewFile *.ipynb execute substitute(expand('%:p:h'), '//', '\', 'g') == g:vimpyter_view_directory?'setfiletype json':''
-autocmd BufNewFile,BufRead .nethackrc.template set filetype=conf
-autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 " 1}}} Data_Exchange "
 
 " Mark_Up {{{1 "
@@ -41,6 +40,7 @@ autocmd BufNewFile,BufRead *.jsfl,*.xs,*.xdc,*.bld,*.fe,*.edc,*.xtext setfiletyp
 autocmd BufNewFile,BufRead *.elc setfiletype lisp
 autocmd BufNewFile,BufRead *.lg4 setfiletype lingo
 autocmd BufNewFile,BufRead .octaverc,octaverc,*.m_in,*.matlab setfiletype octave
+autocmd BufNewFile,BufRead *.plt setfiletype gnuplot
 autocmd BufNewFile,BufRead *.xa,*.xbn,*.xn,*.xr *.xu setfiletype rpcgen
 autocmd BufNewFile,BufRead *.qsf,*.qip setfiletype tcl
 " Script }}}1
@@ -55,8 +55,6 @@ autocmd BufNewFile,BufRead *.cir nnoremap <buffer> <LocalLeader>ft :setfiletype 
 " 1}}} Simulate "
 
 " Compile {{{1 "
-autocmd BufNewFile,BufRead *.asm setfiletype masm
-autocmd BufNewFile,BufRead *.nasm setfiletype nasm
 autocmd BufNewFile,BufRead *.icf,*.acg,*.68k,*.56k,*.isl setfiletype asm
 autocmd BufNewFile,BufRead *.gel,*.yfx,*.qdoc,*.c.noindent,*.cc.noindent,*.rh,*.ver,*.cilk,*.gui setfiletype c
 " 1}}} Compile "

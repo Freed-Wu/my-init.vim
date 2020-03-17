@@ -19,9 +19,6 @@ endsnippet
 snippet \ "myUltiSnips" i
 \| $0
 endsnippet
-snippet le "myUltiSnips" b
-let ${1:g:}${2:textobj_$3_no_default_key_mappings} = ${0:1}
-endsnippet
 snippet f "myUltiSnips" b
 function! init#${1:`!p snip.rv=snip.basename or "fileName"`}#main($2) "{{{
 	$0
@@ -91,25 +88,10 @@ endsnippet
 snippet <s "myUltiSnips" iA
 <S-$0
 endsnippet
-snippet <b "myUltiSnips" iA
-<buffer$0
-endsnippet
-snippet '< ' "myUltiSnips" iAr
- < $0
-endsnippet
-snippet '% ' "myUltiSnips" ir
-%:p$0
-endsnippet
-snippet %:p "myUltiSnips" i
-%:p:h$0
-endsnippet
 snippet warn "myUltiSnips" i
 echohl WarningMsg
 echo "$1"
 echohl None$0
-endsnippet
-snippet ',, ' "myUltiSnips" ir
-,*.$0 
 endsnippet
 snippet has "myUltiSnips" i
 has('${1:p}${1/(p)$|(r)$|(n)$|(g)$|(w)$|(pe)$|(u)$|(.*)/(?1:ython)(?2:uby)(?3:vim)(?4:ui_running)(?5:in32)(?6:rl)(?7:nix)/}')$0
@@ -120,7 +102,7 @@ endsnippet
 snippet exp "myUltiSnips" i
 expand('${1:%:}$2')$0
 endsnippet
-snippet '& ' "myUltiSnips" ir
+snippet & "myUltiSnips" i
 &${1:f}${1/(f)$|(b)$|(g)$|(m)$|(c)$|(t)$|(h)$|(e)$|(.*)/(?1:iletype)(?2:uftype)(?3:uifont)(?4:odifiable)(?5:olumns)(?6:extwidth)(?7:elplang)(?8:xpangtab)/}$0
 endsnippet
 snippet v: "myUltiSnips" i

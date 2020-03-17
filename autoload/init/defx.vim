@@ -37,13 +37,16 @@ let s:term_colors = extend({
       \ }, get(g: ,'defx_icons_term_colors', {}))
 function! init#defx#main() "{{{
 	call defx#custom#option('_', {
-				\ 'winwidth': g:columns,
+				\ 'winwidth': &columns / 4,
 				\ 'split': 'vertical',
 				\ 'direction': 'topleft',
 				\ 'show_ignored_files': 0,
 				\ 'buffer_name': '',
+				\ 'auto_cd': 1,
+				\ 'new': 1,
 				\ 'resume': 1,
 				\ 'columns': 'indent:mark:git:icons:filename:type:size:time',
+				\ 'root_marker': ' ',
 				\ })
 	call defx#custom#column('mark', {
 				\ 'readonly_icon': '',

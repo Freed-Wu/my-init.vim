@@ -1,4 +1,4 @@
-if (expand('%:p:h') =~ substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~ substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~ $USER
+if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~# $GITNAME
 	setlocal nomodifiable
 	setlocal readonly
 	call init#map#main()

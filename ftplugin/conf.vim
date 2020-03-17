@@ -11,6 +11,8 @@ if expand('%:t') == 'Doxyfile'
 endif
 
 if expand('%:t') == '.gitignore'
-	nnoremap <buffer><silent> <LocalLeader>g :Defx `$HOME.'/.gitconfig'`
+	nnoremap <buffer> <LocalLeader>g :Defx `$HOME.'/.gitconfig'`
+	inoremap <nowait><buffer> ! !<C-g>u
+	inoremap <nowait><buffer> * *
 endif
 

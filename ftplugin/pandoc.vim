@@ -1,21 +1,23 @@
-if (expand('%:p:h') =~ substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~ substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~ $USER
+if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~# $GITNAME
 	setlocal nomodifiable
 	setlocal readonly
 	call init#map#main()
 endif
 
-if expand('%:p:t:r') == 'README'
-	setlocal spell
+if expand('%:p:t:r') !=# 'README'
+	setlocal nospell
 endif
 
+let g:mkdp_auto_close = 0
+let g:mkdp_port = '8090'
 let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 
 call vimtex#init()
 
-setlocal foldmethod=expr
-setlocal foldexpr=StackedMarkdownFolds()
+setlocal foldexpr=pandoc#folding#FoldExpr()
 setlocal foldtext=foldtext()
-setlocal makeprg=pandoc\ -o\ %<.docx\ %
+setlocal foldlevel=1
+setlocal makeprg=pandoc\ -o\ %<.pdf\ %\ --filter\ pandoc-csv2table
 
 if executable('tree')
 	if has('unix')
@@ -26,11 +28,13 @@ if executable('tree')
 	endif
 endif
 inoremap <nowait> <buffer> * *
+inoremap <nowait> <buffer> & <Space>&<Space>
 inoremap <nowait> <buffer> <Bar> <Bar>
-nnoremap <buffer> gsp :<C-u>Defx -auto-cd -new ~/.pandoc<CR>
+nnoremap <buffer> gsp :<C-u>Defx ~/.pandoc<CR>
 nnoremap <buffer> gK :silent !texdoc<Space>
 inoremap <buffer> <C-x><C-x> <Plug>(github-complete-manual-completion)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
+nmap <buffer> <LocalLeader>M :<C-u>Pandoc! pdf --filter pandoc-csv2table<CR>
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
 nmap <buffer> <localleader>b <Plug>(pandoc-keyboard-toggle-strong)
 vmap <buffer> <localleader>b <Plug>(pandoc-keyboard-toggle-strong)
@@ -69,54 +73,20 @@ omap <buffer> iPt :normal viPl<CR>
 nmap <buffer> <LocalLeader>rr <Plug>(pandoc-keyboard-ref-insert)
 nmap <buffer> <localleader>rg <Plug>(pandoc-keyboard-ref-goto)
 nmap <buffer> <localleader>rb <Plug>(pandoc-keyboard-ref-backfrom)
-nnoremap <buffer> <LocalLeader>lt :TOC<CR><C-w>L:execute 'vertical resize '.g:columns<CR>
+nnoremap <buffer> <LocalLeader>lt :TOC<CR><C-w>L:execute 'vertical resize '.&columns / 4<CR>
 nmap <buffer> gss <Plug>MarkdownPreview
 nmap <buffer> gS <Plug>StopMarkdownPreview
 nmap <buffer> gsS <Plug>MarkdownPreviewToggle
-xmap <buffer> if <Plug>(textobj-markdown-chunk-i)
-xmap <buffer> af <Plug>(textobj-markdown-chunk-a)
-xmap <buffer> iF <Plug>(textobj-markdown-Bchunk-i)
-xmap <buffer> aF <Plug>(textobj-markdown-Bchunk-a)
-omap <buffer> if <Plug>(textobj-markdown-chunk-i)
-omap <buffer> af <Plug>(textobj-markdown-chunk-a)
-omap <buffer> iF <Plug>(textobj-markdown-Bchunk-i)
-omap <buffer> aF <Plug>(textobj-markdown-Bchunk-a)
-xmap <buffer> ie <Plug>(textobj-markdown-text-i)
-xmap <buffer> ae <Plug>(textobj-markdown-text-a)
-xmap <buffer> iE <Plug>(textobj-markdown-Btext-i)
-xmap <buffer> aE <Plug>(textobj-markdown-Btext-a)
-omap <buffer> ie <Plug>(textobj-markdown-text-i)
-omap <buffer> ae <Plug>(textobj-markdown-text-a)
-omap <buffer> iE <Plug>(textobj-markdown-Btext-i)
-omap <buffer> aE <Plug>(textobj-markdown-Btext-a)
-"nmap <buffer> [[ <Plug>(textobj-markdown-Gheader-p)
-"xmap <buffer> [[ <Plug>(textobj-markdown-Gheader-p)
-"omap <buffer> [[ <Plug>(textobj-markdown-Gheader-p)
-"nmap <buffer> ]] <Plug>(textobj-markdown-Gheader-n)
-"xmap <buffer> ]] <Plug>(textobj-markdown-Gheader-n)
-"omap <buffer> ]] <Plug>(textobj-markdown-Gheader-n)
-xmap <buffer> [j <Plug>(textobj-markdown-chunk-p)
-xmap <buffer> [J <Plug>(textobj-markdown-Bchunk-p)
-xmap <buffer> [m <Plug>(textobj-markdown-text-p)
-xmap <buffer> [M <Plug>(textobj-markdown-Btext-p)
-xmap <buffer> ]j <Plug>(textobj-markdown-chunk-n)
-xmap <buffer> ]J <Plug>(textobj-markdown-Bchunk-n)
-xmap <buffer> ]m <Plug>(textobj-markdown-text-n)
-xmap <buffer> ]M <Plug>(textobj-markdown-Btext-n)
-omap <buffer> [j <Plug>(textobj-markdown-chunk-p)
-omap <buffer> [J <Plug>(textobj-markdown-Bchunk-p)
-omap <buffer> [m <Plug>(textobj-markdown-text-p)
-omap <buffer> [M <Plug>(textobj-markdown-Btext-p)
-omap <buffer> ]j <Plug>(textobj-markdown-chunk-n)
-omap <buffer> ]J <Plug>(textobj-markdown-Bchunk-n)
-omap <buffer> ]m <Plug>(textobj-markdown-text-n)
-omap <buffer> ]M <Plug>(textobj-markdown-Btext-n)
-nmap <buffer> [j <Plug>(textobj-markdown-chunk-p)
-nmap <buffer> [J <Plug>(textobj-markdown-Bchunk-p)
-nmap <buffer> [m <Plug>(textobj-markdown-text-p)
-nmap <buffer> [M <Plug>(textobj-markdown-Btext-p)
-nmap <buffer> ]j <Plug>(textobj-markdown-chunk-n)
-nmap <buffer> ]J <Plug>(textobj-markdown-Bchunk-n)
-nmap <buffer> ]m <Plug>(textobj-markdown-text-n)
-nmap <buffer> ]M <Plug>(textobj-markdown-Btext-n)
+nmap <buffer> [\ <plug>(textobj-markdown-Btext-p)
+nmap <buffer> ]\ <plug>(textobj-markdown-Btext-n)
+nmap <buffer> [v <plug>(textobj-markdown-chunk-p)
+nmap <buffer> ]v <plug>(textobj-markdown-chunk-n)
+nmap <buffer> [V <plug>(textobj-markdown-Bchunk-p)
+nmap <buffer> ]V <plug>(textobj-markdown-Bchunk-n)
+xmap <buffer> [\ <plug>(textobj-markdown-Btext-p)
+xmap <buffer> ]\ <plug>(textobj-markdown-Btext-n)
+xmap <buffer> [v <plug>(textobj-markdown-chunk-p)
+xmap <buffer> ]v <plug>(textobj-markdown-chunk-n)
+xmap <buffer> [V <plug>(textobj-markdown-Bchunk-p)
+xmap <buffer> ]V <plug>(textobj-markdown-Bchunk-n)
 

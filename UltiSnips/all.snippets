@@ -119,7 +119,9 @@ endsnippet
 priority -30
 
 snippet $$ "myUltiSnips" i
-$$ ${VISUAL}$1 $$$0
+$$
+${VISUAL}$1
+$$$0
 endsnippet
 
 priority -40
@@ -207,12 +209,6 @@ snippet pro "myUltiSnips" i
 \prod_{${1:i} = ${2:-\infty}}^${3:\infty} $0
 endsnippet
 context "math()"
-snippet mat "myUltiSnips" b
-\begin{matrix}
-$0
-\end{matrix}
-endsnippet
-context "math()"
 snippet lef "myUltiSnips" i
 \left${1:(}${3:${VISUAL}}\right${2:)}$0
 endsnippet
@@ -237,15 +233,15 @@ snippet \{ "myUltiSnips" i
 \\{${1:${VISUAL}}\\}$0
 endsnippet
 context "math()"
-snippet '([A-Za-z])(\d)' "auto subscript" wrA
+snippet "([A-Za-z'])(\d)" "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 context "math()"
-snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+snippet "([A-Za-z'])_(\d\d)" "auto subscript2" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
 context "math()"
-snippet '([A-Za-z])_' "auto subscript2" wr
+snippet "([A-Za-z'])_" "auto subscript2" wr
 `!p snip.rv = match.group(1)`_{${1:${VISUAL}}}$0
 endsnippet
 context "math()"
@@ -262,7 +258,7 @@ snippet bin "myUltiSnips" i
 endsnippet
 context "math()"
 snippet sq "myUltiSnips" i
-\sqrt{$1}$0
+\sqrt{${1:${VISUAL}}}$0
 endsnippet
 context "math()"
 snippet __ "myUltiSnips" iA
@@ -270,11 +266,25 @@ _\mathrm{${VISUAL}$1}$0
 endsnippet
 context "math()"
 snippet lim "myUltiSnips" i
-\lim_{${1:n} \rightarrow ${2:\infty}}$0
+\lim_{${1:n} \to ${2:\infty}}$0
 endsnippet
 context "math()"
 snippet fr "myUltiSnips" i
 \frac{${VISUAL}$1}{$2}$0
+endsnippet
+context "math()"
+snippet case "myUltiSnips" b
+\begin{cases}
+	$1
+\end{cases}
+$0
+endsnippet
+context "math()"
+snippet ali "myUltiSnips" b
+\begin{aligned}
+	$1
+\end{aligned}
+$0
 endsnippet
 context "math()"
 snippet dcase "myUltiSnips" b
@@ -291,6 +301,10 @@ endsnippet
 
 # latex-math-font {{{1 #
 context "math()"
+snippet mb "myUltiSnips" i
+\mathbb{${1:${VISUAL}}}$0
+endsnippet
+context "math()"
 snippet mf "myUltiSnips" i
 \mathfrak{${1:${VISUAL}}}$0
 endsnippet
@@ -302,7 +316,54 @@ context "math()"
 snippet ms "myUltiSnips" i
 \mathscr{${1:${VISUAL}}}$0
 endsnippet
+context "math()"
+snippet mr "myUltiSnips" i
+\mathrm{${1:${VISUAL}}}$0
+endsnippet
+context "math()"
+snippet mo "myUltiSnips" i
+\mathop{${1:${VISUAL}}}$0
+endsnippet
 # 1}}} latex-math-font #
+
+# matrix {{{1 #
+context "math()"
+snippet mat "myUltiSnips" b
+\begin{matrix}
+$0
+\end{matrix}
+endsnippet
+context "math()"
+snippet bmat "myUltiSnips" b
+\begin{bmatrix}
+$0
+\end{bmatrix}
+endsnippet
+context "math()"
+snippet Bmat "myUltiSnips" b
+\begin{Bmatrix}
+$0
+\end{Bmatrix}
+endsnippet
+context "math()"
+snippet pmat "myUltiSnips" b
+\begin{pmatrix}
+$0
+\end{pmatrix}
+endsnippet
+context "math()"
+snippet vmat "myUltiSnips" b
+\begin{vmatrix}
+$0
+\end{vmatrix}
+endsnippet
+context "math()"
+snippet Vmat "myUltiSnips" b
+\begin{Vmatrix}
+$0
+\end{Vmatrix}
+endsnippet
+# 1}}} matrix #
 
 # latex-math-symbol {{{1 #
 context "math()"
@@ -311,7 +372,7 @@ snippet ..0 "myUltiSnips" iA
 endsnippet
 context "math()"
 snippet ..1 "myUltiSnips" iA
-\parallel$0
+ \parallel $0
 endsnippet
 context "math()"
 snippet ..6 "myUltiSnips" iA
@@ -375,35 +436,43 @@ snippet .E "myUltiSnips" iA
 endsnippet
 context "math()"
 snippet .jj "myUltiSnips" iA
-\downarrow$0
+\downarrow
+$0
 endsnippet
 context "math()"
 snippet .jJ "myUltiSnips" iA
-\Downarrow$0
+\Downarrow
+$0
 endsnippet
 context "math()"
 snippet .jk "myUltiSnips" iA
-\uparrow$0
+\uparrow
+$0
 endsnippet
 context "math()"
 snippet .jK "myUltiSnips" iA
-\Uparrow$0
+\Uparrow
+$0
 endsnippet
 context "math()"
 snippet .jh "myUltiSnips" iA
-\leftarrow$0
+\leftarrow
+$0
 endsnippet
 context "math()"
 snippet .jH "myUltiSnips" iA
-\Leftarrow$0
+\Leftarrow
+$0
 endsnippet
 context "math()"
 snippet .jl "myUltiSnips" iA
-\rightarrow$0
+\rightarrow
+$0
 endsnippet
 context "math()"
 snippet .jL "myUltiSnips" iA
-\Rightarrow$0
+\Rightarrow
+$0
 endsnippet
 context "math()"
 snippet .a "myUltiSnips" iA
@@ -567,7 +636,11 @@ snippet .vr "myUltiSnips" iA
 endsnippet
 context "math()"
 snippet .v1 "myUltiSnips" iA
-\varparallel$0
+ \varparallel $0
+endsnippet
+context "math()"
+snippet '_ \varparallel ' "myUltiSnips" iA
+_\varparallel$0
 endsnippet
 context "math()"
 snippet .vj "myUltiSnips" iA
@@ -594,4 +667,22 @@ snippet .vy "myUltiSnips" iA
 \vary$0
 endsnippet
 # 1}}} latex-math-symbol #
+
+# latex-math-space {{{1 #
+snippet "([^A-Za-z0-9\}\)\]']) - " "myUltiSnips" irA
+`!p snip.rv = match.group(1)`-$0
+endsnippet
+context "math()"
+snippet '(\s) & ' "myUltiSnips" irA
+`!p snip.rv = match.group(1)`& $0
+endsnippet
+context "math()"
+snippet '(\s) = ' "myUltiSnips" irA
+`!p snip.rv = match.group(1)`= $0
+endsnippet
+context "math()"
+snippet : "myUltiSnips" iA
+: $0
+endsnippet
+# 1}}} latex-math-space #
 

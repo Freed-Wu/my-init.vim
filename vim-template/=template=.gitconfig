@@ -1,9 +1,0 @@
-[user]
-	name = Freed-Wu
-	email = Wuzy01@qq.com
-[color]
-	ui = true
-[alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	last = log -1
-

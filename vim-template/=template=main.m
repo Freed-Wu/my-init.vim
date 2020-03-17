@@ -1,13 +1,12 @@
+%% in
 tic;
 clc;
 clear;
 close all;
 
-%%in
+%% process
 %HERE%
 
-%%process
-
-%%out
+%% output
 toc;
 

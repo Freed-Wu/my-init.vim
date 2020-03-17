@@ -14,11 +14,12 @@ Configure vim.
 ```{bash}
 git clone git@github.com:Freed-Wu/my-init.vim.git ~/.config/nvim
 # vimim need it
-aria2c https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/vimim/vimim.pinyin_quote_sogou.txt -d ~/.config/nvim/etc/user.sh
+aria2c https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/vimim/vimim.pinyin_quote_sogou.txt -d ~/.config/nvim/.VimIM
 # for GNU
+# config others first
+# disable system vimrc next
 sudo mv /etc/vim/vimrc /etc/vim/example.vimrc
 sudo mv /etc/vim/gvimrc /etc/vim/example.gvimrc
-sudo ln -s ~/.config/nvim/etc/user.sh /etc/profile.d
 # for Windows
 ~/.config/nvim/etc/windows.ps1
 ```

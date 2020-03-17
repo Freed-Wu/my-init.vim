@@ -1,8 +1,8 @@
-if getcwd() != expand('%:p:h')
+if getcwd() !=# expand('%:p:h')
 	setlocal foldlevel=1
 endif
 
-if expand('%') == 'main.tex'
+if expand('%') ==# 'main.tex'
 	nnoremap <buffer> <LocalLeader>g :Rooter<CR>:split .latexmkrc<CR>
 else
 	nnoremap <buffer> <LocalLeader>g :Rooter<CR>:split main.tex<CR>
@@ -13,67 +13,22 @@ let g:neoformat_tex_latexindent = {
 			\ 'args': ['--logfile=' . g:neoformat_data.'/indent.log', '%'],
 			\ }
 let b:clean_temp = [
-			\ 'cha/*.aux', 'cha/*.log',
-			\ 'cha/missfont.log', 'cha/texput.log',
-			\ 'cha/*.upa', 'cha/*.upb', 'cha/mylatexformat.log',
-			\ 'etc/*.aux', 'etc/*.log',
-			\ 'fig/*.aux', 'fig/*.log',
-			\ 'fig/*/*.aux', 'fig/*/*.log',
-			\ 'mtx/*.pdf',
-			\ 'missfont.log', 'texput.log',
-			\ '*.upa', '*.upb', 'mylatexformat.log',
-			\ '*.pygtex', '*.pygstyle', '%<.pyg',
-			\ 'xelatex*.fls',
-			\ '%<.aux', '%<.log', '%<.mx*',
-			\ '%<.lof', '%<.lot', '%<.loe', '%<.toc',
-			\ '%<.bbl', '%<.brf', '%<.blg',
-			\ '%<.ind', '%<.idx', '%<.ilg',
-			\ '%<.acn', '%<.acr', '%<.alg',
-			\ '%<.glg', '%<.glo', '%<.gls',
-			\ '%<.ist', '%<.listing',
-			\ '%<.cmap',
-			\ '%<.csvtoken',
-			\ '%<.gnuplot', '%<.nav', '%<.snm', '%<.vrb',
-			\ '%<.xdv', '%<.out', '"%<.synctex(busy)"',
-			\ '%<.mw', '%<.mw.mw',
-			\ '%<.fdb_latexmk',
-			\ 'main.aux', 'main.log', 'main.mx*',
-			\ 'main.lof', 'main.lot', 'main.loe', 'main.toc',
-			\ 'main.bbl', 'main.brf', 'main.blg',
-			\ 'main.ind', 'main.idx', 'main.ilg',
-			\ 'main.acn', 'main.acr', 'main.alg',
-			\ 'main.glg', 'main.glo', 'main.gls',
-			\ 'main.ist', 'main.listing',
-			\ 'main.cmap',
-			\ 'main.gnuplot', 'main.nav', 'main.snm', 'main.vrb',
-			\ 'main.xdv', 'main.out', '"main.synctex(busy)"',
-			\ 'main.mw', 'main.mw.mw',
-			\ 'main.fdb_latexmk',
+			\ 'missfont.log', 'texput.log', 'mylatexformat.log',
+			\ 'xelatex*.fls', '_markdown_*',
 			\ 'fig/*.dia~', 'fig/*/*.dia~',
-			\ 'fig/Thumbs.db', 'fig/*/Thumbs.db',
-			\ 'misc/*.ms14 (Security copy)',
 			\ '.vs', '.vscode', '_minted-*', 'cha/_minted-*',
 			\ ]
-let b:clean = b:clean_temp + [
-			\ 'cha/*.fmt', 'cha/*.synctex.gz', 'cha/*.pdf',
-			\ '*.fmt', '*.synctex.gz',
-			\ '*.fls'
-			\ ]
 
-Rooter
+autocmd! User VimtexEventQuit *.tex call s:close()
+			\| call init#clean#main(b:clean_temp)
 
-"call deoplete#custom#var('omni', 'input_patterns', {
-			"\ 'tex': g:vimtex#re#deoplete
-			"\ })
+function! s:close() "{{{
+	if executable('xdotool') && exists('b:vimtex') && exists('b:vimtex.viewer') && b:vimtex.viewer.xwin_id > 0
+		call system('xdotool windowclose '. b:vimtex.viewer.xwin_id)
+	endif
+endfunction "}}}
 
-"autocmd! User VimtexEventInitPost call tex#view#main()
-			"\| call vimtex#compiler#compile()
-"autocmd! User VimtexEventQuit call tex#close#main()
-autocmd! BufWinLeave *.tex call tex#close#main()
-			"\| call vimtex#compiler#clean(0)
-autocmd! BufWinLeave *.tex call init#clean#main(b:clean_temp)
-
-setlocal makeprg=xelatex\ -initialize\ -shell-escape\ \"&xelatex\"\ mylatexformat.ltx\ \"\"%\"\"
+setlocal makeprg=lualatex\ -initialize\ -shell-escape\ \"&xelatex\"\ mylatexformat.ltx\ \"\"%\"\"
 setlocal keywordprg=:silent\ !texdoc
 setlocal isfname-={,}
 setlocal iskeyword-=:
@@ -93,7 +48,6 @@ elseif has('win32')
 endif
 "setlocal indentexpr=BuckyTexIndent()
 setlocal indentexpr=VimtexIndentExpr()
-setlocal spell
 
 inoremap <buffer> ; ;<C-g>u
 nnoremap <buffer> gK :silent !texdoc<Space>
@@ -126,6 +80,8 @@ xmap <buffer> ][ <plug>(vimtex-][)
 xmap <buffer> ]] <plug>(vimtex-]])
 xmap <buffer> af <Plug>(textobj-latex-paren-math-a)
 xmap <buffer> if <Plug>(textobj-latex-paren-math-i)
+xmap <buffer> aF <Plug>(textobj-latex-bracket-math-a)
+xmap <buffer> iF <Plug>(textobj-latex-bracket-math-i)
 xmap <buffer> aq <Plug>(textobj-latex-quote-a)
 xmap <buffer> iq <Plug>(textobj-latex-quote-i)
 xmap <buffer> aQ <Plug>(textobj-latex-double-quote-a)

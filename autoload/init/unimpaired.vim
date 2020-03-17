@@ -1,5 +1,9 @@
 function! init#unimpaired#main() "{{{
 	nnoremap <silent><nowait>yo :<C-u>WhichKey 'yo'<CR>
+	nnoremap <nowait> [ :<C-u>WhichKey '['<CR>
+	xnoremap <nowait> [ :<C-u>WhichKeyVisual '['<CR>
+	nnoremap <nowait> ] :<C-u>WhichKey ']'<CR>
+	xnoremap <nowait> ] :<C-u>WhichKeyVisual ']'<CR>
 	nnoremap yoP :setlocal paste! paste?<CR>
 	nnoremap [oP :setlocal paste<CR>
 	nnoremap ]oP :setlocal nopaste<CR>
@@ -44,5 +48,27 @@ function! init#unimpaired#main() "{{{
 	nmap ]of  <Plug>FontsizeBegin<Plug>FontsizeInc
 	nmap yof  <Plug>FontsizeDefault
 	" 3}}} drmikehenry/vim-fontsize "
+	nnoremap yog :set guifont=*<CR>
+	nnoremap yok :execute 'set guioptions'.(&guioptions !~# 'm'?'+':'-').'=m'<CR>
+	nnoremap [ok :set guioptions+=m<CR>
+	nnoremap ]ok :set guioptions-=m<CR>
+	nnoremap yoK :execute 'set guioptions'.(&guioptions !~# 'T'?'+':'-').'=T'<CR>
+	nnoremap [oK :set guioptions+=T<CR>
+	nnoremap ]oK :set guioptions-=T<CR>
+	nnoremap yoj :execute 'set guioptions'.(&guioptions !~# 'b'?'+':'-').'=b'<CR>
+	nnoremap [oj :set guioptions+=b<CR>
+	nnoremap ]oj :set guioptions-=b<CR>
+	nnoremap yo[ :execute 'set guioptions'.(&guioptions !~# 'l'?'+':'-').'=l'<CR>
+	nnoremap [o[ :set guioptions+=l<CR>
+	nnoremap ]o[ :set guioptions-=l<CR>
+	nnoremap yo] :execute 'set guioptions'.(&guioptions !~# 'r'?'+':'-').'=r'<CR>
+	nnoremap [o] :set guioptions+=r<CR>
+	nnoremap ]o] :set guioptions-=r<CR>
+	nnoremap yo{ :execute 'set guioptions'.(&guioptions !~# 'L'?'+':'-').'=L'<CR>
+	nnoremap [o{ :set guioptions+=L<CR>
+	nnoremap ]o{ :set guioptions-=L<CR>
+	nnoremap yo} :execute 'set guioptions'.(&guioptions !~# 'R'?'+':'-').'=R'<CR>
+	nnoremap [o} :set guioptions+=R<CR>
+	nnoremap ]o} :set guioptions-=R<CR>
 endfunction "}}}
 

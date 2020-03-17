@@ -18,7 +18,6 @@ for b:startify_bookmarks in g:startify_bookmarks
 	endfor
 endfor
 
-call which_key#register('.', "g:which_key_map_startify_dot")
 call init#map#main()
 
 autocmd! User Startified call s:startify()
@@ -55,8 +54,9 @@ nnoremap <buffer> go :call startify#set_batchmode('B')<CR>
 nnoremap <buffer> gi :call startify#set_batchmode('S')<CR>
 nnoremap <buffer> gO :call startify#set_batchmode('T')<CR>
 nnoremap <buffer> gI :call startify#set_batchmode('V')<CR>
-nnoremap <buffer> <Leader>hH :Deol -split=horizontal<CR>
-nnoremap <buffer> <Leader>hh :Deol<CR>
-nnoremap <buffer> <Leader>jC :Calendar -split=horizontal<CR>
-nnoremap <buffer> <Leader>jc :Calendar<CR>
+
+command! -nargs=* -range -bar -buffer -complete=customlist,deol#_complete
+			\ Deol call deol#start(<q-args>.' -split=')
+command! -nargs=* -buffer -complete=customlist,calendar#argument#complete
+			\ Calendar call calendar#new(<q-args>.' -position=here')
 

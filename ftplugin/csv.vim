@@ -10,13 +10,14 @@ if expand('%') =~ 'tab/.*/'
 endif
 
 UltiSnipsAddFiletypes tex
+call vimtex#init()
 
 setlocal makeprg=scalc\ %:p
 setlocal spell
 
 inoremap <buffer> , ,<C-g>u
+nnoremap <buffer><silent> gs :CSVTabularize<CR>
 nnoremap <buffer><silent> <LocalLeader>J gJi,<Esc>
-nnoremap <buffer><silent> <LocalLeader>M :CSVTabularize<CR>
 nnoremap <buffer><silent> <LocalLeader>t :CSVDupColumn<CR>
 nnoremap <buffer><silent> <LocalLeader>m :CSVMoveCol<Space>
 nnoremap <buffer><silent> <LocalLeader>d :CSVDeleteColumn<CR>

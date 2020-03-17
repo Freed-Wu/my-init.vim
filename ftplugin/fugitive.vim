@@ -16,7 +16,10 @@ nnoremap <buffer><nowait> c :<C-u>WhichKey 'c'<CR>
 nnoremap <buffer><nowait> d :<C-u>WhichKey 'd'<CR>
 nnoremap <buffer><nowait> r :<C-u>WhichKey 'r'<CR>
 nnoremap <buffer> <LocalLeader>a :G remote add origin git@github.com:Freed-Wu/.git<Left><Left><Left><Left>
-nnoremap <buffer> <LocalLeader>p :G pull origin master --allow-unrelated-histories<CR>
+nnoremap <buffer> <LocalLeader>l :Gclog<CR>
+nnoremap <buffer> <LocalLeader>p :G pull origin master --allow-unrelated-histories --rebase<CR>
+nnoremap <buffer> <LocalLeader>P :G push --force<CR>
+nnoremap <buffer> <LocalLeader>r :G rebase --interactive HEAD~
 nnoremap <buffer> <LocalLeader>cm :G checkout master<CR>
 nnoremap <buffer> <LocalLeader>bd :G checkout -b dev<CR>
 nnoremap <buffer> <LocalLeader>bf :G checkout -b feature-

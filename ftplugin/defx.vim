@@ -3,9 +3,6 @@ if !exists('b:trailguide')
 	TrailGuide hide
 endif
 
-AirlineToggle
-AirlineToggle
-
 call init#map#main()
 
 nmap <buffer> [[ <Plug>(defx-git-prev)
@@ -24,7 +21,6 @@ nnoremap <buffer><expr> .
 			\ defx#do_action('repeat')
 nnoremap <buffer><expr> gs
 			\ defx#do_action('search')
-nnoremap <buffer> <C-r> :<C-u>execute 'vertical resize '.(winwidth(0) == g:columns? &columns / 2:g:columns)<CR><C-w>=
 nnoremap <buffer><expr> R
 			\ defx#do_action('redraw')
 nnoremap <buffer><expr> <M-q>
@@ -141,4 +137,6 @@ xmap <buffer> go sgo
 xmap <buffer> gO sgO
 xmap <buffer> gi sgi
 xmap <buffer> gi sgi
+nnoremap <buffer> <Leader>jj <C-w>n:Defx -split=no `expand('%:p:h')`<CR><C-w>=
+nnoremap <buffer> <Leader>jJ <C-w>n:Rooter<CR>:Defx -split=no `getcwd()`<CR><C-w>=
 
