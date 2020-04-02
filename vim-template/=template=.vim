@@ -1,7 +1,7 @@
-if exists('g:loaded_%FFILE%') || &cp
+if exists('g:loaded_%FILE%') || &cp
   finish
 endif
-let g:loaded_%FFILE% = 1
+let g:loaded_%FILE% = 1
 
 let s:save_cpo = &cpo
 set cpo&vim

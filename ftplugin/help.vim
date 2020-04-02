@@ -11,6 +11,7 @@ setlocal norelativenumber
 setlocal buftype=help
 setlocal formatexpr=bucky#md#format()
 setlocal foldmethod=expr
+setlocal iskeyword+=-
 
 xmap <buffer> [[ <Plug>(textobj-help-link-p)
 xmap <buffer> ]] <Plug>(textobj-help-link-n)

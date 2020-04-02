@@ -21,9 +21,9 @@ endif
 if has('nvim')
 	let g:dein#install_progress_type = 'title'
 endif
-let g:dein#install_log_filename = $VIMDATA.'/.dein.vim/dein.log'
+let g:dein#install_log_filename = '$VIMDATA/.dein.vim/dein.log'
 set runtimepath=$VIMRUNTIME,$GITHUBWORKSPACE/Shougo/dein.vim
-if dein#load_state($GITWORKSPACE) && !v:vim_did_enter
+if dein#load_state($GITWORKSPACE)
 	call dein#begin($GITWORKSPACE)
 
 	" Plugin {{{4 "
@@ -232,9 +232,7 @@ if dein#load_state($GITWORKSPACE) && !v:vim_did_enter
 
 	" SyntaxMarkUp {{{5 "
 	call dein#add('sheerun/vim-polyglot')
-	call dein#add('calon/txt', {
-				\ 'build': 'dos2unix syntax/txt.vim',
-				\ })
+	call dein#add('calon/txt')
 	call dein#add('walkermatt/vim-mapfile')
 	call dein#add('vim-pandoc/vim-pandoc-syntax', {
 				\ 'on_ft': ['pandoc', 'markdown', 'rst', 'textile', 'gfimarkdown'],
@@ -409,9 +407,6 @@ if dein#load_state($GITWORKSPACE) && !v:vim_did_enter
 	call dein#add('easymotion/vim-easymotion', {
 				\ 'on_map': '<Plug>',
 				\ 'on_source': 'incsearch-easymotion.vim',
-				\ 'hook_post_source': join([
-				\ 'nunmap <Leader><Leader>',
-				\ ], "\n"),
 				\ })
 	call dein#add('psliwka/vim-smoothie', {
 				\ 'on_func': ['smoothie#upwards', 'smoothie#downwards', 'smoothie#forwards', 'smoothie#backwards'],
@@ -1079,7 +1074,7 @@ augroup init_dein "{{{
 	autocmd!
 	autocmd VimEnter * call dein#call_hook('post_source')
 augroup END "}}}
-nnoremap <Leader>px :call delete($HOME.'/.vim/cache_gvim')<CR>:call delete($HOME.'/.vim/cache_vim')<CR>
+nnoremap <Leader>px :call delete('~/.vim/cache_gvim')<CR>:call delete('~/.vim/cache_vim')<CR>
 " 3}}} Shougo/dein.vim "
 " haya14busa/dein-command.vim {{{3 "
 nnoremap <Leader>pc :<C-u>Dein clean<CR>
@@ -1129,7 +1124,11 @@ endif
 
 " Help {{{2 "
 " Shougo/echodoc.vim {{{3 "
-"let g:echodoc#type = "echo" " Default value
+if !has('nvim')
+	let g:echodoc#type = "floating"
+else
+	let g:echodoc#type = "popup"
+endif
 " To use echodoc, you must increase 'cmdheight' value.
 "set cmdheight=2 " 设置命令行的高度
 set noshowmode
@@ -1139,36 +1138,20 @@ let g:echodoc_enable_at_startup = 1
 
 " Log {{{2 "
 " AD7six/vim-activity-log {{{3 "
-let s:vim_activity_log_data = $VIMDATA.'/.vim-activity-log'
-if !isdirectory(s:vim_activity_log_data)
-	call mkdir(s:vim_activity_log_data, 'p')
-endif
-let g:activity_log_location = s:vim_activity_log_data.expand('/%Y/%m/%d.log')
+let g:activity_log_location = '$VIMDATA/.vim-activity-log'.expand('/%Y/%m/%d.log')
 " 3}}} AD7six/vim-activity-log "
 " 2}}} Log "
 
 " Language {{{2 "
 if has('python3')
 	" voldikss/vim-translator {{{3 "
-	let g:translator_default_mapping = 0
-	let g:translator_default_to_lang = &helplang
-	let g:translator_default_engines = ['bing', 'google', 'youdao', 'ciba']
-	let g:translator_enable_history = 1
-	let g:translator_max_history_count = 500
-	let s:vim_translator_data = $VIMDATA.'/.vim-translator'
-	if !isdirectory(s:vim_translator_data)
-		call mkdir(s:vim_translator_data, 'p')
-	endif
-	let g:translator_history_dir = s:vim_translator_data.'/data'
-	" <Leader>t 翻译光标下的文本，在命令行回显
+	let g:translator_history_enable = 1
 	nmap <Leader>tt <Plug>Translate
 	xmap <Leader>tt <Plug>TranslateV
 	nnoremap <Leader>tT :Translate -w<Space>
-	" <Leader>w 翻译光标下的文本，在窗口中显示
 	nmap <Leader>tw <Plug>TranslateW
 	xmap <Leader>tw <Plug>TranslateWV
 	nnoremap <Leader>tW :TranslateW -w<Space>
-	" <Leader>r 替换光标下的文本为翻译内容
 	nmap <Leader>tr <Plug>TranslateR
 	xmap <Leader>tr <Plug>TranslateRV
 	nnoremap <Leader>tR :TranslateR -w<Space>
@@ -1185,7 +1168,7 @@ endif
 nnoremap gO i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv{O<Esc>:let @/ = ''<CR>o
 nnoremap go i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv}O<Esc>:let @/ = ''<CR>o
 nnoremap S dhi
-nnoremap U "ayl:execute @a =~ '\a'?'normal! ~':'let @+ = @a'<CR>
+nnoremap ~ "ayl:execute @a =~ '\a'?'normal! ~':'let @+ = @a'<CR>
 xnoremap <C-t> <Esc>`.``gvp``:execute 'normal! '.((&virtualedit =~ 'onemore' && col('.') ==# col('$') - 1)?'p':'P')<CR><CR>
 nnoremap gK :<C-u>help<Space>
 cnoremap <M-q> <C-u>visual<CR>
@@ -1833,38 +1816,28 @@ xnoremap <nowait> I :<C-u>WhichKeyVisual 'I'<CR>
 xnoremap <nowait> A :<C-u>WhichKeyVisual 'A'<CR>
 " 3}}} liuchengxu/vim-which-key "
 " skywind3000/vim-quickui {{{3 "
-let g:content = [
-			\ [ 'echo 1', 'echo 100' ],
-			\]
-let g:opts = {'title': 'select one'}
 nnoremap <Leader>qq :<C-u>call quickui#menu#open()<CR>
-nnoremap <Leader>ql :<C-u>call quickui#listbox#open(g:content, g:opts)<CR>
 nnoremap <Leader>qe :<C-u>call quickui#tools#list_buffer('edit')<CR>
 nnoremap <Leader>qs :<C-u>call quickui#tools#list_buffer('split')<CR>
 nnoremap <Leader>qv :<C-u>call quickui#tools#list_buffer('vsplit')<CR>
 nnoremap <Leader>qd :<C-u>call quickui#tools#list_buffer('bdelete')<CR>
 nnoremap <Leader>q<Tab> :<C-u>call quickui#tools#list_buffer('tabedit')<CR>
-nnoremap <Leader>qi :<C-u>call quickui#tools#display_help('index')<CR>
+nnoremap <Leader>qf :<C-u>call quickui#tools#list_function()<CR>
+nnoremap <Leader>qh :<C-u>call quickui#tools#display_help('index')<CR>
 nnoremap <Leader>qt :<C-u>call quickui#tools#preview_tag('')<CR>
 " 3}}} skywind3000/vim-quickui "
 " tpope/vim-unimpaired {{{3 "
 nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
 " 3}}} tpope/vim-unimpaired "
 " tpope/vim-rsi {{{3 "
-set winaltkeys=no
-" pumvisible {{{4 "
 inoremap <expr><C-q> pumvisible()?"\<C-y>": "\<C-q>"
 inoremap <expr><M-q> pumvisible()?"\<C-e>": "\<M-q>"
 inoremap <expr><C-p> pumvisible()?"\<C-p>": "\<Up>"
 inoremap <expr><C-n> pumvisible()?"\<C-n>": "\<Down>"
 inoremap <expr><C-v> pumvisible()?"\<PageDown>": "\<C-v>"
 inoremap <expr><M-v> pumvisible()?"\<PageUp>": "\<M-v>"
-" 4}}} pumvisible "
-" <CR> {{{4 "
 inoremap <S-CR> <C-o>O
 inoremap <C-CR> <C-o>o
-" 4}}} <CR> "
-" vimL {{{4 "
 inoremap <C-BS> <C-k>
 inoremap <S-BS> <C-r>
 inoremap <S-space> <C-v>
@@ -1873,8 +1846,6 @@ cnoremap <S-BS> <C-r>
 cnoremap <S-space> <C-v>
 cnoremap <S-CR> <C-f>
 cnoremap <C-TAB> <C-d>
-" 4}}} vimL "
-" readline {{{4 "
 inoremap <C-k> <C-o>:<C-u>set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR>
 cnoremap <C-k> <C-f>i<C-o>:<C-u>set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR><C-c>
 inoremap <C-v> <PageDown>
@@ -1910,7 +1881,6 @@ snoremap <C-v> <PageDown>
 snoremap <M-a> <C-Home>
 snoremap <M-e> <C-End>
 snoremap <M-x> <Esc>:
-" 4}}} readline "
 " 3}}} tpope/vim-rsi "
 " 2}}} HotkeyManage "
 
@@ -1924,11 +1894,7 @@ nnoremap zi a<C-R>=g:Vimim_gi()<CR>
 nnoremap <Leader>zn :<C-u>call g:Vimim_search()<CR>n
 let g:Vimim_mode = 'dynamic'
 let g:Vimim_mycloud = 1
-let s:VimIM_config = $VIMCONFIG.'/.VimIM'
-if !isdirectory(s:VimIM_config)
-	call mkdir(s:VimIM_config, 'p')
-endif
-let g:Vimim_plugin = s:VimIM_config
+let g:Vimim_plugin = '$VIMCONFIG/.VimIM'
 let g:Vimim_shuangpin = 'ms'
 let g:Vimim_toggle = 'pinyin'
 nnoremap <Leader>zv :<C-u>ViMiM<CR>
@@ -1943,11 +1909,7 @@ nnoremap <Leader>k<Tab> :KeyHelper<CR>
 
 " MacroExplore {{{2 "
 " vim-scripts/marvim {{{3 "
-let s:marvim_config = $VIMCONFIG.'/.marvim'
-if !isdirectory(s:marvim_config)
-	call mkdir(s:marvim_config, 'p')
-endif
-let g:marvim_store = s:marvim_config
+let g:marvim_store = '$VIMCONFIG/.marvim'
 let g:marvim_find_key = 'q'''
 let g:marvim_store_key = 'q`'
 let g:marvim_register = 'q'
@@ -2082,11 +2044,7 @@ nnoremap <Leader>or :RainbowToggle<CR>
 if has('python') || has('python3')
 	" jaxbot/semantic-highlight.vim {{{3 "
 	nnoremap <Leader>os :SemanticHighlightToggle<CR>
-	let s:semantic_highlight_vim_data = $VIMDATA.'/.semantic-highlight.vim'
-	if !isdirectory(s:semantic_highlight_vim_data)
-		call mkdir(s:semantic_highlight_vim_data, 'p')
-	endif
-	let g:semanticPersistCacheLocation = s:semantic_highlight_vim_data . '/.semantic-highlight-cache'
+	let g:semanticPersistCacheLocation = '$VIMDATA/.semantic-highlight.vim/.semantic-highlight-cache'
 	" 3}}} jaxbot/semantic-highlight.vim "
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
@@ -2314,18 +2272,16 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_ = {
 			\ 'dvi': '',
 			\ 'editorconfig': '',
 			\ }
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
-			\ 'todo.txt': '',
-			\ 'dia.autosave': '',
-			\ 'paf.exe': '',
-			\ 'search-ms': '',
-			\ 'ms14 (Security copy)': '',
-			\ 'synctex(busy)': '',
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols_ = {
+			\ '.*\.todo\.txt$': '',
+			\ '.*\.dia\.autosave$': '',
+			\ '.*\.paf\.exe$': '',
+			\ '.*\.search-ms$': '',
+			\ '.*\.ms14 (Security copy)$': '',
+			\ '.*\.synctex(busy)$': '',
 			\ }
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = extend(
-			\ g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols,
-			\ g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_
-			\ )
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = copy(g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_)
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = copy(g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols_)
 " 3}}} ryanoasis/vim-devicons "
 " 2}}} Conceal "
 
@@ -2359,17 +2315,6 @@ nmap z8 <Plug>AirlineSelectTab8
 nmap z9 <Plug>AirlineSelectTab9
 nmap [<Tab> <Plug>AirlineSelectPrevTab
 nmap ]<Tab> <Plug>AirlineSelectNextTab
-nmap dz1 <Plug>AirlineSelectTab1<C-^>:bdelete #<CR>
-nmap dz2 <Plug>AirlineSelectTab2<C-^>:bdelete #<CR>
-nmap dz3 <Plug>AirlineSelectTab3<C-^>:bdelete #<CR>
-nmap dz4 <Plug>AirlineSelectTab4<C-^>:bdelete #<CR>
-nmap dz5 <Plug>AirlineSelectTab5<C-^>:bdelete #<CR>
-nmap dz6 <Plug>AirlineSelectTab6<C-^>:bdelete #<CR>
-nmap dz7 <Plug>AirlineSelectTab7<C-^>:bdelete #<CR>
-nmap dz8 <Plug>AirlineSelectTab8<C-^>:bdelete #<CR>
-nmap dz9 <Plug>AirlineSelectTab9<C-^>:bdelete #<CR>
-nmap d[<Tab> <Plug>AirlineSelectPrevTab<C-^>:bdelete #<CR>
-nmap d]<Tab> <Plug>AirlineSelectNextTab<C-^>:bdelete #<CR>
 " ale {{{ "
 let g:airline#extensions#ale#error_symbol = '✗'
 let g:airline#extensions#ale#warning_symbol = ''
@@ -2438,25 +2383,11 @@ let g:airline#extensions#whitespace#conflicts_format = '%s'
 " }}} whitespace "
 " 3}}} bling/vim-airline "
 " Wildog/airline-weather.vim {{{3 "
-let g:weather#unit = 'metric'
-let s:airline_weather_vim_config = $VIMCONFIG.'/.airline-weather.vim'
-if !isdirectory(s:airline_weather_vim_config)
-	call mkdir(s:airline_weather_vim_config, 'p')
-endif
-let g:weather#appid = readfile(s:airline_weather_vim_config.'/APIID.txt')[0]
-let g:weather#area = readfile(s:airline_weather_vim_config.'/city.txt')[0]
-let s:airline_weather_vim_data = $VIMDATA.'/.airline-weather.vim'
-if !isdirectory(s:airline_weather_vim_data)
-	call mkdir(s:airline_weather_vim_data, 'p')
-endif
-let g:weather#cache_file = s:airline_weather_vim_data.'/weather.json'
+let g:weather#appid = readfile($VIMCONFIG.'/.airline-weather.vim/airline-weather.txt')[0]
+let g:weather#area = readfile($VIMCONFIG.'/.airline-weather.vim/airline-weather.txt')[1]
 " 3}}} Wildog/airline-weather.vim "
 " Zuckonit/vim-airline-todo {{{3 "
-let s:vim_airline_todo_data = $VIMDATA.'/.vim-airline-todo'
-if !isdirectory(s:vim_airline_todo_data)
-	call mkdir(s:vim_airline_todo_data, 'p')
-endif
-let g:todo#directory = s:vim_airline_todo_data
+let g:todo#directory = '$VIMDATA/.vim-airline-todo'
 let g:todo#remind = ''
 let g:todo#suffix = ''
 " 3}}} Zuckonit/vim-airline-todo "
@@ -2522,20 +2453,12 @@ augroup END "}}}
 nnoremap <Leader>ol :Limelight!!<CR>
 " 3}}} junegunn/limelight.vim "
 " thinca/vim-splash {{{3 "
-let g:vim_splash_config = $VIMCONFIG.'/vim-splash'
-if !isdirectory(g:vim_splash_config)
-	call mkdir(g:vim_splash_config, 'p')
-endif
-let g:splash#path = g:vim_splash_config.'/Yoda.txt'
+let g:splash#path = '$VIMCONFIG/vim-splash/Yoda.txt'
 nnoremap <Leader>sP :<C-u>Splash $VIMCONFIG/vim-splash/
 nnoremap <Leader>sp :<C-u>Splash<CR>
 " 3}}} thinca/vim-splash "
 " mhinz/vim-startify {{{3 "
-let s:vim_startify_data = $VIMDATA.'/.vim-startify'
-if !isdirectory(s:vim_startify_data)
-	call mkdir(s:vim_startify_data, 'p')
-endif
-let g:startify_session_dir = s:vim_startify_data
+let g:startify_session_dir = '$VIMDATA/.vim-startify'
 let g:startify_enable_special = 0
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
@@ -2664,13 +2587,7 @@ let g:fastfold_fold_command_suffixes = [
 " File {{{1 "
 " FileExplore {{{2 "
 "  {{{3 "
-if &swapfile && !has('nvim')
-	let s:swap_data = $VIMDATA.'/swap'
-	if !isdirectory(s:swap_data)
-		call mkdir(s:swap_data, 'p')
-	endif
-	let &dir=s:swap_data
-endif
+set dir=$VIMDATA/swap
 let g:netrw_home = $VIMDATA
 let g:netrw_nogx = 1
 let g:netrw_altfile = 1
@@ -2753,14 +2670,10 @@ nnoremap <Leader>g2 :GV?<CR>
 xnoremap <Leader>g2 :GV?<CR>
 " 3}}} junegunn/gv.vim "
 " junegunn/vim-github-dashboard {{{3 "
-let s:vim_github_dashboard_config = $VIMCONFIG.'/.vim-github-dashboard'
-if !isdirectory(s:vim_github_dashboard_config)
-	call mkdir(s:vim_github_dashboard_config, 'p')
-endif
-let s:vim_github_dashboard_config_txt = s:vim_github_dashboard_config.'/password.txt'
-if filereadable(s:vim_github_dashboard_config_txt)
-	let g:github_dashboard = { 'username': $GITNAME, 'password': readfile(s:vim_github_dashboard_config_txt)[0] }
-endif
+let g:github_dashboard = {
+			\ 'username': $GITNAME,
+			\ 'password': readfile($VIMCONFIG.'/.vim-github-dashboard/password.txt')[0]
+			\ }
 nnoremap <Leader>gd :GHDashboard! Freed-Wu
 nnoremap <Leader>ga :GHActivity! Freed-Wu
 xnoremap <Leader>gd y:GHDashboard! <C-r>0<CR>
@@ -2783,14 +2696,7 @@ nnoremap <Leader>gY :<C-u>SignifyToggleHighlight<CR>
 nnoremap <Leader>gt :Agit<CR>
 " 3}}} cohama/agit.vim "
 " jaxbot/github-issues.vim {{{3 "
-let s:github_issues_vim_config = $VIMCONFIG.'/.github-issues.vim'
-if isdirectory(s:github_issues_vim_config)
-	let s:github_access_token = s:github_issues_vim_config.'/github_access_token.txt'
-	if !filereadable(s:github_access_token)
-		call writefile([], s:github_access_token)
-	endif
-	let g:github_access_token = readfile(s:github_access_token)[0]
-endif
+let g:github_access_token = readfile($VIMCONFIG.'/.github-issues.vim/github_access_token.txt')[0]
 let g:gissues_lazy_load = 1
 nnoremap <Leader>gs :Gissues<CR>
 nnoremap <Leader>gp :Giadd<CR>
@@ -2800,15 +2706,8 @@ let g:undotree_HelpLine = 0
 let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
 let g:undotree_CustomDiffpanelCmd = 'topleft 5 new'
 nnoremap <Leader>ju :<C-u>UndotreeToggle\| UndotreeFocus<CR>
-" 保存 undo 历史
 set undofile
-if &undofile && !has('nvim')
-	let s:undo_data = $VIMDATA.'/undo'
-	if !isdirectory(s:undo_data)
-		call mkdir(s:undo_data, 'p')
-	endif
-	let &undodir=s:undo_data
-endif
+set undodir=$VIMDATA/undo
 let g:undotree_HighlightChangedText  = 1
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_RelativeTimestamp = 1
@@ -2925,17 +2824,13 @@ endif
 
 " Move {{{2 "
 " easymotion/vim-easymotion {{{3 "
-" map <Esc> <Plug>(easymotion-prefix)
-" <Leader>f{char} to move to {char}
+map <Nop> <Plug>(easymotion-prefix)
 xmap <Leader><Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
-" s{char}{char} to move to {char}{char}
 xmap <Leader><Leader>- <Plug>(easymotion-bd-f2)
 nmap <Leader><Leader>- <Plug>(easymotion-overwin-f2)
-" Move to line
 xmap <Leader><Leader>g <Plug>(easymotion-bd-jk)
 nmap <Leader><Leader>g <Plug>(easymotion-overwin-line)
-" Move to word
 xmap <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 " 3}}} easymotion/vim-easymotion "
@@ -3025,9 +2920,6 @@ omap z, <Plug>Sneak_,
 nmap z\ <Plug>SneakLabel_s
 nmap z<Bar> <Plug>SneakLabel_S
 " 3}}} justinmk/vim-sneak "
-" haya14busa/incsearch.vim {{{3 "
-let g:incsearch#auto_nohlsearch = 1
-" 3}}} haya14busa/incsearch.vim "
 " haya14busa/is.vim {{{3 "
 nmap n <Plug>(is-nohl)<Plug>(anzu-n-with-echo)
 nmap N <Plug>(is-nohl)<Plug>(anzu-N-with-echo)
@@ -3300,7 +3192,7 @@ let g:textobj_ruby_no_mappings = 1
 " tpope/vim-repeat {{{3 "
 nnoremap . :<C-U>exe repeat#run(v:count)<CR>
 nnoremap u :<C-U>call repeat#wrap('u',v:count)<CR>
-nnoremap ~ :<C-U>call repeat#wrap('U',v:count)<CR>
+nnoremap U :<C-U>call repeat#wrap('U',v:count)<CR>
 nnoremap <C-r> :<C-U>call repeat#wrap("\<Lt>C-R>",v:count)<CR>
 " 3}}} tpope/vim-repeat "
 " 2}}} Repeat "
@@ -3431,10 +3323,7 @@ let g:neoformat_basic_format_align = 1
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_try_formatprg = 1
-let g:neoformat_data = $VIMDATA.'/.neoformat'
-if !isdirectory(g:neoformat_data)
-	call mkdir(g:neoformat_data, 'p')
-endif
+let g:neoformat_data = '$VIMDATA/.neoformat'
 "nnoremap = :<C-u>set operatorfunc=init#format#main<CR>g@
 "nnoremap == :.Neoformat<CR>
 "xnoremap = :Neoformat<CR>
@@ -3542,12 +3431,7 @@ let g:disable_protodef_mapping = 1
 
 " Complete {{{2 "
 "  {{{3 "
-"set wildmenu " vim自身命名行模式智能补全 sensible
-let s:thesaurus_config = $VIMCONFIG.'/.thesaurus'
-if !isdirectory(s:thesaurus_config)
-	call mkdir(s:thesaurus_config, 'p')
-endif
-execute 'set thesaurus=' . substitute(glob(s:thesaurus_config.'/*'), '\n', ',', 'g')
+execute 'set thesaurus=' . substitute(glob('$VIMCONFIG/.thesaurus/*'), '\n', ',', 'g')
 " 3}}}  "
 " mattn/emmet-vim {{{3 "
 let g:user_emmet_leader_key = g:maplocalleader
@@ -3574,7 +3458,6 @@ set completefunc=emoji#complete
 nnoremap <Leader>rj :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/ge<CR>
 " 3}}} junegunn/vim-emoji "
 " rhysd/github-complete.vim {{{3 "
-" Disable overwriting 'omnifunc'
 let g:github_complete_enable_omni_completion = 0
 " 3}}} rhysd/github-complete.vim "
 if has('python') || has('python3')
@@ -3592,18 +3475,13 @@ endif
 " Snippet {{{3 "
 if has('python') || has('python3')
 	" SirVer/UltiSnips {{{3 "
-	" Trigger configuration. Do not use <Tab> if you use https://github.com/Valloric/YouCompleteMe.
 	let g:UltiSnipsExpandTrigger = '<Tab>'
-	"let g:UltiSnipsListSnippets = '<C-Tab>'
 	let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 	let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 	let g:vim_snippetsUltiSnips = $GITHUBWORKSPACE.'/honza/vim-snippets/UltiSnips'
 	let g:vim_snippetsSnippets = $GITHUBWORKSPACE.'/honza/vim-snippets/snippets'
 	let g:UltiSnips_config = $VIMCONFIG.'/UltiSnips'
-	"let g:UltiSnipsEditSplit = 'horizontal'
-	if isdirectory(g:UltiSnips_config)
-		let g:UltiSnipsSnippetDirectories = [g:UltiSnips_config, g:vim_snippetsUltiSnips]
-	endif
+	let g:UltiSnipsSnippetDirectories = [g:UltiSnips_config, g:vim_snippetsUltiSnips]
 	nnoremap <Leader>na :<C-u>UltiSnipsAddFiletypes<Space>
 	nnoremap <Leader>ne :<C-u>UltiSnipsEdit<Space>
 	" 3}}} SirVer/UltiSnips "
@@ -3669,9 +3547,6 @@ nnoremap <Leader>zp :Pangu<CR>
 " 3}}} hotoo/pangu.vim "
 " dbmrq/vim-ditto {{{3 "
 let s:vim_ditto_config = $VIMCONFIG.'/.vim-ditto'
-if !isdirectory(s:vim_ditto_config)
-	call mkdir(s:vim_ditto_config, 'p')
-endif
 let g:ditto_dir = s:vim_ditto_config
 nmap [w <Plug>DittoPrev
 nmap ]w <Plug>DittoNext
@@ -3700,11 +3575,7 @@ nnoremap <Leader>xl :<C-u>DoxLic<CR>
 nnoremap <Leader>xu :<C-u>DoxUndoc<CR>
 " 3}}} vim-scripts/DoxygenToolkit.vim "
 " vim-scripts/doxygen-support.vim {{{3 "
-let s:doxygen_support_vim_config = $VIMCONFIG.'/.doxygen-support.vim'
-if !isdirectory(s:doxygen_support_vim_config)
-	call mkdir(s:doxygen_support_vim_config, 'p')
-endif
-let g:Doxy_GlobalTemplateFile = s:doxygen_support_vim_config.'/doxygen.templates'
+let g:Doxy_GlobalTemplateFile = '$VIMCONFIG/.doxygen-support.vim/doxygen.templates'
 let g:Doxy_DoxygenExecutable = 'doxygen'
 nnoremap <Leader>xm :<C-u>DxRun<CR>
 nnoremap <Leader>xw :<C-u>DxSelectWorkingDir<CR>
@@ -3800,11 +3671,7 @@ xnoremap gx y:call pandoc#hypertext#OpenSystem(<C-r>0)<CR>
 let g:pandoc#after#modules#enabled = ['ultisnips']
 " 3}}} vim-pandoc/vim-pandoc-after "
 " szymonmaszke/vimpyter {{{3 "
-let s:vimpyter_data = $VIMDATA.'/.vimpyter'
-if !isdirectory(s:vimpyter_data)
-	call mkdir(s:vimpyter_data, 'p')
-endif
-let g:vimpyter_view_directory = s:vimpyter_data
+let g:vimpyter_view_directory = $VIMDATA.'/.vimpyter'
 " 3}}} szymonmaszke/vimpyter "
 " 2}}} MarkUp "
 
@@ -3819,13 +3686,9 @@ let g:csv_nomap_bs = 1
 " vim-scripts/dbext.vim {{{3 "
 let g:dbext_map_prefix = '<buffer><LocalLeader>'
 let g:dbext_default_type = 'mysql'
-let s:dbext_vim_config = $VIMCONFIG.'/.dbext'
-if !isdirectory(s:dbext_vim_config)
-	call mkdir(s:dbext_vim_config, 'p')
-endif
-let g:dbext_default_user = readfile(s:dbext_vim_config.'/'.g:dbext_default_type.'.txt')[0]
-let g:dbext_default_passwd = readfile(s:dbext_vim_config.'/'.g:dbext_default_type.'.txt')[1]
-let g:dbext_default_history_file = s:dbext_vim_config.'/dbext_sql_history.txt'
+let g:dbext_default_user = readfile($VIMCONFIG.'/.dbext/'.g:dbext_default_type.'.txt')[0]
+let g:dbext_default_passwd = readfile($VIMCONFIG.'/.dbext/'.g:dbext_default_type.'.txt')[1]
+let g:dbext_default_history_file = '$VIMCONFIG/.dbext/dbext_sql_history.txt'
 " 3}}} vim-scripts/dbext.vim "
 " 2}}} Database "
 
@@ -3840,24 +3703,22 @@ let g:pymode_motion = 0
 let g:pymode_indent = 0
 let g:pymode_folding = 1
 let g:pymode_rope = 1
-if g:pymode_rope
-	let g:pymode_rope_lookup_project = 1
-	let g:pymode_rope_show_doc_bind = '<LocalLeader>d'
-	let g:pymode_rope_regenerate_on_write = 0
-	let g:pymode_rope_autoimport = 1
-	let g:pymode_rope_goto_definition_bind = '<LocalLeader>o'
-	let g:pymode_rope_rename_bind = '<LocalLeader>rr'
-	let g:pymode_rope_rename_module_bind = '<LocalLeader>rn'
-	let g:pymode_rope_organize_imports_bind = '<LocalLeader>ro'
-	let g:pymode_rope_autoimport_bind = '<LocalLeader>ra'
-	let g:pymode_rope_module_to_package_bind = '<LocalLeader>rp'
-	let g:pymode_rope_extract_method_bind = '<LocalLeader>rm'
-	let g:pymode_rope_extract_variable_bind = '<LocalLeader>rl'
-	let g:pymode_rope_use_function_bind = '<LocalLeader>ru'
-	let g:pymode_rope_move_bind = '<LocalLeader>rv'
-	let g:pymode_rope_change_signature_bind = '<LocalLeader>rs'
-	let g:pymode_rope_completion_bind = '<LocalLeader><LocalLeader>'
-endif
+let g:pymode_rope_lookup_project = 1
+let g:pymode_rope_show_doc_bind = '<LocalLeader>d'
+let g:pymode_rope_regenerate_on_write = 0
+let g:pymode_rope_autoimport = 1
+let g:pymode_rope_goto_definition_bind = '<LocalLeader>o'
+let g:pymode_rope_rename_bind = '<LocalLeader>rr'
+let g:pymode_rope_rename_module_bind = '<LocalLeader>rn'
+let g:pymode_rope_organize_imports_bind = '<LocalLeader>ro'
+let g:pymode_rope_autoimport_bind = '<LocalLeader>ra'
+let g:pymode_rope_module_to_package_bind = '<LocalLeader>rp'
+let g:pymode_rope_extract_method_bind = '<LocalLeader>rm'
+let g:pymode_rope_extract_variable_bind = '<LocalLeader>rl'
+let g:pymode_rope_use_function_bind = '<LocalLeader>ru'
+let g:pymode_rope_move_bind = '<LocalLeader>rv'
+let g:pymode_rope_change_signature_bind = '<LocalLeader>rs'
+let g:pymode_rope_completion_bind = '<LocalLeader><LocalLeader>'
 " 3}}} python-mode/python-mode "
 " 2}}} Script "
 
@@ -3875,11 +3736,7 @@ let g:hardy_arduino_path = 'arduino_debug'
 let g:go_version_warning = 0
 " 3}}} fatih/vim-go "
 " suoto/vim-hdl {{{3 "
-let s:vim_hdl_config = $VIMCONFIG.'/.vim-hdl'
-if !isdirectory(s:vim_hdl_config)
-	call mkdir(s:vim_hdl_config, 'p')
-endif
-let g:vimhdl_conf_file = s:vim_hdl_config.'/.hdl_checker.config'
+let g:vimhdl_conf_file = '$VIMCONFIG/.vim-hdl/.hdl_checker.config'
 " 3}}} suoto/vim-hdl "
 " 2}}} Compile "
 
@@ -3919,11 +3776,7 @@ nnoremap <Leader>hn :Deol -split=horizontal nethack<CR>
 " Tool {{{2 "
 " itchyny/calendar.vim {{{3 "
 let g:calendar_cyclic_view = 1
-let s:calendar_vim_data = $VIMDATA.'/.calendar.vim'
-if !isdirectory(s:calendar_vim_data)
-	call mkdir(s:calendar_vim_data, 'p')
-endif
-let g:calendar_cache_directory = s:calendar_vim_data
+let g:calendar_cache_directory = '$VIMDATA/.calendar.vim'
 nnoremap <Leader>jc :Calendar -split=horizontal<CR>
 " 3}}} itchyny/calendar.vim "
 " tyru/open-browser.vim {{{3 "
@@ -3933,16 +3786,8 @@ nnoremap <Leader>jg :<C-u>OpenBrowserSmartSearch<Space>
 nnoremap <Leader>jG :<C-u>OpenBrowserSmartSearch -github<Space>
 " 3}}} tyru/open-browser.vim "
 " ianding1/leetcode.vim {{{3 "
-let s:leetcode_vim_config = $VIMCONFIG.'/.leetcode.vim'
-if !isdirectory(s:leetcode_vim_config)
-	call mkdir(s:leetcode_vim_config, 'p')
-else
-	let s:leetcode_vim_config_file = s:leetcode_vim_config . '/password.txt'
-	if filereadable(s:leetcode_vim_config_file)
-		let g:leetcode_username = readfile(s:leetcode_vim_config_file)[0]
-		let g:leetcode_password = readfile(s:leetcode_vim_config_file)[1]
-	endif
-endif
+let g:leetcode_username = readfile($VIMCONFIG.'/.leetcode.vim/leetcode.txt')[0]
+let g:leetcode_password = readfile($VIMCONFIG.'/.leetcode.vim/leetcode.txt')[1]
 let g:leetcode_china = 1
 " 3}}} ianding1/leetcode.vim "
 " 2}}} Tool "

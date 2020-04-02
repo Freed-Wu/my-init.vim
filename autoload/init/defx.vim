@@ -56,7 +56,5 @@ function! init#defx#main() "{{{
 	for [l:key, l:value] in items(g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_)
 		execute('let g:defx_icons_extensions.' . l:key .'= {"icon": l:value, "color": s:gui_colors.blue, "term_color": s:term_colors.blue}')
 	endfor
-	"let g:defx_icons_exact_matches
-	"let g:defx_icon_pattern_matches
 endfunction "}}}
 
