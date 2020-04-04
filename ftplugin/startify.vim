@@ -1,12 +1,12 @@
 let g:which_key_map_startify_dot = {
-			\ 'name': "choose a key about mru & command",
+			\ 'name': "choose a key about mru & directory",
 			\ }
 
 for s:startify_commands in g:startify_commands
 	for [s:startify_command_key, s:startify_command] in items(s:startify_commands)
-		if s:startify_command_key[0] == '.'
+		if s:startify_command_key[0] ==# '.'
 			let g:which_key_map_startify_dot = extend(g:which_key_map_startify_dot, {s:startify_command_key[1]: s:startify_command})
-		else
+		elseif s:startify_command_key[0] !=# g:maplocalleader
 			execute 'let g:which_key_map_startify_'.s:startify_command_key[0].' = extend(g:which_key_map_startify_'.s:startify_command_key[0].', {s:startify_command_key[1]: s:startify_command})'
 		endif
 	endfor
@@ -14,7 +14,7 @@ endfor
 
 for b:startify_bookmarks in g:startify_bookmarks
 	for [b:startify_bookmark_key, b:startify_bookmark] in items(b:startify_bookmarks)
-		let b:which_key_map_localleader = extend(copy(g:which_key_map_localleader), {b:startify_bookmark_key[1]: b:startify_bookmark})
+		let b:which_key_map_localleader = extend(get(b:, 'which_key_map_localleader', copy(g:which_key_map_localleader)), {b:startify_bookmark_key[1]: b:startify_bookmark})
 	endfor
 endfor
 
@@ -46,6 +46,7 @@ nunmap <buffer> n
 nunmap <buffer> N
 nmap <buffer> a <plug>(startify-open-buffers)
 nnoremap <nowait><buffer> . :<C-u>WhichKey '.'<CR>
+nnoremap <nowait><buffer> x :<C-u>WhichKey 'x'<CR>
 nnoremap <buffer> o :call startify#set_mark('B')<CR>
 nnoremap <buffer> i :call startify#set_mark('S')<CR>
 nnoremap <buffer> O :call startify#set_mark('T')<CR>
@@ -54,9 +55,4 @@ nnoremap <buffer> go :call startify#set_batchmode('B')<CR>
 nnoremap <buffer> gi :call startify#set_batchmode('S')<CR>
 nnoremap <buffer> gO :call startify#set_batchmode('T')<CR>
 nnoremap <buffer> gI :call startify#set_batchmode('V')<CR>
-
-command! -nargs=* -range -bar -buffer -complete=customlist,deol#_complete
-			\ Deol call deol#start(<q-args>.' -split=')
-command! -nargs=* -buffer -complete=customlist,calendar#argument#complete
-			\ Calendar call calendar#new(<q-args>.' -position=here')
 

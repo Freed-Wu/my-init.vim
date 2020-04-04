@@ -95,7 +95,10 @@ function! init#which_key#main() "{{{
 	" }}} <Leader> "
 	" <LocalLeader> {{{ "
 	call which_key#register(g:maplocalleader, (exists('b:which_key_map_localleader')?'b':'g').':which_key_map_localleader')
-	autocmd FileType * call which_key#register(g:maplocalleader, (exists('b:which_key_map_localleader')?'b':'g').':which_key_map_localleader')
+	augroup init#which_key "{{{
+		autocmd!
+		autocmd BufEnter * call which_key#register(g:maplocalleader, (exists('b:which_key_map_localleader')?'b':'g').':which_key_map_localleader')
+	augroup END "}}}
 	" }}} <LocalLeader> "
 	" z {{{ "
 	let g:which_key_map_z = {
@@ -228,5 +231,8 @@ function! init#which_key#main() "{{{
 	call which_key#register('A', "g:which_key_map_A")
 	" }}} I "
 	call which_key#register('.', "g:which_key_map_startify_dot")
+	call which_key#register('c', "g:which_key_map_fugitive_c")
+	call which_key#register('d', "g:which_key_map_fugitive_d")
+	call which_key#register('r', "g:which_key_map_fugitive_r")
 endfunction "}}}
 

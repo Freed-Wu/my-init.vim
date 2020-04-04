@@ -37,7 +37,7 @@ augroup init_$1 "{{{
 augroup END "}}}
 endsnippet
 snippet aut "myUltiSnips" b
-autocmd ${1:B}${1/(B)$|(F)$|(V)$|(C)$|(S)$|(I)$|(T)$|(.*)/(?1:ufRead,BufNewFile)(?2:iletype)(?3:imEnter)(?4:olorscheme)(?5:ourcePre)(?6:nsertEnter)(?7:erminalOpen)/} ${2:*} ${VISUAL}$0
+autocmd ${1:B}${1/(B)$|(F)$|(V)$|(C)$|(S)$|(I)$|(T)$|(U)$|(.*)/(?1:ufNewFile,BufEnter)(?2:iletype)(?3:imEnter)(?4:olorscheme)(?5:ourcePre)(?6:nsertEnter)(?7:erminalOpen)(?8:ser)/} ${2:*} ${VISUAL}$0
 endsnippet
 snippet xn "myUltiSnips" i
 xnoremap $1 $2<CR>$0
@@ -50,6 +50,9 @@ map <buffer>$0
 endsnippet
 snippet exe "myUltiSnips" i
 execute '${1:normal!$2 }$3'$0
+endsnippet
+snippet exi "myUltiSnips" i
+exists('${1:${VISUAL}}')$0
 endsnippet
 snippet toggle "myUltiSnips" b
 function! init#$1_toggle#main() "{{{
@@ -146,6 +149,12 @@ snippet "', " "myUltiSnips" ir
 			\ '${1:o}${1/(o)$|(d)$|(b)$|(i)$|(.*)/(?1:n_ft)(?2:epends)(?3:uild)(?4:f)/}': '$2',
 			\ }$0
 endsnippet
+snippet hook "myUltiSnips" b
+				\ 'hook_post_source': join([
+				\ '$1',
+				\ ], "\n"),
+$0
+endsnippet
 # 1}}} dein #
 
 # vim-which-key {{{1 #
@@ -158,8 +167,6 @@ snippet '\\ '' "myUltiSnips" br
 \ '${1:o}${1/(o)$|(d)$|(b)$|(i)$|(.*)/(?1:n_ft)(?2:epends)(?3:uild)(?4:f)/}': '${VISUAL}$0
 endsnippet
 snippet which "myUltiSnips" i
-nnoremap <silent><nowait>$1 :<c-u>WhichKey '$1'<CR>
-xnoremap <silent><nowait>$1 :<c-u>WhichKeyVisual '$1'<CR>
 let g:which_key_map_$2 = {
 			\ 'name':"choose a key about $3",
 $0

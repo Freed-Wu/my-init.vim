@@ -21,7 +21,7 @@ endif
 if has('nvim')
 	let g:dein#install_progress_type = 'title'
 endif
-let g:dein#install_log_filename = '$VIMDATA/.dein.vim/dein.log'
+let g:dein#install_log_filename = $VIMDATA.'/.dein.vim/dein.log'
 set runtimepath=$VIMRUNTIME,$GITHUBWORKSPACE/Shougo/dein.vim
 if dein#load_state($GITWORKSPACE)
 	call dein#begin($GITWORKSPACE)
@@ -95,13 +95,12 @@ if dein#load_state($GITWORKSPACE)
 	" HotkeyManage {{{5 "
 	call dein#add('liuchengxu/vim-which-key', {
 				\ 'on_cmd': ['WhichKey', 'WhichKeyVisual'],
-				\ 'on_func': 'which_key#register',
 				\ 'hook_post_source': join([
 				\ 'call init#which_key#main()',
 				\ ], "\n"),
 				\ })
 	call dein#add('skywind3000/vim-quickui', {
-				\ 'on_func': 'quickui#menu#open',
+				\ 'on_func': ['quickui#menu#open', 'QuickThemeChange'],
 				\ 'hook_post_source': join([
 				\ 'call init#quickui#main()',
 				\ ], "\n"),
@@ -395,7 +394,8 @@ if dein#load_state($GITWORKSPACE)
 
 	" FuzzyFind {{{5 "
 	call dein#add('Yggdroot/LeaderF', {
-				\ 'if': has('python3'),
+				\ 'if': has('python') || has('python3'),
+				\ 'build': has('unix')? './install.sh': './install.bat',
 				\ })
 	" 5}}} FuzzyFind "
 
@@ -417,9 +417,7 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('andymass/vim-matchup', {
 				\ 'on_map': '<plug>(matchup-',
 				\ })
-	call dein#add('wesQ3/vim-windowswap', {
-				\ })
-				"\ 'on_func': ['WindowSwap#MarkWindowSwap', 'WindowSwap#DoWindowSwap', 'WindowSwap#EasyWindowSwap'],
+	call dein#add('wesQ3/vim-windowswap')
 	" 5}}} Move "
 
 	" Search {{{5 "
@@ -786,10 +784,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_source': 'omnisharp-vim',
 				\ 'on_func': ['deoplete#custom#var', 'deoplete#custom#option'],
 				\ })
-	call dein#add('chrisbra/unicode.vim', {
-				\ })
-				"\ 'on_cmd': ['UnicodeName', 'UnicodeSearch', 'UnicodeTable', 'DownloadUnicode', 'UnicodeCache', 'Digraphs'],
-				"\ 'on_map': ['<C-X><C-G>', '<C-X><C-Z>', '<F4>'],
+	call dein#add('chrisbra/unicode.vim')
 	" 5}}} Complete "
 
 	" Snippet {{{5 "
@@ -855,9 +850,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'if': has('ruby') && (has('unix') || has('win32unix')),
 				\ 'on_ft': 'bib',
 				\ })
-	call dein#add('lervag/vimtex', {
-				\ })
-				"\ 'on_ft': ['tex', 'bibtex'],
+	call dein#add('lervag/vimtex')
 	call dein#add('iamcco/markdown-preview.nvim', {
 				\ 'build': 'sh -c "cd app & yarn install"',
 				\ 'on_ft': ['pandoc', 'markdown', 'gfimarkdown'],
@@ -878,7 +871,6 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_ft': 'vimwiki',
 				\ 'on_map': '<Leader>w',
 				\ })
-				"\ 'on_map': '<Plug>Vimwiki',
 	call dein#add('freitass/todo.txt-vim')
 	call dein#add('greyblake/vim-preview', {
 				\ 'if': has('ruby') && has('--enable-rubyinterp'),
@@ -895,9 +887,7 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} MarkUp "
 
 	" Office {{{5 "
-	call dein#add('chrisbra/csv.vim', {
-				\ })
-				"\ 'on_ft': 'csv',
+	call dein#add('chrisbra/csv.vim')
 	call dein#add('mattn/excelview-vim', {
 				\ 'on_cmd': 'ExcelView',
 				\ })
@@ -1039,6 +1029,7 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('deris/vim-duzzle', {
 				\ 'on_cmd': 'DuzzleStart',
+				\ 'on_func': 'duzzle#puzzle_list',
 				\ })
 	call dein#add('jmanoel7/vim-games', {
 				\ 'on_cmd': ['Sokoban', 'SokobanH', 'SokobanV', 'SudokuCustom', 'SudokuEasy', 'SudokuMedium', 'SudokuHard', 'SudokuVeryHard'],
@@ -1138,7 +1129,7 @@ let g:echodoc_enable_at_startup = 1
 
 " Log {{{2 "
 " AD7six/vim-activity-log {{{3 "
-let g:activity_log_location = '$VIMDATA/.vim-activity-log'.expand('/%Y/%m/%d.log')
+let g:activity_log_location = $VIMDATA.'/.vim-activity-log/%Y/%m/%d.log'
 " 3}}} AD7six/vim-activity-log "
 " 2}}} Log "
 
@@ -1170,7 +1161,6 @@ nnoremap go i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv}O<Esc>:let @/ = ''<CR>o
 nnoremap S dhi
 nnoremap ~ "ayl:execute @a =~ '\a'?'normal! ~':'let @+ = @a'<CR>
 xnoremap <C-t> <Esc>`.``gvp``:execute 'normal! '.((&virtualedit =~ 'onemore' && col('.') ==# col('$') - 1)?'p':'P')<CR><CR>
-nnoremap gK :<C-u>help<Space>
 cnoremap <M-q> <C-u>visual<CR>
 nnoremap g. :<C-u>execute v:count?v:count.'go':''<CR><C-g>
 xnoremap g. go
@@ -1617,7 +1607,6 @@ xnoremap g@ g@
 nnoremap g~ g~
 " 4}}} edit "
 " keymap {{{4 "
-nnoremap <Leader>k0 :set keymap=<CR>
 nnoremap <Leader>k1 :set keymap=pinyin<CR>
 nnoremap <Leader>k2 :set keymap=accents<CR>
 nnoremap <Leader>kaa :set keymap=arabic<CR>
@@ -1665,41 +1654,22 @@ nnoremap <Leader>kvv :set keymap=vietnamese-viqr<CR>
 nnoremap <Leader>kvn :set keymap=vietnamese-vni<CR>
 " 4}}} keymap "
 " vimL {{{4 "
-nnoremap <Leader>vX :<C-u>X<CR>
+nnoremap <Leader>vx :<C-u>X<CR>
 nnoremap <Leader>v= :<C-u>redir @
 nnoremap <Leader>v+ :<C-u>redir END<CR>
 nnoremap <Leader>vR :<C-u>recover<CR>
 nnoremap <Leader>vc :<C-u>cd %:p:h<CR>
 nnoremap <Leader>vC :<C-u>cd <cfile><CR>
 xnoremap <Leader>vc y:cd <C-r>0<CR>
-nnoremap <Leader>vx :<C-u>execute ''<Left>
-nnoremap <Leader>v<Bar> :vertical<Space>
-nnoremap <Leader>v<Tab> :tab<Space>
 nnoremap <Leader>vo :<C-u>options<CR>
 nnoremap <Leader>vp :hardcopy<CR>
 xnoremap <Leader>vp :hardcopy<CR>
-nnoremap <Leader>vF :split makefile<CR>
-nnoremap <Leader>vM :<C-u>setlocal makeprg&<CR>
+nnoremap <Leader>vm :<C-u>setlocal makeprg&<CR>
 nnoremap <Leader>vv :<C-u>execute 'split $VIMCONFIG/ftplugin/'.split(&filetype, '\.')[0].'.vim'<CR>
-nnoremap <Leader>vV :<C-u>execute 'split $VIMRUNTIME/ftplugin/'.split(&filetype, '\.')[0].'.vim'<CR>
-nnoremap <Leader>vs :<C-u>execute 'split '.$GITHUBWORKSPACE.'/syntax/'.&filetype.'.vim'<CR>
-nnoremap <Leader>vS :<C-u>execute 'split $VIMRUNTIME/syntax/'.&filetype.'.vim'<CR>
-nnoremap <Leader>vi :<C-u>execute 'split '.$GITHUBWORKSPACE.'/indent/'.&filetype.'.vim'<CR>
-nnoremap <Leader>vI :<C-u>execute 'split $VIMRUNTIME/indent/'.&filetype.'.vim'<CR>
-nnoremap <Leader>vt :<C-u>set<Space>
-xnoremap <Leader>vt y:set <C-r>0<CR>
-nnoremap <Leader>ve :<C-u>echo<Space>
-xnoremap <Leader>ve y:echo <C-r>0<CR>
-nnoremap <Leader>vE :<C-u>echom<Space>
-xnoremap <Leader>vE y:echom <C-r>0<CR>
-nnoremap <Leader>vf :<C-u>set filetype=
-xnoremap <Leader>vf y:set filetype=<C-r>0<CR>
 nnoremap <Leader>vg :<C-u>execute 'vim //gj '.expand('<cfile>')<CR><S-Left>
 xnoremap <Leader>vg y:execute 'vim //gj '.@0<CR><S-Left>
 nnoremap <Leader>vd :<C-u>diffsplit<Space>
 xnoremap <Leader>vd y:diffsplit <C-r>0<CR>
-nnoremap <Leader>vD :<C-u>vertical diffsplit<Space>
-xnoremap <Leader>vD y:vertical diffsplit <C-r>0<CR>
 " 4}}} vimL "
 nnoremap <Leader>vh :TOhtml<CR>
 xnoremap <Leader>vh :TOhtml<CR>
@@ -1790,8 +1760,7 @@ let g:listdict = {
 			\ }
 " 4}}} substitute "
 " shell {{{4 "
-nnoremap <Leader>hv :<C-u>silent !gvim<CR>
-nnoremap <Leader>hV :<C-u>silent !gvim -u $VIMCONFIG/test.vim<CR>
+nnoremap <Leader>hv :<C-u>silent !gvim -u $VIMCONFIG/test.vim<CR>
 nnoremap <Leader>he :<C-u>call pandoc#hypertext#OpenSystem(expand('%'))<CR>
 " 4}}} shell "
 " 3}}}  "
@@ -1816,15 +1785,20 @@ xnoremap <nowait> I :<C-u>WhichKeyVisual 'I'<CR>
 xnoremap <nowait> A :<C-u>WhichKeyVisual 'A'<CR>
 " 3}}} liuchengxu/vim-which-key "
 " skywind3000/vim-quickui {{{3 "
+let g:quickui_border_style = 3
+let s:quickui_color_schemes_path = split(glob($GITHUBWORKSPACE.'/skywind3000/vim-quickui/colors/quickui/*.vim'))
+let g:quickui_color_schemes = []
+for s:quickui_color_scheme_path in s:quickui_color_schemes_path
+	let s:quickui_color_scheme = split(split(s:quickui_color_scheme_path, expand('/'))[-1], '\.')[0]
+	execute 'nnoremap <Leader>q'.len(g:quickui_color_schemes).' :<C-u>call QuickThemeChange("'.s:quickui_color_scheme.'")<CR>'
+	let g:quickui_color_schemes += [s:quickui_color_scheme]
+endfor
+let g:quickui_color_scheme = g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)]
 nnoremap <Leader>qq :<C-u>call quickui#menu#open()<CR>
-nnoremap <Leader>qe :<C-u>call quickui#tools#list_buffer('edit')<CR>
-nnoremap <Leader>qs :<C-u>call quickui#tools#list_buffer('split')<CR>
-nnoremap <Leader>qv :<C-u>call quickui#tools#list_buffer('vsplit')<CR>
-nnoremap <Leader>qd :<C-u>call quickui#tools#list_buffer('bdelete')<CR>
-nnoremap <Leader>q<Tab> :<C-u>call quickui#tools#list_buffer('tabedit')<CR>
 nnoremap <Leader>qf :<C-u>call quickui#tools#list_function()<CR>
-nnoremap <Leader>qh :<C-u>call quickui#tools#display_help('index')<CR>
+nnoremap <Leader>q? :<C-u>call quickui#tools#display_help('index')<CR>
 nnoremap <Leader>qt :<C-u>call quickui#tools#preview_tag('')<CR>
+nnoremap <Leader>q` :<C-u>call QuickThemeChange(g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)])<CR>
 " 3}}} skywind3000/vim-quickui "
 " tpope/vim-unimpaired {{{3 "
 nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
@@ -1894,7 +1868,7 @@ nnoremap zi a<C-R>=g:Vimim_gi()<CR>
 nnoremap <Leader>zn :<C-u>call g:Vimim_search()<CR>n
 let g:Vimim_mode = 'dynamic'
 let g:Vimim_mycloud = 1
-let g:Vimim_plugin = '$VIMCONFIG/.VimIM'
+let g:Vimim_plugin = $VIMCONFIG.'/.VimIM'
 let g:Vimim_shuangpin = 'ms'
 let g:Vimim_toggle = 'pinyin'
 nnoremap <Leader>zv :<C-u>ViMiM<CR>
@@ -1909,7 +1883,7 @@ nnoremap <Leader>k<Tab> :KeyHelper<CR>
 
 " MacroExplore {{{2 "
 " vim-scripts/marvim {{{3 "
-let g:marvim_store = '$VIMCONFIG/.marvim'
+let g:marvim_store = $VIMCONFIG.'/.marvim'
 let g:marvim_find_key = 'q'''
 let g:marvim_store_key = 'q`'
 let g:marvim_register = 'q'
@@ -1924,7 +1898,7 @@ nnoremap q= :MacroEdit<Space>
 " Colorscheme {{{2 "
 "  {{{3 "
 nnoremap <Leader>uh :source $VIMRUNTIME/syntax/hitest.vim<CR>
-nnoremap <Leader>ue :colorscheme\| AirlineTheme\| set guifont<CR>
+nnoremap <Leader>ue :colorscheme\| AirlineTheme\| set guifont\| echo g:quickui_color_scheme\| echo g:Lf_StlColorscheme<CR>
 let g:available_colorschemes = ['random']
 let g:available_colorschemes += ['eclipse']
 let g:available_colorschemes += ['darkeclipse']
@@ -2044,7 +2018,7 @@ nnoremap <Leader>or :RainbowToggle<CR>
 if has('python') || has('python3')
 	" jaxbot/semantic-highlight.vim {{{3 "
 	nnoremap <Leader>os :SemanticHighlightToggle<CR>
-	let g:semanticPersistCacheLocation = '$VIMDATA/.semantic-highlight.vim/.semantic-highlight-cache'
+	let g:semanticPersistCacheLocation = $VIMDATA.'/.semantic-highlight.vim/.semantic-highlight-cache'
 	" 3}}} jaxbot/semantic-highlight.vim "
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
@@ -2070,10 +2044,12 @@ nmap <Leader>oJ <Plug>longline#toggle
 
 " Conceal {{{2 "
 " ryanoasis/vim-devicons {{{3 "
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_ = {
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'patch': '',
+			\ 'aap': '',
 			\ 'tex': '',
 			\ 'latex': '',
+			\ 'inp': '',
 			\ 'tikz': '',
 			\ 'lyx': '',
 			\ 'layout': '',
@@ -2106,6 +2082,10 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_ = {
 			\ 'txt': '',
 			\ 'rtf': '',
 			\ 'cnx': '中',
+			\ 'jax': '日',
+			\ 'caj': '知',
+			\ 'pdg': '超',
+			\ 'e': '易',
 			\ 'vcf': '',
 			\ 'log': '',
 			\ 'rpt': '',
@@ -2115,7 +2095,6 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_ = {
 			\ 'm': '',
 			\ 'matlab': '',
 			\ 'oct': '',
-			\ 'octaverc': '',
 			\ 'fig': '',
 			\ 'mat': '',
 			\ 'mma': '',
@@ -2152,13 +2131,8 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_ = {
 			\ 'jpg': '',
 			\ 'jpeg': '',
 			\ 'cmd': '',
-			\ 'bash_profile': '',
-			\ 'profile': '',
-			\ 'inputrc': '',
 			\ 'bat': '',
 			\ 'cfg': '',
-			\ 'gitignore': '',
-			\ 'github': '',
 			\ 'crx': '',
 			\ 'hex': '',
 			\ 'project': '',
@@ -2201,7 +2175,13 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_ = {
 			\ 'com': '',
 			\ 'msi': '',
 			\ 'out': '',
+			\ 'deb': '',
+			\ 'rpm': '',
+			\ 'ebuild': '',
+			\ 'install': '',
 			\ 'apk': '',
+			\ 'ipa': '',
+			\ 'dmg': '',
 			\ 'lib': '',
 			\ 'dll': '',
 			\ 'vb': '',
@@ -2214,7 +2194,6 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_ = {
 			\ 'theme': '',
 			\ 'list': '',
 			\ 'directory': '',
-			\ 'e': '易',
 			\ 'mp3': '',
 			\ 'mp4': '',
 			\ 'wav': '',
@@ -2270,18 +2249,28 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_ = {
 			\ 'listing': '',
 			\ 'xdv': '',
 			\ 'dvi': '',
-			\ 'editorconfig': '',
+			\ 'nsi': '',
 			\ }
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols_ = {
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 			\ '.*\.todo\.txt$': '',
 			\ '.*\.dia\.autosave$': '',
 			\ '.*\.paf\.exe$': '',
 			\ '.*\.search-ms$': '',
 			\ '.*\.ms14 (Security copy)$': '',
 			\ '.*\.synctex(busy)$': '',
+			\ 'Dockerfile$': '',
+			\ 'Makefile$': '',
+			\ '\.octaverc$': '',
+			\ '\.pyrc$': '',
+			\ '\.editorconfig$': '',
+			\ '\.inputrc$': '',
+			\ '\.bash_profile$': '',
+			\ 'profile$': '',
+			\ '\.gitignore$': '',
+			\ '\.github$': '',
+			\ '.*_history': '',
+			\ '\.viminfo': '',
 			\ }
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = copy(g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols_)
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = copy(g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols_)
 " 3}}} ryanoasis/vim-devicons "
 " 2}}} Conceal "
 
@@ -2294,14 +2283,15 @@ let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols = {
-			\ 'linenr': 'Ξ',
-			\ 'maxlinenr': '',
 			\ 'paste': '',
 			\ 'spell': 'Ꞩ',
 			\ 'whitespace': '█',
 			\ 'notexists': 'Ɇ',
 			\ }
-let &titlestring = '%<%F%=%P' . g:airline_symbols.linenr . '%l/%L' . g:airline_symbols.maxlinenr
+augroup init_titlestring "{{{
+	autocmd!
+	autocmd Filetype * let &titlestring = '%<%F ' . get(g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols, &filetype, '') . '%=%P' . get(g:, airline_symbols.linenr, 'Ξ') . '%l/%L' . get(g:, 'airline_symbols.maxlinenr', '')
+augroup END "}}}
 nnoremap <Leader>oa :<C-u>AirlineToggle<CR>
 nnoremap <Leader>oA :<C-u>AirlineExtensions<CR>
 nmap z1 <Plug>AirlineSelectTab1
@@ -2326,8 +2316,8 @@ let g:airline#extensions#quickfix#quickfix_text = ''
 let g:airline#extensions#quickfix#location_text = ''
 " }}} quickfix "
 " vimtex {{{ "
-let g:airline#extensions#vimtex#left = ""
-let g:airline#extensions#vimtex#right = ""
+let g:airline#extensions#vimtex#left = get(g:, 'airline_alt_left_sep', '')
+let g:airline#extensions#vimtex#right = get(g:, 'airline_alt_right_sep', '')
 let g:airline#extensions#vimtex#main = ""
 let g:airline#extensions#vimtex#sub_main = ""
 let g:airline#extensions#vimtex#sub_local = ""
@@ -2387,7 +2377,7 @@ let g:weather#appid = readfile($VIMCONFIG.'/.airline-weather.vim/airline-weather
 let g:weather#area = readfile($VIMCONFIG.'/.airline-weather.vim/airline-weather.txt')[1]
 " 3}}} Wildog/airline-weather.vim "
 " Zuckonit/vim-airline-todo {{{3 "
-let g:todo#directory = '$VIMDATA/.vim-airline-todo'
+let g:todo#directory = $VIMDATA.'/.vim-airline-todo'
 let g:todo#remind = ''
 let g:todo#suffix = ''
 " 3}}} Zuckonit/vim-airline-todo "
@@ -2419,7 +2409,7 @@ set cursorline
 set number
 set relativenumber
 set listchars=extends:→,precedes:←,nbsp:+
-set fillchars=vert:\|,fold:.
+execute 'set fillchars=vert:\|,fold:'.get(g:, 'airline#extensions#tabline#overflow_marker', '…')
 set display=uhex
 set mouse=a
 set whichwrap+=h,l,<,>,~,[,]
@@ -2453,12 +2443,12 @@ augroup END "}}}
 nnoremap <Leader>ol :Limelight!!<CR>
 " 3}}} junegunn/limelight.vim "
 " thinca/vim-splash {{{3 "
-let g:splash#path = '$VIMCONFIG/vim-splash/Yoda.txt'
+let g:splash#path = $VIMCONFIG.'/vim-splash/Yoda.txt'
 nnoremap <Leader>sP :<C-u>Splash $VIMCONFIG/vim-splash/
 nnoremap <Leader>sp :<C-u>Splash<CR>
 " 3}}} thinca/vim-splash "
 " mhinz/vim-startify {{{3 "
-let g:startify_session_dir = '$VIMDATA/.vim-startify'
+let g:startify_session_dir = $VIMDATA.'/.vim-startify'
 let g:startify_enable_special = 0
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
@@ -2470,46 +2460,30 @@ for s:num in range(0, 9)
 	let g:startify_custom_indices += ['.' . nr2char(s:num + 48)]
 endfor
 let g:startify_commands = [
-			\ {'.d': 'Defx ' . expand('$HOME/Documents')},
-			\ {'.q': 'Defx ' . $QQWORKSPACE},
-			\ {'.;': 'Defx ' . expand('$HOME/.local/share/Trash/files')},
-			\ {'.u': 'Defx ' . $UDISK},
-			\ {'.U': 'Defx /mnt/cdrom'},
-			\ {'.v': 'Defx ' . $VIMCONFIG},
-			\ {'.V': 'Defx ' . $VIMRUNTIME},
-			\ {'.p': 'Defx /etc/portage/package.use'},
-			\ {'.r': 'Defx ' . expand('$GITHUBWORKSPACE/$GITNAME')},
-			\ {'.R': 'Defx ' . expand('$GITWORKSPACE/.cache/init.vim/.dein')},
-			\ {'.t': 'Defx ' . expand('$HOME/.texlive/texmf-var/tex/latex')},
-			\ {'.f': 'Defx ' . expand('$HOME/.local/share/fonts')},
-			\ {'.F': 'Defx ' . $FONTS},
-			\ {'.a': 'Defx ' . expand('$HOME/.local/share/applications')},
-			\ {'.A': 'Defx ' . $APPLICATIONS},
-			\ {'.x': 'Defx ' . expand('$HOME/.local/share/gnome-shell/extensions')},
+			\ {g:maplocalleader.g:maplocalleader: 'Deol'},
+			\ {g:maplocalleader.'o': 'Deol octave'},
+			\ {g:maplocalleader.'p': 'Deol python'},
+			\ {g:maplocalleader.'n': 'Deol node'},
+			\ {g:maplocalleader.'k': 'Deol nethack'},
+			\ {g:maplocalleader.'c': 'Calendar -position=here'},
 			\ ]
 let g:startify_bookmarks = [
-			\ {g:maplocalleader.g:maplocalleader: '/etc/profile.d/user.sh'},
+			\ {g:maplocalleader.'s': '/etc/profile.d/user.sh'},
 			\ {g:maplocalleader.'v': $MYVIMRC},
 			\ {g:maplocalleader.'z': expand('$HOME/.zshrc')},
-			\ {g:maplocalleader.'p': '/etc/portage/make.conf'},
+			\ {g:maplocalleader.'m': '/etc/portage/make.conf'},
 			\ {g:maplocalleader.'a': expand('$HOME/.local/share/applications/defaults.list')},
 			\ {g:maplocalleader.'x': expand('$HOME/.ssh/id_rsa.pub')},
 			\ ]
 augroup init_Startify "{{{
 	autocmd!
-	autocmd VimEnter * let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
-	if exists('##TabNewEntered')
-		autocmd TabNewEntered * Startify
-		"else
-		"autocmd BufWinEnter * call s:startify()
-		"function! s:startify() "{{{
-		"if !exists('t:startify_new_tab') && empty(expand('%')) && empty(&l:buftype) && &l:modifiable
-		"let t:startify_new_tab = 1
-		"Startify
-		"endif
-		"endfunction "}}}
-	endif
+	autocmd VimEnter * call s:cowsay()
 augroup END "}}}
+function! s:cowsay() "{{{
+	if &filetype == ''
+		let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
+	endif
+endfunction "}}}
 let g:startify_lists = [
 			\ { 'type': 'sessions', 'header': ['    Sessions']},
 			\ { 'type': 'files', 'header': ['    Most Recently Used']},
@@ -2524,7 +2498,7 @@ nnoremap <Leader>sl :SLoad<CR>
 nnoremap <Leader>sv :SSave<CR>
 nnoremap <Leader>sd :SDelete<CR>
 nnoremap <Leader>sc :SClose<CR>
-nnoremap <Leader>ss <C-w>n:Startify<CR>
+nnoremap <Leader>ss :<C-u>call init#startify#main()<CR>
 " 3}}} mhinz/vim-startify "
 " 2}}} UI "
 
@@ -2606,7 +2580,8 @@ endfunction "}}}
 " Shougo/defx.nvim {{{3 "
 nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')`<CR><C-w>=
 nnoremap <Leader>jJ :<C-u>Rooter<CR>:Defx `getcwd()`<CR><C-w>=
-nnoremap <Leader>jk :<C-u>Defx<Space>
+nnoremap <Leader>jk :<C-u>call init#quickui#defx#main()<CR>
+nnoremap <Leader>jK :<C-u>Defx<Space>
 " 3}}} Shougo/defx.nvim "
 " 2}}} FileExplore "
 
@@ -2655,8 +2630,6 @@ nnoremap <Leader>gg :G<CR>
 nnoremap <Leader>gi :<C-u>!git init<CR>
 nnoremap <Leader>gc :<C-u>!git clone git@github.com:Freed-Wu/.git<Left><Left><Left><Left>
 nnoremap <Leader>gs :<C-u>!svn checkout https://github.com/Freed-Wu/trunk/<Left><Left><Left><Left><Left><Left>
-nnoremap <Leader>g. :<C-u>Rooter<CR>:split .gitignore<CR>
-nnoremap <Leader>gr :<C-u>Rooter<CR>:split README*<CR>
 " 3}}} tpope/vim-fugitive "
 " tpope/vim-rhubarb {{{3 "
 nnoremap <Leader>gx :Gbrowse<CR>
@@ -2749,52 +2722,28 @@ nnoremap <Leader>lo :TODO<CR>
 " 2}}} TagExplore "
 
 " FuzzyFind {{{2 "
-if has('python3')
+if has('python') || has('python3')
 	" Yggdroot/LeaderF {{{3 "
 	let g:Lf_StlSeparator = {
-				\ 'left': g:airline_left_sep,
-				\ 'right': g:airline_right_sep,
+				\ 'left': get(g:, 'airline_left_sep', ''),
+				\ 'right': get(g:, 'airline_right_sep', ''),
 				\ }
 	let g:Lf_ShortcutF = '<Leader>ff'
 	let g:Lf_ShortcutB = '<Leader>fb'
-	let g:Lf_StlColorschemes = ['random']
-	let g:Lf_StlColorschemes += ['powerline']
-	let g:Lf_StlColorschemes += ['one']
-	let g:Lf_StlColorschemes += ['default']
-	for s:indexLfcolor in range(min([len(g:Lf_StlColorschemes), 10]))
-		if g:Lf_StlColorschemes[s:indexLfcolor] ==# 'random'
-			execute 'nnoremap <Leader>f'.s:indexLfcolor.' :<C-u>let g:Lf_StlColorscheme = g:Lf_StlColorschemes[rand()%len(g:Lf_StlColorschemes)]<CR>'
-		else
-			execute 'nnoremap <Leader>f'.s:indexLfcolor.' :let g:Lf_StlColorscheme = '''.g:Lf_StlColorschemes[s:indexLfcolor].'''<CR>'
-		endif
-	endfor
-	nnoremap <Leader>f<Tab> :Leaderf self<CR>
-	nnoremap <Leader>ff :Leaderf file<CR>
-	nnoremap <Leader>fF :Leaderf file --fullScreen<CR>
-	nnoremap <Leader>fb :Leaderf buffer<CR>
-	nnoremap <Leader>fB :Leaderf buffer --all<CR>
-	nnoremap <Leader>fa :Leaderf buffer --tabpage<CR>
-	nnoremap <Leader>fA :Leaderf buffer --tabpage --all<CR>
-	nnoremap <Leader>fm :Leaderf mru<CR>
-	nnoremap <Leader>fM :Leaderf mru --cwd<CR>
-	nnoremap <Leader>fg :Leaderf tag<CR>
-	nnoremap <Leader>ft :Leaderf bufTag<CR>
-	nnoremap <Leader>fT :Leaderf bufTag --all<CR>
-	nnoremap <Leader>fs :Leaderf function<CR>
-	nnoremap <Leader>fS :Leaderf function --all<CR>
-	nnoremap <Leader>fl :Leaderf line<CR>
-	nnoremap <Leader>fL :Leaderf line --all<CR>
-	nnoremap <Leader>f: :Leaderf cmdHistory<CR>
-	nnoremap <Leader>f/ :Leaderf searchHistory<CR>
-	nnoremap <Leader>fh :Leaderf help<CR>
-	nnoremap <Leader>fc :Leaderf colorscheme<CR>
+	let g:Lf_StlColorscheme = 'gruvbox_material'
 	let g:Lf_HideHelp = 1
 	let g:Lf_ShowHidden = 1
 	let g:Lf_WindowPosition = 'popup'
 	let g:Lf_CacheDirectory = $VIMDATA
+	let g:Lf_DevIconsExactSymbols = g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols
+	let g:Lf_DevIconsExtensionSymbols = g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols
+	let g:Lf_WildIgnore = {
+				\ 'dir': ['.svn', '.git', '.hg'],
+				\ 'file': ['*.sw?', '~$*', '*.bak', '*.exe', '*.o', '*.so', '*.py[co]'],
+				\ }
+	let g:Lf_MruWildIgnore = g:Lf_WildIgnore
 	let g:Lf_CommandMap = {
 				\ '<Esc>': ['<C-q>','<Esc>'],
-				\ '<C-r>': ['<C-r>'],
 				\ '<C-f>': ['<C-s>'],
 				\ '<S-Insert>': ['<C-y>'],
 				\ '<Up>': ['<C-p>', '<Up>'],
@@ -2815,6 +2764,32 @@ if has('python3')
 				\ '<C-Up>': ['<C-t>'],
 				\ '<C-Down>': ['<C-v>'],
 				\ }
+	nnoremap <Leader>f<Tab> :<C-u>Leaderf self<CR>
+	nnoremap <Leader>ff :<C-u>Leaderf file<CR>
+	nnoremap <Leader>ft :<C-u>Leaderf filetype<CR>
+	nnoremap <Leader>fw :<C-u>Leaderf window<CR>
+	nnoremap <Leader>fb :<C-u>Leaderf buffer<CR>
+	nnoremap <Leader>fB :<C-u>Leaderf buffer --all<CR>
+	nnoremap <Leader>fa :<C-u>Leaderf buffer --tabpage<CR>
+	nnoremap <Leader>fA :<C-u>Leaderf buffer --tabpage --all<CR>
+	nnoremap <Leader>fm :<C-u>Leaderf mru<CR>
+	nnoremap <Leader>fM :<C-u>Leaderf mru --cwd<CR>
+	nnoremap <Leader>fg :<C-u>Leaderf tag<CR>
+	nnoremap <Leader>fG :<C-u>Leaderf gtag<CR>
+	nnoremap <Leader>f] :<C-u>Leaderf bufTag<CR>
+	nnoremap <Leader>f} :<C-u>Leaderf bufTag --all<CR>
+	nnoremap <Leader>fs :<C-u>Leaderf function<CR>
+	nnoremap <Leader>fS :<C-u>Leaderf function --all<CR>
+	nnoremap <Leader>fl :<C-u>Leaderf line<CR>
+	nnoremap <Leader>fL :<C-u>Leaderf line --all<CR>
+	nnoremap <Leader>f: :<C-u>Leaderf cmdHistory<CR>
+	nnoremap <Leader>f/ :<C-u>Leaderf searchHistory<CR>
+	nnoremap <Leader>fh :<C-u>Leaderf help<CR>
+	nnoremap <Leader>fc :<C-u>Leaderf colorscheme<CR>
+	nnoremap <Leader>fv :<C-u>execute 'Leaderf file '.$VIM.' --input '.split(&filetype, '\.')[0].'.vim'<CR>
+	nnoremap <Leader>fV :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.' --input '.split(&filetype, '\.')[0].'.vim'<CR>
+	nnoremap <Leader>fz :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.'/sbdchd/neoformat/autoload/neoformat/formatters --input '.split(&filetype, '\.')[0].'.vim'<CR>
+	nnoremap <Leader>fZ :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.'/w0rp/ale/ale_linters/'.split(&filetype, '\.')[0]<CR>
 	" 3}}} Yggdroot/LeaderF "
 endif
 " 2}}} FuzzyFind "
@@ -3323,11 +3298,9 @@ let g:neoformat_basic_format_align = 1
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_try_formatprg = 1
-let g:neoformat_data = '$VIMDATA/.neoformat'
-"nnoremap = :<C-u>set operatorfunc=init#format#main<CR>g@
-"nnoremap == :.Neoformat<CR>
-"xnoremap = :Neoformat<CR>
-nnoremap <Leader>vz :execute 'split ' . $GITHUBWORKSPACE . '/sbdchd/neoformat/autoload/neoformat/formatters/'. &filetype .'.vim'<CR>
+nnoremap gz :<C-u>set operatorfunc=init#format#main<CR>g@
+nnoremap <LocalLeader>zz :.Neoformat<CR>
+xnoremap <LocalLeader>zz :Neoformat<CR>
 " 3}}} sbdchd/neoformat "
 " svermeulen/vim-subversive {{{3 "
 nmap , <plug>(SubversiveSubstitute)
@@ -3431,7 +3404,7 @@ let g:disable_protodef_mapping = 1
 
 " Complete {{{2 "
 "  {{{3 "
-execute 'set thesaurus=' . substitute(glob('$VIMCONFIG/.thesaurus/*'), '\n', ',', 'g')
+execute 'set thesaurus=' . substitute(glob($VIMCONFIG.'/.thesaurus/*'), '\n', ',', 'g')
 " 3}}}  "
 " mattn/emmet-vim {{{3 "
 let g:user_emmet_leader_key = g:maplocalleader
@@ -3499,11 +3472,9 @@ nnoremap <Leader>nS :<C-u>execute 'split '.g:vim_snippetsSnippets.'/_.snippets'<
 " 3}}} honza/vim-snippets "
 " aperezdc/vim-template {{{3 "
 let g:templates_directory = [$VIMCONFIG.'/vim-template']
-let g:vim_templates_directory = $GITHUBWORKSPACE.'/aperezdc/vim-template/templates'
-nnoremap <Leader>eE :<C-u>execute 'split '.g:vim_templates_directory.'/'.g:templates_global_name_prefix.'.'.expand('%:e')<CR>
-nnoremap <Leader>eT :<C-u>execute 'split '.g:vim_templates_directory.'/'.g:templates_global_name_prefix . expand('%:t')<CR>
-nnoremap <Leader>ee :<C-u>execute 'split '.g:templates_directory[0].'/'.g:templates_global_name_prefix.'.'.expand('%:e')<CR>
-nnoremap <Leader>et :<C-u>execute 'split '.g:templates_directory[0].'/'.g:templates_global_name_prefix . expand('%:t')<CR>
+nnoremap <Leader>eE :<C-u>execute 'sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.'.expand('%:e')<CR>
+nnoremap <Leader>ee :<C-u>execute 'split '.g:templates_directory[0].'/'.get(g:, 'templates_global_name_prefix', '=template=').'.'.expand('%:e')<CR>
+nnoremap <Leader>et :<C-u>execute 'split '.g:templates_directory[0].'/'.get(g:, 'templates_global_name_prefix', '=template=').expand('%:t')<CR>
 nnoremap <Leader>ep :Template<CR>
 nnoremap <Leader>eh :TemplateHere<CR>
 nnoremap <Leader>eP :Template<Space>
@@ -3524,20 +3495,20 @@ set spelllang=en_us,cjk
 inoremap <C-j> <C-g>u<Esc>[s1z=`]a<C-g>u
 " 3}}}  "
 " w0rp/ale {{{3 "
-let g:ale_linters = {'python': ['flake8'], 'reStructuredText': ['rstcheck']}
-let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
-let g:ale_sign_error = g:airline#extensions#ale#error_symbol
-let g:ale_sign_warning = g:airline#extensions#ale#warning_symbol
-let g:ale_echo_msg_error_str = g:airline#extensions#ale#error_symbol
-let g:ale_echo_msg_warning_str = g:airline#extensions#ale#warning_symbol
+let g:ale_linters = {
+			\ 'reStructuredText': ['rstcheck'],
+			\ }
+let g:ale_sign_error = get(g:, 'airline#extensions#ale#error_symbol', '✗')
+let g:ale_sign_warning = get(g:, 'airline#extensions#ale#warning_symbol', '')
+let g:ale_echo_msg_error_str = get(g:, 'airline#extensions#ale#error_symbol', '✗')
+let g:ale_echo_msg_warning_str = get(g:, 'airline#extensions#ale#warning_symbol', '')
 let g:ale_echo_msg_format = '%linter%: %severity%! %s'
-nnoremap <Leader>az :<C-u>ALEToggle<CR>
-nnoremap <Leader>aZ :<C-u>ALEDetail<CR>
+nnoremap <Leader>oz :<C-u>ALEToggle<CR>
+nnoremap <Leader>oZ :<C-u>ALEDetail<CR>
 nnoremap [k :<C-u>ALEPrevious<CR>
 nnoremap ]k :<C-u>ALENext<CR>
 nnoremap [K :<C-u>ALEFirst<CR>
 nnoremap ]K :<C-u>ALELast<CR>
-nnoremap <Leader>vZ :execute 'split $GITHUBWORKSPACE/w0rp/ale/ale_linters/'. &filetype<CR>
 " 3}}} w0rp/ale "
 " wsdjeg/ChineseLinter.vim {{{3 "
 nnoremap <Leader>lz :CheckChinese<CR>
@@ -3568,14 +3539,13 @@ nnoremap ]U :NextWordy<CR>
 " Program {{{1 "
 " Document {{{2 "
 " vim-scripts/DoxygenToolkit.vim {{{3 "
-"let g:DoxygenToolkit_commentType = "C++"
 nnoremap <Leader>xx :<C-u>Dox<CR>
 nnoremap <Leader>xa :<C-u>DoxAuthor<CR>
 nnoremap <Leader>xl :<C-u>DoxLic<CR>
 nnoremap <Leader>xu :<C-u>DoxUndoc<CR>
 " 3}}} vim-scripts/DoxygenToolkit.vim "
 " vim-scripts/doxygen-support.vim {{{3 "
-let g:Doxy_GlobalTemplateFile = '$VIMCONFIG/.doxygen-support.vim/doxygen.templates'
+let g:Doxy_GlobalTemplateFile = $VIMCONFIG.'/.doxygen-support.vim/doxygen.templates'
 let g:Doxy_DoxygenExecutable = 'doxygen'
 nnoremap <Leader>xm :<C-u>DxRun<CR>
 nnoremap <Leader>xw :<C-u>DxSelectWorkingDir<CR>
@@ -3688,7 +3658,7 @@ let g:dbext_map_prefix = '<buffer><LocalLeader>'
 let g:dbext_default_type = 'mysql'
 let g:dbext_default_user = readfile($VIMCONFIG.'/.dbext/'.g:dbext_default_type.'.txt')[0]
 let g:dbext_default_passwd = readfile($VIMCONFIG.'/.dbext/'.g:dbext_default_type.'.txt')[1]
-let g:dbext_default_history_file = '$VIMCONFIG/.dbext/dbext_sql_history.txt'
+let g:dbext_default_history_file = $VIMCONFIG.'/.dbext/dbext_sql_history.txt'
 " 3}}} vim-scripts/dbext.vim "
 " 2}}} Database "
 
@@ -3736,7 +3706,7 @@ let g:hardy_arduino_path = 'arduino_debug'
 let g:go_version_warning = 0
 " 3}}} fatih/vim-go "
 " suoto/vim-hdl {{{3 "
-let g:vimhdl_conf_file = '$VIMCONFIG/.vim-hdl/.hdl_checker.config'
+let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
 " 3}}} suoto/vim-hdl "
 " 2}}} Compile "
 
@@ -3763,21 +3733,15 @@ let g:deol#custom_map = {
 let g:deol#extra_options = {
 			\ 'term_finish': 'close',
 			\ }
-nnoremap <Leader>hh :Deol -split=horizontal<CR>
-nnoremap <Leader>hH :Deol -split=horizontal<Space>
-nnoremap <Leader>ho :Deol -split=horizontal octave<CR>
-nnoremap <Leader>hg :Deol -split=horizontal gdb<CR>
-nnoremap <Leader>hp :Deol -split=horizontal python<CR>
-nnoremap <Leader>hj :Deol -split=horizontal node<CR>
-nnoremap <Leader>hn :Deol -split=horizontal nethack<CR>
+nnoremap <Leader>jd :Deol -split=horizontal<Space>
 " 3}}} Shougo/deol.nvim "
 " 2}}} Terminal "
 
 " Tool {{{2 "
 " itchyny/calendar.vim {{{3 "
 let g:calendar_cyclic_view = 1
-let g:calendar_cache_directory = '$VIMDATA/.calendar.vim'
-nnoremap <Leader>jc :Calendar -split=horizontal<CR>
+let g:calendar_cache_directory = $VIMDATA.'/.calendar.vim'
+nnoremap <Leader>jc :Calendar -split=horizontal<Space>
 " 3}}} itchyny/calendar.vim "
 " tyru/open-browser.vim {{{3 "
 nmap g/ <Plug>(openbrowser-smart-search)
@@ -3800,16 +3764,14 @@ nnoremap <Leader>yc :<C-u>VimGameCodeBreak<CR>
 nnoremap <Leader>ys :<C-u>VimGameSnake<CR>
 " 3}}} johngrib/vim-game-snake "
 " deris/vim-duzzle {{{3 "
-nnoremap <Leader>yd :<C-u>DuzzleStart<CR>
 augroup init_duzzle "{{{
 	autocmd!
 	autocmd SourcePre duzzle.vim language message en_US
 augroup END "}}}
+nnoremap <Leader>yd :<C-u>call init#quickui#duzzle#main()<CR>
 " 3}}} deris/vim-duzzle "
 " jmanoel7/vim-games {{{3 "
-nnoremap <Leader>yo :<C-u>Sokoban<CR>
-nnoremap <Leader>yh :<C-u>SokobanH<CR>
-nnoremap <Leader>yv :<C-u>SokobanV<CR>
+nnoremap <Leader>ys :<C-u>call init#quickui#sokoban#main()<CR>
 if has('python')
 	nnoremap <Leader>y1 :<C-u>SudokuEasy<CR>
 	nnoremap <Leader>y2 :<C-u>SudokuMedium<CR>

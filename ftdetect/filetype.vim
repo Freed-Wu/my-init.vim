@@ -25,7 +25,7 @@ autocmd BufRead,BufNewFile *.ipynb execute substitute(expand('%:p:h'), '//', '\'
 
 " Mark_Up {{{1 "
 autocmd BufNewFile,BufRead *.def,*.pgf setfiletype plaintex
-autocmd BufNewFile,BufRead *.out,*.thm,*.eps_tex,*.pygtex,*.pygstyle,*.clo,*.aux,*.brf,*.ind,*.toc,*.lot,*.lof,*.loe,*.nav,*.vrb,*.ins,*.tikz,*.bbx,*.cbx setfiletype tex
+autocmd BufNewFile,BufRead *.inp,*.out,*.thm,*.eps_tex,*.pygtex,*.pygstyle,*.clo,*.aux,*.brf,*.ind,*.toc,*.lot,*.lof,*.loe,*.nav,*.vrb,*.ins,*.tikz,*.bbx,*.cbx setfiletype tex
 autocmd BufNewFile,BufRead *.plg,*.django setfiletype html
 autocmd BufNewFile,BufRead *.ess,*.edje setfiletype css
 autocmd BufNewFile,BufRead *.mtx setfiletype mtx

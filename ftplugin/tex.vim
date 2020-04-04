@@ -2,21 +2,10 @@ if getcwd() !=# expand('%:p:h')
 	setlocal foldlevel=1
 endif
 
-if expand('%') ==# 'main.tex'
-	nnoremap <buffer> <LocalLeader>g :Rooter<CR>:split .latexmkrc<CR>
-else
-	nnoremap <buffer> <LocalLeader>g :Rooter<CR>:split main.tex<CR>
-endif
-
-let g:neoformat_tex_latexindent = {
-			\ 'exe': 'latexindent',
-			\ 'args': ['--logfile=' . g:neoformat_data.'/indent.log', '%'],
-			\ }
 let b:clean_temp = [
 			\ 'missfont.log', 'texput.log', 'mylatexformat.log',
-			\ 'xelatex*.fls', '_markdown_*',
-			\ 'fig/*.dia~', 'fig/*/*.dia~',
-			\ '.vs', '.vscode', '_minted-*', 'cha/_minted-*',
+			\ 'xelatex*.fls', '_markdown_*', '_minted-*',
+			\ '**/*.dia~',
 			\ ]
 
 autocmd! User VimtexEventQuit *.tex call s:close()
@@ -51,15 +40,6 @@ setlocal indentexpr=VimtexIndentExpr()
 
 inoremap <buffer> ; ;<C-g>u
 nnoremap <buffer> gK :silent !texdoc<Space>
-if exists('$MYTEXRC')
-	nnoremap <buffer> gS :split $MYTEXRC<CR>
-elseif has('unix')
-	nnoremap <buffer> gS :split /usr/share/texmf-dist/web2c/texmf.cnf<CR>
-elseif has('win32')
-	nnoremap <buffer> gS :split C:/Program\ Files/texlive/2019/texmf.cnf<CR>
-endif
-nnoremap <buffer> <LocalLeader>c :call init#clean#main(b:clean)<CR>
-nnoremap <buffer> <LocalLeader>b :Rooter<CR>:split bib/main.bib<CR>
 nmap <buffer> <LocalLeader>i <plug>(vimtex-cmd-create)
 xmap <buffer> <LocalLeader>i <plug>(vimtex-cmd-create)
 nmap <buffer> yse <plug>(vimtex-cmd-toggle-star)

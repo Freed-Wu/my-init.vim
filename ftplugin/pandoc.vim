@@ -32,7 +32,6 @@ inoremap <nowait> <buffer> * *
 inoremap <nowait> <buffer> & <Space>&<Space>
 inoremap <nowait> <buffer> <Bar> <Bar>
 nnoremap <buffer> gsp :<C-u>Defx ~/.pandoc<CR>
-nnoremap <buffer> gK :silent !texdoc<Space>
 inoremap <buffer> <C-x><C-x> <Plug>(github-complete-manual-completion)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
 nmap <buffer> <LocalLeader>M :<C-u>Pandoc! pdf --filter pandoc-csv2table<CR>

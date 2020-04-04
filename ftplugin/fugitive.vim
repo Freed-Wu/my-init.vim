@@ -8,10 +8,6 @@ let g:which_key_map_fugitive_r = {
 			\ 'name': "choose a key about rebase",
 			\ }
 
-call which_key#register('c', "g:which_key_map_fugitive_c")
-call which_key#register('d', "g:which_key_map_fugitive_d")
-call which_key#register('r', "g:which_key_map_fugitive_r")
-
 nnoremap <buffer><nowait> c :<C-u>WhichKey 'c'<CR>
 nnoremap <buffer><nowait> d :<C-u>WhichKey 'd'<CR>
 nnoremap <buffer><nowait> r :<C-u>WhichKey 'r'<CR>
