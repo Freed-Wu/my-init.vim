@@ -1107,7 +1107,7 @@ set fileencodings^=utf-8
 if has('iconv') && executable('tellenc')
 	let g:fencview_autodetect = 1
 	let g:fencview_auto_patterns='*.txt,*.md,*.org,*.htm{l\=}'
-	nnoremap <Leader>jf :<C-u>FencView<CR>
+	nnoremap <Leader>xf :<C-u>FencView<CR>
 	"let $FENCVIEW_TELLENC = 'tellenc'
 endif
 " 3}}} vimchina/vim-fencview "
@@ -2459,14 +2459,6 @@ endfor
 for s:num in range(0, 9)
 	let g:startify_custom_indices += ['.' . nr2char(s:num + 48)]
 endfor
-let g:startify_commands = [
-			\ {g:maplocalleader.g:maplocalleader: 'Deol'},
-			\ {g:maplocalleader.'o': 'Deol octave'},
-			\ {g:maplocalleader.'p': 'Deol python'},
-			\ {g:maplocalleader.'n': 'Deol node'},
-			\ {g:maplocalleader.'k': 'Deol nethack'},
-			\ {g:maplocalleader.'c': 'Calendar -position=here'},
-			\ ]
 let g:startify_bookmarks = [
 			\ {g:maplocalleader.'s': '/etc/profile.d/user.sh'},
 			\ {g:maplocalleader.'v': $MYVIMRC},
@@ -2578,11 +2570,28 @@ function! s:bufadd() "{{{
 endfunction "}}}
 " 3}}}  "
 " Shougo/defx.nvim {{{3 "
-nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')`<CR><C-w>=
-nnoremap <Leader>jJ :<C-u>Rooter<CR>:Defx `getcwd()`<CR><C-w>=
-nnoremap <Leader>jk :<C-u>call init#quickui#defx#main()<CR>
-nnoremap <Leader>jK :<C-u>Defx<Space>
+nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')`<CR>
+nnoremap <Leader>jJ :<C-u>Defx `getcwd()`<CR>
+nnoremap <Leader>jk :<C-u>Defx<Space>
+nnoremap <Leader>jz :<C-u>Defx `$HOME`/.local/share/Trash/files<CR>
+nnoremap <Leader>jd :<C-u>Defx `$HOME`/Documents<CR>
+nnoremap <Leader>jq :<C-u>Defx `$QQWORKSPACE`<CR>
+nnoremap <Leader>ju :<C-u>Defx `$UDISK`<CR>
+nnoremap <Leader>jU :<C-u>Defx /mnt/cdrom<CR>
+nnoremap <Leader>jv :<C-u>Defx `$VIMCONFIG`<CR>
+nnoremap <Leader>jp :<C-u>Defx /etc/portage/package.use<CR>
+nnoremap <Leader>jr :<C-u>Defx `$GITHUBWORKSPACE`/`$GITNAME`<CR>
+nnoremap <Leader>jR :<C-u>Defx `$GITWORKSPACE`/.cache/init.vim/.dein<CR>
+nnoremap <Leader>jt :<C-u>Defx `$HOME`/.texlive/texmf-var/tex/latex<CR>
+nnoremap <Leader>jf :<C-u>Defx `$HOME`/.local/share/fonts<CR>
+nnoremap <Leader>jF :<C-u>Defx `$FONTS`<CR>
+nnoremap <Leader>ja :<C-u>Defx `$HOME`/.local/share/applications<CR>
+nnoremap <Leader>jA :<C-u>Defx `$APPLICATIONS`<CR>
+nnoremap <Leader>jx :<C-u>Defx `$HOME`/.local/share/gnome-shell/extensions<CR>
 " 3}}} Shougo/defx.nvim "
+" linjiX/vim-defx-vista {{{3 "
+nnoremap <Leader>xd :<C-u>ToggleDefxVista<CR>
+" 3}}} linjiX/vim-defx-vista "
 " 2}}} FileExplore "
 
 " FileEdit {{{2 "
@@ -2678,7 +2687,7 @@ nnoremap <Leader>gp :Giadd<CR>
 let g:undotree_HelpLine = 0
 let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
 let g:undotree_CustomDiffpanelCmd = 'topleft 5 new'
-nnoremap <Leader>ju :<C-u>UndotreeToggle\| UndotreeFocus<CR>
+nnoremap <Leader>xu :<C-u>UndotreeToggle\| UndotreeFocus<CR>
 set undofile
 set undodir=$VIMDATA/undo
 let g:undotree_HighlightChangedText  = 1
@@ -2714,7 +2723,7 @@ noremap <Leader>lx :GscopeKill<CR>
 let g:vista_sidebar_width = &columns / 4
 let g:vista_fold_toggle_icons = ['', '']
 let g:vista_close_on_jump = 1
-nnoremap <Leader>jv :Vista<CR>
+nnoremap <Leader>xv :Vista<CR>
 " 3}}} liuchengxu/vista.vim "
 " dirn/TODO.vim {{{3 "
 nnoremap <Leader>lo :TODO<CR>
@@ -3538,25 +3547,6 @@ nnoremap ]U :NextWordy<CR>
 
 " Program {{{1 "
 " Document {{{2 "
-" vim-scripts/DoxygenToolkit.vim {{{3 "
-nnoremap <Leader>xx :<C-u>Dox<CR>
-nnoremap <Leader>xa :<C-u>DoxAuthor<CR>
-nnoremap <Leader>xl :<C-u>DoxLic<CR>
-nnoremap <Leader>xu :<C-u>DoxUndoc<CR>
-" 3}}} vim-scripts/DoxygenToolkit.vim "
-" vim-scripts/doxygen-support.vim {{{3 "
-let g:Doxy_GlobalTemplateFile = $VIMCONFIG.'/.doxygen-support.vim/doxygen.templates'
-let g:Doxy_DoxygenExecutable = 'doxygen'
-nnoremap <Leader>xm :<C-u>DxRun<CR>
-nnoremap <Leader>xw :<C-u>DxSelectWorkingDir<CR>
-nnoremap <Leader>xc :<C-u>DxSelectConfigFile<CR>
-nnoremap <Leader>xe :<C-u>DxEditConfigFile<CR>
-nnoremap <Leader>xg :<C-u>DxGenerateConfigFile<CR>
-nnoremap <Leader>xt :<C-u>DxEditLocalTemplates<CR>
-nnoremap <Leader>xT :<C-u>DxEditGlobalTemplates<CR>
-nnoremap <Leader>xr :<C-u>DxReread<CR>
-nnoremap <Leader>xs :<C-u>DxSettings<CR>
-" 3}}} vim-scripts/doxygen-support.vim "
 " 2}}} Document "
 
 " MarkUp {{{2 "
@@ -3603,11 +3593,11 @@ elseif executable('SumatraPDF')
 	let g:vimtex_view_general_options =
 				\ '-reuse-instance -forward-search @tex @line @pdf'
 				\ . ' -inverse-search "gvim --servername '.v:servername
-			\ . ' --remote-send \"^<C-\^>^<C-n^>'
-			\ . ':drop \%f^<CR^>:\%l^<CR^>:normal\! zzzv^<CR^>'
-			\ . ':execute ''drop ''.fnameescape(''\%f'')^<CR^>'
-			\ . ':\%l^<CR^>:normal\! zzzv^<CR^>'
-			\ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
+				\ . ' --remote-send \"^<C-\^>^<C-n^>'
+				\ . ':drop \%f^<CR^>:\%l^<CR^>:normal\! zzzv^<CR^>'
+				\ . ':execute ''drop ''.fnameescape(''\%f'')^<CR^>'
+				\ . ':\%l^<CR^>:normal\! zzzv^<CR^>'
+				\ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
 endif
 let g:vimtex_compiler_latexmk_engines = {
 			\ '_': '-lualatex',
@@ -3733,7 +3723,12 @@ let g:deol#custom_map = {
 let g:deol#extra_options = {
 			\ 'term_finish': 'close',
 			\ }
-nnoremap <Leader>jd :Deol -split=horizontal<Space>
+nnoremap <Leader>hh :Deol -split=horizontal<CR>
+nnoremap <Leader>hH :Deol -split=horizontal<Space>
+nnoremap <Leader>ho :Deol -split=horizontal octave<CR>
+nnoremap <Leader>hp :Deol -split=horizontal python<CR>
+nnoremap <Leader>hj :Deol -split=horizontal node<CR>
+nnoremap <Leader>hn :Deol -split=horizontal nethack<CR>
 " 3}}} Shougo/deol.nvim "
 " 2}}} Terminal "
 
@@ -3741,13 +3736,14 @@ nnoremap <Leader>jd :Deol -split=horizontal<Space>
 " itchyny/calendar.vim {{{3 "
 let g:calendar_cyclic_view = 1
 let g:calendar_cache_directory = $VIMDATA.'/.calendar.vim'
-nnoremap <Leader>jc :Calendar -split=horizontal<Space>
+nnoremap <Leader>xc :Calendar -split=horizontal<CR>
+nnoremap <Leader>xC :Calendar -split=horizontal<Space>
 " 3}}} itchyny/calendar.vim "
 " tyru/open-browser.vim {{{3 "
 nmap g/ <Plug>(openbrowser-smart-search)
 xmap g/ <Plug>(openbrowser-smart-search)
-nnoremap <Leader>jg :<C-u>OpenBrowserSmartSearch<Space>
-nnoremap <Leader>jG :<C-u>OpenBrowserSmartSearch -github<Space>
+nnoremap <Leader>xx :<C-u>OpenBrowserSmartSearch<Space>
+nnoremap <Leader>xX :<C-u>OpenBrowserSmartSearch -github<Space>
 " 3}}} tyru/open-browser.vim "
 " ianding1/leetcode.vim {{{3 "
 let g:leetcode_username = readfile($VIMCONFIG.'/.leetcode.vim/leetcode.txt')[0]

@@ -30,7 +30,7 @@ function! init#which_key#main() "{{{
 				\ 'name': "+VisIncr",
 				\ },
 				\ 'j':{
-				\ 'name': '+jump',
+				\ 'name': '+defx',
 				\ },
 				\ 'k':{
 				\ 'name': '+keymap',
@@ -82,7 +82,7 @@ function! init#which_key#main() "{{{
 				\ 'name': "+vimwiki",
 				\ },
 				\ 'x':{
-				\ 'name': "+doxygen",
+				\ 'name': "+execute",
 				\ },
 				\ 'y':{
 				\ 'name': "+happy",

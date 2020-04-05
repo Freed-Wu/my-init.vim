@@ -2,7 +2,7 @@ let g:which_key_map_startify_dot = {
 			\ 'name': "choose a key about mru & directory",
 			\ }
 
-for s:startify_commands in g:startify_commands
+for s:startify_commands in get(g:, 'startify_commands', [])
 	for [s:startify_command_key, s:startify_command] in items(s:startify_commands)
 		if s:startify_command_key[0] ==# '.'
 			let g:which_key_map_startify_dot = extend(g:which_key_map_startify_dot, {s:startify_command_key[1]: s:startify_command})
@@ -12,7 +12,7 @@ for s:startify_commands in g:startify_commands
 	endfor
 endfor
 
-for b:startify_bookmarks in g:startify_bookmarks
+for b:startify_bookmarks in get(g:, 'startify_bookmarks', [])
 	for [b:startify_bookmark_key, b:startify_bookmark] in items(b:startify_bookmarks)
 		let b:which_key_map_localleader = extend(get(b:, 'which_key_map_localleader', copy(g:which_key_map_localleader)), {b:startify_bookmark_key[1]: b:startify_bookmark})
 	endfor
@@ -34,6 +34,10 @@ function! s:startify() "{{{
 	unmap <buffer> q
 endfunction "}}}
 
+command! -buffer -nargs=* -range -bar -complete=customlist,deol#_complete
+			\ Deol call deol#start(<q-args>.' -split=')
+command! -buffer -nargs=* -complete=customlist,calendar#argument#complete
+			\ Calendar call calendar#new(<q-args>.' -position=here')
 command! -buffer -nargs=? Splash enew
 			\| call splash#command(<q-args>)
 
