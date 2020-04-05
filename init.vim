@@ -250,6 +250,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': 'AnsiEsc',
 				\ })
 	call dein#add('jwalton512/vim-blade')
+	call dein#add('rdolgushin/gitignore.vim')
 	" 5}}} SyntaxMarkUp "
 
 	" SyntaxScript {{{5 "
@@ -330,14 +331,14 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	" 5}}} FileExplore "
 
-	" FileEdit {{{5 "
+	" FieEdit {{{5 "
 	call dein#add('airblade/vim-rooter')
 	call dein#add('mhinz/vim-hugefile')
 	call dein#add('derekwyatt/vim-fswitch', {
 				\ 'on_cmd': ['FSHere', 'FSLeft', 'FSSplitLeft', 'FSRight', 'FSSplitRight', 'FSBelow', 'FSSplitBelow', 'FSAbove', 'FSSplitAbove'],
 				\ })
-	call dein#add('danro/rename.vim', {
-				\ 'on_cmd': 'Rename',
+	call dein#add('tpope/vim-eunuch', {
+				\ 'on_cmd': ['Delete', 'Unlink', 'Move', 'Rename', 'Chmod', 'Mkdir', 'Cfind', 'Clocate', 'Lfind', 'Llocate', 'Wall', 'SudoWrite', 'SudoEdit'],
 				\ })
 	call dein#add('pbrisbin/vim-mkdir')
 	call dein#add('will133/vim-dirdiff', {
@@ -526,7 +527,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_func': 'TextObjWordBasedColumn',
 				\ })
 	call dein#add('saaguero/vim-textobj-pastedtext', {
-				\ 'on_map': {'o': 'gb', 'x': 'gb', 'n': 'gb'},
+				\ 'on_map': {'o': 'gb', 'x': 'gb'},
 				\ })
 	" 5}}} TextObjSymbol "
 
@@ -784,7 +785,12 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_source': 'omnisharp-vim',
 				\ 'on_func': ['deoplete#custom#var', 'deoplete#custom#option'],
 				\ })
-	call dein#add('chrisbra/unicode.vim')
+	call dein#add('chrisbra/unicode.vim', {
+				\ 'on_map': {'i': '<C-x>'},
+				\ })
+	call dein#add('ararslan/license-to-vim', {
+				\ 'on_cmd': ['License', 'Stub'],
+				\ })
 	" 5}}} Complete "
 
 	" Snippet {{{5 "
@@ -1137,12 +1143,14 @@ let g:activity_log_location = $VIMDATA.'/.vim-activity-log/%Y/%m/%d.log'
 if has('python3')
 	" voldikss/vim-translator {{{3 "
 	let g:translator_history_enable = 1
-	nmap <Leader>tt <Plug>Translate
-	xmap <Leader>tt <Plug>TranslateV
-	nnoremap <Leader>tT :Translate -w<Space>
-	nmap <Leader>tw <Plug>TranslateW
-	xmap <Leader>tw <Plug>TranslateWV
-	nnoremap <Leader>tW :TranslateW -w<Space>
+	let g:translator_default_engines = ['google', 'bing', 'ciba', 'youdao', executable('trans')? 'trans': '', executable('sdcv')? 'sdcv': '']
+	let g:translator_window_borderchars = v:null
+	nmap <Leader>te <Plug>Translate
+	xmap <Leader>te <Plug>TranslateV
+	nnoremap <Leader>tR :Translate -w<Space>
+	nmap <Leader>tt <Plug>TranslateW
+	xmap <Leader>tt <Plug>TranslateWV
+	nnoremap <Leader>tT :TranslateW -w<Space>
 	nmap <Leader>tr <Plug>TranslateR
 	xmap <Leader>tr <Plug>TranslateRV
 	nnoremap <Leader>tR :TranslateR -w<Space>
@@ -1160,7 +1168,7 @@ nnoremap gO i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv{O<Esc>:let @/ = ''<CR>o
 nnoremap go i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv}O<Esc>:let @/ = ''<CR>o
 nnoremap S dhi
 nnoremap ~ "ayl:execute @a =~ '\a'?'normal! ~':'let @+ = @a'<CR>
-xnoremap <C-t> <Esc>`.``gvp``:execute 'normal! '.((&virtualedit =~ 'onemore' && col('.') ==# col('$') - 1)?'p':'P')<CR><CR>
+xnoremap <C-t> <Esc>`.``gvp``:execute 'normal! '.((&virtualedit =~ 'onemore' && col('.') ==# col('$') - 1)?'p':'P')<CR>
 cnoremap <M-q> <C-u>visual<CR>
 nnoremap g. :<C-u>execute v:count?v:count.'go':''<CR><C-g>
 xnoremap g. go
@@ -1796,7 +1804,6 @@ endfor
 let g:quickui_color_scheme = g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)]
 nnoremap <Leader>qq :<C-u>call quickui#menu#open()<CR>
 nnoremap <Leader>qf :<C-u>call quickui#tools#list_function()<CR>
-nnoremap <Leader>q? :<C-u>call quickui#tools#display_help('index')<CR>
 nnoremap <Leader>qt :<C-u>call quickui#tools#preview_tag('')<CR>
 nnoremap <Leader>q` :<C-u>call QuickThemeChange(g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)])<CR>
 " 3}}} skywind3000/vim-quickui "
@@ -2385,21 +2392,11 @@ let g:todo#suffix = ''
 
 " UI {{{2 "
 "  {{{3 "
-if has('gui_running')
-	if has('win32')
-		augroup init_simalt "{{{
-			autocmd!
-			autocmd VimEnter * simalt ~x
-		augroup END "}}}
-	else
-		set columns=170
-	endif
-else
-	set columns=168
-	augroup init_curosr "{{{
+set columns=999
+if has('gui_running') && has('win32')
+	augroup init_simalt "{{{
 		autocmd!
-		autocmd InsertEnter * silent !gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam
-		autocmd InsertLeave * silent !gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block
+		autocmd VimEnter * simalt ~x
 	augroup END "}}}
 endif
 set lines=99
@@ -2409,7 +2406,7 @@ set cursorline
 set number
 set relativenumber
 set listchars=extends:→,precedes:←,nbsp:+
-execute 'set fillchars=vert:\|,fold:'.get(g:, 'airline#extensions#tabline#overflow_marker', '…')
+execute 'set fillchars=vert:\|,fold:' . get(g:, 'airline#extensions#tabline#overflow_marker', '…')
 set display=uhex
 set mouse=a
 set whichwrap+=h,l,<,>,~,[,]
@@ -2444,7 +2441,7 @@ nnoremap <Leader>ol :Limelight!!<CR>
 " 3}}} junegunn/limelight.vim "
 " thinca/vim-splash {{{3 "
 let g:splash#path = $VIMCONFIG.'/vim-splash/Yoda.txt'
-nnoremap <Leader>sP :<C-u>Splash $VIMCONFIG/vim-splash/
+nnoremap <Leader>sq :<C-u>call init#quickui#splash#main()<CR>
 nnoremap <Leader>sp :<C-u>Splash<CR>
 " 3}}} thinca/vim-splash "
 " mhinz/vim-startify {{{3 "
@@ -2496,6 +2493,7 @@ nnoremap <Leader>ss :<C-u>call init#startify#main()<CR>
 
 " SyntaxMarkUp {{{2 "
 "  {{{3 "
+command! -nargs=1 Help call init#help#main(<q-args>)
 set keywordprg=:Man
 let g:tex_flavor = 'latex'
 let g:filetype_m = 'octave'
@@ -2570,7 +2568,7 @@ function! s:bufadd() "{{{
 endfunction "}}}
 " 3}}}  "
 " Shougo/defx.nvim {{{3 "
-nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')`<CR>
+nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h')`<CR>
 nnoremap <Leader>jJ :<C-u>Defx `getcwd()`<CR>
 nnoremap <Leader>jk :<C-u>Defx<Space>
 nnoremap <Leader>jz :<C-u>Defx `$HOME`/.local/share/Trash/files<CR>
@@ -2608,17 +2606,26 @@ let g:rooter_patterns = [
 let g:rooter_silent_chdir = 1
 let g:rooter_use_lcd = 1
 let g:rooter_resolve_links = 1
-nnoremap <Leader>vr :Rooter<CR>
+nnoremap <Leader>bb :Rooter<CR>
 " 3}}} airblade/vim-rooter "
 " mhinz/vim-hugefile {{{3 "
 nnoremap <Leader>oh :HugefileToggle<CR>
 let g:hugefile_trigger_size = 5
 " 3}}} mhinz/vim-hugefile "
-" danro/rename.vim {{{3 "
-nnoremap <M-s> :<C-u>Rename<Space>
-" 3}}} danro/rename.vim "
+" tpope/vim-eunuch {{{3 "
+nnoremap <Leader>bc :<C-u>Chmod<Space>
+nnoremap <Leader>br :<C-u>Rename<Space>
+nnoremap <Leader>bm :<C-u>Mkdir<Space>
+nnoremap <Leader>bq :<C-u>Cfind<Space>
+nnoremap <Leader>bl :<C-u>Lfind<Space>
+nnoremap <Leader>bq :<C-u>Clocate<Space>
+nnoremap <Leader>bl :<C-u>Llocate<Space>
+nnoremap <Leader>bE :<C-u>SudoEdit<Space>
+nnoremap <Leader>bW :<C-u>SudoWrite<CR>
+nnoremap <Leader>bw :<C-u>Wall<CR>
+" 3}}} tpope/vim-eunuch "
 " will133/vim-dirdiff {{{3 "
-nnoremap <Leader>v- :<C-u>DirDiff<Space>
+nnoremap <Leader>bd :<C-u>DirDiff<Space>
 " 3}}} will133/vim-dirdiff "
 " 2}}} FileEdit "
 
@@ -2746,6 +2753,7 @@ if has('python') || has('python3')
 	let g:Lf_CacheDirectory = $VIMDATA
 	let g:Lf_DevIconsExactSymbols = g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols
 	let g:Lf_DevIconsExtensionSymbols = g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols
+	let g:Lf_UseVersionControlTool = 0
 	let g:Lf_WildIgnore = {
 				\ 'dir': ['.svn', '.git', '.hg'],
 				\ 'file': ['*.sw?', '~$*', '*.bak', '*.exe', '*.o', '*.so', '*.py[co]'],
@@ -3059,6 +3067,9 @@ onoremap A<Tab> :<C-u>call TextObjWordBasedColumn("aW")<CR>
 onoremap i<Tab> :<C-u>call TextObjWordBasedColumn("iw")<CR>
 onoremap I<Tab> :<C-u>call TextObjWordBasedColumn("iW")<CR>
 " 3}}} coderifous/textobj-word-column.vim "
+" saaguero/vim-textobj-pastedtext {{{3 "
+nmap gb vgb
+" 3}}} saaguero/vim-textobj-pastedtext "
 " 2}}} TextObjSymbol "
 
 " TextObjSyntax {{{2 "
@@ -3553,9 +3564,9 @@ nnoremap ]U :NextWordy<CR>
 " lervag/vimtex {{{3 "
 let g:vimtex_imaps_enabled = 0
 let g:vimtex_mappings_disable = {
-			\ 'n': ['ds$', 'cs$', 'tsc', 'tse', 'tsd', 'tsD', '<F7>', 'K',],
-			\ 'x': ['<F7>', 'tsd', 'tsD',],
-			\ 'i': ['<F7>', 'tsD',],
+			\ 'n': ['ds$', 'cs$', 'tsc', 'tse', 'tsd', 'tsD', '<F7>', 'K'],
+			\ 'x': ['<F7>', 'tsd', 'tsD'],
+			\ 'i': ['<F7>', 'tsD'],
 			\ }
 let g:vimtex_env_change_autofill = 1
 let g:vimtex_fold_enabled = 1
@@ -3660,9 +3671,9 @@ let g:pymode_breakpoint_bind = '<LocalLeader>b'
 let g:pymode_run_bind = '<LocalLeader>m'
 let g:pymode_lint = 0
 let g:pymode_motion = 0
-let g:pymode_indent = 0
 let g:pymode_folding = 1
 let g:pymode_rope = 1
+let g:pymode_doc = 0
 let g:pymode_rope_lookup_project = 1
 let g:pymode_rope_show_doc_bind = '<LocalLeader>d'
 let g:pymode_rope_regenerate_on_write = 0
@@ -3722,13 +3733,14 @@ let g:deol#custom_map = {
 			\ }
 let g:deol#extra_options = {
 			\ 'term_finish': 'close',
+			\ 'curwin': 0,
 			\ }
-nnoremap <Leader>hh :Deol -split=horizontal<CR>
-nnoremap <Leader>hH :Deol -split=horizontal<Space>
-nnoremap <Leader>ho :Deol -split=horizontal octave<CR>
-nnoremap <Leader>hp :Deol -split=horizontal python<CR>
-nnoremap <Leader>hj :Deol -split=horizontal node<CR>
-nnoremap <Leader>hn :Deol -split=horizontal nethack<CR>
+nnoremap <Leader>hh :Deol<CR>
+nnoremap <Leader>hd :Deol<Space>
+nnoremap <Leader>ho :Deol octave<CR>
+nnoremap <Leader>hp :Deol python<CR>
+nnoremap <Leader>hj :Deol node<CR>
+nnoremap <Leader>hn :Deol nethack<CR>
 " 3}}} Shougo/deol.nvim "
 " 2}}} Terminal "
 

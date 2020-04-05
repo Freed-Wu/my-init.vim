@@ -6,6 +6,7 @@ call vimtex#init()
 
 setlocal foldmethod=syntax
 setlocal makeprg=octave\ %:p
+setlocal keywordprg=:Help
 setlocal fileencoding=utf-8
 if exists('$OCTAVERUNTIME')
 	setlocal runtimepath+=$OCTAVERUNTIME/**2

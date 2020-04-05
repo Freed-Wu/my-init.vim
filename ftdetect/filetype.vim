@@ -11,8 +11,8 @@ autocmd BufNewFile,BufRead *.txt execute 'set filetype='.(expand('%:p:t') == 'do
 " 1}}} Text "
 
 " Data_Exchange {{{1 "
-autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf, setfiletype dosini
-autocmd BufNewFile,BufRead .gitignore,*.ctags,*doxyfile,zathurarc setfiletype conf
+autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf setfiletype dosini
+autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc setfiletype conf
 autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 autocmd BufNewFile,BufRead tags,tags-*,*.tags,*.tags.temp setfiletype tags
 autocmd BufNewFile,BufRead *.sublime-project,*.vsconfig,*.jscsrc,*.jshintrc,*.plan setfiletype json

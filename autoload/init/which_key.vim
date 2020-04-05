@@ -8,6 +8,9 @@ function! init#which_key#main() "{{{
 				\ 'a':{
 				\ 'name': '+ale',
 				\ },
+				\ 'b':{
+				\ 'name': '+eunuch',
+				\ },
 				\ 'c':{
 				\ 'name':'+NERDCommentor',
 				\ },

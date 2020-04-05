@@ -1,5 +1,6 @@
 let g:neoformat_enabled_python = ['yapf']
 let b:dir = ['\.ropeproject']
+let g:pymode_doc_bind = ''
 
 call textobj#user#map('python', {
 			\   'class': {
@@ -16,6 +17,8 @@ call textobj#user#map('python', {
 			\   }
 			\ })
 
+setlocal keywordprg=:Help
+
 "nnoremap <buffer> <LocalLeader>l :call LanguageClient_contextMenu()<CR>
 "nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
 "nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
@@ -27,5 +30,4 @@ nnoremap <buffer> <LocalLeader>c :PymodeRopeModuleToPackage<CR>
 nnoremap <buffer> <LocalLeader>n :PymodeRopeNewProject<CR>
 nnoremap <buffer> <LocalLeader>R :PymodeRopeRenameModule<CR>
 nnoremap <buffer> <LocalLeader>G :PymodeRopeRegenerate<CR>
-nnoremap <buffer> gK :PymodeDoc<Space>
 

@@ -1,10 +1,23 @@
 call init#map#main()
 
-command! -buffer -nargs=? Deol terminal
+command! -buffer -nargs=? Deol terminal ++close <q-args>
 
 setlocal nowrap
 setlocal scrolloff=0
-setlocal path+=/etc/portage/package.use/**
+
+if expand('%:p:t') ==# '!octave'
+	if exists('$OCTAVERUNTIME')
+		setlocal path+=$OCTAVERUNTIME
+	elseif has('unix')
+		setlocal path+=/usr/share/octave/5.1.0/m/**
+	elseif has('win32')
+		setlocal path+=C:/Program\ Files/octave/5.1.0/m/**
+	endif
+endif
+
+if expand('%:p:t') ==# '!zsh'
+	setlocal path+=/etc/portage/package.use/**
+endif
 
 if has('unix')
 	nnoremap <buffer> <C-q> i<C-c><C-u><C-d>
@@ -103,5 +116,4 @@ if !exists('g:terminal_map')
 	tnoremap <M-S-z> <Esc>Z
 	let g:terminal_map = 1
 endif
-nnoremap <buffer> <Leader>jj :<C-u>Rooter<CR>:Defx `getcwd()`<CR><C-w>=
 

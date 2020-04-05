@@ -1,6 +1,10 @@
 let g:which_key_map_startify_dot = {
 			\ 'name': "choose a key about mru & directory",
 			\ }
+let b:deol_extra_options = {
+			\ 'term_finish': 'close',
+			\ 'curwin': 1,
+			\ }
 
 for s:startify_commands in get(g:, 'startify_commands', [])
 	for [s:startify_command_key, s:startify_command] in items(s:startify_commands)

@@ -10,9 +10,3 @@ if expand('%:t') == 'Doxyfile'
 	let b:clean_dir_all = b:clean_dir + ['doc']
 endif
 
-if expand('%:t') == '.gitignore'
-	nnoremap <buffer> <LocalLeader>g :Defx `$HOME.'/.gitconfig'`
-	inoremap <nowait><buffer> ! !<C-g>u
-	inoremap <nowait><buffer> * *
-endif
-
