@@ -155,7 +155,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_map': '<Plug>Fontsize',
 				\ })
 	call dein#add('Godlygeek/csapprox', {
-				\ 'on_if': !has("gui_running"),
+				\ 'on_if': !has('gui_running'),
 				\ })
 	" 5}}} Colorscheme "
 
@@ -790,6 +790,7 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('ararslan/license-to-vim', {
 				\ 'on_cmd': ['License', 'Stub'],
+				\ 'on_func': 'LicenseComplete',
 				\ })
 	" 5}}} Complete "
 
@@ -1122,9 +1123,9 @@ endif
 " Help {{{2 "
 " Shougo/echodoc.vim {{{3 "
 if !has('nvim')
-	let g:echodoc#type = "floating"
+	let g:echodoc#type = 'floating'
 else
-	let g:echodoc#type = "popup"
+	let g:echodoc#type = 'popup'
 endif
 " To use echodoc, you must increase 'cmdheight' value.
 "set cmdheight=2 " 设置命令行的高度
@@ -1928,7 +1929,7 @@ let g:available_airline_themes += ['bubblegum']
 let g:available_airline_themes += ['badcat']
 let g:which_key_map_leader = {}
 for s:indexColorscheme in range(min([len(g:available_colorschemes), 10]))
-	let g:which_key_map_leader[s:indexColorscheme] = {'name': "+".g:available_colorschemes[s:indexColorscheme]}
+	let g:which_key_map_leader[s:indexColorscheme] = {'name': '+'.g:available_colorschemes[s:indexColorscheme]}
 	for s:indexAirline in range(min([len(g:available_airline_themes), 10]))
 		execute 'nnoremap <Leader>'.s:indexColorscheme.s:indexAirline.' :colorscheme '.g:available_colorschemes[s:indexColorscheme].'\| AirlineTheme '.g:available_airline_themes[s:indexAirline].'<CR>'
 		let g:which_key_map_leader[s:indexColorscheme][''.s:indexAirline] = g:available_airline_themes[s:indexAirline]
@@ -2325,12 +2326,12 @@ let g:airline#extensions#quickfix#location_text = ''
 " vimtex {{{ "
 let g:airline#extensions#vimtex#left = get(g:, 'airline_alt_left_sep', '')
 let g:airline#extensions#vimtex#right = get(g:, 'airline_alt_right_sep', '')
-let g:airline#extensions#vimtex#main = ""
-let g:airline#extensions#vimtex#sub_main = ""
-let g:airline#extensions#vimtex#sub_local = ""
-let g:airline#extensions#vimtex#compiled = "✔"
-let g:airline#extensions#vimtex#continuous = ""
-let g:airline#extensions#vimtex#viewer = ""
+let g:airline#extensions#vimtex#main = ''
+let g:airline#extensions#vimtex#sub_main = ''
+let g:airline#extensions#vimtex#sub_local = ''
+let g:airline#extensions#vimtex#compiled = '✔'
+let g:airline#extensions#vimtex#continuous = ''
+let g:airline#extensions#vimtex#viewer = ''
 " }}} vimtex "
 " tabline {{{ "
 let g:airline#extensions#tabline#enabled = 1
@@ -2423,7 +2424,7 @@ augroup init_vim "{{{
 	autocmd BufWrite * cclose
 augroup END "}}}
 function! init#locate() "{{{
-	if line("'\"") > 1 && line("'\"") <= line("$")
+	if line("'\"") > 1 && line("'\"") <= line('$')
 		execute 'normal! g`"'
 	endif
 endfunction "}}}
@@ -2469,7 +2470,7 @@ augroup init_Startify "{{{
 	autocmd VimEnter * call s:cowsay()
 augroup END "}}}
 function! s:cowsay() "{{{
-	if &filetype == ''
+	if &filetype ==# ''
 		let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
 	endif
 endfunction "}}}
@@ -2551,7 +2552,7 @@ let g:fastfold_fold_command_suffixes = [
 " File {{{1 "
 " FileExplore {{{2 "
 "  {{{3 "
-set dir=$VIMDATA/swap
+set directory=$VIMDATA/swap
 let g:netrw_home = $VIMDATA
 let g:netrw_nogx = 1
 let g:netrw_altfile = 1
@@ -2744,6 +2745,7 @@ if has('python') || has('python3')
 				\ 'left': get(g:, 'airline_left_sep', ''),
 				\ 'right': get(g:, 'airline_right_sep', ''),
 				\ }
+	let g:Lf_RootMarkers = g:rooter_patterns
 	let g:Lf_ShortcutF = '<Leader>ff'
 	let g:Lf_ShortcutB = '<Leader>fb'
 	let g:Lf_StlColorscheme = 'gruvbox_material'
@@ -2781,6 +2783,25 @@ if has('python') || has('python3')
 				\ '<C-Up>': ['<C-t>'],
 				\ '<C-Down>': ['<C-v>'],
 				\ }
+	let g:Lf_NormalMap = {
+				\ 'File': [
+				\ ['i', ':exec g:Lf_py b:Lf_AnyExplManager."accept(''h'')"<CR>'],
+				\ ['<F6>', ':exec g:Lf_py "bufExplManager.quit()"<CR>'],
+				\ ['I', ':exec g:Lf_py b:Lf_AnyExplManager."accept(''v'')"<CR>'],
+				\ ['O', ':exec g:Lf_py b:Lf_AnyExplManager."accept(''t'')"<CR>'],
+				\ ['o', ':exec g:Lf_py b:Lf_AnyExplManager."accept()"<CR>'],
+				\ ],
+				\ 'Buffer': [[]],
+				\ 'Mru': [[]],
+				\ 'Tag': [],
+				\ 'BufTag': [],
+				\ 'Function': [],
+				\ 'Line': [],
+				\ 'History': [],
+				\ 'Help': [],
+				\ 'Self': [],
+				\ 'Colorscheme': []
+				\ }
 	nnoremap <Leader>f<Tab> :<C-u>Leaderf self<CR>
 	nnoremap <Leader>ff :<C-u>Leaderf file<CR>
 	nnoremap <Leader>ft :<C-u>Leaderf filetype<CR>
@@ -2812,6 +2833,9 @@ endif
 " 2}}} FuzzyFind "
 
 " MarkExplore {{{2 "
+" kshenoy/vim-signature {{{3 "
+nmap m<Tab> dm
+" 3}}} kshenoy/vim-signature "
 " 2}}} MarkExplore "
 
 " Move {{{2 "
@@ -3463,6 +3487,11 @@ if has('python') || has('python3')
 	endif
 	" 3}}} Shougo/deoplete.nvim "
 endif
+" ararslan/license-to-vim {{{3 "
+let g:license_email = $GITNAME
+let g:license_author = $EMAIL
+nnoremap <Leader>el :<C-u>call init#quickui#license#main()<CR>
+" 3}}} ararslan/license-to-vim "
 " 2}}} Complete "
 
 " Snippet {{{3 "
@@ -3735,13 +3764,29 @@ let g:deol#extra_options = {
 			\ 'term_finish': 'close',
 			\ 'curwin': 0,
 			\ }
-nnoremap <Leader>hh :Deol<CR>
+execute 'nnoremap <Leader>hh :Deol '. &shell .'<CR>'
 nnoremap <Leader>hd :Deol<Space>
 nnoremap <Leader>ho :Deol octave<CR>
 nnoremap <Leader>hp :Deol python<CR>
 nnoremap <Leader>hj :Deol node<CR>
 nnoremap <Leader>hn :Deol nethack<CR>
 " 3}}} Shougo/deol.nvim "
+" sillybun/vim-repl {{{3 "
+let g:repl_program = {
+			\ 'default': &shell,
+			\ 'sh': 'bash',
+			\ 'bash': 'bash',
+			\ 'dosbatch': 'cmd',
+			\ 'ps1': 'powershell',
+			\ 'octave': 'octave',
+			\ 'gnuplot': 'gnuplot',
+			\ 'tex': 'lualatex -shell-escape',
+			\ }
+let g:repl_python_automerge = 1
+let g:repl_position = 1
+nnoremap <Leader>h<Tab> :<C-u>REPLToggle<CR>
+let g:sendtorepl_invoke_key = '<C-CR>'
+" 3}}} sillybun/vim-repl "
 " 2}}} Terminal "
 
 " Tool {{{2 "

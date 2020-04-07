@@ -19,6 +19,7 @@ setlocal foldtext=foldtext()
 setlocal foldlevel=1
 setlocal makeprg=pandoc\ -o\ %<.pdf\ %\ --filter\ pandoc-csv2table
 setlocal include=^\\s*!
+setlocal iskeyword+=-
 
 if executable('tree')
 	if has('unix')

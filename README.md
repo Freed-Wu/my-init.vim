@@ -35,8 +35,8 @@ hotkey prompt.
 
 ### Plugin ###
 
-```{vim}
-if dein#load_state($GITWORKSPACE) && !v:vim_did_enter
+```vim
+if dein#load_state($GITWORKSPACE)
 	call dein#begin($GITWORKSPACE)
 
 	"add user/plugin below
