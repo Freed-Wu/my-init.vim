@@ -8,8 +8,11 @@ let b:clean_temp = [
 			\ '**/*.dia~',
 			\ ]
 
-autocmd! User VimtexEventQuit *.tex call s:close()
-			\| call init#clean#main(b:clean_temp)
+augroup tex "{{{
+	autocmd!
+	autocmd User VimtexEventQuit *.tex call s:close()
+				\| call init#clean#main(b:clean_temp)
+augroup END "}}}
 
 function! s:close() "{{{
 	if executable('xdotool') && exists('b:vimtex') && exists('b:vimtex.viewer') && b:vimtex.viewer.xwin_id > 0

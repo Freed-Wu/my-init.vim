@@ -5,8 +5,6 @@ let b:clean_temp = [
 			\ ]
 let b:clean = b:clean_temp + ['*.exe', '*.out', '*.dll']
 
-autocmd! BufWinLeave *.cpp,*.hpp,*.h call init#clean#main(b:clean_temp)
-
 call c#map#main()
 
 setlocal makeprg=clang\ %\ -o\ %<.exe

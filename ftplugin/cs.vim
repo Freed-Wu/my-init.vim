@@ -11,8 +11,6 @@ if has('unix') || has('mac')
 	let g:OmniSharp_server_use_mono = 1
 endif
 
-autocmd! BufWinLeave *.cs,*.hpp,*.h call init#clean#main(b:clean_temp)
-
 "call deoplete#custom#option('sources', {
 			"\ 'cs': ['omnisharp'],
 			"\ })

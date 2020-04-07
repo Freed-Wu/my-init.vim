@@ -8,7 +8,11 @@ source <sfile>:p:h/vim.vim
 
 setlocal nonumber
 setlocal norelativenumber
-setlocal buftype=help
+if &buftype !=# 'help'
+	setlocal foldlevel=99
+else
+	setlocal buftype=help
+endif
 setlocal formatexpr=bucky#md#format()
 setlocal foldmethod=expr
 setlocal iskeyword+=-

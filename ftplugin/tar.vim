@@ -1,8 +1,8 @@
-if expand('%') =~ 'xls'
+if expand('%') =~# 'xls'
 	nnoremap <buffer> <C-r> :ExcelView %<CR>
 endif
 
-if expand('%') =~ 'jar'
+if expand('%') =~# 'jar'
 	setlocal makeprg=java\ -jar\ %:p
 else
 	setlocal makeprg=7z\ x\ %:p

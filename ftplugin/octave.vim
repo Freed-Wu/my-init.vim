@@ -1,4 +1,4 @@
-if expand('%:') =~ '.*tab.*plot\.m'
+if expand('%:') =~# '.*tab.*plot\.m'
 	nnoremap <buffer> <LocalLeader>b gg:/fpath<CR>f'<C-w>f
 endif
 

@@ -1,11 +1,11 @@
 let g:which_key_map_fugitive_c = {
-			\ 'name': "choose a key about commit",
+			\ 'name': 'choose a key about commit',
 			\ }
 let g:which_key_map_fugitive_d = {
-			\ 'name': "choose a key about diff",
+			\ 'name': 'choose a key about diff',
 			\ }
 let g:which_key_map_fugitive_r = {
-			\ 'name': "choose a key about rebase",
+			\ 'name': 'choose a key about rebase',
 			\ }
 
 nnoremap <buffer><nowait> c :<C-u>WhichKey 'c'<CR>

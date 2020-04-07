@@ -7,7 +7,6 @@ elseif expand('%:p') == g:vimpyter_view_directory
 endif
 
 let b:clean_temp = ['.ipynb_checkpoints']
-autocmd! BufWinLeave *.ipynb call init#clean#main(b:clean_temp)
 
 nnoremap <buffer> gs :VimpyterStartJupyter<CR>
 nnoremap <buffer> gS :VimpyterStartNteract<CR>

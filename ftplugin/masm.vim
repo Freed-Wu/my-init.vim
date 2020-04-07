@@ -4,12 +4,10 @@ let b:clean_temp = [
 			\ ]
 let b:clean = b:clean_temp + ['*.exe', '*.out', '*.dll']
 
-autocmd! BufWinLeave *.asm call init#clean#main(b:clean)
-
-nnoremap <buffer> gS :split $HOME/.dosbox/*.conf<CR>
+nnoremap <buffer> gS :sfind $HOME/.dosbox/*.conf<CR>
 if exists('$DOSBOXWORKSPACE')
-	nnoremap <buffer> gs :Defx -new -auto-cd $DOSBOXWORKSPACE<CR>
+	nnoremap <buffer> gs :Defx $DOSBOXWORKSPACE<CR>
 else
-	nnoremap <buffer> gs :Defx -new -auto-cd $HOME/.dosbox<CR>
+	nnoremap <buffer> gs :Defx $HOME/.dosbox<CR>
 endif
 

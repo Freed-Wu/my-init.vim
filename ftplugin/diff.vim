@@ -1,4 +1,4 @@
-if expand('%:p:h') =~ 'diffpanel_3'
+if expand('%:p:h') =~# 'diffpanel_3'
 	setlocal readonly
 	setlocal nomodifiable
 endif

@@ -15,8 +15,6 @@ let b:clean_temp = [
 			\ ]
 let b:clean = b:clean_temp + ['*.exe', '*.out', '*.dll']
 
-autocmd! BufWinLeave *.c,*.h call init#clean#main(b:clean_temp)
-
 source $GITHUBWORKSPACE/LucHermitte/VimFold4C/ftplugin/c/c-fold.vim
 
 call c#map#main()

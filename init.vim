@@ -1144,6 +1144,8 @@ let g:activity_log_location = $VIMDATA.'/.vim-activity-log/%Y/%m/%d.log'
 if has('python3')
 	" voldikss/vim-translator {{{3 "
 	let g:translator_history_enable = 1
+	let g:translator_window_max_width = &columns
+	let g:translator_window_max_height = &lines
 	let g:translator_default_engines = ['google', 'bing', 'ciba', 'youdao', executable('trans')? 'trans': '', executable('sdcv')? 'sdcv': '']
 	let g:translator_window_borderchars = v:null
 	nmap <Leader>te <Plug>Translate
@@ -2616,6 +2618,7 @@ let g:hugefile_trigger_size = 5
 " tpope/vim-eunuch {{{3 "
 nnoremap <Leader>bc :<C-u>Chmod<Space>
 nnoremap <Leader>br :<C-u>Rename<Space>
+nnoremap <Leader>bX :<C-u>Delete<CR>
 nnoremap <Leader>bm :<C-u>Mkdir<Space>
 nnoremap <Leader>bq :<C-u>Cfind<Space>
 nnoremap <Leader>bl :<C-u>Lfind<Space>
@@ -2641,6 +2644,7 @@ set confirm
 nnoremap <Leader>gC :call init#clean#main(g:clean)<CR>
 let g:clean = ['.git', '.svn']
 nnoremap <Leader>gD :call init#clean#main(get(b:, 'clean', []))<CR>
+nnoremap <Leader>gX :call init#clean#main(get(b:, 'clean_temp', []))<CR>
 " 3}}}  "
 " tpope/vim-fugitive {{{3 "
 nnoremap <Leader>gg :G<CR>
@@ -3774,13 +3778,59 @@ nnoremap <Leader>hn :Deol nethack<CR>
 " sillybun/vim-repl {{{3 "
 let g:repl_program = {
 			\ 'default': &shell,
-			\ 'sh': 'bash',
-			\ 'bash': 'bash',
-			\ 'dosbatch': 'cmd',
-			\ 'ps1': 'powershell',
+			\ 'sh': executable('sh')? 'sh': &shell,
+			\ 'bash': executable('bash')? 'bash': &shell,
+			\ 'csh': executable('csh')? 'csh': &shell,
+			\ 'ksh': executable('ksh')? 'ksh': &shell,
+			\ 'wsh': executable('wsh')? 'wsh': &shell,
+			\ 'mash': executable('mash')? 'mash': &shell,
+			\ 'tcsh': executable('tcsh')? 'tcsh': &shell,
+			\ 'gnash': executable('gnash')? 'gnash': &shell,
+			\ 'fish': executable('fish')? 'fish': &shell,
+			\ 'zsh': executable('zsh')? 'zsh': &shell,
+			\ 'dosbatch': executable('cmd')? 'cmd': &shell,
+			\ 'ps1': executable('powershell')? 'powershell': &shell,
 			\ 'octave': 'octave',
+			\ 'matlab': 'matlab',
 			\ 'gnuplot': 'gnuplot',
+			\ 'spice': 'spice',
+			\ 'pdf': 'pdftk -',
+			\ 'pandoc': 'pandoc -f markdown -',
+			\ 'markdown': 'pandoc -f markdown_strict -',
+			\ 'gfimarkdown': 'pandoc -f markdown_github -',
+			\ 'commonmark': 'pandoc -f commonmark -',
+			\ 'docbook': 'pandoc -f docbook -',
+			\ 'docx': 'pandoc -f docx -',
+			\ 'epub': 'pandoc -f epub -',
+			\ 'haddock': 'pandoc -f haddock -',
+			\ 'html': 'pandoc -f html -',
+			\ 'json': 'pandoc -f json -',
+			\ 'markdown_mmd': 'pandoc -f markdown_mmd -',
+			\ 'markdown_phpextra': 'pandoc -f markdown_phpextra -',
+			\ 'vimwiki': 'pandoc -f mediawiki -',
+			\ 'text': 'pandoc -f native -',
+			\ 'txt': 'pandoc -f native -',
+			\ 'odt': 'pandoc -f odt -',
+			\ 'opml': 'pandoc -f opml -',
+			\ 'org': 'pandoc -f org -',
+			\ 'rst': 'pandoc -f rst -',
+			\ 't2t': 'pandoc -f t2t -',
+			\ 'textile': 'pandoc -f textile -',
+			\ 'twiki': 'pandoc -f twiki -',
 			\ 'tex': 'lualatex -shell-escape',
+			\ 'plaintex': 'luatex -shell-escape',
+			\ 'context': 'context -shell-escape',
+			\ 'c': 'gcc -x c -',
+			\ 'cpp': 'gcc -x c++ -',
+			\ 'ada': 'gcc -x ada -',
+			\ 'objc': 'gcc -x objective-c -',
+			\ 'objcpp': 'gcc -x objective-c++ -',
+			\ 'f75': 'gcc -x f75 -',
+			\ 'f95': 'gcc -x f95 -',
+			\ 'go': 'gcc -x go -',
+			\ 'java': 'gcc -x java -',
+			\ 'asm': 'gcc -x asm -',
+			\ 'brig': 'gcc -x brig -',
 			\ }
 let g:repl_python_automerge = 1
 let g:repl_position = 1

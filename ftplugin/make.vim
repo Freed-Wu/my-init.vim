@@ -1,4 +1,3 @@
-nnoremap <buffer><silent> <LocalLeader>hh :call netrw#BrowseX($GITHUBWORKSPACE.'/WolfgangMehner/c-support/c-support/doc/c-hotkeys.pdf', 0)<CR>
 nnoremap <buffer><silent> <LocalLeader>c :make clean<CR>
 nnoremap <buffer><silent> <LocalLeader>C :make cleanall<CR>
 nnoremap <buffer><silent> <LocalLeader>M :make<Space>

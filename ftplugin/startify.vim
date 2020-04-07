@@ -1,5 +1,5 @@
 let g:which_key_map_startify_dot = {
-			\ 'name': "choose a key about mru & directory",
+			\ 'name': 'choose a key about mru & directory',
 			\ }
 let b:deol_extra_options = {
 			\ 'term_finish': 'close',
@@ -24,7 +24,10 @@ endfor
 
 call init#map#main()
 
-autocmd! User Startified call s:startify()
+augroup startify "{{{
+	autocmd!
+	autocmd User Startified call s:startify()
+augroup END "}}}
 function! s:startify() "{{{
 	unmap <buffer> b
 	unmap <buffer> B

@@ -1,14 +1,16 @@
-if (expand('%:p:h') =~ substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~ substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~ $USER
+scriptencoding utf-8
+
+if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~# $USER
 	setlocal nomodifiable
 	setlocal readonly
 	call init#map#main()
 endif
 
-if expand('%:t') == 'requirements.txt'
+if expand('%:t') ==# 'requirements.txt'
 	setlocal makeprg=pip\ install\ -r\ %
 endif
 
-if expand('%:p:h')[1:3] == 'tmp'
+if expand('%:p:h')[1:3] ==# 'tmp'
 	set filetype=log
 endif
 
