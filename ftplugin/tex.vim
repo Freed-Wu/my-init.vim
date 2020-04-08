@@ -20,6 +20,8 @@ function! s:close() "{{{
 	endif
 endfunction "}}}
 
+call tex#map#main()
+
 setlocal makeprg=lualatex\ -initialize\ -shell-escape\ \"&xelatex\"\ mylatexformat.ltx\ \"\"%\"\"
 setlocal keywordprg=:silent\ !texdoc
 setlocal isfname-={,}
@@ -41,14 +43,6 @@ endif
 "setlocal indentexpr=BuckyTexIndent()
 setlocal indentexpr=VimtexIndentExpr()
 
-inoremap <buffer> ; ;<C-g>u
-nnoremap <buffer> gK :silent !texdoc<Space>
-nmap <buffer> <LocalLeader>i <plug>(vimtex-cmd-create)
-xmap <buffer> <LocalLeader>i <plug>(vimtex-cmd-create)
-nmap <buffer> yse <plug>(vimtex-cmd-toggle-star)
-nmap <buffer> ysc <plug>(vimtex-env-toggle-star)
-nmap <buffer> ysd <plug>(vimtex-delim-toggle-modifier)
-nmap <buffer> ysD <plug>(vimtex-delim-toggle-modifier-reverse)
 nmap <buffer> [[ <plug>(vimtex-[[)
 nmap <buffer> [] <plug>(vimtex-[])
 nmap <buffer> ][ <plug>(vimtex-][)
@@ -62,12 +56,4 @@ xmap <buffer> [] <plug>(vimtex-[])
 xmap <buffer> ][ <plug>(vimtex-][)
 xmap <buffer> ]] <plug>(vimtex-]])
 xmap <buffer> <LocalLeader>K <plug>(vimtex-doc-package)
-xmap <buffer> af <Plug>(textobj-latex-paren-math-a)
-xmap <buffer> if <Plug>(textobj-latex-paren-math-i)
-xmap <buffer> aF <Plug>(textobj-latex-bracket-math-a)
-xmap <buffer> iF <Plug>(textobj-latex-bracket-math-i)
-xmap <buffer> aq <Plug>(textobj-latex-quote-a)
-xmap <buffer> iq <Plug>(textobj-latex-quote-i)
-xmap <buffer> aQ <Plug>(textobj-latex-double-quote-a)
-xmap <buffer> iQ <Plug>(textobj-latex-double-quote-i)
 

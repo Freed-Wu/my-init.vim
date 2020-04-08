@@ -31,6 +31,11 @@ call vim#map#main()
 
 setlocal foldmethod=marker
 
+execute 'nnoremap <buffer> <LocalLeader>lF :<C-u>Leaderf file '.$VIM.' --input=.vim<CR>'
+execute 'nnoremap <buffer> <LocalLeader>lc :<C-u>Leaderf file '.$VIMCONFIG.' --input=.vim<CR>'
+execute 'nnoremap <buffer> <LocalLeader>ld :<C-u>Leaderf file '.$VIMDATA.' --input=.vim<CR>'
+execute 'nnoremap <buffer> <LocalLeader>lr :<C-u>Leaderf file '.$GITHUBWORKSPACE.' --input=.vim<CR>'
+execute 'nnoremap <buffer> <LocalLeader>lf :<C-u>Leaderf file '.$GITWORKSPACE.'/.cache/ --input=.vim<CR>'
 inoremap <nowait><buffer> & &
 inoremap <nowait><buffer> < <
 inoremap <nowait><buffer> > >

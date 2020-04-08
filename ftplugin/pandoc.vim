@@ -12,7 +12,10 @@ let g:mkdp_auto_close = 0
 let g:mkdp_port = '8090'
 let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 
+UltiSnipsAddFiletypes dot
 call vimtex#init()
+call dot#map#main()
+call tex#map#main()
 
 if expand('%:p:h') =~# 'vim'
 	call vim#map#main()
@@ -33,6 +36,7 @@ if executable('tree')
 		nnoremap <buffer> <LocalLeader>o :.read !tree<CR>
 	endif
 endif
+inoremap <nowait> <buffer> - -
 inoremap <nowait> <buffer> * *
 inoremap <nowait> <buffer> & <Space>&<Space>
 inoremap <nowait> <buffer> <Bar> <Bar>

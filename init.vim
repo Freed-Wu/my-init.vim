@@ -486,7 +486,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_map': {'o': ['ij', 'aj'], 'x': ['ij', 'aj']},
 				\ })
 	call dein#add('reedes/vim-textobj-quote', {
-				\ 'on_map': {'o': ['ijj', 'ajj', 'ijJ', 'ajJ'], 'x': ['ijj', 'ajj', 'ijJ', 'ajJ'], 'n': ['S', 's', 'ys', 'yS']},
+				\ 'on_map': {'o': ['ijj', 'ajj', 'ijJ', 'ajJ'], 'x': ['ijj', 'ajj', 'ijJ', 'ajJ', 'S', 's'], 'n': ['ys', 'yS']},
 				\ 'hook_post_source': join([
 				\ 'call textobj#quote#init({"educate": 0})',
 				\ 'nmap ys <Plug>Ysurround',
@@ -2832,6 +2832,7 @@ if has('python') || has('python3')
 	nnoremap <Leader>fV :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.' --input '.split(&filetype, '\.')[0].'.vim'<CR>
 	nnoremap <Leader>fz :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.'/sbdchd/neoformat/autoload/neoformat/formatters --input '.split(&filetype, '\.')[0].'.vim'<CR>
 	nnoremap <Leader>fZ :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.'/w0rp/ale/ale_linters/'.split(&filetype, '\.')[0]<CR>
+	nnoremap <Leader>f; :Leaderf file<Space>
 	" 3}}} Yggdroot/LeaderF "
 endif
 " 2}}} FuzzyFind "

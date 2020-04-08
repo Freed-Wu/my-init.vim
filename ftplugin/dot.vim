@@ -1,3 +1,5 @@
+call dot#map#main()
+
 nnoremap <buffer> gs :<C-u>Graphviz!<CR>
 nnoremap <buffer> gS :<C-u>Graphviz!<Space>
 nnoremap <buffer> <LocalLeader>lv :<C-u>Graphviz<CR>

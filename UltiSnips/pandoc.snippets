@@ -1,5 +1,7 @@
 priority -30
 
+extends dot
+
 snippet url "myUltiSnips" i
 <${VISUAL}http://${1:url}>$0
 endsnippet
@@ -13,13 +15,6 @@ $0
 endsnippet
 snippet tab "Table"
 ![${1:${VISUAL}}](tab/$2${1/.+/ "/}$1${1/.+/"/})
-
-$0
-endsnippet
-snippet cbl "Codeblock" b
-\`\`\`{.$1}
-$2
-\`\`\`
 
 $0
 endsnippet
@@ -61,5 +56,80 @@ snippet -- "myUltiSnips" b
 ---
 
 ---$0
+endsnippet
+
+snippet cbl "Codeblock" b
+\`\`\`${1:m}${1/(m)$|(p)$|(s)$|(f)$|(d)$|(c)$|(.*)/(?1:ermaid)(?2:landuml)(?3:equence-diagrams)(?4:lowchart)(?5:ot)(?6:hart)/}$2
+\`\`\`
+
+$0
+endsnippet
+snippet mermaid "myUltiSnips" i
+mermaid
+${1:g}${1/(g)$|(gr)$|(s)$|(p)$|(st)$|(c)$|(.*)/(?1:ant)(?2:raph)(?3:sequenceDiagram)(?4:ie)(?5:tateDiagram)(?6:lassDiagram)/}
+endsnippet
+snippet gant "myUltiSnips" i
+gantt
+dateFormat DD-MM-YYYY
+axisFormat %m/%y
+title $1
+section $2
+activity :$3, $4, $5
+$0
+endsnippet
+snippet sequenceDiagram "myUltiSnips" b
+sequenceDiagram
+${1:Bob} -> ${2:Alice}: $3
+$0
+endsnippet
+snippet pie "myUltiSnips" b
+pie
+	"$1": $2
+$0
+endsnippet
+snippet plantuml "myUltiSnips" i
+plantuml
+${1:Bob} -> ${2:Alice}: $3
+endsnippet
+snippet sequence-diagrams "myUltiSnips" i
+sequence-diagrams
+${1:Bob} -> ${2:Alice}: $3
+endsnippet
+snippet chart "myUltiSnips" i
+chart
+{
+"type": "pie",
+"data": {
+"labels": [
+	"$1",
+	"$2",
+	"$3"
+],
+"datasets": [
+	{
+		"data": [
+			$4,
+			$5,
+			$6
+		],
+		"backgroundColor": [
+			"#FF6384",
+			"#36A2EB",
+			"#FFCE56"
+		],
+		"hoverBackgroundColor": [
+			"#FF6384",
+			"#36A2EB",
+			"#FFCE56"
+		]
+	}
+]
+},
+	"options": {}
+}
+$0
+endsnippet
+snippet fa "myUltiSnips" i
+fa:fa-$0
 endsnippet
 

@@ -669,6 +669,11 @@ endsnippet
 # 1}}} latex-math-symbol #
 
 # latex-math-space {{{1 #
+context "math()"
+snippet - "myUltiSnips" iA
+ - $0
+endsnippet
+context "math()"
 snippet "([^A-Za-z0-9\}\)\]']) - " "myUltiSnips" irA
 `!p snip.rv = match.group(1)`-$0
 endsnippet
