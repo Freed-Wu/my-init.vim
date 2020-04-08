@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 function! s:compare(i1, i2) "{{{
 	return a:i1 - a:i2
 endfunction "}}}

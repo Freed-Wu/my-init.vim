@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 function! init#quickui#splash#main() "{{{
 	if !exists('s:splash_list') || !exists('s:splash_opt')
 		let s:splash_list = []

@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 function! init#quickui#duzzle#main() "{{{
 	if !exists('s:duzzle_list') || !exists('s:duzzle_opt')
 		let s:duzzles = []

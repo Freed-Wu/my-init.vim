@@ -2086,6 +2086,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'docx': '',
 			\ 'dot': '',
 			\ 'dotx': '',
+			\ 'gv': '',
 			\ 'jar': '',
 			\ 'snippets': '',
 			\ 'fountain': '',
@@ -2571,6 +2572,10 @@ function! s:bufadd() "{{{
 endfunction "}}}
 " 3}}}  "
 " Shougo/defx.nvim {{{3 "
+augroup init_defx "{{{
+	autocmd!
+	autocmd BufWritePost * call defx#redraw()
+augroup END "}}}
 nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h')`<CR>
 nnoremap <Leader>jJ :<C-u>Defx `getcwd()`<CR>
 nnoremap <Leader>jk :<C-u>Defx<Space>
@@ -3530,10 +3535,10 @@ let g:templates_directory = [$VIMCONFIG.'/vim-template']
 nnoremap <Leader>eV :<C-u>sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.%:e<CR>
 nnoremap <Leader>ev :<C-u>execute 'Template =template=.'.expand('%:e')<CR>
 nnoremap <Leader>e0 :<C-u>execute 'Leaderf file '.g:templates_directory[0].' --input='.expand('%:e')<CR>
-nnoremap <Leader>ee :Template<CR>
-nnoremap <Leader>eE :Template<Space>
-nnoremap <Leader>eh :TemplateHere<CR>
-nnoremap <Leader>eH :TemplateHere<Space>
+nnoremap <Leader>ee :<C-u>Template<CR>
+nnoremap <Leader>eh :<C-u>TemplateHere<CR>
+nnoremap <Leader>eq :<C-u>call init#quickui#template#main(1)<CR>
+nnoremap <Leader>eQ :<C-u>call init#quickui#template#main(0)<CR>
 " 3}}} aperezdc/vim-template "
 " 2}}} Snippet "
 

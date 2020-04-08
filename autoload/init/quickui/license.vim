@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 function! init#quickui#license#main() "{{{
 	if !exists('s:license_list') || !exists('s:license_opt')
 		let s:license_list = []
