@@ -4,7 +4,7 @@ if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p
 	call init#map#main()
 endif
 
-source <sfile>:p:h/vim.vim
+call vim#map#main()
 
 setlocal nonumber
 setlocal norelativenumber

@@ -14,6 +14,10 @@ let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 
 call vimtex#init()
 
+if expand('%:p:h') =~# 'vim'
+	call vim#map#main()
+endif
+
 setlocal foldexpr=pandoc#folding#FoldExpr()
 setlocal foldtext=foldtext()
 setlocal foldlevel=1
