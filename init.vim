@@ -3499,7 +3499,7 @@ nnoremap <Leader>el :<C-u>call init#quickui#license#main()<CR>
 " 3}}} ararslan/license-to-vim "
 " 2}}} Complete "
 
-" Snippet {{{3 "
+" Snippet {{{2 "
 if has('python') || has('python3')
 	" SirVer/UltiSnips {{{3 "
 	let g:UltiSnipsExpandTrigger = '<Tab>'
@@ -3525,16 +3525,17 @@ nnoremap <Leader>ns :<C-u>execute 'split '.g:vim_snippetsSnippets.'/'.&filetype.
 nnoremap <Leader>nS :<C-u>execute 'split '.g:vim_snippetsSnippets.'/_.snippets'<CR>
 " 3}}} honza/vim-snippets "
 " aperezdc/vim-template {{{3 "
+let g:templates_global_name_prefix = ''
 let g:templates_directory = [$VIMCONFIG.'/vim-template']
-nnoremap <Leader>eE :<C-u>execute 'sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.'.expand('%:e')<CR>
-nnoremap <Leader>ee :<C-u>execute 'split '.g:templates_directory[0].'/'.get(g:, 'templates_global_name_prefix', '=template=').'.'.expand('%:e')<CR>
-nnoremap <Leader>et :<C-u>execute 'split '.g:templates_directory[0].'/'.get(g:, 'templates_global_name_prefix', '=template=').expand('%:t')<CR>
-nnoremap <Leader>ep :Template<CR>
+nnoremap <Leader>eV :<C-u>sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.%:e<CR>
+nnoremap <Leader>ev :<C-u>execute 'Template =template=.'.expand('%:e')<CR>
+nnoremap <Leader>e0 :<C-u>execute 'Leaderf file '.g:templates_directory[0].' --input='.expand('%:e')<CR>
+nnoremap <Leader>ee :Template<CR>
+nnoremap <Leader>eE :Template<Space>
 nnoremap <Leader>eh :TemplateHere<CR>
-nnoremap <Leader>eP :Template<Space>
 nnoremap <Leader>eH :TemplateHere<Space>
 " 3}}} aperezdc/vim-template "
-" 3}}} Snippet "
+" 2}}} Snippet "
 
 " LSP {{{2 "
 " neoclide/coc.nvim {{{3 "
