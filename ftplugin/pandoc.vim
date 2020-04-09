@@ -12,7 +12,6 @@ let g:mkdp_auto_close = 0
 let g:mkdp_port = '8090'
 let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 
-UltiSnipsAddFiletypes dot
 call vimtex#init()
 call dot#map#main()
 call tex#map#main()

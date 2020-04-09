@@ -35,13 +35,8 @@ nnoremap <buffer> p i<C-w>"+
 nnoremap <buffer> P i<C-w>"
 if !exists('g:terminal_map')
 	tnoremap <C-w> <C-w>.
-	tnoremap <C-\> <C-w><C-\>
-	tnoremap <S-Esc> <C-w>
-	nnoremap <S-Esc> <C-w>
-	tnoremap <C-BS> <C-w>N
-	tnoremap <C-Esc> <C-w>N
-	tnoremap <S-Esc>m <C-w>:vnew<CR>
-	tnoremap <S-Esc><Tab> <C-w>:tabnew<CR>
+	tnoremap <C-\> <C-w>
+	tnoremap <C-o> <C-w>N
 	tnoremap <M-0> <Esc>0
 	tnoremap <M-1> <Esc>1
 	tnoremap <M-2> <Esc>2

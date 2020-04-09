@@ -161,7 +161,6 @@ if dein#load_state($GITWORKSPACE)
 
 	" Highlight {{{5 "
 	call dein#add('luochen1990/rainbow')
-	call dein#add('ap/vim-css-color')
 	call dein#add('jaxbot/semantic-highlight.vim', {
 				\ 'on_cmd': ['SemanticHighlight', 'SemanticHighlightRevert', 'SemanticHighlightToggle'],
 				\ })
@@ -302,35 +301,6 @@ if dein#load_state($GITWORKSPACE)
 	" 4}}} Appearance "
 
 	" File {{{4 "
-	" FileExplore {{{5 "
-	call dein#add('roxma/nvim-yarp', {
-				\ 'if': !has('nvim') && has('python3'),
-				\ 'on_source': ['deoplete.nvim', 'defx.nvim'],
-				\ })
-	call dein#add('roxma/vim-hug-neovim-rpc', {
-				\ 'if': !has('nvim') && has('python3'),
-				\ 'on_source': ['deoplete.nvim', 'defx.nvim'],
-				\ })
-	call dein#add('Shougo/defx.nvim', {
-				\ 'if': has('python3'),
-				\ 'on_source': 'vim-defx-vista',
-				\ 'on_func': 'defx#custom#option',
-				\ 'on_cmd': 'Defx',
-				\ 'hook_post_source': join([
-				\ 'call init#defx#main()',
-				\ ], "\n"),
-				\ })
-	call dein#add('linjiX/vim-defx-vista', {
-				\ 'on_cmd': 'ToggleDefxVista',
-				\ })
-	call dein#add('kristijanhusak/defx-git', {
-				\ 'on_ft': 'defx',
-				\ })
-	call dein#add('kristijanhusak/defx-icons', {
-				\ 'on_ft': 'defx',
-				\ })
-	" 5}}} FileExplore "
-
 	" FieEdit {{{5 "
 	call dein#add('airblade/vim-rooter')
 	call dein#add('mhinz/vim-hugefile')
@@ -773,9 +743,6 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Parse "
 
 	" Complete {{{5 "
-	call dein#add('mattn/emmet-vim', {
-				\ 'on_ft': ['html', 'xml'],
-				\ })
 	call dein#add('junegunn/vim-emoji')
 	call dein#add('rhysd/github-complete.vim', {
 				\ 'on_ft': ['pandoc', 'markdown', 'gfimarkdown'],
@@ -795,15 +762,11 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Complete "
 
 	" Snippet {{{5 "
-	call dein#add('SirVer/ultisnips', {
-				\ 'if': has('python') || has('python3'),
-				\ 'on_event': 'InsertEnter',
-				\ 'on_cmd': ['UltiSnipsAddFiletypes', 'UltiSnipsEdit'],
-				\ 'on_ft': 'snippets',
-				\ 'on_map': {'x': '<Tab>',},
-				\ })
 	call dein#add('honza/vim-snippets', {
-				\ 'on_source': 'ultisnips',
+				\ 'on_event': 'InsertEnter',
+				\ 'hook_post_source': join([
+				\ 'CocRestart',
+				\ ], "\n"),
 				\ })
 	call dein#add('aperezdc/vim-template', {
 				\ 'on_cmd': ['Template', 'TemplateHere'],
@@ -814,7 +777,7 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('neoclide/coc.nvim', {
 				\ 'if': executable('node'),
 				\ 'build': 'yarn install --frozen-lockfile',
-				\ 'on_cmd': ['CocInstall', 'CocList'],
+				\ 'on_if': 1,
 				\ })
 	" 5}}} LSP "
 
@@ -955,6 +918,9 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('fatih/vim-go', {
 				\ 'on_ft': 'go',
+				\ 'hook_post_source': join([
+				\ 'CocRestart',
+				\ ], "\n"),
 				\ })
 	call dein#add('OmniSharp/omnisharp-vim', {
 				\ 'on_ft': 'cs',
@@ -1431,49 +1397,49 @@ nnoremap <C-w>t <C-w>t
 nnoremap <C-w>b <C-w>b
 nnoremap <C-w>r <C-w>r
 nnoremap <C-w>R <C-w>R
-xnoremap <C-Tab> y<C-w>wp
-xnoremap <C-S-Tab> y<C-w>Wp
-xnoremap <C-j> y<C-w>jp
-xnoremap <C-k> y<C-w>kp
-xnoremap <C-h> y<C-w>hp
-xnoremap <C-l> y<C-w>lp
-xnoremap <C-w>t y<C-w>tp
-xnoremap <C-w>b y<C-w>bp
-xnoremap <C-w>r y<C-w>rp
-xnoremap <C-w>R y<C-w>Rp
+xnoremap <C-Tab> <C-w>w
+xnoremap <C-S-Tab> <C-w>W
+xnoremap <C-j> <C-w>j
+xnoremap <C-k> <C-w>k
+xnoremap <C-h> <C-w>h
+xnoremap <C-l> <C-w>l
+xnoremap <C-w>t <C-w>t
+xnoremap <C-w>b <C-w>b
+xnoremap <C-w>r <C-w>r
+xnoremap <C-w>R <C-w>R
 nnoremap <C-w>x <C-w>x
 xnoremap <C-w>x <C-w>x
 nnoremap <C-]> <C-]>
 xnoremap <C-]> <C-]>
 " 4}}} windowMoveCursor "
 " cursorMoveWindow {{{4 "
-nnoremap <M-j> <C-w>J
-nnoremap <M-k> <C-w>K
-nnoremap <M-h> <C-w>H
-nnoremap <M-l> <C-w>L
-xnoremap <M-j> <C-w>J
-xnoremap <M-k> <C-w>K
-xnoremap <M-h> <C-w>H
-xnoremap <M-l> <C-w>L
+nnoremap <C-w>j <C-w>J
+nnoremap <C-w>k <C-w>K
+nnoremap <C-w>h <C-w>H
+nnoremap <C-w>l <C-w>L
+xnoremap <C-w>j <C-w>J
+xnoremap <C-w>k <C-w>K
+xnoremap <C-w>h <C-w>H
+xnoremap <C-w>l <C-w>L
 " 4}}} cursorMoveWindow "
 " windowModify {{{4 "
-nnoremap <C-w>j <C-w>+
-nnoremap <C-w>k <C-w>-
-nnoremap <C-w>J 1<C-w>_
-nnoremap <C-w>K <C-w>_
-nnoremap <C-w>h <C-w><
-nnoremap <C-w>l <C-w>>
-nnoremap <C-w>H 1<C-w><Bar>
-nnoremap <C-w>L <C-w><Bar>
+nnoremap <C-w>+ <C-w>+
+nnoremap <C-w>- <C-w>-
+nnoremap <C-w>1 1<C-w>_
+nnoremap <C-w>_ <C-w>_
+nnoremap <C-w>< <C-w><
+nnoremap <C-w>> <C-w>>
+nnoremap <C-w>0 1<C-w><Bar>
+nnoremap <C-w><Bar> <C-w><Bar>
 nnoremap <C-w>= <C-w>=
-xnoremap <C-w>j <C-w>+
-xnoremap <C-w>k <C-w>-
-xnoremap <C-w>J 1<C-w>_
-xnoremap <C-w>K <C-w>_
-xnoremap <C-w>h <C-w><
-xnoremap <C-w>l <C-w>>
-xnoremap <C-w>H 1<C-w><Bar>
-xnoremap <C-w>L <C-w><Bar>
+xnoremap <C-w>+ <C-w>+
+xnoremap <C-w>- <C-w>-
+xnoremap <C-w>1 1<C-w>_
+xnoremap <C-w>_ <C-w>_
+xnoremap <C-w>< <C-w><
+xnoremap <C-w>> <C-w>>
+xnoremap <C-w>0 1<C-w><Bar>
+xnoremap <C-w><Bar> <C-w><Bar>
 xnoremap <C-w>= <C-w>=
 " 4}}} windowModify "
 " windowNew {{{4 "
@@ -1528,12 +1494,6 @@ xnoremap <C-w>i <C-w>i
 xnoremap <C-w>d <C-w>d
 " 4}}} windowOpen "
 " windowClose {{{4 "
-nnoremap <C-q> :<C-u>xit<CR>
-nnoremap <M-q> :<C-u>quit!<CR>
-nnoremap <C-s> :<C-u>write<CR>
-xnoremap <C-q> y:xit<CR>
-xnoremap <M-q> y:quit!<CR>
-xnoremap <C-s> y:write<CR>
 nnoremap <C-w>c <C-w>c
 nnoremap <C-w>o <C-w>o
 nnoremap <C-w>q <C-w>q
@@ -1804,7 +1764,9 @@ for s:quickui_color_scheme_path in s:quickui_color_schemes_path
 	execute 'nnoremap <Leader>q'.len(g:quickui_color_schemes).' :<C-u>call QuickThemeChange("'.s:quickui_color_scheme.'")<CR>'
 	let g:quickui_color_schemes += [s:quickui_color_scheme]
 endfor
-let g:quickui_color_scheme = g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)]
+if exists('*rand')
+	let g:quickui_color_scheme = g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)]
+endif
 nnoremap <Leader>qq :<C-u>call quickui#menu#open()<CR>
 nnoremap <Leader>qf :<C-u>call quickui#tools#list_function()<CR>
 nnoremap <Leader>qt :<C-u>call quickui#tools#preview_tag('')<CR>
@@ -1814,12 +1776,6 @@ nnoremap <Leader>q` :<C-u>call QuickThemeChange(g:quickui_color_schemes[rand()%l
 nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
 " 3}}} tpope/vim-unimpaired "
 " tpope/vim-rsi {{{3 "
-inoremap <expr><C-q> pumvisible()?"\<C-y>": "\<C-q>"
-inoremap <expr><M-q> pumvisible()?"\<C-e>": "\<M-q>"
-inoremap <expr><C-p> pumvisible()?"\<C-p>": "\<Up>"
-inoremap <expr><C-n> pumvisible()?"\<C-n>": "\<Down>"
-inoremap <expr><C-v> pumvisible()?"\<PageDown>": "\<C-v>"
-inoremap <expr><M-v> pumvisible()?"\<PageUp>": "\<M-v>"
 inoremap <S-CR> <C-o>O
 inoremap <C-CR> <C-o>o
 inoremap <C-BS> <C-k>
@@ -1842,15 +1798,8 @@ inoremap <C-z> <C-o>dd
 inoremap <C-s> <C-o>/
 inoremap <C-r> <C-o>?
 inoremap <C-y> <C-o>P
-imap <M-y> <C-o>p<C-p>
-inoremap <M-,> <C-o>gg
-if has('win32')
-	inoremap <M-.>  <C-o>G
-else
-	inoremap <M-.> <C-o>G
-endif
-inoremap <M-j> <C-e>
-inoremap <M-k> <C-y>
+inoremap <C-j> <C-e>
+inoremap <C-l> <C-y>
 snoremap <C-b> <Left>
 snoremap <C-f> <Right>
 snoremap <C-n> <Down>
@@ -2033,7 +1982,7 @@ if has('python') || has('python3')
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_exclude_filetypes = ['calendar', 'help', 'duzzle', 'marksbuffer', 'startify', 'defx']
+let g:indent_guides_exclude_filetypes = ['calendar', 'help', 'duzzle', 'marksbuffer', 'startify']
 nmap <Leader>oi <Plug>IndentGuidesToggle
 " 3}}} nathanaelkane/vim-indent-guides "
 " dbmrq/vim-redacted {{{3 "
@@ -2322,6 +2271,10 @@ let g:airline#extensions#ale#warning_symbol = ''
 let g:airline#extensions#ale#open_lnum_symbol = 'Ξ'
 let g:airline#extensions#ale#close_lnum_symbol = ''
 " }}} ale "
+" coc {{{3 "
+let airline#extensions#coc#error_symbol = '✗'
+let airline#extensions#coc#warning_symbol = ''
+" 3}}} coc "
 " quickfix {{{ "
 let g:airline#extensions#quickfix#quickfix_text = ''
 let g:airline#extensions#quickfix#location_text = ''
@@ -2463,6 +2416,7 @@ endfor
 let g:startify_bookmarks = [
 			\ {g:maplocalleader.'s': '/etc/profile.d/user.sh'},
 			\ {g:maplocalleader.'v': $MYVIMRC},
+			\ {g:maplocalleader.'j': $VIMCONFIG.'/coc-settings.json'},
 			\ {g:maplocalleader.'z': expand('$HOME/.zshrc')},
 			\ {g:maplocalleader.'m': '/etc/portage/make.conf'},
 			\ {g:maplocalleader.'a': expand('$HOME/.local/share/applications/defaults.list')},
@@ -2571,33 +2525,6 @@ function! s:bufadd() "{{{
 	endif
 endfunction "}}}
 " 3}}}  "
-" Shougo/defx.nvim {{{3 "
-augroup init_defx "{{{
-	autocmd!
-	autocmd BufWritePost * call defx#redraw()
-augroup END "}}}
-nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h')`<CR>
-nnoremap <Leader>jJ :<C-u>Defx `getcwd()`<CR>
-nnoremap <Leader>jk :<C-u>Defx<Space>
-nnoremap <Leader>jz :<C-u>Defx `$HOME`/.local/share/Trash/files<CR>
-nnoremap <Leader>jd :<C-u>Defx `$HOME`/Documents<CR>
-nnoremap <Leader>jq :<C-u>Defx `$QQWORKSPACE`<CR>
-nnoremap <Leader>ju :<C-u>Defx `$UDISK`<CR>
-nnoremap <Leader>jU :<C-u>Defx /mnt/cdrom<CR>
-nnoremap <Leader>jv :<C-u>Defx `$VIMCONFIG`<CR>
-nnoremap <Leader>jp :<C-u>Defx /etc/portage/package.use<CR>
-nnoremap <Leader>jr :<C-u>Defx `$GITHUBWORKSPACE`/`$GITNAME`<CR>
-nnoremap <Leader>jR :<C-u>Defx `$GITWORKSPACE`/.cache/init.vim/.dein<CR>
-nnoremap <Leader>jt :<C-u>Defx `$HOME`/.texlive/texmf-var/tex/latex<CR>
-nnoremap <Leader>jf :<C-u>Defx `$HOME`/.local/share/fonts<CR>
-nnoremap <Leader>jF :<C-u>Defx `$FONTS`<CR>
-nnoremap <Leader>ja :<C-u>Defx `$HOME`/.local/share/applications<CR>
-nnoremap <Leader>jA :<C-u>Defx `$APPLICATIONS`<CR>
-nnoremap <Leader>jx :<C-u>Defx `$HOME`/.local/share/gnome-shell/extensions<CR>
-" 3}}} Shougo/defx.nvim "
-" linjiX/vim-defx-vista {{{3 "
-nnoremap <Leader>xd :<C-u>ToggleDefxVista<CR>
-" 3}}} linjiX/vim-defx-vista "
 " 2}}} FileExplore "
 
 " FileEdit {{{2 "
@@ -3490,8 +3417,8 @@ let g:github_complete_enable_omni_completion = 0
 if has('python') || has('python3')
 	" Shougo/deoplete.nvim {{{3 "
 	if exists('&pyxversion')
-		set pyxversion =3
-		let g:deoplete#enable_at_startup = 1
+		set pyxversion=3
+		" let g:deoplete#enable_at_startup = 1
 	else
 		let g:loaded_python_provider=0
 	endif
@@ -3505,29 +3432,13 @@ nnoremap <Leader>el :<C-u>call init#quickui#license#main()<CR>
 " 2}}} Complete "
 
 " Snippet {{{2 "
-if has('python') || has('python3')
-	" SirVer/UltiSnips {{{3 "
-	let g:UltiSnipsExpandTrigger = '<Tab>'
-	let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-	let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-	let g:vim_snippetsUltiSnips = $GITHUBWORKSPACE.'/honza/vim-snippets/UltiSnips'
-	let g:vim_snippetsSnippets = $GITHUBWORKSPACE.'/honza/vim-snippets/snippets'
-	let g:UltiSnips_config = $VIMCONFIG.'/UltiSnips'
-	let g:UltiSnipsSnippetDirectories = [g:UltiSnips_config, g:vim_snippetsUltiSnips]
-	nnoremap <Leader>na :<C-u>UltiSnipsAddFiletypes<Space>
-	nnoremap <Leader>ne :<C-u>UltiSnipsEdit<Space>
-	" 3}}} SirVer/UltiSnips "
-endif
 " honza/vim-snippets {{{3 "
 let g:snips_author = $GITNAME
 let g:snips_github = $GITNAME
 let g:snips_email = $EMAIL
-nnoremap <Leader>nn :<C-u>execute 'split '.g:UltiSnips_config.'/'.&filetype.'.snippets'<CR>
-nnoremap <Leader>nN :<C-u>execute 'split '.g:UltiSnips_config.'/all.snippets'<CR>
-nnoremap <Leader>nu :<C-u>execute 'split '.g:vim_snippetsUltiSnips.'/'.&filetype.'.snippets'<CR>
-nnoremap <Leader>nU :<C-u>execute 'split '.g:vim_snippetsUltiSnips.'/all.snippets'<CR>
-nnoremap <Leader>ns :<C-u>execute 'split '.g:vim_snippetsSnippets.'/'.&filetype.'.snippets'<CR>
-nnoremap <Leader>nS :<C-u>execute 'split '.g:vim_snippetsSnippets.'/_.snippets'<CR>
+nnoremap <Leader>na :<C-u>execute 'Leaderf file '.g:UltiSnips_config.' --input=all.snippets'<CR>
+nnoremap <Leader>nu :<C-u>execute 'Leaderf file '.g:vim_snippetsUltiSnips.' --input=all.snippets'<CR>
+nnoremap <Leader>ns :<C-u>execute 'Leaderf file '.g:vim_snippetsSnippets.' --input=_.snippets'<CR>
 " 3}}} honza/vim-snippets "
 " aperezdc/vim-template {{{3 "
 let g:templates_global_name_prefix = ''
@@ -3544,15 +3455,57 @@ nnoremap <Leader>eQ :<C-u>call init#quickui#template#main(0)<CR>
 
 " LSP {{{2 "
 " neoclide/coc.nvim {{{3 "
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<S-Tab>'
+augroup init_coc "{{{
+	autocmd!
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+	autocmd CursorHold * call CocActionAsync('highlight')
+	autocmd Colorscheme * CocRestart
+	autocmd VimEnter * CocStart
+	if has('gui_running')
+		autocmd BufWrite init.vim,coc-settings.json CocDisable
+	endif
+augroup END "}}}
+inoremap <silent><expr> <TAB>
+			\ pumvisible() ? coc#_select_confirm() :
+			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+			\ init#check_back_space#main() ? "\<TAB>" :
+			\ coc#refresh()
+inoremap <silent><expr> <S-TAB>
+			\ pumvisible() ? <C-e> : <s-tab>
 nnoremap <Leader>po :CocInstall coc-
 nnoremap <Leader>pO :CocList extensions<CR>
+nnoremap <Leader>pe :CocEnable<CR>
+nnoremap <Leader>up :<C-u>call CocAction('pickColor')<CR>
+nnoremap <Leader>ur :<C-u>call CocAction('colorPresentation')<CR>
+nnoremap <Leader>nq :<C-u>CocCommand snippets.openSnippetFiles<CR>
+nnoremap <Leader>nn :<C-u>CocCommand snippets.editSnippetFiles<CR>
+nnoremap <Leader>jj :<C-u>execute 'CocCommand explorer '.(expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h'))<CR>
+nnoremap <Leader>jJ :<C-u>execute 'CocCommand explorer '.getcwd()<CR>
+nnoremap <Leader>jk :<C-u>CocCommand explorer<Space>
+nnoremap <Leader>jz :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/Trash/files'<CR>
+nnoremap <Leader>jd :<C-u>execute 'CocCommand explorer '.$HOME.'/Documents'<CR>
+nnoremap <Leader>jq :<C-u>execute 'CocCommand explorer '.$QQWORKSPACE<CR>
+nnoremap <Leader>ju :<C-u>execute 'CocCommand explorer '.$UDISK<CR>
+nnoremap <Leader>jU :<C-u>CocCommand explorer /mnt/cdrom<CR>
+nnoremap <Leader>jv :<C-u>execute 'CocCommand explorer '.$VIMCONFIG<CR>
+nnoremap <Leader>jp :<C-u>CocCommand explorer /etc/portage/package.use<CR>
+nnoremap <Leader>jr :<C-u>execute 'CocCommand explorer '.$GITHUBWORKSPACE.'/'.$GITNAME<CR>
+nnoremap <Leader>jR :<C-u>execute 'CocCommand explorer '.$GITWORKSPACE.'/.cache/init.vim/.dein<CR>
+nnoremap <Leader>jt :<C-u>execute 'CocCommand explorer '.$HOME.'/.texlive/texmf-var/tex/latex'<CR>
+nnoremap <Leader>jf :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/fonts'<CR>
+nnoremap <Leader>jF :<C-u>execute 'CocCommand explorer '.$FONTS<CR>
+nnoremap <Leader>ja :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/applications'<CR>
+nnoremap <Leader>jA :<C-u>execute 'CocCommand explorer '.$APPLICATIONS<CR>
+nnoremap <Leader>jx :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/gnome-shell/extensions'<CR>
 " 3}}} neoclide/coc.nvim "
 " 2}}} LSP "
 
 " Check {{{2 "
 "  {{{3 "
 set spelllang=en_us,cjk
-inoremap <C-j> <C-g>u<Esc>[s1z=`]a<C-g>u
+inoremap <C-\> <C-g>u<Esc>[s1z=`]a<C-g>u
 " 3}}}  "
 " w0rp/ale {{{3 "
 let g:ale_linters = {
@@ -3797,6 +3750,7 @@ let g:repl_program = {
 			\ 'zsh': executable('zsh')? 'zsh': &shell,
 			\ 'dosbatch': executable('cmd')? 'cmd': &shell,
 			\ 'ps1': executable('powershell')? 'powershell': &shell,
+			\ 'lua': 'lua -',
 			\ 'octave': 'octave',
 			\ 'matlab': 'matlab',
 			\ 'gnuplot': 'gnuplot',

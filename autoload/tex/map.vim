@@ -1,4 +1,5 @@
 function! tex#map#main() "{{{
+	nnoremap <buffer> <LocalLeader>/ :<C-u>silent !texdoc<Space>
 	nmap <buffer> yse <plug>(vimtex-cmd-toggle-star)
 	nmap <buffer> ysc <plug>(vimtex-env-toggle-star)
 	nmap <buffer> ysd <plug>(vimtex-delim-toggle-modifier)

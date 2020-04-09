@@ -8,3 +8,6 @@ if expand('%:p:h:t') ==# '_layouts'
 	set filetype=liquid
 endif
 
+inoremap <nowait><buffer> <
+inoremap <nowait><buffer> >
+

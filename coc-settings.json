@@ -1,0 +1,147 @@
+{
+	"suggest.maxPreviewWidth": 999,
+	"suggest.snippetIndicator": "⭐︎",
+	"snippets.userSnippetsDirectory": "$VIMCONFIG/UltiSnips",
+	"snippets.editSnippetsCommand": "split",
+	"highlight.colors.enable": true,
+	"highlight.document.enable": true,
+		"emmet.includeLanguages": {
+			"vue-html": "html",
+			"javascript": "javascriptreact",
+			"gfimarkdown": "html",
+			"markdown": "html",
+			"pandoc": "html"
+		},
+	"explorer.icon.enableNerdfont": true,
+	"explorer.icon.enableVimDevicons": true,
+	"explorer.keyMappingMode": "none",
+	"explorer.keyMappings": {
+		"k": "nodePrev",
+		"j": "nodeNext",
+		"K": "gotoParent",
+		"zk": "expandablePrev",
+		"zj": "expandableNext",
+		"g!": "actionMenu",
+		"s": ["toggleSelection", "nodeNext"],
+		"S": ["toggleSelection", "nodePrev"],
+		"zo": "expand",
+		"zc": "collapse",
+		"za": "expandOrCollapse",
+		"zO": "expandRecursive",
+		"zC": "collapseRecursive",
+		"o": ["expandable?", "expandOrCollapse", "open"],
+		"O": "open:tab",
+		"i": "open:split",
+		"I": "open:vsplit",
+		"go": ["expandable?", "expandOrCollapse", "open", "quit"],
+		"gO": ["open:tab", "quit"],
+		"gi": ["open:split", "quit"],
+		"gI": ["open:vsplit", "quit"],
+		"c": "copyFile",
+		"C": "copyFilename",
+		"<C-c>": "copyFilepath",
+		"x": "cutFile",
+		"X": "delete",
+		"<c-x>": "deleteForever",
+		"p": "pasteFile",
+		"P": "preview:labeling",
+		".": "toggleHidden",
+		"a": "addFile",
+		"A": "addDirectory",
+		"r": "rename",
+		"R": "refresh",
+		"<F1>": "help",
+		"ZQ": "quit",
+		"<esc>": "esc",
+		"!": "systemExecute",
+		"gd": "listDrive",
+		"gs": "search",
+		"gS": "searchRecursive",
+		"gf": "gotoSource:file",
+		"gF": "gotoSource:buffer",
+		"[[": "sourcePrev",
+		"]]": "sourceNext",
+		"[d": "diagnosticPrev",
+		"]d": "diagnosticNext",
+		"[g": "gitPrev",
+		"]g": "gitNext",
+		"<": "gitStage",
+		">": "gitUnstage"
+	},
+	"snippets.ultisnips.directories": [
+		"coc-snippets/UltiSnips",
+		"UltiSnips",
+		"gosnippets/UltiSnips",
+		"snippets/gitignore"
+	],
+	"languageserver": {
+		"python": {
+			"command": "python",
+			"args": [
+				"-mpyls",
+				"-vv",
+				"--log-file",
+				"/tmp/lsp_python.log"
+			],
+			"trace.server": "verbose",
+			"filetypes": [
+				"python"
+			],
+			"settings": {
+				"pyls": {
+					"enable": true,
+					"trace": {
+						"server": "verbose"
+					},
+					"commandPath": "",
+					"configurationSources": [
+						"pycodestyle"
+					],
+					"plugins": {
+						"jedi_completion": {
+							"enabled": true
+						},
+						"jedi_hover": {
+							"enabled": true
+						},
+						"jedi_references": {
+							"enabled": true
+						},
+						"jedi_signature_help": {
+							"enabled": true
+						},
+						"jedi_symbols": {
+							"enabled": true,
+							"all_scopes": true
+						},
+						"mccabe": {
+							"enabled": true,
+							"threshold": 15
+						},
+						"preload": {
+							"enabled": true
+						},
+						"pycodestyle": {
+							"enabled": true
+						},
+						"pydocstyle": {
+							"enabled": false,
+							"match": "(?!test_).*\\.py",
+							"matchDir": "[^\\.].*"
+						},
+						"pyflakes": {
+							"enabled": true
+						},
+						"rope_completion": {
+							"enabled": true
+						},
+						"yapf": {
+							"enabled": true
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

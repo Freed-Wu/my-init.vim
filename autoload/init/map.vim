@@ -4,7 +4,7 @@ function! init#map#main() "{{{
 		setlocal noreadonly
 		silent! call s:unmap()
 	else
-		nnoremap <nowait><buffer> <C-r> :<C-u>execute 'vertical resize '.(winwidth(0) == &columns / 4? &columns / 2: &columns / 4)<CR>
+		nnoremap <nowait><buffer> <C-r> :<C-u>execute 'vertical resize '.(winwidth(0) == &columns / 2? &columns / 4: &columns / 2)<CR>
 		nnoremap <nowait><buffer> u :<C-U>call smoothie#upwards()<CR>
 		nnoremap <nowait><buffer> d :<C-U>call smoothie#downwards()<CR>
 		nnoremap <nowait><buffer> U :<C-U>call smoothie#backwards()<CR>
