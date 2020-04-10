@@ -1,24 +1,23 @@
+scriptencoding utf-8
+
 function! init#which_key#main() "{{{
 	" <Leader> {{{ "
 	let g:which_key_map_leader = extend(g:which_key_map_leader, {
-				\ 'name': "choose a key about global map",
+				\ 'name': 'choose a key about global map',
 				\ ' ':{
 				\ 'name': '+motion',
 				\ },
-				\ 'a':{
-				\ 'name': '+ale',
-				\ },
 				\ 'b':{
-				\ 'name': '+eunuch',
+				\ 'name': '+buffer',
 				\ },
 				\ 'c':{
-				\ 'name':'+NERDCommentor',
+				\ 'name':'+comment',
 				\ },
 				\ 'd':{
-				\ 'name': "+draw",
+				\ 'name': '+draw',
 				\ },
 				\ 'e':{
-				\ 'name': "+vim-template",
+				\ 'name': '+vim-template',
 				\ },
 				\ 'f':{
 				\ 'name': '+leaderf',
@@ -30,7 +29,7 @@ function! init#which_key#main() "{{{
 				\ 'name': '+shell',
 				\ },
 				\ 'i':{
-				\ 'name': "+VisIncr",
+				\ 'name': '+VisIncr',
 				\ },
 				\ 'j':{
 				\ 'name': '+defx',
@@ -42,10 +41,10 @@ function! init#which_key#main() "{{{
 				\ 'name': '+location',
 				\ },
 				\ 'm':{
-				\ 'name': "+vim-visual-multi",
+				\ 'name': '+vim-visual-multi',
 				\ },
 				\ 'n':{
-				\ 'name': '+Ultisnips',
+				\ 'name': '+snippets',
 				\ 'u': 'Ultisnips',
 				\ 's': 'SnippetMates',
 				\ },
@@ -53,16 +52,16 @@ function! init#which_key#main() "{{{
 				\ 'name': '+option',
 				\ },
 				\ 'p':{
-				\ 'name': "+plugin",
+				\ 'name': '+plugin',
 				\ },
 				\ 'q':{
 				\ 'name': '+quickui',
 				\ },
 				\ 'r':{
 				\ 'name': '+replace',
-				\ 'r': "+substitute",
-				\ 'c': "+count",
-				\ 'd': "delete empty lines",
+				\ 'r': '+substitute',
+				\ 'c': '+count',
+				\ 'd': 'delete empty lines',
 				\ '/': '\→/',
 				\ '?': '/→\',
 				\ '<Tab>': '\→\\',
@@ -70,10 +69,10 @@ function! init#which_key#main() "{{{
 				\ 's': ' →',
 				\ },
 				\ 's':{
-				\ 'name': "+vim-startify&vim-splash",
+				\ 'name': '+vim-startify&vim-splash',
 				\ },
 				\ 't':{
-				\ 'name': "+vim-translator",
+				\ 'name': '+vim-translator',
 				\ },
 				\ 'u':{
 				\ 'name': '+ui',
@@ -82,19 +81,19 @@ function! init#which_key#main() "{{{
 				\ 'name': '+vim',
 				\ },
 				\ 'w':{
-				\ 'name': "+vimwiki",
+				\ 'name': '+vimwiki',
 				\ },
 				\ 'x':{
-				\ 'name': "+execute",
+				\ 'name': '+execute',
 				\ },
 				\ 'y':{
-				\ 'name': "+happy",
+				\ 'name': '+happy',
 				\ },
 				\ 'z':{
 				\ 'name': '+language',
 				\ },
 				\ })
-	call which_key#register('<Space>', "g:which_key_map_leader")
+	call which_key#register('<Space>', 'g:which_key_map_leader')
 	" }}} <Leader> "
 	" <LocalLeader> {{{ "
 	call which_key#register(g:maplocalleader, (exists('b:which_key_map_localleader')?'b':'g').':which_key_map_localleader')
@@ -105,73 +104,73 @@ function! init#which_key#main() "{{{
 	" }}} <LocalLeader> "
 	" z {{{ "
 	let g:which_key_map_z = {
-				\ 'name': "choose a key about fold&wrap&spell",
+				\ 'name': 'choose a key about fold&wrap&spell',
 				\ 'u':{
 				\ 'name': '+spell',
 				\ },
 				\ }
-	call which_key#register('z', "g:which_key_map_z")
+	call which_key#register('z', 'g:which_key_map_z')
 	" }}} z "
 	" g {{{ "
 	let g:which_key_map_g = {
-				\ 'name': "choose a key about go&get",
+				\ 'name': 'choose a key about go&get',
 				\ }
-	call which_key#register('g', "g:which_key_map_g")
+	call which_key#register('g', 'g:which_key_map_g')
 	" }}} g "
 	" [ {{{ "
 	let g:which_key_map_leftbracket = {
-				\ 'name': "choose a key about moveFoward",
+				\ 'name': 'choose a key about moveFoward',
 				\ 'o':{
-				\ 'name': "+options on",
-				\ 'b': "background",
-				\ 'c': "cursorline",
-				\ 'd': "diff",
-				\ 'h': "hlsearch",
-				\ 'i': "ignorecase",
-				\ 'l': "list",
-				\ 'n': "number",
-				\ 'r': "relativenumber",
-				\ 's': "spell",
-				\ 'u': "cursorcolumn",
-				\ 'v': "virtualedit",
-				\ 'p': "paste",
-				\ 'w': "wrap",
-				\ 'x': "cursorline&cursorcolumn",
+				\ 'name': '+options on',
+				\ 'b': 'background',
+				\ 'c': 'cursorline',
+				\ 'd': 'diff',
+				\ 'h': 'hlsearch',
+				\ 'i': 'ignorecase',
+				\ 'l': 'list',
+				\ 'n': 'number',
+				\ 'r': 'relativenumber',
+				\ 's': 'spell',
+				\ 'u': 'cursorcolumn',
+				\ 'v': 'virtualedit',
+				\ 'p': 'paste',
+				\ 'w': 'wrap',
+				\ 'x': 'cursorline&cursorcolumn',
 				\ },
 				\ }
-	call which_key#register('[', "g:which_key_map_leftbracket")
+	call which_key#register('[', 'g:which_key_map_leftbracket')
 	" }}} [ "
 	" ] {{{ "
 	let g:which_key_map_rightbracket = {
-				\ 'name': "choose a key about moveBackword",
+				\ 'name': 'choose a key about moveBackword',
 				\ 'o':{
-				\ 'name': "+options off",
-				\ 'b': "background",
-				\ 'c': "cursorline",
-				\ 'd': "diff",
-				\ 'h': "hlsearch",
-				\ 'i': "ignorecase",
-				\ 'l': "list",
-				\ 'n': "number",
-				\ 'r': "relativenumber",
-				\ 's': "spell",
-				\ 'u': "cursorcolumn",
-				\ 'v': "virtualedit",
-				\ 'p': "paste",
-				\ 'w': "wrap",
-				\ 'x': "cursorline&cursorcolumn",
+				\ 'name': '+options off',
+				\ 'b': 'background',
+				\ 'c': 'cursorline',
+				\ 'd': 'diff',
+				\ 'h': 'hlsearch',
+				\ 'i': 'ignorecase',
+				\ 'l': 'list',
+				\ 'n': 'number',
+				\ 'r': 'relativenumber',
+				\ 's': 'spell',
+				\ 'u': 'cursorcolumn',
+				\ 'v': 'virtualedit',
+				\ 'p': 'paste',
+				\ 'w': 'wrap',
+				\ 'x': 'cursorline&cursorcolumn',
 				\ },
 				\ }
-	call which_key#register(']', "g:which_key_map_rightbracket")
+	call which_key#register(']', 'g:which_key_map_rightbracket')
 	" }}} ] "
 	" <lt>C-w> {{{ "
 	let g:which_key_map_C_w = {
-				\ 'name': "choose a key about window",
+				\ 'name': 'choose a key about window',
 				\ 'g':{
 				\ 'name': '+go',
 				\ },
 				\ }
-	call which_key#register('<C-w>', "g:which_key_map_C_w")
+	call which_key#register('<C-w>', 'g:which_key_map_C_w')
 	" }}} <lt>C-w> "
 	" yo {{{ "
 	augroup init_yoMap "{{{
@@ -179,63 +178,63 @@ function! init#which_key#main() "{{{
 		autocmd SourcePre unimpaired.vim call init#unimpaired#main()
 	augroup END "}}}
 	let g:which_key_map_y_o = {
-				\ 'name': "choose a key about toggle options",
-				\ 'b': "background",
-				\ 'c': "cursorline",
-				\ 'd': "diff",
-				\ 'h': "hlsearch",
-				\ 'i': "ignorecase",
-				\ 'l': "list",
-				\ 'n': "number",
-				\ 'r': "relativenumber",
-				\ 's': "spell",
-				\ 'u': "cursorcolumn",
-				\ 'v': "virtualedit",
-				\ 'p': "paste",
-				\ 'w': "wrap",
-				\ 'x': "cursorline&cursorcolumn",
+				\ 'name': 'choose a key about toggle options',
+				\ 'b': 'background',
+				\ 'c': 'cursorline',
+				\ 'd': 'diff',
+				\ 'h': 'hlsearch',
+				\ 'i': 'ignorecase',
+				\ 'l': 'list',
+				\ 'n': 'number',
+				\ 'r': 'relativenumber',
+				\ 's': 'spell',
+				\ 'u': 'cursorcolumn',
+				\ 'v': 'virtualedit',
+				\ 'p': 'paste',
+				\ 'w': 'wrap',
+				\ 'x': 'cursorline&cursorcolumn',
 				\ }
-	call which_key#register('yo', "g:which_key_map_y_o")
+	call which_key#register('yo', 'g:which_key_map_y_o')
 	" }}} yo "
 	" i {{{ "
 	let g:which_key_map_i = {
-				\ 'name': "choose a key about inner text object",
+				\ 'name': 'choose a key about inner text object',
 				\ 'T':{
-				\ 'name': "+vim-textobj-datetime",
+				\ 'name': '+vim-textobj-datetime',
 				\ },
 				\ 'j':{
-				\ 'name': "+vim-textobj-jabraces",
+				\ 'name': '+vim-textobj-jabraces',
 				\ },
 				\ }
-	call which_key#register('i', "g:which_key_map_i")
+	call which_key#register('i', 'g:which_key_map_i')
 	" }}} i "
 	" a {{{ "
 	let g:which_key_map_a = {
-				\ 'name': "choose a key about around text object",
+				\ 'name': 'choose a key about around text object',
 				\ 'T':{
-				\ 'name': "+vim-textobj-datetime",
+				\ 'name': '+vim-textobj-datetime',
 				\ },
 				\ 'j':{
-				\ 'name': "+vim-textobj-jabraces",
+				\ 'name': '+vim-textobj-jabraces',
 				\ },
 				\ }
-	call which_key#register('a', "g:which_key_map_a")
+	call which_key#register('a', 'g:which_key_map_a')
 	" }}} i "
 	" I {{{ "
 	let g:which_key_map_I = {
-				\ 'name': "choose a key about Inner text object",
+				\ 'name': 'choose a key about Inner text object',
 				\ }
-	call which_key#register('I', "g:which_key_map_I")
+	call which_key#register('I', 'g:which_key_map_I')
 	" }}} I "
 	" A {{{ "
 	let g:which_key_map_A = {
-				\ 'name': "choose a key about Around text object",
+				\ 'name': 'choose a key about Around text object',
 				\ }
-	call which_key#register('A', "g:which_key_map_A")
+	call which_key#register('A', 'g:which_key_map_A')
 	" }}} I "
-	call which_key#register('.', "g:which_key_map_startify_dot")
-	call which_key#register('c', "g:which_key_map_fugitive_c")
-	call which_key#register('d', "g:which_key_map_fugitive_d")
-	call which_key#register('r', "g:which_key_map_fugitive_r")
+	call which_key#register('.', 'g:which_key_map_startify_dot')
+	call which_key#register('c', 'g:which_key_map_fugitive_c')
+	call which_key#register('d', 'g:which_key_map_fugitive_d')
+	call which_key#register('r', 'g:which_key_map_fugitive_r')
 endfunction "}}}
 

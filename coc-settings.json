@@ -10,7 +10,6 @@
 			"javascript": "javascriptreact",
 			"gfimarkdown": "html",
 			"markdown": "html",
-			"pandoc": "html"
 		},
 	"explorer.icon.enableNerdfont": true,
 	"explorer.icon.enableVimDevicons": true,
@@ -53,7 +52,7 @@
 		"<F1>": "help",
 		"ZQ": "quit",
 		"<esc>": "esc",
-		"!": "systemExecute",
+		"gx": "systemExecute",
 		"gd": "listDrive",
 		"gs": "search",
 		"gS": "searchRecursive",

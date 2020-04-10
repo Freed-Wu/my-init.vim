@@ -43,6 +43,10 @@ endif
 "setlocal indentexpr=BuckyTexIndent()
 setlocal indentexpr=VimtexIndentExpr()
 
+inoremap <buffer> -- <Space>--<Space>
+inoremap <buffer> - -
+inoremap <buffer> > >
+inoremap <buffer> < <
 nmap <buffer> [[ <plug>(vimtex-[[)
 nmap <buffer> [] <plug>(vimtex-[])
 nmap <buffer> ][ <plug>(vimtex-][)

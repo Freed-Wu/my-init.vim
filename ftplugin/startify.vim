@@ -41,8 +41,7 @@ function! s:startify() "{{{
 	unmap <buffer> q
 endfunction "}}}
 
-command! -buffer -nargs=* -range -bar -complete=customlist,deol#_complete
-			\ Deol call deol#start(<q-args>.' -split=')
+command! -buffer -nargs=* -range REPLToggle terminal ++close ++curwin
 command! -buffer -nargs=* -complete=customlist,calendar#argument#complete
 			\ Calendar call calendar#new(<q-args>.' -position=here')
 command! -buffer -nargs=? Splash enew
@@ -50,6 +49,7 @@ command! -buffer -nargs=? Splash enew
 
 setlocal nonumber
 setlocal norelativenumber
+setlocal buftype=nofile
 
 nmap <buffer> n <Plug>(is-nohl)<Plug>(anzu-n-with-echo)
 nmap <buffer> N <Plug>(is-nohl)<Plug>(anzu-N-with-echo)

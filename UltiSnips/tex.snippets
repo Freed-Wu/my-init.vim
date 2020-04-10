@@ -244,128 +244,6 @@ snippet ov "myUltiSnips" b
 	put$0
 \end{overpic}
 endsnippet
-snippet put "myUltiSnips" b
-\put(${1:0,0}){$2}
-put$0
-endsnippet
-snippet trim "myUltiSnips" b
-\includegraphics[
-	width=${1:0.8}\linewidth,
-	clip,
-	trim=
-	${2:29.7}*0.$4cm
-	${3:21}*0.$5cm
-	$2*(1-0.$6)cm
-	$3*(1-0.$7)cm
-]{${8:clock0.pdf}}$0
-endsnippet
-#绘图模板
-#smartdiagram
-snippet polygon "myUltiSnips" b
-\tikzset{%
-	planet/.append style={regular polygon, regular polygon sides=6},
-	satellite/.append style={regular polygon, regular polygon sides=6},
-	every picture/.append style={rotate=30},
-	connection planet satellite/.style={%
-		bend right/.style=,
-		every edge/.style={fill=\col},
-		to path={%
-			\pgfextra
-			\path[draw=none, fill=none] (\tikztostart)
-			-- coordinate[at start] (@start@) coordinate[at end] (@target@) (\tikztotarget);
-			\endpgfextra
-			\ifnum\xi<\maxsmitem % to disable the last arrow
-			($(@start@)!.6cm!90:(@target@)$) -- ($(@target@)!.25cm!-90:(@start@)$)
-			-- ($(@target@)!.25cm!90:(@start@)$) -- ($(@start@)!.6cm!-90:(@target@)$)
-			-- cycle
-			\fi}}}
-\smartdiagram[connected constellation diagram]{%
-	${1:name},
-	${2:name},
-	${3:name},
-	${4:name},
-	${5:name},
-	${6:name},
-	${7:name}
-}$0
-endsnippet
-snippet pri "myUltiSnips" b
-\smartdiagramset{%
-	set color list={blue!50!cyan,green!60!lime,orange!50!red},
-	priority arrow width=2cm,
-	priority arrow height advance=2.25cm
-}
-\smartdiagram[priority descriptive diagram]{${1:1}}$0
-endsnippet
-snippet connect "myUltiSnips" b
-\smartdiagramset{planet color=orange!60,
-				 distance planet-satellite=1cm
-				 }
-\smartdiagram[connected constellation diagram]
-{Build a program,Set up,Run,Analyze,Modify~/\\ Add,Check}$0
-endsnippet
-#forest
-snippet forest "myUltiSnips" b
-\forestset{%
-	direction switch/.style={%
-		for tree={edge+=thick, font=\sffamily},
-		where level>=1{folder, grow'=0}{for children=forked edge},
-		where level=3{}{draw},
-	},
-}
-\begin{forest}
-	% forest preamble: determine layout and format of tree
-	direction switch
-	[Redmine Project Organization
-		[Blockchain
-			[HashGraph
-				]
-			[Vue-Dapp
-				[Docsaurus]
-				[Deploy	to	MainNet]
-				[Update	Todolist]
-				]
-			[IPFS	Dapp
-				[Drizzle	Truffle]
-				[Solidity	Contract]
-				[Deploy	to	Surge]
-				]
-			]
-		[Academic
-			[ENGR	Year	4
-				[CENG	4B]
-				[CENG	4A]
-				]
-			[Tutorials
-				[Voting	Dapp]
-				]
-			[Article	Summary
-				[Vyper	+	Truffle]
-				[Tensorflow]
-				[HashGraph]
-				]
-			]
-		[Job	Hunt
-			[First	Job
-				[Blockchain]
-				[AI]
-				]
-			[Scripts
-				[Go-api]
-				[Indeed	Scrapper]
-				[Uvic	Scrapper]
-				]
-			]
-		[AI
-			[Chatbots]
-			[Tensorflow]
-			]
-		[Projects
-			[Portfolio	Website]
-			[Notes	---	Vuepress]
-			]
-		]
-\end{forest}$0
 endsnippet
 #circuitikz
 snippet circuit "myUltiSnips" b
@@ -374,51 +252,13 @@ draw$1
 \end{circuitikz}$0
 endsnippet
 #tikz
-snippet tikzset "myUltiSnips" b
-\tikzset{node distance=${1:1.5cm}}$0
-endsnippet
-snippet tikzstyle "myUltiSnips" b
-% 流程图定义基本形状
-\tikzstyle{startstop} = [rectangle, rounded corners, minimum width = 2cm, minimum height=1cm,text centered, draw = black, fill = red!40]
-\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill = blue!40]
-\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill = yellow!50]
-\tikzstyle{decision} = [diamond, aspect = 3, text centered, draw=black, fill = green!30]$0
-endsnippet
-snippet round "myUltiSnips" i
-, rounded corners$0
-endsnippet
-#dia
 snippet node "myUltiSnips" b
-\node ($1) [draw, align = center, ${2:pro}${2/(te)$|(pre)$|(pro)$|(de)$|(s)$|(r)$|(c)$|(tr)$|(di)$|(.*)/(?1:rminal)(?2:dproc)(?3:cess)(?4:cision)(?5:torage)(?6:ectangle)(?7:ircle)(?8:apezium, trapezium left angle=70, trapezium right angle=110)(?9:amond)/}${3:, ${4:b}${4/(b)$|(r)$|(a)$|(l)$|(.*)/(?1:elow)(?2:ight)(?3:bove)(?4:eft)/} of= ${VISUAL}$5}] {$1};
-$1$0
+\node($1) [$2] {$4};
+node$0
 endsnippet
-snippet , "myUltiSnips" i
-, ${1:x}${1/(x)$|(y)$|(f)$|(.*)/(?1:shift)(?2:shift)(?3:ill)/}=${2:.}${2/(.)$|(-)$|(b)$|(.*)/(?1:5cm)(?2:.5cm)(?3:lue!20)/}
-endsnippet
-snippet to "myUltiSnips" i
-to[$1, l=$2, ${3:a}${3/(a)$|(e)$|(.*)/(?1:merican)(?2:uropean)/} ${4:i}${4/(i)$|(r)$|(.*)/(?1:nductors)(?2:esistor)/}] (${5:0,0}) to$0
-endsnippet
-snippet path "myUltiSnips" b
-\path($1)--($2)coordinate[pos = ${3:.5}]($1$2);$0
-endsnippet
-snippet ++ "myUltiSnips" i
-++(${1:1}${1/(1)$|(0)$|(.*)/(?1:,0)(?2:,-1)/})node[anchor = ${2:w}${2/(s)$|(w)$|(.*)/(?1:outh)(?2:est)/}] {${3:是}${3/(y)$|(n)$|(.*)/(?1:es)(?2:o)/}}${4:|-} $0
-endsnippet
-##########
-#  draw  #
-##########
 snippet draw "myUltiSnips" b
-\draw$1 (${VISUAL}$2) --$3;
+\draw()$2;
 draw$0
-endsnippet
-snippet -S "myUltiSnips" i
--Stealth$0
-endsnippet
-snippet rot "myUltiSnips" i
-rotate = $0
-endsnippet
-snippet -- "myUltiSnips" i
--- $1($0)
 endsnippet
 snippet .. "myUltiSnips" i
 .. controls ($1) and ($2) .. ($0)
@@ -438,259 +278,6 @@ $0
 endsnippet
 snippet arc "myUltiSnips" i
 arc ($1:$2:$3)$0
-endsnippet
-snippet clip "myUltiSnips" i
-\clip[draw] ($1) cir$2;$0
-endsnippet
-snippet para "myUltiSnips" i
-parabola bend ($1) ($0)
-endsnippet
-snippet sin "myUltiSnips" i
-sin ($1)$0
-endsnippet
-snippet cos "myUltiSnips" i
-cos ($0)
-endsnippet
-#circledia
-snippet arctext "myUltiSnips" b
-\arctext[${1:text}][
-	color=${2:R}${2/(R)$|(S)$|(.*)/(?1:rdArc)(?2:kyArc)/}
-	${3:color=white,
-   shade,
-   upper left=red,
-   upper right=black!50,
-   lower left=blue,
-   lower right=blue!50,
-   rounded corners = 8pt}
-][${4:8}pt](${5:2.25})(${6:50})(${7:-20}){|\\${8:f}${8/(f)$|(s)$|(.*)/(?1:ootnotesize)(?2:criptsize)/}\bf\color{${9:b}${9/(b)$|(w)$|(.*)/(?1:lack)(?2:hite)/}}|$1};
-arctext$0
-endsnippet
-snippet arcarrow "myUltiSnips" b
-\arcarrow(${1:b}${1/(b)$|(a)$|(.*)/(?1:elow)(?2:bove)/} ${2:r}${2/(r)$|(l)$|(.*)/(?1:ight)(?2:eft)/} ${3:参考点})(${4:中心}-R)[${5:25}];
-arcarrow$0
-endsnippet
-snippet drawmyarrow "myUltiSnips" b
-\draw[myarrow] (${1:l}${1/(l)$|(r)$|(.*)/(?1:eft)(?2:ight)/} ${2:start}) -- (${3:l}${3/(l)$|(r)$|(.*)/(?1:eft)(?2:ight)/} ${4:end});
-drawmyarrow$0
-endsnippet
-#绘图
-snippet bar "myUltiSnips" b
-\begin{axis}[ybar,enlargelimits=0.15]  % 绘制关于y坐标的条形图，条形之间的最大间隔是0.15cm
-\addplot[draw=blue,fill=red]		   % 蓝色边界、红色填充
-coordinates{%
-	(0,4) (1,1) (2,2)
-	(3,5) (4,6) (5,1)
-};
-\addplot[draw=black,fill=blue]		 % 黑色边界、蓝色填充
-coordinates{%
-	(0,3) (1,4) (2,2)
-	(3,9) (4,6) (5,2)
-};
-\addlegendentry{$1};
-\end{axis}$0
-endsnippet
-snippet scope "myUltiSnips" b
-\node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=${1:0.9}\textwidth]{$2}};
-
-\begin{scope}[x={(image.south east)},y={(image.north west)}]
-\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
-\foreach \x in {0,1,...,9}{%
-	\node [anchor=north] at (\x/10,0) {0.\x};
-}
-\foreach \y in {0,1,...,9}{%
-	\node [anchor=east] at (0,\y/10) {0.\y};
-}
-
-sc$0
-\end{scope}
-endsnippet
-snippet sc "myUltiSnips" b
-\draw[red, rounded corners] (${1:0.05,0.85}) rectangle (${2:0.12,0.95});
-\node(${3:开关}) at (${4:.09,.95}) [red, align=center, anchor=south] {\tiny $3};
-sc$0
-endsnippet
-snippet pie "myUltiSnips" b
-\pie[pos={${1:0},${2:0}},radius=${3:4},rotate=${4:0}]{${5:10}/${6:A},${7:90}/${8:B}}$0
-endsnippet
-snippet func "myUltiSnips" b
-\newcommand*{\num}{pi}
-% define the plot style and the axis style
-\tikzset{elegant/.style={smooth,thick,samples=50,cyan}}
-\tikzset{eaxis/.style={->,>=stealth}}
-% draw the axis
-\draw[eaxis] (-\num,0) -- (\num,0) node[below] {$x$};
-\draw[eaxis] (0,-\num) -- (0,\num) node[above] {$f(x)$};
-% draw the function (piecewise)
-\draw[elegant,domain=-\num:-1/\num] plot(\x,{1/\x});
-\draw[elegant,domain=1/\num:\num] plot(\x,{1/\x});
-\draw[elegant,orange,domain=-\num:\num] plot(\x,{sin(\x r)});$0
-endsnippet
-snippet animate "myUltiSnips" b
-\definecolor{fom}{RGB}{0,153,139}
-\newcommand{\dat}{0.7} % 0.67
-\usepackage{animate}
-\begin{animateinline}[poster=last, controls, palindrome]{10}
-\multiframe{70}{Ry=0.1+0.01}{%
-	\begin{tikzpicture}[x=4cm,y=4cm]
-	\draw[line width=1pt,lightgray] (0,0) -- (1,1);
-	\draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
-	\draw (0,0) -- (0.17,0.67);
-	\draw (1,1) -- (0.83,\Ry);
-	\draw [magenta,fill=magenta](0.17,0.67) circle (.5ex);
-	\draw [fom,fill=fom](0.83,\Ry) circle (.5ex);
-	\draw[line width=1pt] (0,0) .. controls (0.17,0.67) and (0.83,\Ry) .. (1,1);
-	\node[label={[label distance=0.0cm,text depth=-1ex,rotate=90]left:Fortschritt in \%}] at (-0.1,0.8) {};
-	\node[label={[label distance=0.0cm,text depth=-1ex]right:Zeit-Achse}] at (0,-0.05) {};
-	\end{tikzpicture}}
-\end{animateinline}$0
-endsnippet
-snippet circledia "myUltiSnips" b
-\definecolor{ocre}{HTML}{800000}
-\definecolor{sky}{HTML}{C6D9F1}
-\definecolor{skybox}{HTML}{5F86B3}
-% arctext from Andrew code with modifications:
-%Variables: 1: ID, 2:Style 3:box height 4: Radious 5:start-angl 6:end-angl 7:text {format along path}
-\def\arctext[#1][#2][#3](#4)(#5)(#6)#7{%
-\draw[#2] (#5:#4cm+#3) coordinate (above #1) arc (#5:#6:#4cm+#3)
--- (#6:#4) coordinate (right #1) -- (#6:#4cm-#3) coordinate (below right #1) arc (#6:#5:#4cm-#3) coordinate (below #1)
--- (#5:#4) coordinate (left #1) -- cycle;
-\def\a#1{#4cm+#3}
-\def\b#1{#4cm-#3}
-\path[
-decoration={%
-	raise = -0.5ex, % Controls relavite text height position.
-	text  along path,
-	text = {#7},
-	text align = center,
-},
-decorate
-]
-(#5:#4) arc (#5:#6:#4);
-}
-%arcarrow, this is mine, for beerware purpose...
-%Function: Draw an arrow from arctex coordinate specific nodes to another
-%Arrow start at the start of arctext box and could be shifted to change the position
-%to avoid go over another box.
-%Var: 1:Start coordinate 2:End coordinate 3:angle to shift from acrtext box
-\def\arcarrow(#1)(#2)[#3]{%
-\draw[thick,->,>=latex]
-let \p1 = (#1), \p2 = (#2), % To access cartesian coordinates x, and y.
-\n1 = {veclen(\x1,\y1)}, % Distance from the origin
-\n2 = {veclen(\x2,\y2)}, % Distance from the origin
-\n3 = {atan2(\y1,\x1)} % Angle where acrtext starts.
-in (\n3-#3: \n1) -- (\n3-#3: \n2); % Draw the arrow.
-}
-\tikzset{%
-% Environment Cfg
-font=\sf	\scriptsize,
-% Styles
-myarrow/.style = {%
-thick,
--latex,
-},
-Center/.style = {%
-circle,
-fill=ocre,
-text=white,
-align=center,
-font =\footnotesize\bf,
-inner sep=1pt,
-},
-RedArc/.style = {%
-color=black,
-thick,
-fill=ocre,
-blur shadow, %Tikzedt not suport online view
-},
-SkyArc/.style = {%
-color=skybox,
-thick,
-fill=sky,
-blur shadow, %Tikzedt not suport online view
-},
-}
-% Drawing the center
-\node[Center](${1:中心}) at (0,0) {${1:中心}};
-\coordinate (${1:中心}-R) at (0:1.2); % To make compatible with \arcarrow macro.
-% Drawing the Tex Arcs
-% \Arctext[ID][box-style][box-height](radious)(start-angl)(end-angl){|text-styles| Text}
-arctext$2
-%Drawing the Arrows
-%\arcarrow(above/below ID)(abobe/below ID)[shift]
-arcarrow$3
-%Same level Arrows
-drawmyarrow$4
-%ADITIONAL
-\draw[myarrow] (-5,-3.5) coordinate (legend) -- ++(0.8,0) node[anchor=west] {相关};
-\draw[RedArc] (legend)++(0,-0.4) rectangle ++(0.8, -0.3)++(0, 0.2) node[anchor=west] {内部因素};
-\draw[SkyArc] (legend)++(0,-1) rectangle ++(0.8, -0.3)++(0, 0.2) node[anchor=west, color=black] {外部因素};$0
-endsnippet
-snippet blockchain "myUltiSnips" b
-\tikzset{%
-start chain=going right,
-node distance=5mm,
-every on chain/.style={%
-thick,
-draw=black,
-top color=white,
-bottom color=yellow!40,
-font=\sffamily\small,
-minimum width=6mm,
-minimum height=6mm,
-%drop shadow,
-%label={below:block \tikzchaincount},
-},
-decoration={coil},
-dna/.style={decorate, thick, decoration={aspect=0, segment length=5cm}},
-%	post join/.style={%
-%	  -stealth,
-%	  line width=1.5mm,
-%	  red,
-%	  rounded corners=1mm,
-%	},
-square/.style={thick,
-  draw=black,
-  top color=white,
-  bottom color=black!10,
-  font=\sffamily\small,
-  minimum width=12mm,
-  minimum height=10mm,
-  drop shadow},
-every label/.style={%
-font=\sffamily\scriptsize
-},
-}
-\draw[dna, decoration={amplitude=.15cm}] (0,-0) -- (1.1,-0);
-\draw[dna, decoration={amplitude=.35cm}] (1.15,0) -- (1.15,-1.1);
-\draw[dna, decoration={amplitude=.35cm}] (1.15,-1.1) -- (0,-1.1);
-\draw[dna, decoration={amplitude=.35cm}] (0,-1.1) -- (0,0);
-%% Path for dots
-\node [on chain] {$1};
-\node [on chain] {$2};
-\node [on chain=going below] {$3};
-\node [on chain=going left] {$4};$0
-endsnippet
-snippet ann "myUltiSnips" b
-\newcommand{\ann}[1]{%
-	\begin{tikzpicture}[remember picture, baseline=-0.75ex]%
-	\node[coordinate] (inText) {};%
-	\end{tikzpicture}%
-	\marginpar{%
-		\renewcommand{\baselinestretch}{1.0}%
-		\begin{tikzpicture}[remember picture]%
-		\definecolor{orange}{rgb}{1,0.5,0}%
-		\draw node[fill=red!20,rounded corners,text width=\marginparwidth] (inNote){\footnotesize#1};%
-		\end{tikzpicture}%
-	}%
-	\begin{tikzpicture}[remember picture, overlay]%
-	\draw[draw = orange, thick]
-	([yshift=-0.2cm] inText)
-	-| ([xshift=-0.2cm] inNote.west)
-	-| (inNote.west);%
-	\end{tikzpicture}%
-}%
-\setlength{\marginparwidth}{2.5cm}
-\renewcommand{\baselinestretch}{1.3}
 endsnippet
 # 1}}} picture #
 
@@ -1951,3 +1538,230 @@ ${1:\begin{block}{参考}
 endsnippet
 # 1}}} template #
 
+
+snippet sympy "sympy block " w
+sympy $1 endsympy$0
+endsnippet
+
+snippet 'sympy(.*)endsympy' "evaluate sympy" wr
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
+		      .replace('^', '**') \
+		      .replace('{', '(') \
+		   .replace('}', ')') + ')')
+`
+endsnippet
+
+snippet math "mathematica block" w
+math $1 endmath$0
+endsnippet
+
+snippet 'math(.*)endmath' "evaluate mathematica" wr
+`!p
+import subprocess
+code = 'ToString[' + match.group(1) + ', TeXForm]'
+snip.rv = subprocess.check_output(['wolframscript', '-code', code])
+`
+endsnippet
+# 1}}} latex-math-python #
+
+# latex-math-function {{{1 #
+
+snippet hat "myUltiSnips" i
+\hat{${1:${VISUAL}}}$0
+endsnippet
+
+snippet int "myUltiSnips" i
+\int\nolimits_{${1:-\infty}}^${2:\infty} $0
+endsnippet
+
+snippet sum "myUltiSnips" i
+\sum_{${1:i} = ${2:-\infty}}^${3:\infty} $0
+endsnippet
+
+snippet pro "myUltiSnips" i
+\prod_{${1:i} = ${2:-\infty}}^${3:\infty} $0
+endsnippet
+
+snippet lef "myUltiSnips" i
+\left${1:(}${3:${VISUAL}}\right${2:)}$0
+endsnippet
+
+snippet big "myUltiSnips" i
+\bigl${1:(}${3:${VISUAL}}\bigr${2:)}$0
+endsnippet
+
+snippet Big "myUltiSnips" i
+\Bigl${1:(}${3:${VISUAL}}\Bigr${2:)}$0
+endsnippet
+
+snippet bigg "myUltiSnips" i
+\biggl${1:(}${3:${VISUAL}}\biggr${2:)}$0
+endsnippet
+
+snippet Bigg "myUltiSnips" i
+\Biggl${1:(}${3:${VISUAL}}\Biggr${2:)}$0
+endsnippet
+
+snippet \{ "myUltiSnips" i
+\\{${1:${VISUAL}}\\}$0
+endsnippet
+
+snippet "([A-Za-z'])(\d)" "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+snippet "([A-Za-z'])_(\d\d)" "auto subscript2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+
+snippet "([A-Za-z'])_" "auto subscript2" wr
+`!p snip.rv = match.group(1)`_{${1:${VISUAL}}}$0
+endsnippet
+
+snippet ^ "auto subscript2" w
+^{${1:${VISUAL}}}$0
+endsnippet
+
+snippet '([A-Za-z])\^(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}
+endsnippet
+
+snippet bin "myUltiSnips" i
+($1)_{(2)} $0
+endsnippet
+
+snippet sq "myUltiSnips" i
+\sqrt{${1:${VISUAL}}}$0
+endsnippet
+
+snippet __ "myUltiSnips" iA
+_\mathrm{${VISUAL}$1}$0
+endsnippet
+
+snippet lim "myUltiSnips" i
+\lim_{${1:n} \to ${2:\infty}}$0
+endsnippet
+
+snippet fr "myUltiSnips" i
+\frac{${VISUAL}$1}{$2}$0
+endsnippet
+
+snippet case "myUltiSnips" b
+\begin{cases}
+	$1
+\end{cases}
+$0
+endsnippet
+
+snippet ali "myUltiSnips" b
+\begin{aligned}
+	$1
+\end{aligned}
+$0
+endsnippet
+
+snippet dcase "myUltiSnips" b
+\begin{dcases}
+	$1
+\end{dcases}
+$0
+endsnippet
+
+snippet over "myUltiSnips" i
+\overline{${1:${VISUAL}}}$0
+endsnippet
+# 1}}} latex-math-function #
+
+# latex-math-font {{{1 #
+
+snippet mb "myUltiSnips" i
+\mathbb{${1:${VISUAL}}}$0
+endsnippet
+
+snippet mf "myUltiSnips" i
+\mathfrak{${1:${VISUAL}}}$0
+endsnippet
+
+snippet mc "myUltiSnips" i
+\mathcal{${1:${VISUAL}}}$0
+endsnippet
+
+snippet ms "myUltiSnips" i
+\mathscr{${1:${VISUAL}}}$0
+endsnippet
+
+snippet mr "myUltiSnips" i
+\mathrm{${1:${VISUAL}}}$0
+endsnippet
+
+snippet mo "myUltiSnips" i
+\mathop{${1:${VISUAL}}}$0
+endsnippet
+# 1}}} latex-math-font #
+
+# matrix {{{1 #
+
+snippet mat "myUltiSnips" b
+\begin{matrix}
+$0
+\end{matrix}
+endsnippet
+
+snippet bmat "myUltiSnips" b
+\begin{bmatrix}
+$0
+\end{bmatrix}
+endsnippet
+
+snippet Bmat "myUltiSnips" b
+\begin{Bmatrix}
+$0
+\end{Bmatrix}
+endsnippet
+
+snippet pmat "myUltiSnips" b
+\begin{pmatrix}
+$0
+\end{pmatrix}
+endsnippet
+
+snippet vmat "myUltiSnips" b
+\begin{vmatrix}
+$0
+\end{vmatrix}
+endsnippet
+
+snippet Vmat "myUltiSnips" b
+\begin{Vmatrix}
+$0
+\end{Vmatrix}
+endsnippet
+# 1}}} matrix #
+
+# latex-math-space {{{1 #
+
+snippet - "myUltiSnips" iA
+ - $0
+endsnippet
+snippet "([^A-Za-z0-9\}\)\]']) - " "myUltiSnips" irA
+`!p snip.rv = match.group(1)`-$0
+endsnippet
+
+snippet '(\s) & ' "myUltiSnips" irA
+`!p snip.rv = match.group(1)`& $0
+endsnippet
+
+snippet '(\s) = ' "myUltiSnips" irA
+`!p snip.rv = match.group(1)`= $0
+endsnippet
+
+snippet : "myUltiSnips" iA
+: $0
+endsnippet
+# 1}}} latex-math-space #

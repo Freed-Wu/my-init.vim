@@ -2,8 +2,6 @@ if expand('%:p:h') ==# expand('$GRAPHVIZHELP') || expand('%:p:h') ==# '/usr/shar
 	nnoremap <buffer> gs :<C-u>call pandoc#hypertext#OpenSystem('https://graphviz.gitlab.io/_pages/doc/info/'.expand('%:t'))<CR>
 endif
 
-EmmetInstall
-
 if expand('%:p:h:t') ==# '_layouts'
 	set filetype=liquid
 endif

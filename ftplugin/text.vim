@@ -1,22 +1,17 @@
 if expand('%') ==# 'highlight test'
 	call init#map#main()
-endif
-
-if expand('%') ==# '[BufExplorer]'
-	nnoremap <buffer> <C-q> :bdelete<CR>
+	finish
 endif
 
 if expand('%:p') =~# 'gissues'
 	call init#map#main()
+	finish
 endif
 
 if expand('%:p') =~# 'pandoc output'
 	call init#map#main()
 	setlocal preivewwindow
-endif
-
-if expand('%:p:t') ==# '[YankRing]'
-	nnoremap <buffer> <C-r> :<C-u>execute 'vertical resize '.(winwidth(0) == g:columns? &columns / 2:g:columns)<CR>
+	finish
 endif
 
 if expand('%:p:t') ==# g:vimtex_toc_config.name
@@ -41,5 +36,6 @@ if expand('%:p:t') ==# g:vimtex_toc_config.name
 		nnoremap <buffer> K :<C-u>call b:toc.increase_depth()<CR>
 		nnoremap <buffer> J :<C-u>call b:toc.decrease_depth()<CR>
 	endfunction "}}}
+	finish
 endif
 

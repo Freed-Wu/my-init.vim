@@ -65,11 +65,9 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('yianwillis/vimcdoc', {
 				\ 'on_ft': 'help',
 				\ })
-	call dein#add('Shougo/echodoc.vim', {
-				\ 'on_event': 'InsertEnter',
-				\ 'on_cmd': ['EchoDocEnable', 'EchoDocDisable'],
+	call dein#add('openuado/vimtips-fortune', {
+				\ 'on_cmd': 'Fortune',
 				\ })
-	" TODO: cannot work <26-10-19> "
 	" 5}}} Help "
 
 	" Log {{{5 "
@@ -169,9 +167,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': ['Redact', 'RedactedW'],
 				\ 'on_map': '<Plug>Redact',
 				\ })
-	call dein#add('vim-utils/vim-troll-stopper', {
-				\ 'on_cmd': 'TrollStop',
-				\ })
+	call dein#add('vim-utils/vim-troll-stopper')
 	call dein#add('Soares/longline.vim', {
 				\ 'on_map': '<Plug>longline#',
 				\ 'on_cmd': 'LongLine',
@@ -223,9 +219,6 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': 'Splash',
 				\ })
 	call dein#add('mhinz/vim-startify')
-	call dein#add('vim-scripts/vimtips.zip', {
-				\ 'on_cmd': 'TipOfTheDay',
-				\ })
 	" 5}}} UI "
 
 	" SyntaxMarkUp {{{5 "
@@ -731,6 +724,9 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('feix760/autospace.vim', {
 				\ 'on_ft': ['javascript', 'typescript'],
 				\ })
+	call dein#add('tkhren/vim-fake', {
+				\ 'on_func': ['fake#gen', 'fake#define'],
+				\ })
 	" 5}}} Insert "
 
 	" Parse {{{5 "
@@ -811,15 +807,6 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Document "
 
 	" MarkUp {{{5 "
-	call dein#add('tomtom/tlib_vim', {
-				\ 'if': has('ruby') && (has('unix') || has('win32unix')),
-				\ 'on_ft': 'bib',
-				\ 'on_source': 'tbibtools',
-				\ })
-	call dein#add('vim-scripts/tbibtools', {
-				\ 'if': has('ruby') && (has('unix') || has('win32unix')),
-				\ 'on_ft': 'bib',
-				\ })
 	call dein#add('lervag/vimtex')
 	call dein#add('iamcco/markdown-preview.nvim', {
 				\ 'build': 'sh -c "cd app & yarn install"',
@@ -827,9 +814,6 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('vim-pandoc/vim-pandoc', {
 				\ 'on_ft': ['pandoc', 'markdown', 'rst', 'textile', 'gfimarkdown'],
-				\ })
-	call dein#add('vim-pandoc/vim-pandoc-after', {
-				\ 'on_source': 'vim-pandoc',
 				\ })
 	call dein#add('parkr/vim-jekyll', {
 				\ 'on_cmd': ['Jpost', 'JSpost', 'JVpost', 'JTpost', 'Jbuild', 'Jserve'],
@@ -842,11 +826,6 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_map': '<Leader>w',
 				\ })
 	call dein#add('freitass/todo.txt-vim')
-	call dein#add('greyblake/vim-preview', {
-				\ 'if': has('ruby') && has('--enable-rubyinterp'),
-				\ 'on_cmd': ['Preview', 'PreviewMarkdown', 'PreviewTextile', 'PreviewRdoc', 'PreviewHtml', 'PreviewRonn', 'PreviewRst'],
-				\ 'on_ft': ['markdown', 'pandoc', 'gfimarkdown', 'rst', 'rdoc', 'textile', 'html'],
-				\ })
 	call dein#add('szymonmaszke/vimpyter', {
 				\ 'if': executable('notedown'),
 				\ 'on_ft': 'ipynb',
@@ -925,7 +904,6 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('OmniSharp/omnisharp-vim', {
 				\ 'on_ft': 'cs',
 				\ })
-	" TODO: Localhost cannot work <26-10-19> "
 	call dein#add('4Evergreen4/vim-hardy')
 	call dein#add('suoto/vim-hdl', {
 				\ 'if': has('python') || has('python3'),
@@ -943,18 +921,18 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_ft': ['php', 'python', 'ruby', 'perl', 'javascript', 'tcl'],
 				\ })
 	" 5}}} Debug "
+
+	" Terminal {{{5 "
+	call dein#add('sillybun/vim-repl', {
+				\ 'on_cmd': 'REPLToggle',
+				\ 'hook_post_source': join([
+				\ 'call init#terminal#main()',
+				\ ], "\n"),
+				\ })
+	" 5}}} Terminal "
 	" 4}}} Program "
 
 	" SpecialFunction {{{4 "
-	" Terminal {{{5 "
-	call dein#add('Shougo/deol.nvim', {
-				\ 'on_cmd': ['Deol', 'DeolCd', 'DeolEdit'],
-				\ })
-	call dein#add('sillybun/vim-repl', {
-				\ 'on_cmd': 'REPLToggle',
-				\ })
-	" 5}}} Terminal "
-
 	" Tool {{{5 "
 	call dein#add('itchyny/calendar.vim', {
 				\ 'on_cmd': 'Calendar',
@@ -963,13 +941,8 @@ if dein#load_state($GITWORKSPACE)
 				\ 'if': executable('cmus'),
 				\ 'on_cmd': 'Cmus',
 				\ })
-	call dein#add('vim-scripts/qiushibaike', {
-				\ 'if': has('python'),
-				\ 'on_cmd': ['QB', 'QBReset', 'QBHot'],
-				\ })
 	call dein#add('PascalZh/vim-badapple', {
-				\ 'if': has('python3'),
-				\ 'on_cmd': 'BadApple',
+				\ 'on_cmd': 'ZBadApple',
 				\ })
 	call dein#add('tyru/open-browser.vim', {
 				\ 'on_cmd': ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch'],
@@ -986,12 +959,6 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_ft': 'mail',
 				\ })
 	" 5}}} Tool "
-
-	" Cypher {{{5 "
-	call dein#add('tkhren/vim-fake', {
-				\ 'on_func': ['fake#gen', 'fake#define'],
-				\ })
-	" 5}}} Cypher "
 
 	" Game {{{5 "
 	call dein#add('johngrib/vim-game-code-break', {
@@ -1087,17 +1054,6 @@ endif
 " 2}}} Encoding "
 
 " Help {{{2 "
-" Shougo/echodoc.vim {{{3 "
-if !has('nvim')
-	let g:echodoc#type = 'floating'
-else
-	let g:echodoc#type = 'popup'
-endif
-" To use echodoc, you must increase 'cmdheight' value.
-"set cmdheight=2 " 设置命令行的高度
-set noshowmode
-let g:echodoc_enable_at_startup = 1
-" 3}}} Shougo/echodoc.vim "
 " 2}}} Help "
 
 " Log {{{2 "
@@ -1776,6 +1732,8 @@ nnoremap <Leader>q` :<C-u>call QuickThemeChange(g:quickui_color_schemes[rand()%l
 nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
 " 3}}} tpope/vim-unimpaired "
 " tpope/vim-rsi {{{3 "
+inoremap <expr><C-p> pumvisible()?"\<C-p>": "\<Up>"
+inoremap <expr><C-n> pumvisible()?"\<C-n>": "\<Down>"
 inoremap <S-CR> <C-o>O
 inoremap <C-CR> <C-o>o
 inoremap <C-BS> <C-k>
@@ -3436,9 +3394,9 @@ nnoremap <Leader>el :<C-u>call init#quickui#license#main()<CR>
 let g:snips_author = $GITNAME
 let g:snips_github = $GITNAME
 let g:snips_email = $EMAIL
-nnoremap <Leader>na :<C-u>execute 'Leaderf file '.g:UltiSnips_config.' --input=all.snippets'<CR>
-nnoremap <Leader>nu :<C-u>execute 'Leaderf file '.g:vim_snippetsUltiSnips.' --input=all.snippets'<CR>
-nnoremap <Leader>ns :<C-u>execute 'Leaderf file '.g:vim_snippetsSnippets.' --input=_.snippets'<CR>
+nnoremap <Leader>na :<C-u>split $VIMCONFIG/UltiSnips/all.snippets<CR>
+nnoremap <Leader>nu :<C-u>split $GITHUBWORKSPACE/honza/vim-snippets/UltiSnips/all.snippets<CR>
+nnoremap <Leader>ns :<C-u>split $GITHUBWORKSPACE/honza/vim-snippets/snippets/_.snippets<CR>
 " 3}}} honza/vim-snippets "
 " aperezdc/vim-template {{{3 "
 let g:templates_global_name_prefix = ''
@@ -3468,7 +3426,6 @@ augroup init_coc "{{{
 	endif
 augroup END "}}}
 inoremap <silent><expr> <TAB>
-			\ pumvisible() ? coc#_select_confirm() :
 			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
 			\ init#check_back_space#main() ? "\<TAB>" :
 			\ coc#refresh()
@@ -3480,7 +3437,7 @@ nnoremap <Leader>pe :CocEnable<CR>
 nnoremap <Leader>up :<C-u>call CocAction('pickColor')<CR>
 nnoremap <Leader>ur :<C-u>call CocAction('colorPresentation')<CR>
 nnoremap <Leader>nq :<C-u>CocCommand snippets.openSnippetFiles<CR>
-nnoremap <Leader>nn :<C-u>CocCommand snippets.editSnippetFiles<CR>
+nnoremap <Leader>nn :<C-u>CocCommand snippets.editSnippets<CR>
 nnoremap <Leader>jj :<C-u>execute 'CocCommand explorer '.(expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h'))<CR>
 nnoremap <Leader>jJ :<C-u>execute 'CocCommand explorer '.getcwd()<CR>
 nnoremap <Leader>jk :<C-u>CocCommand explorer<Space>
@@ -3555,7 +3512,7 @@ nnoremap ]U :NextWordy<CR>
 
 " MarkUp {{{2 "
 " lervag/vimtex {{{3 "
-let g:vimtex_imaps_enabled = 0
+let g:vimtex_imaps_leader = '.'
 let g:vimtex_mappings_disable = {
 			\ 'n': ['ds$', 'cs$', 'tsc', 'tse', 'tsd', 'tsD', '<F7>', 'K'],
 			\ 'x': ['<F7>', 'tsd', 'tsD'],
@@ -3709,32 +3666,16 @@ let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
 " TODO: fix <30-09-19> "
 " 3}}} vim-vdebug/vdebug "
 " 2}}} Debug "
-" 1}}} Program "
 
-" SpecialFunction {{{1 "
 " Terminal {{{2 "
-" Shougo/deol.nvim {{{3 "
+"  {{{ "
 if exists('##TerminalOpen')
-	augroup init_deol "{{{
+	augroup init_terminal "{{{
 		autocmd!
-		autocmd TerminalOpen * setfiletype deol
+		autocmd TerminalOpen * call init#terminal#main()
 	augroup END "}}}
 endif
-let g:deol#custom_map = {
-			\ 'edit': 'O',
-			\ 'quit': '<M-q>',
-			\ }
-let g:deol#extra_options = {
-			\ 'term_finish': 'close',
-			\ 'curwin': 0,
-			\ }
-execute 'nnoremap <Leader>hh :Deol '. &shell .'<CR>'
-nnoremap <Leader>hd :Deol<Space>
-nnoremap <Leader>ho :Deol octave<CR>
-nnoremap <Leader>hp :Deol python<CR>
-nnoremap <Leader>hj :Deol node<CR>
-nnoremap <Leader>hn :Deol nethack<CR>
-" 3}}} Shougo/deol.nvim "
+" }}}  "
 " sillybun/vim-repl {{{3 "
 let g:repl_program = {
 			\ 'default': &shell,
@@ -3795,11 +3736,19 @@ let g:repl_program = {
 			\ }
 let g:repl_python_automerge = 1
 let g:repl_position = 1
-nnoremap <Leader>h<Tab> :<C-u>REPLToggle<CR>
+nnoremap <Leader>hh :<C-u>REPLToggle<CR>
+nnoremap <Leader>hH :<C-u>REPLToggle<Space>
+nnoremap <Leader>ho :<C-u>REPLToggle octave<CR>
+nnoremap <Leader>hp :<C-u>REPLToggle python<CR>
+nnoremap <Leader>hj :<C-u>REPLToggle node<CR>
+nnoremap <Leader>hn :<C-u>REPLToggle nethack<CR>
+nnoremap <Leader>hz :<C-u>REPLToggle zsh<CR>
 let g:sendtorepl_invoke_key = '<C-CR>'
 " 3}}} sillybun/vim-repl "
 " 2}}} Terminal "
+" 1}}} Program "
 
+" SpecialFunction {{{1 "
 " Tool {{{2 "
 " itchyny/calendar.vim {{{3 "
 let g:calendar_cyclic_view = 1

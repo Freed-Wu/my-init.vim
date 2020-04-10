@@ -30,17 +30,19 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead *.plg,*.django setfiletype html
 	autocmd BufNewFile,BufRead *.ess,*.edje setfiletype css
 	autocmd BufNewFile,BufRead *.mtx setfiletype mtx
-	autocmd BufNewFile,BufRead *.gnuplot setfiletype gnuplot
+	autocmd BufNewFile,BufRead *.gnuplot,.gnuplot_history setfiletype gnuplot
 	autocmd BufNewFile,BufRead *.snippets set filetype=snippets
 	" 1}}} Mark_Up "
 
 	" Script {{{1
+	autocmd BufNewFile,BufRead .bash_history setfiletype bash
+	autocmd BufNewFile,BufRead .zsh_history setfiletype zsh
 	autocmd BufNewFile,BufRead .netrwhist setfiletype vim
 	autocmd BufNewFile,BufRead *.nut setfiletype squirrel
 	autocmd BufNewFile,BufRead *.jsfl,*.xs,*.xdc,*.bld,*.fe,*.edc,*.xtext setfiletype javascript
 	autocmd BufNewFile,BufRead *.elc setfiletype lisp
 	autocmd BufNewFile,BufRead *.lg4 setfiletype lingo
-	autocmd BufNewFile,BufRead .octaverc,octaverc,*.m_in,*.matlab setfiletype octave
+	autocmd BufNewFile,BufRead .octaverc,octaverc,*.m_in,*.matlab,.octave_hist setfiletype octave
 	autocmd BufNewFile,BufRead *.plt setfiletype gnuplot
 	autocmd BufNewFile,BufRead *.xa,*.xbn,*.xn,*.xr *.xu setfiletype rpcgen
 	autocmd BufNewFile,BufRead *.qsf,*.qip setfiletype tcl

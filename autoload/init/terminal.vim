@@ -1,42 +1,7 @@
-call init#map#main()
-
-command! -buffer -nargs=? Deol terminal ++close <q-args>
-
-setlocal nowrap
-setlocal scrolloff=0
-
-if expand('%:p:t') ==# '!octave'
-	if exists('$OCTAVERUNTIME')
-		setlocal path+=$OCTAVERUNTIME
-	elseif has('unix')
-		setlocal path+=/usr/share/octave/5.1.0/m/**
-	elseif has('win32')
-		setlocal path+=C:/Program\ Files/octave/5.1.0/m/**
-	endif
-endif
-
-if expand('%:p:t') ==# '!zsh'
-	setlocal path+=/etc/portage/package.use/**
-endif
-
-if has('unix')
-	nnoremap <buffer> <C-q> i<C-c><C-u><C-d>
-else
-	nnoremap <buffer> <C-q> :<C-u>quit!<CR>
-endif
-nnoremap <buffer> o :<C-u>execute 'wincmd W\|'.expand('<cword>')<CR>
-nnoremap <buffer> c :<C-u>cd <cfile><CR>
-xnoremap <buffer> c y:cd <C-r>0<CR>
-nnoremap <buffer> x :<C-u>Defx `expand('<cfile>')`<CR>
-xnoremap <buffer> x y:Defx <C-r>0<CR>
-nnoremap <buffer> s :<C-u>split <cfile><CR>
-xnoremap <buffer> s y:<C-u>split <C-r>0<CR>
-nnoremap <buffer> p i<C-w>"+
-nnoremap <buffer> P i<C-w>"
-if !exists('g:terminal_map')
-	tnoremap <C-w> <C-w>.
+function! init#terminal#main() "{{{
+	tnoremap <nowait> <C-w> <C-w>.
+	tnoremap <C-[> <C-w>N
 	tnoremap <C-\> <C-w>
-	tnoremap <C-o> <C-w>N
 	tnoremap <M-0> <Esc>0
 	tnoremap <M-1> <Esc>1
 	tnoremap <M-2> <Esc>2
@@ -109,6 +74,36 @@ if !exists('g:terminal_map')
 	tnoremap <M-S-x> <Esc>X
 	tnoremap <M-S-y> <Esc>Y
 	tnoremap <M-S-z> <Esc>Z
-	let g:terminal_map = 1
-endif
+
+	call init#map#main()
+
+	command! -buffer -nargs=? REPLToggle terminal ++close <q-args>
+
+	setlocal nowrap
+	setlocal scrolloff=0
+
+	if expand('%:p:t') ==# '!octave'
+		if exists('$OCTAVERUNTIME')
+			setlocal path+=$OCTAVERUNTIME
+		elseif has('unix')
+			setlocal path+=/usr/share/octave/5.1.0/m/**
+		elseif has('win32')
+			setlocal path+=C:/Program\ Files/octave/5.1.0/m/**
+		endif
+	endif
+
+	if expand('%:p:t') ==# '!zsh'
+		setlocal path+=/etc/portage/package.use/**
+	endif
+
+	nnoremap <buffer> o :<C-u>execute 'wincmd W\|'.expand('<cword>')<CR>
+	nnoremap <buffer> c :<C-u>cd <cfile><CR>
+	xnoremap <buffer> c y:cd <C-r>0<CR>
+	nnoremap <buffer> x :<C-u>Defx `expand('<cfile>')`<CR>
+	xnoremap <buffer> x y:Defx <C-r>0<CR>
+	nnoremap <buffer> s :<C-u>split <cfile><CR>
+	xnoremap <buffer> s y:<C-u>split <C-r>0<CR>
+	nnoremap <buffer> p i<C-w>"+
+	nnoremap <buffer> P i<C-w>"
+endfunction "}}}
 
