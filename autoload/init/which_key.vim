@@ -34,9 +34,6 @@ function! init#which_key#main() "{{{
 				\ 'j':{
 				\ 'name': '+defx',
 				\ },
-				\ 'k':{
-				\ 'name': '+keymap',
-				\ },
 				\ 'l':{
 				\ 'name': '+location',
 				\ },

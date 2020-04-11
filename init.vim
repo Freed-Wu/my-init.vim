@@ -1533,53 +1533,6 @@ nnoremap g@ g@
 xnoremap g@ g@
 nnoremap g~ g~
 " 4}}} edit "
-" keymap {{{4 "
-nnoremap <Leader>k1 :set keymap=pinyin<CR>
-nnoremap <Leader>k2 :set keymap=accents<CR>
-nnoremap <Leader>kaa :set keymap=arabic<CR>
-nnoremap <Leader>kae :set keymap=armenian-eastern<CR>
-nnoremap <Leader>kaw :set keymap=armenian-western<CR>
-nnoremap <Leader>kbj :set keymap=belarusian-jcuken<CR>
-nnoremap <Leader>kbb :set keymap=bulgarian-bds<CR>
-nnoremap <Leader>kbp :set keymap=bulgarian-phonetic<CR>
-nnoremap <Leader>kcw :set keymap=canfr-win<CR>
-nnoremap <Leader>kcz :set keymap=czech<CR>
-nnoremap <Leader>kcc :set keymap=croatian<CR>
-nnoremap <Leader>ke :set keymap=esperanto<CR>
-nnoremap <Leader>kd :set keymap=dvorak<CR>
-nnoremap <Leader>kg :set keymap=greek<CR>
-nnoremap <Leader>khh :set keymap=hebrew<CR>
-nnoremap <Leader>khp :set keymap=hebrewp<CR>
-nnoremap <Leader>kka :set keymap=kana<CR>
-nnoremap <Leader>kkj :set keymap=kazakh-jcuken<CR>
-nnoremap <Leader>klb :set keymap=lithuanian-baltic<CR>
-nnoremap <Leader>kma :set keymap=magyar<CR>
-nnoremap <Leader>kmo :set keymap=mongolian<CR>
-nnoremap <Leader>koo :set keymap=oldturkic-orkhon<CR>
-nnoremap <Leader>koy :set keymap=oldturkic-yenisei<CR>
-nnoremap <Leader>kpi :set keymap=persian-iranian<CR>
-nnoremap <Leader>kpp :set keymap=persian<CR>
-nnoremap <Leader>kps :set keymap=polish-slash<CR>
-nnoremap <Leader>krd :set keymap=russian-dvorak<CR>
-nnoremap <Leader>krj :set keymap=russian-jcuken<CR>
-nnoremap <Leader>krm :set keymap=russian-jcukenmac<CR>
-nnoremap <Leader>krw :set keymap=russian-jcukenwin<CR>
-nnoremap <Leader>krt :set keymap=russian-jcukenwintype<CR>
-nnoremap <Leader>kry :set keymap=russian-yawerty<CR>
-nnoremap <Leader>ksl :set keymap=serbian-latin<CR>
-nnoremap <Leader>kss :set keymap=serbian<CR>
-nnoremap <Leader>ksp :set keymap=sinhala-phonetic<CR>
-nnoremap <Leader>ksi :set keymap=sinhala<CR>
-nnoremap <Leader>ksl :set keymap=slovak<CR>
-nnoremap <Leader>ktt :set keymap=tamil_tscii<CR>
-nnoremap <Leader>ktp :set keymap=thaana-phonetic<CR>
-nnoremap <Leader>kth :set keymap=thaana<CR>
-nnoremap <Leader>kud :set keymap=ukrainian-dvorak<CR>
-nnoremap <Leader>kuj :set keymap=ukrainian-jcuken<CR>
-nnoremap <Leader>kvt :set keymap=vietnamese-telex<CR>
-nnoremap <Leader>kvv :set keymap=vietnamese-viqr<CR>
-nnoremap <Leader>kvn :set keymap=vietnamese-vni<CR>
-" 4}}} keymap "
 " vimL {{{4 "
 nnoremap <Leader>vx :<C-u>X<CR>
 nnoremap <Leader>v= :<C-u>redir @
@@ -1597,6 +1550,7 @@ nnoremap <Leader>vg :<C-u>execute 'vim //gj '.expand('<cfile>')<CR><S-Left>
 xnoremap <Leader>vg y:execute 'vim //gj '.@0<CR><S-Left>
 nnoremap <Leader>vd :<C-u>diffsplit<Space>
 xnoremap <Leader>vd y:diffsplit <C-r>0<CR>
+nnoremap <Leader>vk :<C-u>call init#quickui#keymap#main()<CR>
 " 4}}} vimL "
 nnoremap <Leader>vh :TOhtml<CR>
 xnoremap <Leader>vh :TOhtml<CR>
@@ -1794,7 +1748,7 @@ inoremap <C-Space> <C-R>=g:Vimim_chinese()<CR>
 cnoremap <C-Space> <C-F>i<C-R>=g:Vimim_chinese()<CR>
 " 3}}} vim-scripts/VimIM "
 " gu-fan/mathematic.vim {{{3 "
-nnoremap <Leader>k<Tab> :KeyHelper<CR>
+nnoremap <Leader>x<Tab> :KeyHelper<CR>
 " 3}}} gu-fan/mathematic.vim "
 " 2}}} KeyMap "
 
