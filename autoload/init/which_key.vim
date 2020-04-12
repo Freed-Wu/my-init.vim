@@ -16,9 +16,6 @@ function! init#which_key#main() "{{{
 				\ 'd':{
 				\ 'name': '+draw',
 				\ },
-				\ 'e':{
-				\ 'name': '+vim-template',
-				\ },
 				\ 'f':{
 				\ 'name': '+leaderf',
 				\ },
@@ -33,9 +30,6 @@ function! init#which_key#main() "{{{
 				\ },
 				\ 'j':{
 				\ 'name': '+defx',
-				\ },
-				\ 'l':{
-				\ 'name': '+location',
 				\ },
 				\ 'm':{
 				\ 'name': '+vim-visual-multi',
@@ -52,7 +46,7 @@ function! init#which_key#main() "{{{
 				\ 'name': '+plugin',
 				\ },
 				\ 'q':{
-				\ 'name': '+quickui',
+				\ 'name': '+quickfix',
 				\ },
 				\ 'r':{
 				\ 'name': '+replace',
@@ -69,7 +63,7 @@ function! init#which_key#main() "{{{
 				\ 'name': '+vim-startify&vim-splash',
 				\ },
 				\ 't':{
-				\ 'name': '+vim-translator',
+				\ 'name': '+vim-template',
 				\ },
 				\ 'u':{
 				\ 'name': '+ui',

@@ -12,6 +12,7 @@ augroup tex "{{{
 	autocmd!
 	autocmd User VimtexEventQuit *.tex call s:close()
 				\| call init#clean#main(b:clean_temp)
+	autocmd User VimtexEventTocCreated setlocal filetype latextoc
 augroup END "}}}
 
 function! s:close() "{{{

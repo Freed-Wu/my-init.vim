@@ -82,7 +82,7 @@ if dein#load_state($GITWORKSPACE)
 
 	" Language {{{5 "
 	call dein#add('voldikss/vim-translator', {
-				\ 'if': has('python3'),
+				\ 'if': has('pythonx'),
 				\ 'on_cmd': ['Translate', 'TranslateW', 'TranslateR', 'TranslateH'],
 				\ 'on_map': '<Plug>Translate',
 				\ })
@@ -332,7 +332,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': ['GHDashboard', 'GHActivity'],
 				\ })
 	call dein#add('jaxbot/github-issues.vim', {
-				\ 'if': has('python') || has('python3'),
+				\ 'if': has('pythonx'),
 				\ 'on_cmd': ['Gissues', 'Gmiles', 'Giadd'],
 				\ })
 	call dein#add('mbbill/undotree', {
@@ -358,7 +358,7 @@ if dein#load_state($GITWORKSPACE)
 
 	" FuzzyFind {{{5 "
 	call dein#add('Yggdroot/LeaderF', {
-				\ 'if': has('python') || has('python3'),
+				\ 'if': has('pythonx'),
 				\ 'build': has('unix')? './install.sh': './install.bat',
 				\ })
 	" 5}}} FuzzyFind "
@@ -906,7 +906,7 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('4Evergreen4/vim-hardy')
 	call dein#add('suoto/vim-hdl', {
-				\ 'if': has('python') || has('python3'),
+				\ 'if': has('pythonx'),
 				\ 'build': 'pip3 install -r .ci/requirements.txt --user',
 				\ 'on_ft': ['vhdl', 'verilog', 'systemverilog', 'verilog_systemverilog'],
 				\ })
@@ -917,7 +917,7 @@ if dein#load_state($GITWORKSPACE)
 
 	" Debug {{{5 "
 	call dein#add('vim-vdebug/vdebug', {
-				\ 'if': has('python3'),
+				\ 'if': has('pythonx'),
 				\ 'on_ft': ['php', 'python', 'ruby', 'perl', 'javascript', 'tcl'],
 				\ })
 	" 5}}} Debug "
@@ -1016,15 +1016,15 @@ nnoremap <Leader>pU :<C-u>Dein update<Space>
 
 " PluginDetect {{{2 "
 "  {{{3 "
-nnoremap <Leader>lq :copen<CR>
-nnoremap <Leader>ll :lopen<CR>
+nnoremap <Leader>qq :copen<CR>
+nnoremap <Leader>ql :lopen<CR>
 " 3}}}  "
 " tpope/vim-scriptease {{{3 "
 nnoremap <Leader>pp :PP<CR>
 nmap <Leader>ps <Plug>ScripteaseSynnames
 nnoremap <Leader>pt :Time<Space>
-nnoremap <Leader>lm :Message<CR>
-nnoremap <Leader>lp :Scriptnames<CR>
+nnoremap <Leader>qm :Message<CR>
+nnoremap <Leader>qp :Scriptnames<CR>
 nmap g= <Plug>ScripteaseFilter
 nmap g== <Home><Plug>ScripteaseFilter<End>
 xmap g= <Plug>ScripteaseFilter
@@ -1060,22 +1060,19 @@ let g:activity_log_location = $VIMDATA.'/.vim-activity-log/%Y/%m/%d.log'
 " 2}}} Log "
 
 " Language {{{2 "
-if has('python3')
+if has('pythonx')
 	" voldikss/vim-translator {{{3 "
 	let g:translator_history_enable = 1
+	let g:translator_source_lang = 'en'
 	let g:translator_window_max_width = &columns
 	let g:translator_window_max_height = &lines
 	let g:translator_default_engines = ['google', 'bing', 'iciba', 'youdao', executable('trans')? 'trans': '', executable('sdcv')? 'sdcv': '']
-	nmap <Leader>te <Plug>Translate
-	xmap <Leader>te <Plug>TranslateV
-	nnoremap <Leader>tR :Translate -w<Space>
-	nmap <Leader>tt <Plug>TranslateW
-	xmap <Leader>tt <Plug>TranslateWV
-	nnoremap <Leader>tT :TranslateW -w<Space>
-	nmap <Leader>tr <Plug>TranslateR
-	xmap <Leader>tr <Plug>TranslateRV
-	nnoremap <Leader>tR :TranslateR -w<Space>
-	nnoremap <Leader>th :TranslateH<CR>
+	nmap gK <Plug>TranslateW
+	xmap gK <Plug>TranslateWV
+	nmap <Leader>rt <Plug>TranslateR
+	xmap <Leader>rt <Plug>TranslateRV
+	nnoremap <Leader>rt :TranslateR -w<Space>
+	nnoremap <Leader>xt :TranslateH<CR>
 	" 3}}} voldikss/vim-translator "
 endif
 " 2}}} Language "
@@ -1667,16 +1664,16 @@ let s:quickui_color_schemes_path = split(glob($GITHUBWORKSPACE.'/skywind3000/vim
 let g:quickui_color_schemes = []
 for s:quickui_color_scheme_path in s:quickui_color_schemes_path
 	let s:quickui_color_scheme = split(split(s:quickui_color_scheme_path, expand('/'))[-1], '\.')[0]
-	execute 'nnoremap <Leader>q'.len(g:quickui_color_schemes).' :<C-u>call QuickThemeChange("'.s:quickui_color_scheme.'")<CR>'
+	execute 'nnoremap <Leader>u'.len(g:quickui_color_schemes).' :<C-u>call QuickThemeChange("'.s:quickui_color_scheme.'")<CR>'
 	let g:quickui_color_schemes += [s:quickui_color_scheme]
 endfor
 if exists('*rand')
 	let g:quickui_color_scheme = g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)]
 endif
-nnoremap <Leader>qq :<C-u>call quickui#menu#open()<CR>
-nnoremap <Leader>qf :<C-u>call quickui#tools#list_function()<CR>
-nnoremap <Leader>qt :<C-u>call quickui#tools#preview_tag('')<CR>
-nnoremap <Leader>q` :<C-u>call QuickThemeChange(g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)])<CR>
+nnoremap <Leader>uu :<C-u>call quickui#menu#open()<CR>
+nnoremap <Leader>uf :<C-u>call quickui#tools#list_function()<CR>
+nnoremap <Leader>ut :<C-u>call quickui#tools#preview_tag('')<CR>
+nnoremap <Leader>uU :<C-u>call QuickThemeChange(g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)])<CR>
 " 3}}} skywind3000/vim-quickui "
 " tpope/vim-unimpaired {{{3 "
 nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
@@ -1866,8 +1863,8 @@ augroup init_ThematicRandom "{{{
 				\| highlight Conceal guibg=NONE
 	autocmd ColorScheme * highlight Conceal guibg=NONE
 augroup END "}}}
-nnoremap <Leader>uU :Thematic<Space>
-nnoremap <Leader>uu :ThematicRandom<CR>:AirlineTheme random<CR>
+nnoremap <Leader>uT :Thematic<Space>
+nnoremap <Leader>ut :ThematicRandom<CR>:AirlineTheme random<CR>
 nnoremap <Leader>u` :ThematicRandom<CR>
 nnoremap <Leader>`u :AirlineTheme random<CR>
 nnoremap [X :ThematicPrevious<CR>
@@ -1882,7 +1879,7 @@ nnoremap ]Y :ThematicFirst<CR>:ThematicPrevious<CR>
 let g:rainbow_active = 1
 nnoremap <Leader>or :RainbowToggle<CR>
 " 3}}} luochen1990/rainbow "
-if has('python') || has('python3')
+if has('pythonx')
 	" jaxbot/semantic-highlight.vim {{{3 "
 	nnoremap <Leader>os :SemanticHighlightToggle<CR>
 	let g:semanticPersistCacheLocation = $VIMDATA.'/.semantic-highlight.vim/.semantic-highlight-cache'
@@ -2560,16 +2557,16 @@ let g:gutentags_modules = ['ctags', 'cscope']
 " 3}}} ludovicchabant/vim-gutentags "
 " skywind3000/gutentags_plus {{{3 "
 let g:gutentags_plus_nomap = 1
-noremap <Leader>ls :GscopeFind s <C-R><C-W><CR>
-noremap <Leader>lg :GscopeFind g <C-R><C-W><CR>
-noremap <Leader>lc :GscopeFind c <C-R><C-W><CR>
-noremap <Leader>lt :GscopeFind t <C-R><C-W><CR>
-noremap <Leader>le :GscopeFind e <C-R><C-W><CR>
-noremap <Leader>lf :GscopeFind f <C-R>=expand("<cfile>")<CR><CR>
-noremap <Leader>li :GscopeFind i <C-R>=expand("<cfile>")<CR><CR>
-noremap <Leader>ld :GscopeFind d <C-R><C-W><CR>
-noremap <Leader>la :GscopeFind a <C-R><C-W><CR>
-noremap <Leader>lx :GscopeKill<CR>
+noremap <Leader>qs :GscopeFind s <C-R><C-W><CR>
+noremap <Leader>qg :GscopeFind g <C-R><C-W><CR>
+noremap <Leader>qc :GscopeFind c <C-R><C-W><CR>
+noremap <Leader>qt :GscopeFind t <C-R><C-W><CR>
+noremap <Leader>qe :GscopeFind e <C-R><C-W><CR>
+noremap <Leader>qf :GscopeFind f <C-R>=expand("<cfile>")<CR><CR>
+noremap <Leader>qi :GscopeFind i <C-R>=expand("<cfile>")<CR><CR>
+noremap <Leader>qd :GscopeFind d <C-R><C-W><CR>
+noremap <Leader>qa :GscopeFind a <C-R><C-W><CR>
+noremap <Leader>qx :GscopeKill<CR>
 " 3}}} skywind3000/gutentags_plus "
 " liuchengxu/vista.vim {{{3 "
 let g:vista_sidebar_width = &columns / 4
@@ -2578,12 +2575,12 @@ let g:vista_close_on_jump = 1
 nnoremap <Leader>xv :Vista<CR>
 " 3}}} liuchengxu/vista.vim "
 " dirn/TODO.vim {{{3 "
-nnoremap <Leader>lo :TODO<CR>
+nnoremap <Leader>qo :TODO<CR>
 " 3}}} dirn/TODO.vim "
 " 2}}} TagExplore "
 
 " FuzzyFind {{{2 "
-if has('python') || has('python3')
+if has('pythonx')
 	" Yggdroot/LeaderF {{{3 "
 	let g:Lf_StlSeparator = {
 				\ 'left': get(g:, 'airline_left_sep', ''),
@@ -3322,7 +3319,7 @@ nnoremap <Leader>rj :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/ge<CR
 " rhysd/github-complete.vim {{{3 "
 let g:github_complete_enable_omni_completion = 0
 " 3}}} rhysd/github-complete.vim "
-if has('python') || has('python3')
+if has('pythonx')
 	" Shougo/deoplete.nvim {{{3 "
 	if exists('&pyxversion')
 		set pyxversion=3
@@ -3335,7 +3332,7 @@ endif
 " ararslan/license-to-vim {{{3 "
 let g:license_email = $GITNAME
 let g:license_author = $EMAIL
-nnoremap <Leader>el :<C-u>call init#quickui#license#main()<CR>
+nnoremap <Leader>tl :<C-u>call init#quickui#license#main()<CR>
 " 3}}} ararslan/license-to-vim "
 " 2}}} Complete "
 
@@ -3351,13 +3348,15 @@ nnoremap <Leader>ns :<C-u>split $GITHUBWORKSPACE/honza/vim-snippets/snippets/_.s
 " aperezdc/vim-template {{{3 "
 let g:templates_global_name_prefix = ''
 let g:templates_directory = [$VIMCONFIG.'/vim-template']
-nnoremap <Leader>eV :<C-u>sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.%:e<CR>
-nnoremap <Leader>ev :<C-u>execute 'Template =template=.'.expand('%:e')<CR>
-nnoremap <Leader>e0 :<C-u>execute 'Leaderf file '.g:templates_directory[0].' --input='.expand('%:e')<CR>
-nnoremap <Leader>ee :<C-u>Template<CR>
-nnoremap <Leader>eh :<C-u>TemplateHere<CR>
-nnoremap <Leader>eq :<C-u>call init#quickui#template#main(1)<CR>
-nnoremap <Leader>eQ :<C-u>call init#quickui#template#main(0)<CR>
+nnoremap <Leader>tV :<C-u>sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.%:e<CR>
+nnoremap <Leader>tv :<C-u>execute 'Template =template=.'.expand('%:e')<CR>
+for s:templates_directory in g:templates_directory
+	execute 'nnoremap <Leader>t' . index(g:templates_directory, s:templates_directory) . ' :<C-u>Leaderf file ' . s:templates_directory .'<CR>'
+endfor
+nnoremap <Leader>tt :<C-u>Template<CR>
+nnoremap <Leader>tT :<C-u>TemplateHere<CR>
+nnoremap <Leader>tq :<C-u>call init#quickui#template#main(1)<CR>
+nnoremap <Leader>tQ :<C-u>call init#quickui#template#main(0)<CR>
 " 3}}} aperezdc/vim-template "
 " 2}}} Snippet "
 
@@ -3412,7 +3411,7 @@ nnoremap <Leader>jx :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/gn
 " Check {{{2 "
 "  {{{3 "
 set spelllang=en_us,cjk
-inoremap <C-\> <C-g>u<Esc>[s1z=`]a<C-g>u
+inoremap <C-m> <C-g>u<Esc>[s1z=`]a<C-g>u
 " 3}}}  "
 " w0rp/ale {{{3 "
 let g:ale_linters = {
@@ -3431,7 +3430,7 @@ nnoremap [K :<C-u>ALEFirst<CR>
 nnoremap ]K :<C-u>ALELast<CR>
 " 3}}} w0rp/ale "
 " wsdjeg/ChineseLinter.vim {{{3 "
-nnoremap <Leader>lz :CheckChinese<CR>
+nnoremap <Leader>qz :CheckChinese<CR>
 " 3}}} wsdjeg/ChineseLinter.vim "
 " hotoo/pangu.vim {{{3 "
 nnoremap <Leader>zp :Pangu<CR>
