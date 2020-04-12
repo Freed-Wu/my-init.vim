@@ -41,7 +41,7 @@ function! s:startify() "{{{
 	unmap <buffer> q
 endfunction "}}}
 
-command! -buffer -nargs=* -range REPLToggle terminal ++close ++curwin <args>
+command! -buffer -nargs=* -range FloatermNew terminal ++close ++curwin <args>
 command! -buffer -nargs=* -complete=customlist,calendar#argument#complete
 			\ Calendar call calendar#new(<q-args>.' -position=here')
 command! -buffer -nargs=? Splash enew

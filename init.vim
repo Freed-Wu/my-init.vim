@@ -923,11 +923,8 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Debug "
 
 	" Terminal {{{5 "
-	call dein#add('sillybun/vim-repl', {
-				\ 'on_cmd': 'REPLToggle',
-				\ 'hook_post_source': join([
-				\ 'call init#terminal#main()',
-				\ ], "\n"),
+	call dein#add('voldikss/vim-floaterm', {
+				\ 'on_cmd': ['FloatermToggle', 'FloatermNew', 'FloatermSend', 'FloatermUpdate', 'FloatermPrev', 'FloatermNext'],
 				\ })
 	" 5}}} Terminal "
 	" 4}}} Program "
@@ -1068,8 +1065,7 @@ if has('python3')
 	let g:translator_history_enable = 1
 	let g:translator_window_max_width = &columns
 	let g:translator_window_max_height = &lines
-	let g:translator_default_engines = ['google', 'bing', 'ciba', 'youdao', executable('trans')? 'trans': '', executable('sdcv')? 'sdcv': '']
-	let g:translator_window_borderchars = v:null
+	let g:translator_default_engines = ['google', 'bing', 'iciba', 'youdao', executable('trans')? 'trans': '', executable('sdcv')? 'sdcv': '']
 	nmap <Leader>te <Plug>Translate
 	xmap <Leader>te <Plug>TranslateV
 	nnoremap <Leader>tR :Translate -w<Space>
@@ -2339,7 +2335,7 @@ augroup init_Startify "{{{
 	autocmd VimEnter * call s:cowsay()
 augroup END "}}}
 function! s:cowsay() "{{{
-	if &filetype ==# ''
+	if !argc()
 		let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
 	endif
 endfunction "}}}
@@ -3626,79 +3622,20 @@ let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
 if exists('##TerminalOpen')
 	augroup init_terminal "{{{
 		autocmd!
-		autocmd TerminalOpen * call init#terminal#main()
+		autocmd TerminalOpen * set filetype=floaterm
 	augroup END "}}}
 endif
 " }}}  "
-" sillybun/vim-repl {{{3 "
-let g:repl_program = {
-			\ 'default': &shell,
-			\ 'sh': executable('sh')? 'sh': &shell,
-			\ 'bash': executable('bash')? 'bash': &shell,
-			\ 'csh': executable('csh')? 'csh': &shell,
-			\ 'ksh': executable('ksh')? 'ksh': &shell,
-			\ 'wsh': executable('wsh')? 'wsh': &shell,
-			\ 'mash': executable('mash')? 'mash': &shell,
-			\ 'tcsh': executable('tcsh')? 'tcsh': &shell,
-			\ 'gnash': executable('gnash')? 'gnash': &shell,
-			\ 'fish': executable('fish')? 'fish': &shell,
-			\ 'zsh': executable('zsh')? 'zsh': &shell,
-			\ 'dosbatch': executable('cmd')? 'cmd': &shell,
-			\ 'ps1': executable('powershell')? 'powershell': &shell,
-			\ 'lua': 'lua -',
-			\ 'octave': 'octave',
-			\ 'matlab': 'matlab',
-			\ 'gnuplot': 'gnuplot',
-			\ 'spice': 'spice',
-			\ 'pdf': 'pdftk -',
-			\ 'pandoc': 'pandoc -f markdown -',
-			\ 'markdown': 'pandoc -f markdown_strict -',
-			\ 'gfimarkdown': 'pandoc -f markdown_github -',
-			\ 'commonmark': 'pandoc -f commonmark -',
-			\ 'docbook': 'pandoc -f docbook -',
-			\ 'docx': 'pandoc -f docx -',
-			\ 'epub': 'pandoc -f epub -',
-			\ 'haddock': 'pandoc -f haddock -',
-			\ 'html': 'pandoc -f html -',
-			\ 'json': 'pandoc -f json -',
-			\ 'markdown_mmd': 'pandoc -f markdown_mmd -',
-			\ 'markdown_phpextra': 'pandoc -f markdown_phpextra -',
-			\ 'vimwiki': 'pandoc -f mediawiki -',
-			\ 'text': 'pandoc -f native -',
-			\ 'txt': 'pandoc -f native -',
-			\ 'odt': 'pandoc -f odt -',
-			\ 'opml': 'pandoc -f opml -',
-			\ 'org': 'pandoc -f org -',
-			\ 'rst': 'pandoc -f rst -',
-			\ 't2t': 'pandoc -f t2t -',
-			\ 'textile': 'pandoc -f textile -',
-			\ 'twiki': 'pandoc -f twiki -',
-			\ 'tex': 'lualatex -shell-escape',
-			\ 'plaintex': 'luatex -shell-escape',
-			\ 'context': 'context -shell-escape',
-			\ 'c': 'gcc -x c -',
-			\ 'cpp': 'gcc -x c++ -',
-			\ 'ada': 'gcc -x ada -',
-			\ 'objc': 'gcc -x objective-c -',
-			\ 'objcpp': 'gcc -x objective-c++ -',
-			\ 'f75': 'gcc -x f75 -',
-			\ 'f95': 'gcc -x f95 -',
-			\ 'go': 'gcc -x go -',
-			\ 'java': 'gcc -x java -',
-			\ 'asm': 'gcc -x asm -',
-			\ 'brig': 'gcc -x brig -',
-			\ }
-let g:repl_python_automerge = 1
-let g:repl_position = 1
-nnoremap <Leader>hh :<C-u>REPLToggle<CR>
-nnoremap <Leader>hH :<C-u>REPLToggle<Space>
-nnoremap <Leader>ho :<C-u>REPLToggle octave<CR>
-nnoremap <Leader>hp :<C-u>REPLToggle python<CR>
-nnoremap <Leader>hj :<C-u>REPLToggle node<CR>
-nnoremap <Leader>hn :<C-u>REPLToggle nethack<CR>
-nnoremap <Leader>hz :<C-u>REPLToggle zsh<CR>
-let g:sendtorepl_invoke_key = '<C-CR>'
-" 3}}} sillybun/vim-repl "
+" voldikss/vim-floaterm {{{3 "
+nnoremap <Leader>hh :<C-u>FloatermNew<CR>
+nnoremap <Leader>hH :<C-u>FloatermNew<Space>
+nnoremap <Leader>ho :<C-u>FloatermNew octave<CR>
+nnoremap <Leader>hp :<C-u>FloatermNew python<CR>
+nnoremap <Leader>hj :<C-u>FloatermNew node<CR>
+nnoremap <Leader>hn :<C-u>FloatermNew nethack<CR>
+nnoremap <Leader>hz :<C-u>FloatermNew zsh<CR>
+nnoremap <C-CR> :<C-u>FloatermSend<CR>
+" 3}}} voldikss/vim-floaterm "
 " 2}}} Terminal "
 " 1}}} Program "
 
