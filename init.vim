@@ -65,9 +65,6 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('yianwillis/vimcdoc', {
 				\ 'on_ft': 'help',
 				\ })
-	call dein#add('openuado/vimtips-fortune', {
-				\ 'on_cmd': 'Fortune',
-				\ })
 	" 5}}} Help "
 
 	" Log {{{5 "
@@ -627,9 +624,6 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('iwataka/cowsay.vim', {
 				\ 'on_func': 'cowsay#cowsay',
 				\ })
-	call dein#add('iwataka/fortune.vim', {
-				\ 'on_func': ['fortune#download', 'fortune#fortune'],
-				\ })
 	" 5}}} Draw "
 
 	" Banner {{{5 "
@@ -667,6 +661,9 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('sbdchd/neoformat', {
 				\ 'on_cmd': 'Neoformat',
+				\ })
+	call dein#add('kdheepak/JuliaFormatter.vim', {
+				\ 'on_cmd': 'JuliaFormatter#Format',
 				\ })
 	call dein#add('tpope/vim-abolish', {
 				\ 'on_map': 'cr',
@@ -852,6 +849,9 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Database "
 
 	" Script {{{5 "
+	call dein#add('JuliaEditorSupport/julia-vim', {
+				\ 'on_ft': 'julia',
+				\ })
 	call dein#add('python-mode/python-mode', {
 				\ 'on_ft': ['python', 'snippets'],
 				\ })
@@ -956,6 +956,16 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_ft': 'mail',
 				\ })
 	" 5}}} Tool "
+
+	" Fortune {{{5 "
+	call dein#add('openuado/vimtips-fortune', {
+				\ 'on_cmd': 'Fortune',
+				\ 'on_func': 'fortune_vimtips#tooltipviewtips',
+				\ })
+	call dein#add('iwataka/fortune.vim', {
+				\ 'on_func': ['fortune#download', 'fortune#fortune'],
+				\ })
+	" 5}}} Fortune "
 
 	" Game {{{5 "
 	call dein#add('johngrib/vim-game-code-break', {
@@ -2333,7 +2343,9 @@ augroup init_Startify "{{{
 augroup END "}}}
 function! s:cowsay() "{{{
 	if !argc()
-		let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
+		" let g:startify_custom_header = cowsay#cowsay(split(system('fortune'), '\n'), 'dragon-and-cow')
+		" let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
+		let g:startify_custom_header = cowsay#cowsay(split(fortune_vimtips#tooltipviewtips(), '\n'), 'dragon-and-cow')
 	endif
 endfunction "}}}
 let g:startify_lists = [
@@ -3105,9 +3117,6 @@ xnoremap <Leader>d8 di<C-r><C-O>=cowsay#cowsay([@"], 'tux')<CR><Esc>
 xnoremap <Leader>d9 di<C-r><C-O>=cowsay#cowsay([@"], 'moose')<CR><Esc>
 xnoremap <Leader>d0 di<C-r><C-O>=cowsay#cowsay([@"], 'default')<CR><Esc>
 " 3}}} iwataka/cowsay.vim "
-" iwataka/fortune.vim {{{3 "
-nnoremap <Leader>df i<C-r><C-O>=fortune#fortune()<CR><Esc>
-" 3}}} iwataka/fortune.vim "
 " 2}}} Draw "
 
 " Banner {{{2 "
@@ -3185,8 +3194,8 @@ let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_try_formatprg = 1
 nnoremap gz :<C-u>set operatorfunc=init#format#main<CR>g@
-nnoremap <LocalLeader>zz :.Neoformat<CR>
-xnoremap <LocalLeader>zz :Neoformat<CR>
+nnoremap <Leader>zz :.Neoformat<CR>
+xnoremap <Leader>zz :Neoformat<CR>
 " 3}}} sbdchd/neoformat "
 " svermeulen/vim-subversive {{{3 "
 nmap , <plug>(SubversiveSubstitute)
@@ -3348,6 +3357,8 @@ nnoremap <Leader>ns :<C-u>split $GITHUBWORKSPACE/honza/vim-snippets/snippets/_.s
 " aperezdc/vim-template {{{3 "
 let g:templates_global_name_prefix = ''
 let g:templates_directory = [$VIMCONFIG.'/vim-template']
+let g:email = $EMAIL
+let g:username = $GITNAME
 nnoremap <Leader>tV :<C-u>sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.%:e<CR>
 nnoremap <Leader>tv :<C-u>execute 'Template =template=.'.expand('%:e')<CR>
 for s:templates_directory in g:templates_directory
@@ -3481,7 +3492,6 @@ let g:vimtex_toc_config = {
 			\ 'name' : 'toc',
 			\ 'show_help': 0,
 			\ 'split_pos' : 'vert :rightbelow',
-			\ 'split_width': &columns / 4,
 			\ 'hotkeys_leader': g:maplocalleader,
 			\ 'hotkeys' : 'abcdefghijklmnopgrstuvwxyz',
 			\ 'hotkeys_enabled' : 1,
@@ -3629,11 +3639,12 @@ endif
 nnoremap <Leader>hh :<C-u>FloatermNew<CR>
 nnoremap <Leader>hH :<C-u>FloatermNew<Space>
 nnoremap <Leader>ho :<C-u>FloatermNew octave<CR>
+nnoremap <Leader>hj :<C-u>FloatermNew octave<CR>
 nnoremap <Leader>hp :<C-u>FloatermNew python<CR>
-nnoremap <Leader>hj :<C-u>FloatermNew node<CR>
+nnoremap <Leader>hd :<C-u>FloatermNew node<CR>
 nnoremap <Leader>hn :<C-u>FloatermNew nethack<CR>
 nnoremap <Leader>hz :<C-u>FloatermNew zsh<CR>
-nnoremap <C-CR> :<C-u>FloatermSend<CR>
+nnoremap <C-CR> :<C-u>FloatermSend<CR><Down>
 " 3}}} voldikss/vim-floaterm "
 " 2}}} Terminal "
 " 1}}} Program "
@@ -3658,6 +3669,9 @@ let g:leetcode_password = readfile($VIMCONFIG.'/.leetcode.vim/leetcode.txt')[1]
 let g:leetcode_china = 1
 " 3}}} ianding1/leetcode.vim "
 " 2}}} Tool "
+
+" Fortune {{{2 "
+" 2}}} Fortune "
 
 " Game {{{2 "
 " johngrib/vim-game-code-break {{{3 "

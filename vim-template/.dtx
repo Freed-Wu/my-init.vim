@@ -1,0 +1,121 @@
+%<*cls|sty>
+\@ifundefined{NeedsTeXFormat}{% 2.09 version
+%<cls> \def\filename{%FILE%.cls}
+%<sty> \def\filename{%FILE%.sty}
+\def\filedate{%DATE%}
+\def\fileversion{0.1}
+\typeout{%
+  Package: `%FILE%' \fileversion\space <\filedate>}
+}{% 2e version
+\NeedsTeXFormat{LaTeX2e}[1994/12/01]
+\ProvidesClass{%FILE%}[%DATE% v0.1]
+}
+
+\RequirePackage{kvdefinekeys}
+\RequirePackage{kvsetkeys}
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{%
+  family=?,
+  prefix=?@,
+  setkeys=\kvsetkeys,
+}
+\newcommand\?setup{%
+  \kvsetkeys{?}
+}
+\newcommand\?@define@key[1]{%
+  \kvsetkeys{?@key}{#1}
+}
+\newcommand\?@error[1]{%
+  %<cls> \ClassError{%FILE%}{#1}{}
+}
+\kv@set@family@handler{?@key}{%
+  \@namedef{?@#1@@name}{#1}
+  \def\?@@default{}
+  \def\?@@choices{}
+  \kv@define@key{?@value}{name}{%
+    \@namedef{?@#1@@name}{##1}
+  }
+  \kv@define@key{?@value}{code}{%
+  \@namedef{?@#1@@code}{##1}
+  }
+  \@namedef{?@#1@@check}{}
+  \@namedef{?@#1@@code}{}
+  \@namedef{?@#1@@hook}{%
+    \expandafter
+    \ifx\csname\@currname.\@currext-h@@k\endcsname\relax
+      \@nameuse{?@#1@@code}
+    \else
+      \AtEndOfClass{%
+        \@nameuse{?@#1@@code}
+      }
+    \fi
+  }
+  \kv@define@key{?@value}{choices}{%
+    \def\?@@choices{##1}
+    \@namedef{?@#1@@reset}{}
+    \@namedef{?@#1@@check}{%
+      \@ifundefined{%
+        if?@\@nameuse{?@#1@@name}@\@nameuse{?@\@nameuse{?@#1@@name}}
+      }{%
+        \?@error{Invalid value "#1 = \@nameuse{?@\@nameuse{?@#1@@name}}"}
+      }
+      \@nameuse{?@#1@@reset}
+      \@nameuse{?@\@nameuse{?@#1@@name}@\@nameuse{?@\@nameuse{?@#1@@name}}true}
+    }
+  }
+  \kv@define@key{?@value}{default}{%
+    \def\?@@default{##1}
+  }
+  \kvsetkeys{?@value}{#2}
+  \@namedef{?@\@nameuse{?@#1@@name}}{}
+  \kv@set@family@handler{?@choice}{%
+    \ifx\?@@default\@empty
+      \def\?@@default{##1}
+    \fi
+    \expandafter\newif\csname if?@\@nameuse{?@#1@@name}@##1\endcsname
+    \expandafter\g@addto@macro\csname ?@#1@@reset\endcsname{%
+      \@nameuse{?@\@nameuse{?@#1@@name}@##1false}
+    }
+  }
+  \kvsetkeys@expandafter{?@choice}{\?@@choices}
+  \expandafter\let\csname ?@\@nameuse{?@#1@@name}\endcsname\?@@default
+  \expandafter
+  \ifx\csname ?@\@nameuse{?@#1@@name}\endcsname\@empty
+  \else
+    \@nameuse{?@#1@@check}
+    \@nameuse{?@#1@@hook}
+  \fi
+  \kv@define@key{?}{#1}{%
+    \@namedef{?@\@nameuse{?@#1@@name}}{##1}
+    \@nameuse{?@#1@@check}
+    \@nameuse{?@#1@@hook}
+  }
+}
+\newcommand\?@addto[2]{%
+  \expandafter\g@addto@macro\csname ?@#1@@code\endcsname{#2}
+}
+\?@define@key{%
+  ! = {%
+    choices = {%
+      !,
+    },
+    default = !,
+    code = {\?@set@!},
+  },
+}
+%</cls|sty>
+%<*cls>
+\DeclareBoolOption[true]{}
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{}}
+\ProcessKeyvalOptions*
+\PassOptionsToPackage{}{}
+\LoadClass{}
+%</cls>
+
+%<*cls|sty>
+\newcommand\?@set@{%
+}
+
+\endinput
+%</cls|sty>
+

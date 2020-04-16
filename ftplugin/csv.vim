@@ -9,7 +9,6 @@ if expand('%') =~ 'tab/.*/'
 	nnoremap <buffer><silent> <LocalLeader>b :Rooter<CR>:execute('split '.b:path)<CR>
 endif
 
-UltiSnipsAddFiletypes tex
 call vimtex#init()
 
 setlocal makeprg=scalc\ %:p

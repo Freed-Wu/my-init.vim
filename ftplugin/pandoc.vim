@@ -27,7 +27,7 @@ setlocal makeprg=pandoc\ -o\ %<.pdf\ %\ --filter\ pandoc-csv2table
 setlocal include=^\\s*!
 setlocal iskeyword+=-
 
-nmap <buffer> <LocalLeader>ll :<C-u>Pandoc! pdf --filter pandoc-csv2table<CR>
+nmap <buffer> <LocalLeader>j :<C-u>Pandoc! pdf --filter pandoc-csv2table<CR>
 if executable('tree')
 	if has('unix')
 		nnoremap <buffer> <LocalLeader>o :.read !tree -a<CR>

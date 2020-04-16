@@ -1,6 +1,5 @@
 call init#map#main()
 
-nnoremap <buffer> <C-r> :<C-u>execute 'vertical resize '.(winwidth(0) == g:columns? &columns / 2:g:columns)<CR>
 nnoremap <buffer> h h
 nnoremap <buffer> <Esc> <Esc>
 nnoremap <buffer> q q

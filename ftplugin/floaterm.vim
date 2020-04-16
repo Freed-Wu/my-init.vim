@@ -1,3 +1,33 @@
+call init#map#main()
+
+setlocal nowrap
+setlocal scrolloff=0
+
+if expand('%:p:t') ==# '!octave'
+	if exists('$OCTAVERUNTIME')
+		setlocal path+=$OCTAVERUNTIME
+	elseif has('unix')
+		setlocal path+=/usr/share/octave/5.1.0/m/**
+	elseif has('win32')
+		setlocal path+=C:/Program\ Files/octave/5.1.0/m/**
+	endif
+endif
+
+if expand('%:p:t') ==# '!zsh'
+	setlocal path+=/etc/portage/package.use/**
+endif
+
+nnoremap <buffer> ZQ i<C-u><C-d>
+nnoremap <buffer> ZZ :<C-u>hide<CR>
+nnoremap <buffer> o :<C-u>execute 'wincmd W\|'.expand('<cword>')<CR>
+nnoremap <buffer> c :<C-u>cd <cfile><CR>
+xnoremap <buffer> c y:cd <C-r>0<CR>
+nnoremap <buffer> x :<C-u>Defx `expand('<cfile>')`<CR>
+xnoremap <buffer> x y:Defx <C-r>0<CR>
+nnoremap <buffer> s :<C-u>split <cfile><CR>
+xnoremap <buffer> s y:<C-u>split <C-r>0<CR>
+nnoremap <buffer> p i<C-w>"+
+nnoremap <buffer> P i<C-w>"
 tnoremap <nowait> <C-w> <C-w>.
 tnoremap <C-[> <C-w>N
 tnoremap <C-\> <C-w>
@@ -73,33 +103,4 @@ tnoremap <M-S-w> <Esc>W
 tnoremap <M-S-x> <Esc>X
 tnoremap <M-S-y> <Esc>Y
 tnoremap <M-S-z> <Esc>Z
-
-call init#map#main()
-
-setlocal nowrap
-setlocal scrolloff=0
-
-if expand('%:p:t') ==# '!octave'
-	if exists('$OCTAVERUNTIME')
-		setlocal path+=$OCTAVERUNTIME
-	elseif has('unix')
-		setlocal path+=/usr/share/octave/5.1.0/m/**
-	elseif has('win32')
-		setlocal path+=C:/Program\ Files/octave/5.1.0/m/**
-	endif
-endif
-
-if expand('%:p:t') ==# '!zsh'
-	setlocal path+=/etc/portage/package.use/**
-endif
-
-nnoremap <buffer> o :<C-u>execute 'wincmd W\|'.expand('<cword>')<CR>
-nnoremap <buffer> c :<C-u>cd <cfile><CR>
-xnoremap <buffer> c y:cd <C-r>0<CR>
-nnoremap <buffer> x :<C-u>Defx `expand('<cfile>')`<CR>
-xnoremap <buffer> x y:Defx <C-r>0<CR>
-nnoremap <buffer> s :<C-u>split <cfile><CR>
-xnoremap <buffer> s y:<C-u>split <C-r>0<CR>
-nnoremap <buffer> p i<C-w>"+
-nnoremap <buffer> P i<C-w>"
 

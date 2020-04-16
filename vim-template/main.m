@@ -1,4 +1,4 @@
-%% in
+%% input
 tic;
 clc;
 clear;

@@ -12,7 +12,8 @@ augroup tex "{{{
 	autocmd!
 	autocmd User VimtexEventQuit *.tex call s:close()
 				\| call init#clean#main(b:clean_temp)
-	autocmd User VimtexEventTocCreated setlocal filetype latextoc
+	autocmd User VimtexEventTocCreated setfiletype latextoc
+				\| call b:toc.set_syntax()
 augroup END "}}}
 
 function! s:close() "{{{
@@ -43,6 +44,9 @@ elseif has('win32')
 endif
 "setlocal indentexpr=BuckyTexIndent()
 setlocal indentexpr=VimtexIndentExpr()
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
 
 inoremap <buffer> -- <Space>--<Space>
 inoremap <buffer> - -
