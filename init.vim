@@ -291,6 +291,35 @@ if dein#load_state($GITWORKSPACE)
 	" 4}}} Appearance "
 
 	" File {{{4 "
+	" FileExplore {{{5 "
+	call dein#add('roxma/nvim-yarp', {
+				\ 'if': !has('nvim') && has('python3'),
+				\ 'on_source': ['deoplete.nvim', 'defx.nvim'],
+				\ })
+	call dein#add('roxma/vim-hug-neovim-rpc', {
+				\ 'if': !has('nvim') && has('python3'),
+				\ 'on_source': ['deoplete.nvim', 'defx.nvim'],
+				\ })
+	call dein#add('Shougo/defx.nvim', {
+				\ 'if': has('python3'),
+				\ 'on_source': 'vim-defx-vista',
+				\ 'on_func': 'defx#custom#option',
+				\ 'on_cmd': 'Defx',
+				\ 'hook_post_source': join([
+				\ 'call init#defx#main()',
+				\ ], "\n"),
+				\ })
+	call dein#add('linjiX/vim-defx-vista', {
+				\ 'on_cmd': 'ToggleDefxVista',
+				\ })
+	call dein#add('kristijanhusak/defx-git', {
+				\ 'on_ft': 'defx',
+				\ })
+	call dein#add('kristijanhusak/defx-icons', {
+				\ 'on_ft': 'defx',
+				\ })
+	" 5}}} FileExplore "
+
 	" FieEdit {{{5 "
 	call dein#add('airblade/vim-rooter')
 	call dein#add('mhinz/vim-hugefile')
@@ -2442,6 +2471,30 @@ function! s:bufadd() "{{{
 	endif
 endfunction "}}}
 " 3}}}  "
+" Shougo/defx.nvim {{{3 "
+nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h')`<CR>
+nnoremap <Leader>jJ :<C-u>Defx `getcwd()`<CR>
+nnoremap <Leader>jk :<C-u>Defx<Space>
+nnoremap <Leader>jz :<C-u>Defx `$HOME`/.local/share/Trash/files<CR>
+nnoremap <Leader>jd :<C-u>Defx `$HOME`/Documents<CR>
+nnoremap <Leader>jq :<C-u>Defx `$QQWORKSPACE`<CR>
+nnoremap <Leader>ju :<C-u>Defx `$UDISK`<CR>
+nnoremap <Leader>jU :<C-u>Defx /mnt/cdrom<CR>
+nnoremap <Leader>jv :<C-u>Defx `$VIMCONFIG`<CR>
+nnoremap <Leader>jp :<C-u>Defx /etc/portage/package.use<CR>
+nnoremap <Leader>jr :<C-u>Defx `$GITHUBWORKSPACE`/`$GITNAME`<CR>
+nnoremap <Leader>jR :<C-u>Defx `$GITWORKSPACE`/.cache/init.vim/.dein<CR>
+nnoremap <Leader>jt :<C-u>Defx `$HOME`/.texlive/texmf-var/tex/latex<CR>
+nnoremap <Leader>jf :<C-u>Defx `$HOME`/.local/share/fonts<CR>
+nnoremap <Leader>jF :<C-u>Defx `$FONTS`<CR>
+nnoremap <Leader>ja :<C-u>Defx `$HOME`/.local/share/applications<CR>
+nnoremap <Leader>jA :<C-u>Defx `$APPLICATIONS`<CR>
+nnoremap <Leader>jx :<C-u>Defx `$HOME`/.local/share/gnome-shell/extensions<CR>
+" 3}}} Shougo/defx.nvim "
+" linjiX/vim-defx-vista {{{3 "
+nnoremap <Leader>xd :<C-u>ToggleDefxVista<CR>
+" 3}}} linjiX/vim-defx-vista "
+" 2}}} FileExplore "
 " 2}}} FileExplore "
 
 " FileEdit {{{2 "
@@ -3398,24 +3451,24 @@ nnoremap <Leader>up :<C-u>call CocAction('pickColor')<CR>
 nnoremap <Leader>ur :<C-u>call CocAction('colorPresentation')<CR>
 nnoremap <Leader>nq :<C-u>CocCommand snippets.openSnippetFiles<CR>
 nnoremap <Leader>nn :<C-u>CocCommand snippets.editSnippets<CR>
-nnoremap <Leader>jj :<C-u>execute 'CocCommand explorer '.(expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h'))<CR>
-nnoremap <Leader>jJ :<C-u>execute 'CocCommand explorer '.getcwd()<CR>
-nnoremap <Leader>jk :<C-u>CocCommand explorer<Space>
-nnoremap <Leader>jz :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/Trash/files'<CR>
-nnoremap <Leader>jd :<C-u>execute 'CocCommand explorer '.$HOME.'/Documents'<CR>
-nnoremap <Leader>jq :<C-u>execute 'CocCommand explorer '.$QQWORKSPACE<CR>
-nnoremap <Leader>ju :<C-u>execute 'CocCommand explorer '.$UDISK<CR>
-nnoremap <Leader>jU :<C-u>CocCommand explorer /mnt/cdrom<CR>
-nnoremap <Leader>jv :<C-u>execute 'CocCommand explorer '.$VIMCONFIG<CR>
-nnoremap <Leader>jp :<C-u>CocCommand explorer /etc/portage/package.use<CR>
-nnoremap <Leader>jr :<C-u>execute 'CocCommand explorer '.$GITHUBWORKSPACE.'/'.$GITNAME<CR>
-nnoremap <Leader>jR :<C-u>execute 'CocCommand explorer '.$GITWORKSPACE.'/.cache/init.vim/.dein<CR>
-nnoremap <Leader>jt :<C-u>execute 'CocCommand explorer '.$HOME.'/.texlive/texmf-var/tex/latex'<CR>
-nnoremap <Leader>jf :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/fonts'<CR>
-nnoremap <Leader>jF :<C-u>execute 'CocCommand explorer '.$FONTS<CR>
-nnoremap <Leader>ja :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/applications'<CR>
-nnoremap <Leader>jA :<C-u>execute 'CocCommand explorer '.$APPLICATIONS<CR>
-nnoremap <Leader>jx :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/gnome-shell/extensions'<CR>
+" nnoremap <Leader>jj :<C-u>execute 'CocCommand explorer '.(expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h'))<CR>
+" nnoremap <Leader>jJ :<C-u>execute 'CocCommand explorer '.getcwd()<CR>
+" nnoremap <Leader>jk :<C-u>CocCommand explorer<Space>
+" nnoremap <Leader>jz :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/Trash/files'<CR>
+" nnoremap <Leader>jd :<C-u>execute 'CocCommand explorer '.$HOME.'/Documents'<CR>
+" nnoremap <Leader>jq :<C-u>execute 'CocCommand explorer '.$QQWORKSPACE<CR>
+" nnoremap <Leader>ju :<C-u>execute 'CocCommand explorer '.$UDISK<CR>
+" nnoremap <Leader>jU :<C-u>CocCommand explorer /mnt/cdrom<CR>
+" nnoremap <Leader>jv :<C-u>execute 'CocCommand explorer '.$VIMCONFIG<CR>
+" nnoremap <Leader>jp :<C-u>CocCommand explorer /etc/portage/package.use<CR>
+" nnoremap <Leader>jr :<C-u>execute 'CocCommand explorer '.$GITHUBWORKSPACE.'/'.$GITNAME<CR>
+" nnoremap <Leader>jR :<C-u>execute 'CocCommand explorer '.$GITWORKSPACE.'/.cache/init.vim/.dein<CR>
+" nnoremap <Leader>jt :<C-u>execute 'CocCommand explorer '.$HOME.'/.texlive/texmf-var/tex/latex'<CR>
+" nnoremap <Leader>jf :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/fonts'<CR>
+" nnoremap <Leader>jF :<C-u>execute 'CocCommand explorer '.$FONTS<CR>
+" nnoremap <Leader>ja :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/applications'<CR>
+" nnoremap <Leader>jA :<C-u>execute 'CocCommand explorer '.$APPLICATIONS<CR>
+" nnoremap <Leader>jx :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/gnome-shell/extensions'<CR>
 " 3}}} neoclide/coc.nvim "
 " 2}}} LSP "
 
