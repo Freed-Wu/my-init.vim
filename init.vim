@@ -45,14 +45,11 @@ if dein#load_state($GITWORKSPACE)
 	" Default {{{4 "
 	"  {{{5 "
 	call dein#add('tpope/vim-sensible')
-	call dein#add($VIM.'/vimfiles', {
-				\ 'if': has('unix'),
-				\ 'frozen': 1,
+	call dein#add('gentoo/gentoo-syntax', {
 				\ 'on_cmd': ['NewEbuild', 'NewMetadata', 'NewGLEP', 'NewInitd'],
+				\ 'on_ft': ['gentoo-changelog', 'gentoo-common', 'gentoo-conf-d', 'gentoo-env-d', 'gentoo-init-d', 'gentoo-make-conf', 'gentoo-metadata', 'gentoo-mirrors', 'gentoo-package-common', 'gentoo-package-keywords', 'gentoo-package-license', 'gentoo-package-mask', 'gentoo-package-properties', 'gentoo-package-use', 'gentoo-use-desc', 'glep', 'ruidexml'],
 				\ })
-	call dein#add($VIMCONFIG, {
-				\ 'frozen': 1,
-				\ })
+	call dein#add($VIMCONFIG)
 	" 5}}}  "
 
 	" Encoding {{{5 "
@@ -303,7 +300,6 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('Shougo/defx.nvim', {
 				\ 'if': has('python3'),
 				\ 'on_source': 'vim-defx-vista',
-				\ 'on_func': 'defx#custom#option',
 				\ 'on_cmd': 'Defx',
 				\ 'hook_post_source': join([
 				\ 'call init#defx#main()',
@@ -441,8 +437,10 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_source': 'incsearch-migemo.vim',
 				\ })
 	call dein#add('haya14busa/incsearch-migemo.vim', {
-				\ 'depends': 'Shougo/vimproc.vim',
 				\ 'on_map': '<Plug>',
+				\ })
+	call dein#add('luochen1990/select-and-search', {
+				\ 'on_func': 'select_and_search#get_search_pat',
 				\ })
 	" 5}}} Search "
 
@@ -719,7 +717,6 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Comment "
 
 	" Abbreviate {{{5 "
-	call dein#add('alcesleo/vim-uppercase-sql')
 	call dein#add('panozzaj/vim-autocorrect', {
 				\ 'on_func': 'AutoCorrect',
 				\ 'on_event': 'InsertEnter',
@@ -784,12 +781,7 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Complete "
 
 	" Snippet {{{5 "
-	call dein#add('honza/vim-snippets', {
-				\ 'on_event': 'InsertEnter',
-				\ 'hook_post_source': join([
-				\ 'CocRestart',
-				\ ], "\n"),
-				\ })
+	call dein#add('honza/vim-snippets')
 	call dein#add('aperezdc/vim-template', {
 				\ 'on_cmd': ['Template', 'TemplateHere'],
 				\ })
@@ -1153,10 +1145,6 @@ xnoremap gq gq
 nnoremap gI gI
 xnoremap gI gI
 " 4}}} modify "
-" Cursormodify {{{4 "
-nnoremap <BS> yl
-nnoremap <S-BS> yh
-" 4}}} Cursormodify "
 " markMoveCursor {{{4 "
 onoremap [' ['
 onoremap [` [`
@@ -1249,16 +1237,10 @@ onoremap ze ze
 " searchMoveCursor {{{4 "
 nnoremap gn gn
 nnoremap gN gN
-xnoremap gn <Esc>gn
-xnoremap gN <Esc>gN
+xnoremap gn gn
+xnoremap gN gN
 onoremap gn gn
 onoremap gN gN
-nnoremap zn gn<Esc>
-nnoremap zN gN<Esc>
-xnoremap zn gn
-xnoremap zN gN
-onoremap zn vgn
-onoremap zN vgN
 " 4}}} searchMoveCursor "
 " changeMoveCursor {{{4 "
 nnoremap g; g;
@@ -1375,8 +1357,8 @@ nnoremap gt gt
 nnoremap gT gT
 " 4}}} tabMoveCursor "
 " windowMoveCursor {{{4 "
-nnoremap <C-Tab> <C-w>w
-nnoremap <C-S-Tab> <C-w>W
+nnoremap <C-w>w <C-w>w
+nnoremap <C-w>W <C-w>W
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
@@ -1385,8 +1367,8 @@ nnoremap <C-w>t <C-w>t
 nnoremap <C-w>b <C-w>b
 nnoremap <C-w>r <C-w>r
 nnoremap <C-w>R <C-w>R
-xnoremap <C-Tab> <C-w>w
-xnoremap <C-S-Tab> <C-w>W
+xnoremap <C-w>w <C-w>w
+xnoremap <C-w>W <C-w>W
 xnoremap <C-j> <C-w>j
 xnoremap <C-k> <C-w>k
 xnoremap <C-h> <C-w>h
@@ -1586,10 +1568,6 @@ nnoremap <Leader>vk :<C-u>call init#quickui#keymap#main()<CR>
 " 4}}} vimL "
 nnoremap <Leader>vh :TOhtml<CR>
 xnoremap <Leader>vh :TOhtml<CR>
-nnoremap <Leader>vn /<C-r>*<CR>
-xnoremap <Leader>vn y/<C-r>0<CR>
-nnoremap <Leader>vN ?<C-r>*<CR>
-xnoremap <Leader>vN y?<C-r>0<CR>
 " substitute {{{4 "
 nnoremap <Leader>rr :%s///gc<Left><Left><Left><Left>
 xnoremap <Leader>rr :s///gc<Left><Left><Left><Left>
@@ -1720,30 +1698,12 @@ nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
 " tpope/vim-rsi {{{3 "
 inoremap <expr><C-p> pumvisible()?"\<C-p>": "\<Up>"
 inoremap <expr><C-n> pumvisible()?"\<C-n>": "\<Down>"
-inoremap <S-CR> <C-o>O
-inoremap <C-CR> <C-o>o
-inoremap <C-BS> <C-k>
-inoremap <S-BS> <C-r>
-inoremap <S-space> <C-v>
-cnoremap <C-BS> <C-k>
-cnoremap <S-BS> <C-r>
-cnoremap <S-space> <C-v>
-cnoremap <S-CR> <C-f>
-cnoremap <C-TAB> <C-d>
-inoremap <C-k> <C-o>:<C-u>set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR>
-cnoremap <C-k> <C-f>i<C-o>:<C-u>set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR><C-c>
-inoremap <C-v> <PageDown>
-if has('win32')
-	inoremap ö <PageUp>
-else
-	inoremap <M-v> <PageUp>
-endif
-inoremap <C-z> <C-o>dd
-inoremap <C-s> <C-o>/
-inoremap <C-r> <C-o>?
-inoremap <C-y> <C-o>P
+inoremap <C-k> <C-o>:set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR>
+cnoremap <C-k> <C-f>i<C-o>:set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR><C-c>
 inoremap <C-j> <C-e>
 inoremap <C-l> <C-y>
+inoremap <C-\> <C-k>
+cnoremap <C-\> <C-k>
 snoremap <C-b> <Left>
 snoremap <C-f> <Right>
 snoremap <C-n> <Down>
@@ -1751,13 +1711,6 @@ snoremap <C-p> <Up>
 snoremap <C-a> <Home>
 snoremap <C-e> <End>
 snoremap <C-y> <C-g>pgv<C-g>
-snoremap <M-b> <S-left>
-snoremap <M-f> <S-right>
-snoremap <M-v> <PageUp>
-snoremap <C-v> <PageDown>
-snoremap <M-a> <C-Home>
-snoremap <M-e> <C-End>
-snoremap <M-x> <Esc>:
 " 3}}} tpope/vim-rsi "
 " 2}}} HotkeyManage "
 
@@ -1775,9 +1728,7 @@ let g:Vimim_plugin = $VIMCONFIG.'/.VimIM'
 let g:Vimim_shuangpin = 'ms'
 let g:Vimim_toggle = 'pinyin'
 nnoremap <Leader>zv :<C-u>ViMiM<CR>
-nnoremap <C-Space> i<C-R>=g:Vimim_chinese()<CR><Esc>
-inoremap <C-Space> <C-R>=g:Vimim_chinese()<CR>
-cnoremap <C-Space> <C-F>i<C-R>=g:Vimim_chinese()<CR>
+nnoremap <S-Tab> i<C-R>=g:Vimim_chinese()<CR><Esc>
 " 3}}} vim-scripts/VimIM "
 " gu-fan/mathematic.vim {{{3 "
 nnoremap <Leader>x<Tab> :KeyHelper<CR>
@@ -1917,6 +1868,10 @@ nnoremap ]Y :ThematicFirst<CR>:ThematicPrevious<CR>
 " luochen1990/rainbow {{{3 "
 let g:rainbow_active = 1
 nnoremap <Leader>or :RainbowToggle<CR>
+augroup init_syntax "{{{
+	autocmd!
+	autocmd VimEnter * autocmd Syntax * call rainbow_main#load()
+augroup END "}}}
 " 3}}} luochen1990/rainbow "
 if has('pythonx')
 	" jaxbot/semantic-highlight.vim {{{3 "
@@ -1948,10 +1903,17 @@ nmap <Leader>oJ <Plug>longline#toggle
 " Conceal {{{2 "
 " ryanoasis/vim-devicons {{{3 "
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
+			\ 'commonmark': '',
+			\ 'pandoc': '',
+			\ 'html5': '',
+			\ 'docbook': '',
+			\ 'docbook5': '',
 			\ 'patch': '',
 			\ 'aap': '',
 			\ 'tex': '',
 			\ 'latex': '',
+			\ 'context': '',
+			\ 'beamer': '',
 			\ 'inp': '',
 			\ 'tikz': '',
 			\ 'lyx': '',
@@ -1968,6 +1930,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'OutJob': '',
 			\ 'lnk': '',
 			\ 'csv': '',
+			\ 'tsv': '',
 			\ 'dat': '',
 			\ 'ppt': '',
 			\ 'pptx': '',
@@ -1984,6 +1947,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'snippets': '',
 			\ 'fountain': '',
 			\ 'txt': '',
+			\ 'plain': '',
 			\ 'rtf': '',
 			\ 'cnx': '中',
 			\ 'jax': '日',
@@ -2118,6 +2082,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'cache': '',
 			\ 'fmt': '',
 			\ 'tmp': '',
+			\ 'temp': '',
 			\ 'pmx': '',
 			\ 'pygtex': '',
 			\ 'pygstyle': '',
@@ -2127,6 +2092,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'idx': '',
 			\ 'ind': '',
 			\ 'ilg': '',
+			\ 'nlo': '',
 			\ 'lof': '',
 			\ 'lot': '',
 			\ 'loe': '',
@@ -2172,8 +2138,9 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 			\ 'profile$': '',
 			\ '\.gitignore$': '',
 			\ '\.github$': '',
-			\ '.*_history': '',
-			\ '\.viminfo': '',
+			\ '.*_history$': '',
+			\ '\.viminfo$': '',
+			\ 'tags$': '',
 			\ }
 " 3}}} ryanoasis/vim-devicons "
 " 2}}} Conceal "
@@ -2372,7 +2339,7 @@ augroup init_Startify "{{{
 augroup END "}}}
 function! s:cowsay() "{{{
 	if !argc()
-		" let g:startify_custom_header = cowsay#cowsay(split(system('fortune'), '\n'), 'dragon-and-cow')
+		" let g:startify_custom_header = split(system('fortune | cowsay -f dragon-and-cow'), '\n')
 		" let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
 		let g:startify_custom_header = cowsay#cowsay(split(fortune_vimtips#tooltipviewtips(), '\n'), 'dragon-and-cow')
 	endif
@@ -2402,7 +2369,7 @@ set keywordprg=:Man
 let g:tex_flavor = 'latex'
 let g:filetype_m = 'octave'
 let g:asmsyntax = 'masm'
-let g:load_doxygen_syntax=1
+let g:load_doxygen_syntax = 1
 nnoremap <Leader>oy :let g:load_doxygen_syntax = !g:load_doxygen_syntax\| syntax on<CR>
 " 3}}}  "
 " sheerun/vim-polyglot {{{3 "
@@ -2449,6 +2416,16 @@ let g:fastfold_fold_command_suffixes = [
 			\ 'm', 'M', 'r', 'R', 'v',
 			\ ]
 " 3}}} Konfekt/FastFold "
+" embear/vim-foldsearch {{{3 "
+let g:foldsearch_disable_mappings = 1
+nnoremap z<Tab>w :<C-u>Fw<CR>
+nnoremap z<Tab>s :<C-u>Fs<CR>
+nnoremap z<Tab>S :<C-u>FS<CR>
+nnoremap z<Tab>l :<C-u>Fl<CR>
+nnoremap z<Tab>i :<C-u>Fi<CR>
+nnoremap z<Tab>d :<C-u>Fd<CR>
+nnoremap z<Tab>e :<C-u>Fe<CR>
+" 3}}} embear/vim-foldsearch "
 " 2}}} Fold "
 " 1}}} Appearance "
 
@@ -2472,6 +2449,10 @@ function! s:bufadd() "{{{
 endfunction "}}}
 " 3}}}  "
 " Shougo/defx.nvim {{{3 "
+augroup init_defx "{{{
+	autocmd!
+	autocmd FileType defx source $VIMCONFIG/ftplugin/defx.vim
+augroup END "}}}
 nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h')`<CR>
 nnoremap <Leader>jJ :<C-u>Defx `getcwd()`<CR>
 nnoremap <Leader>jk :<C-u>Defx<Space>
@@ -2502,7 +2483,7 @@ nnoremap <Leader>xd :<C-u>ToggleDefxVista<CR>
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_targets = '*'
 let g:rooter_patterns = [
-			\ 'README.mkd', 'README.md', 'README.txt',
+			\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
 			\ '.git/', '.svn/',
 			\ '.vs/', '.vscode/', '.idea/',
 			\ '.project', '.sublime-project',
@@ -2511,14 +2492,15 @@ let g:rooter_patterns = [
 let g:rooter_silent_chdir = 1
 let g:rooter_use_lcd = 1
 let g:rooter_resolve_links = 1
-nnoremap <Leader>bb :Rooter<CR>
+nnoremap <Leader>bb :<C-u>Rooter<CR>
+nnoremap <Leader>bc :<C-u>cd %:p:h<CR>
 " 3}}} airblade/vim-rooter "
 " mhinz/vim-hugefile {{{3 "
 nnoremap <Leader>oh :HugefileToggle<CR>
 let g:hugefile_trigger_size = 5
 " 3}}} mhinz/vim-hugefile "
 " tpope/vim-eunuch {{{3 "
-nnoremap <Leader>bc :<C-u>Chmod<Space>
+nnoremap <Leader>bC :<C-u>Chmod<Space>
 nnoremap <Leader>br :<C-u>Rename<Space>
 nnoremap <Leader>bX :<C-u>Delete<CR>
 nnoremap <Leader>bm :<C-u>Mkdir<Space>
@@ -2877,16 +2859,11 @@ map <Leader>z/ <Plug>(incsearch-migemo-/)
 map <Leader>z? <Plug>(incsearch-migemo-?)
 map <Leader>zQ <Plug>(incsearch-migemo-stay)
 " 3}}} haya14busa/incsearch-migemo.vim "
-" embear/vim-foldsearch {{{3 "
-let g:foldsearch_disable_mappings = 1
-nnoremap z<Tab>w :<C-u>Fw<CR>
-nnoremap z<Tab>s :<C-u>Fs<CR>
-nnoremap z<Tab>S :<C-u>FS<CR>
-nnoremap z<Tab>l :<C-u>Fl<CR>
-nnoremap z<Tab>i :<C-u>Fi<CR>
-nnoremap z<Tab>d :<C-u>Fd<CR>
-nnoremap z<Tab>e :<C-u>Fe<CR>
-" 3}}} embear/vim-foldsearch "
+" luochen1990/select-and-searce {{{3 "
+let g:select_and_search_active = 4
+xnoremap zn :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>nzz
+xnoremap zN :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>NNzz
+" 3}}} luochen1990/select-and-searce "
 " 2}}} Search "
 
 " Swap {{{2 "
@@ -3246,7 +3223,7 @@ let g:neoformat_basic_format_align = 1
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_try_formatprg = 1
-nnoremap gz :<C-u>set operatorfunc=init#format#main<CR>g@
+nnoremap g_ :<C-u>set operatorfunc=init#format#main<CR>g@
 nnoremap <Leader>zz :.Neoformat<CR>
 xnoremap <Leader>zz :Neoformat<CR>
 " 3}}} sbdchd/neoformat "
@@ -3391,6 +3368,9 @@ if has('pythonx')
 	endif
 	" 3}}} Shougo/deoplete.nvim "
 endif
+" chrisbra/unicode.vim {{{3 "
+let g:Unicode_data_directory = $VIMCONFIG.'/.unicode'
+" 3}}} chrisbra/unicode.vim "
 " ararslan/license-to-vim {{{3 "
 let g:license_email = $GITNAME
 let g:license_author = $EMAIL
@@ -3412,8 +3392,8 @@ let g:templates_global_name_prefix = ''
 let g:templates_directory = [$VIMCONFIG.'/vim-template']
 let g:email = $EMAIL
 let g:username = $GITNAME
-nnoremap <Leader>tV :<C-u>sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.%:e<CR>
 nnoremap <Leader>tv :<C-u>execute 'Template =template=.'.expand('%:e')<CR>
+nnoremap <Leader>tV :<C-u>sfind $GITHUBWORKSPACE/aperezdc/vim-template/templates/=template=.%:e<CR>
 for s:templates_directory in g:templates_directory
 	execute 'nnoremap <Leader>t' . index(g:templates_directory, s:templates_directory) . ' :<C-u>Leaderf file ' . s:templates_directory .'<CR>'
 endfor
@@ -3434,19 +3414,15 @@ augroup init_coc "{{{
 	autocmd CursorHold * call CocActionAsync('highlight')
 	autocmd Colorscheme * CocRestart
 	autocmd VimEnter * CocStart
-	if has('gui_running')
-		autocmd BufWrite init.vim,coc-settings.json CocDisable
-	endif
 augroup END "}}}
 inoremap <silent><expr> <TAB>
-			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-			\ init#check_back_space#main() ? "\<TAB>" :
+			\ pumvisible() ? coc#_select_confirm() :
+			\ coc#expandableOrJumpable() ? '\<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])\<CR>' :
+			\ init#check_back_space#main() ? '<C-R>=g:Vimim_chinese()<CR>' :
 			\ coc#refresh()
-inoremap <silent><expr> <S-TAB>
-			\ pumvisible() ? <C-e> : <s-tab>
+inoremap <silent><expr> <S-TAB> pumvisible() ? '<C-e>' : '<s-tab>'
 nnoremap <Leader>po :CocInstall coc-
 nnoremap <Leader>pO :CocList extensions<CR>
-nnoremap <Leader>pe :CocEnable<CR>
 nnoremap <Leader>up :<C-u>call CocAction('pickColor')<CR>
 nnoremap <Leader>ur :<C-u>call CocAction('colorPresentation')<CR>
 nnoremap <Leader>nq :<C-u>CocCommand snippets.openSnippetFiles<CR>
@@ -3572,6 +3548,15 @@ elseif executable('SumatraPDF')
 				\ . ':\%l^<CR^>:normal\! zzzv^<CR^>'
 				\ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
 endif
+let g:vimtex_compiler_latexmk = {
+			\ 'options' : [
+			\ '-verbose',
+			\ '-file-line-error',
+			\ '-shell-escape',
+			\ '-synctex=1',
+			\ '-interaction=nonstopmode',
+			\ ],
+			\ }
 let g:vimtex_compiler_latexmk_engines = {
 			\ '_': '-lualatex',
 			\ }
@@ -3680,24 +3665,17 @@ let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
 " 2}}} Debug "
 
 " Terminal {{{2 "
-"  {{{ "
-if exists('##TerminalOpen')
-	augroup init_terminal "{{{
-		autocmd!
-		autocmd TerminalOpen * set filetype=floaterm
-	augroup END "}}}
-endif
-" }}}  "
 " voldikss/vim-floaterm {{{3 "
 nnoremap <Leader>hh :<C-u>FloatermNew<CR>
 nnoremap <Leader>hH :<C-u>FloatermNew<Space>
 nnoremap <Leader>ho :<C-u>FloatermNew octave<CR>
-nnoremap <Leader>hj :<C-u>FloatermNew octave<CR>
+nnoremap <Leader>hj :<C-u>FloatermNew julia<CR>
 nnoremap <Leader>hp :<C-u>FloatermNew python<CR>
 nnoremap <Leader>hd :<C-u>FloatermNew node<CR>
+nnoremap <Leader>hq :<C-u>FloatermNew mysql<CR>
 nnoremap <Leader>hn :<C-u>FloatermNew nethack<CR>
 nnoremap <Leader>hz :<C-u>FloatermNew zsh<CR>
-nnoremap <C-CR> :<C-u>FloatermSend<CR><Down>
+nnoremap gz :<C-u>FloatermSend<CR><Down>
 " 3}}} voldikss/vim-floaterm "
 " 2}}} Terminal "
 " 1}}} Program "

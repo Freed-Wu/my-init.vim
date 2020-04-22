@@ -12,6 +12,7 @@ augroup filetypedetect "{{{
 	" 1}}} Text "
 
 	" Data_Exchange {{{1 "
+	autocmd BufNewFile,BufRead .mysql_history setfiletype sql
 	autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf setfiletype dosini
 	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc setfiletype conf
 	autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
@@ -25,8 +26,8 @@ augroup filetypedetect "{{{
 	" 1}}} Data_Exchange "
 
 	" Mark_Up {{{1 "
-	autocmd BufNewFile,BufRead *.def,*.pgf setfiletype plaintex
-	autocmd BufNewFile,BufRead *.inp,*.out,*.thm,*.eps_tex,*.pygtex,*.pygstyle,*.clo,*.aux,*.brf,*.ind,*.toc,*.lot,*.lof,*.loe,*.nav,*.vrb,*.ins,*.tikz,*.bbx,*.cbx setfiletype tex
+	autocmd BufNewFile,BufRead *.def,*.pgf,*.nlo,*.inp,*.out,*.thm,*.eps_tex,*.pygtex,*.pygstyle,*.clo,*.aux,*.brf,*.ind,*.toc,*.lot,*.lof,*.loe,*.nav,*.vrb,*.ins,*.tikz,*.bbx,*.cbx,*.beamer setfiletype tex
+	autocmd BufNewFile,BufRead *.cls set filetype=tex
 	autocmd BufNewFile,BufRead *.plg,*.django setfiletype html
 	autocmd BufNewFile,BufRead *.ess,*.edje setfiletype css
 	autocmd BufNewFile,BufRead *.mtx setfiletype mtx

@@ -41,7 +41,7 @@ nnoremap <buffer><expr> gs
 			\ defx#do_action('toggle_select_all')
 xnoremap <buffer><expr> s
 			\ defx#do_action('toggle_select_visual')
-nnoremap <buffer><expr> <C-s>
+nnoremap <buffer><expr> gq
 			\ defx#do_action('clear_select_all')
 nnoremap <buffer><expr> za
 			\ defx#do_action('open_or_close_tree')
@@ -135,6 +135,8 @@ xmap <buffer> go sgo
 xmap <buffer> gO sgO
 xmap <buffer> gi sgi
 xmap <buffer> gi sgi
-nnoremap <buffer> <Leader>jj <C-w>n:Defx -split=no `expand('%:p:h')`<CR><C-w>=
-nnoremap <buffer> <Leader>jJ <C-w>n:Rooter<CR>:Defx -split=no `getcwd()`<CR><C-w>=
+
+command! -buffer -nargs=* -range -bar -complete=customlist,defx#util#complete
+			\ Defx wincmd n
+			\| call defx#util#call_defx('Defx', '-split=no '.<q-args>)
 

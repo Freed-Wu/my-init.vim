@@ -11,75 +11,11 @@ endsnippet
 # box {{{1 #
 snippet bx "Box" b
 `!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
-│ ${1:${VISUAL}} │
+│ $1 │
 `!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
 $0
 endsnippet
-snippet box "A nice box with the current comment symbol" b
-`!p
-box = make_box(len(t[1]))
-snip.rv = box[0]
-snip += box[1]
-`${1:${VISUAL}}`!p
-box = make_box(len(t[1]))
-snip.rv = box[2]
-snip += box[3]`
-$0
-endsnippet
-snippet bbox "A nice box over the full width" b
-`!p
-if not snip.c:
-	width = int(vim.eval("&textwidth - (virtcol('.') == 1 ? 0 : virtcol('.'))")) or 71
-	box = make_box(len(t[1]), width)
-	snip.rv = box[0]
-	snip += box[1]
-	`${1:${VISUAL}}`!p
-	box = make_box(len(t[1]), width)
-	snip.rv = box[2]
-	snip += box[3]`
-
-$0
-endsnippet
-snippet '\s*fold' "myUltiSnips" br
-`!p snip.rv = get_comment_format()[0]` ${1:${VISUAL}} `!p snip.rv = foldmarker()[0]`${2:1} `!p snip.rv = get_comment_format()[2]`
-$0
-`!p snip.rv = get_comment_format()[0]` $2`!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
-
-endsnippet
 # 1}}} box #
-
-# info {{{1 #
-snippet us "myUltiSnips" i
-\$USER$0
-endsnippet
-# 1}}} info #
-
-# vimL {{{1 #
-snippet '\s*mode' "myUltiSnips" br
-`!p snip.rv = get_comment_format()[0]` vim: set `!v &expandtab ? printf('') : printf('no')`et ft =`!v printf('%s', &filetype)` fdm =`!v printf('%s', &foldmethod)` ts =`!v printf('%i', &tabstop)` sw =`!v printf('%i', &shiftwidth)` sts =`!v printf('%i', &softtabstop)`: `!p snip.rv = get_comment_format()[2]`$0
-endsnippet
-# 1}}} vimL #
-
-# vim-template {{{1 #
-snippet here "myUltiSnips" i
-%HERE%$0
-endsnippet
-snippet file "myUltiSnips" i
-%FILE%$0
-endsnippet
-snippet year "myUltiSnips" i
-%YEAR%$0
-endsnippet
-snippet user "myUltiSnips" i
-%USER%$0
-endsnippet
-snippet mail "myUltiSnips" i
-%MAIL%$0
-endsnippet
-snippet license "myUltiSnips" i
-%LICENSE%$0
-endsnippet
-# 1}}} vim-template #
 
 # latex-text-font {{{1 #
 snippet ita "myUltiSnips" i

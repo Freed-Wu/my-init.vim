@@ -10,6 +10,8 @@ function! init#help#main(word) "{{{
 		call vimproc#write('/tmp/'.&filetype, system('man --pager=cat '.a:word))
 	elseif &filetype =~# 'dosbatch\|ps1'
 		call vimproc#write('/tmp/'.&filetype, system('help '.a:word))
+	elseif &filetype =~# 'sql'
+		call vimproc#write('/tmp/'.&filetype, system('mysql -e "help '.a:word.'"'))
 	else
 		call vimproc#write('/tmp/'.&filetype, 'No found!')
 	endif

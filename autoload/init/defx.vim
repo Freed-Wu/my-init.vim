@@ -42,7 +42,6 @@ function! init#defx#main() "{{{
 				\ 'direction': 'topleft',
 				\ 'show_ignored_files': 0,
 				\ 'buffer_name': '',
-				\ 'auto_cd': 1,
 				\ 'new': 1,
 				\ 'resume': 1,
 				\ 'columns': 'indent:mark:git:icons:filename:type:size:time',

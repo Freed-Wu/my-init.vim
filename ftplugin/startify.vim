@@ -1,10 +1,6 @@
 let g:which_key_map_startify_dot = {
 			\ 'name': 'choose a key about mru & directory',
 			\ }
-let b:deol_extra_options = {
-			\ 'term_finish': 'close',
-			\ 'curwin': 1,
-			\ }
 
 for s:startify_commands in get(g:, 'startify_commands', [])
 	for [s:startify_command_key, s:startify_command] in items(s:startify_commands)
@@ -27,6 +23,7 @@ call init#map#main()
 augroup startify "{{{
 	autocmd!
 	autocmd User Startified call s:startify()
+	autocmd User StartifyAllBuffersOpened Rooter
 augroup END "}}}
 function! s:startify() "{{{
 	unmap <buffer> b
@@ -41,7 +38,9 @@ function! s:startify() "{{{
 	unmap <buffer> q
 endfunction "}}}
 
-command! -buffer -nargs=* -range FloatermNew terminal ++close ++curwin <args>
+command! -buffer -nargs=* -range FloatermNew call floaterm#new(<q-args>, {}, {'curwin':1})
+			\| wincmd W
+			\| hide
 command! -buffer -nargs=* -complete=customlist,calendar#argument#complete
 			\ Calendar call calendar#new(<q-args>.' -position=here')
 command! -buffer -nargs=? Splash enew

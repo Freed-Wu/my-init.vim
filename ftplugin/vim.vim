@@ -10,22 +10,12 @@ endif
 
 if expand('%:p') ==# $MYVIMRC
 	setlocal path+=$GITHUBWORKSPACE
-	setlocal iskeyword+=.,/,-
-	nnoremap <buffer><silent> gd :find $GITHUBWORKSPACE/<cword>/doc/*.txt<CR>
-	nnoremap <buffer><silent> gD :find $GITHUBWORKSPACE/<cword>/README*<CR>
-	nnoremap <buffer><silent> <C-w>d :sfind $GITHUBWORKSPACE/<cword>/doc/*.txt<CR>
-	nnoremap <buffer><silent> <C-w>D :sfind $GITHUBWORKSPACE/<cword>/README*<CR>
+	nnoremap <buffer><silent> gd :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/doc/*.txt'<CR>
+	nnoremap <buffer><silent> gD :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/README*'<CR>
+	nnoremap <buffer><silent> <C-w>d :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/doc/*.txt'<CR>
+	nnoremap <buffer><silent> <C-w>D :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/README*'<CR>
+	nnoremap <buffer><silent> <C-w>i :<C-u>execute 'Defx ' . $GITHUBWORKSPACE . '/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0]<CR>
 endif
-
-if expand('%:p:h') ==# expand($VIMCONFIG.'/ftdetect')
-	nnoremap <buffer> <LocalLeader>g :execute 'edit ' . $GITWORKSPACE . expand('/.cache/init.vim/.dein/ftdetect/ftdetect.vim')<CR>
-endif
-
-if expand('%:p') ==# expand($GITWORKSPACE.'/.cache/init.vim/.dein/ftdetect/ftdetect.vim')
-	nnoremap <buffer> <LocalLeader>g :execute 'edit ' . $XDG_CONFIG_VIM . expand('/ftdetect/') . '*.vim'<CR>
-endif
-
-let g:browser_search_default_engine = 'github'
 
 call vim#map#main()
 
