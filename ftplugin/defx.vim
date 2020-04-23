@@ -10,7 +10,7 @@ nmap <buffer> ]] <Plug>(defx-git-next)
 nmap <nowait><buffer> > <Plug>(defx-git-stage)
 nmap <nowait><buffer> < <Plug>(defx-git-reset)
 nmap <buffer> - <Plug>(defx-git-discard)
-nmap <buffer> <Leader>he mzgggx`z
+nmap <buffer> <Leader>bx mzgggx`z
 nnoremap <buffer><expr> gx
 			\ defx#do_action('execute_system')
 nnoremap <buffer><expr> !
@@ -37,7 +37,7 @@ nnoremap <buffer><expr> s
 			\ defx#do_action('toggle_select') . 'j'
 nnoremap <buffer><expr> S
 			\ defx#do_action('toggle_select') . 'k'
-nnoremap <buffer><expr> gs
+nnoremap <buffer><expr> <C-a>
 			\ defx#do_action('toggle_select_all')
 xnoremap <buffer><expr> s
 			\ defx#do_action('toggle_select_visual')
@@ -78,44 +78,39 @@ nnoremap <buffer><expr> X
 			\ defx#do_action('remove_trash')
 nnoremap <buffer><expr> <C-x>
 			\ defx#do_action('remove')
-xmap <buffer> P sP
-xmap <buffer> C sC
-xmap <buffer> r sr
-xmap <buffer> c sc
-xmap <buffer> x sx
-xmap <buffer> X sX
-xmap <buffer> <C-x> s<C-x>
 if has('win32')
 	nmap <buffer> <LocalLeader>x C:<C-u>call init#clean#main(split(@0, "\n"))<CR>R
 endif
 
-nnoremap <buffer><expr> o
+nnoremap <buffer><expr> go
 			\ defx#is_directory() ?
 			\ defx#do_action('open_or_close_tree') :
 			\ defx#do_action('multi', ['drop', 'quit'])
-nnoremap <buffer><expr> go
-			\ defx#do_action('drop')
-nnoremap <buffer><expr> i
+nnoremap <buffer><expr> o
 			\ defx#is_directory() ?
-			\ defx#do_action('drop') :
-			\ defx#do_action('multi', [['drop', 'split'], 'quit'])
+			\ defx#do_action('open_or_close_tree') :
+			\ defx#do_action('drop')
 nnoremap <buffer><expr> gi
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
-			\ defx#do_action('drop', 'split')
-nnoremap <buffer><expr> I
+			\ defx#do_action('multi', [['drop', 'split'], 'quit'])
+nnoremap <buffer><expr> i
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
-			\ defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
+			\ defx#do_action('drop', 'split')
 nnoremap <buffer><expr> gI
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
+			\ defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
+nnoremap <buffer><expr> I
+			\ defx#is_directory() ?
+			\ defx#do_action('drop') :
 			\ defx#do_action('drop', 'vsplit')
-nnoremap <buffer><expr> O
+nnoremap <buffer><expr> gO
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
 			\ defx#do_action('multi', [['drop', 'tab split'], 'quit'])
-nnoremap <buffer><expr> gO
+nnoremap <buffer><expr> O
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
 			\ defx#do_action('drop', 'tab split')
@@ -123,18 +118,10 @@ nnoremap <buffer><expr> <CR>
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
 			\ defx#do_action('multi', [['drop', 'pedit'], 'quit'])
-nnoremap <buffer><expr> <C-CR>
+nnoremap <buffer><expr> <S-tab>
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
 			\ defx#do_action('drop', 'pedit')
-xmap <buffer> o so
-xmap <buffer> O sO
-xmap <buffer> i si
-xmap <buffer> i si
-xmap <buffer> go sgo
-xmap <buffer> gO sgO
-xmap <buffer> gi sgi
-xmap <buffer> gi sgi
 
 command! -buffer -nargs=* -range -bar -complete=customlist,defx#util#complete
 			\ Defx wincmd n

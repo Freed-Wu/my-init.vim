@@ -13,8 +13,8 @@ let g:mkdp_port = '8090'
 let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 
 call vimtex#init()
-call dot#map#main()
 call tex#map#main()
+call dot#map#main()
 
 if expand('%:p:h') =~# 'vim'
 	call vim#map#main()

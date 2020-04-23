@@ -42,8 +42,7 @@ elseif has('unix')
 elseif has('win32')
 	setlocal path+=C:/Program\ Files/texlive/2019/texmf-dist/**3
 endif
-"setlocal indentexpr=BuckyTexIndent()
-setlocal indentexpr=VimtexIndentExpr()
+setlocal indentexpr=BuckyTexIndent()
 setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
@@ -64,5 +63,6 @@ xmap <buffer> [[ <plug>(vimtex-[[)
 xmap <buffer> [] <plug>(vimtex-[])
 xmap <buffer> ][ <plug>(vimtex-][)
 xmap <buffer> ]] <plug>(vimtex-]])
+nmap <buffer> <LocalLeader>K <plug>(vimtex-doc-package)
 xmap <buffer> <LocalLeader>K <plug>(vimtex-doc-package)
 

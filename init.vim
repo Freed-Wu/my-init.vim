@@ -119,6 +119,11 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('vim-scripts/VimIM', {
 				\ 'on_func': ['Vimim_chinese', 'Vimim_gi', 'Vimim_search'],
 				\ 'on_cmd': 'ViMiM',
+				\ 'hook_post_source': join([
+				\ 'function! Vimim_onekey()',
+				\ 'return Vimim_chinese()',
+				\ 'endfunction',
+				\ ], "\n"),
 				\ })
 	call dein#add('gu-fan/mathematic.vim', {
 				\ 'on_cmd': 'KeyHelper',
@@ -629,7 +634,11 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_map': '<plug>(Yoink',
 				\ })
 	call dein#add('junegunn/vim-peekaboo', {
-				\ 'on_map': ['"', '@'],
+				\ 'on_map': {
+				\ 'n': ['"', '@'],
+				\ 'x': ['"', '@'],
+				\ 'i': '<C-R>',
+				\ },
 				\ 'augroup': 'peekaboo_init',
 				\ })
 	call dein#add('machakann/vim-highlightedyank', {
@@ -1115,14 +1124,11 @@ endif
 " noVi {{{4 "
 nnoremap gO i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv{O<Esc>:let @/ = ''<CR>o
 nnoremap go i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv}O<Esc>:let @/ = ''<CR>o
-nnoremap S dhi
-nnoremap ~ "ayl:execute @a =~ '\a'?'normal! ~':'let @+ = @a'<CR>
-xnoremap <C-t> <Esc>`.``gvp``:execute 'normal! '.((&virtualedit =~ 'onemore' && col('.') ==# col('$') - 1)?'p':'P')<CR>
-cnoremap <M-q> <C-u>visual<CR>
+nnoremap S ch
+nnoremap S cl
+xnoremap <C-t> <Esc>`.``gvp``:call init#swap#main()<CR>
 nnoremap g. :<C-u>execute v:count?v:count.'go':''<CR><C-g>
 xnoremap g. go
-nnoremap g: <Bar>
-xnoremap g: <Bar>
 nnoremap gG g<C-g>
 xnoremap gG g<C-g>
 nnoremap g> :<C-u>pwd<CR>
@@ -1454,14 +1460,14 @@ nnoremap <C-w>g} <C-w>g}
 xnoremap <C-w>g] <C-w>g]
 xnoremap <C-w>gg <C-w>g<C-]>
 xnoremap <C-w>g} <C-w>g}
-nnoremap <C-w>f <C-w>f
-nnoremap <C-w>F <C-w>F
 nnoremap <C-w>i <C-w>i
 nnoremap <C-w>d <C-w>d
-xnoremap <C-w>f <C-w>f
-xnoremap <C-w>F <C-w>F
 xnoremap <C-w>i <C-w>i
 xnoremap <C-w>d <C-w>d
+nnoremap <C-w>f :<C-u>execute isdirectory(expand('<cfile>'))? 'Defx `expand("<cfile>")`': 'sfind '.expand("<cfile>")<CR>
+xnoremap <C-w>f y:execute isdirectory(<C-r>0)? 'Defx <C-r>0': 'sfind <C-r>0'<CR>
+nnoremap <C-w>F :<C-u>execute isdirectory(expand('<cfile>'))? 'cd expand("<cfile>")': 'sfind '.expand("<cfile>")<CR>
+xnoremap <C-w>F y:execute isdirectory(<C-r>0)? 'cd <C-r>0': 'sfind <C-r>0'<CR>
 " 4}}} windowOpen "
 " windowClose {{{4 "
 nnoremap <C-w>c <C-w>c
@@ -1470,8 +1476,8 @@ nnoremap <C-w>q <C-w>q
 xnoremap <C-w>c <C-w>c
 xnoremap <C-w>o <C-w>o
 xnoremap <C-w>q <C-w>q
-nnoremap <C-w>u :hide<CR>
-xnoremap <C-w>u :<C-u>hide<CR>
+nnoremap <C-w>Z :hide<CR>
+xnoremap <C-w>Z :<C-u>hide<CR>
 " 4}}} windowClose "
 " fold+- {{{4 "
 nnoremap zd zd
@@ -1501,11 +1507,11 @@ nnoremap zuW zuW
 nnoremap gf gf
 nnoremap gF gF
 nnoremap g] g]
-nnoremap g[ g<C-]>
+nnoremap g} g<C-]>
 xnoremap gf gf
 xnoremap gF gF
 xnoremap g] g]
-xnoremap g[ g<C-]>
+xnoremap g} g<C-]>
 nnoremap gd gd
 nnoremap gD gD
 xnoremap gd gd
@@ -1552,22 +1558,16 @@ nnoremap <Leader>vx :<C-u>X<CR>
 nnoremap <Leader>v= :<C-u>redir @
 nnoremap <Leader>v+ :<C-u>redir END<CR>
 nnoremap <Leader>vR :<C-u>recover<CR>
-nnoremap <Leader>vc :<C-u>cd %:p:h<CR>
-nnoremap <Leader>vC :<C-u>cd <cfile><CR>
-xnoremap <Leader>vc y:cd <C-r>0<CR>
 nnoremap <Leader>vo :<C-u>options<CR>
 nnoremap <Leader>vp :hardcopy<CR>
 xnoremap <Leader>vp :hardcopy<CR>
 nnoremap <Leader>vm :<C-u>setlocal makeprg&<CR>
 nnoremap <Leader>vv :<C-u>execute 'split $VIMCONFIG/ftplugin/'.split(&filetype, '\.')[0].'.vim'<CR>
-nnoremap <Leader>vg :<C-u>execute 'vim //gj '.expand('<cfile>')<CR><S-Left>
-xnoremap <Leader>vg y:execute 'vim //gj '.@0<CR><S-Left>
+nnoremap <Leader>vg :<C-u>execute 'vim //gj '.expand('<cfile>')<S-Left>
+xnoremap <Leader>vg y:execute 'vim //gj '.@0<S-Left>
 nnoremap <Leader>vd :<C-u>diffsplit<Space>
 xnoremap <Leader>vd y:diffsplit <C-r>0<CR>
-nnoremap <Leader>vk :<C-u>call init#quickui#keymap#main()<CR>
 " 4}}} vimL "
-nnoremap <Leader>vh :TOhtml<CR>
-xnoremap <Leader>vh :TOhtml<CR>
 " substitute {{{4 "
 nnoremap <Leader>rr :%s///gc<Left><Left><Left><Left>
 xnoremap <Leader>rr :s///gc<Left><Left><Left><Left>
@@ -1650,10 +1650,9 @@ let g:listdict = {
 			\ '}': '''}',
 			\ }
 " 4}}} substitute "
-" shell {{{4 "
+nnoremap <Leader>vh :TOhtml<CR>
+xnoremap <Leader>vh :TOhtml<CR>
 nnoremap <Leader>hv :<C-u>silent !gvim -u $VIMCONFIG/test.vim<CR>
-nnoremap <Leader>he :<C-u>call pandoc#hypertext#OpenSystem(expand('%'))<CR>
-" 4}}} shell "
 " 3}}}  "
 " liuchengxu/vim-which-key {{{3 "
 let g:which_key_display_names = {' ': '█', '<CR>': '↵', '<TAB>': '⇆'}
@@ -1715,6 +1714,9 @@ snoremap <C-y> <C-g>pgv<C-g>
 " 2}}} HotkeyManage "
 
 " KeyMap {{{2 "
+"  {{{ "
+nnoremap <Leader>zk :<C-u>call init#quickui#keymap#main()<CR>
+" }}}  "
 " vim-scripts/VimIM {{{3 "
 set imdisable
 let g:Vimim_punctuation = 3
@@ -1727,8 +1729,8 @@ let g:Vimim_mycloud = 1
 let g:Vimim_plugin = $VIMCONFIG.'/.VimIM'
 let g:Vimim_shuangpin = 'ms'
 let g:Vimim_toggle = 'pinyin'
-nnoremap <Leader>zv :<C-u>ViMiM<CR>
-nnoremap <S-Tab> i<C-R>=g:Vimim_chinese()<CR><Esc>
+nnoremap <Leader>z/ :<C-u>ViMiM<CR>
+inoremap <C-^> <C-R>=Vimim_chinese()<CR>
 " 3}}} vim-scripts/VimIM "
 " gu-fan/mathematic.vim {{{3 "
 nnoremap <Leader>x<Tab> :KeyHelper<CR>
@@ -2388,18 +2390,19 @@ let g:pandoc#syntax#codeblocks#embeds#langs = ['octave', 'tex']
 
 " Fold {{{2 "
 "  {{{3 "
-let g:javaScript_fold = 1 " JavaScript
-let g:perl_fold = 1 " Perl
-let g:php_folding = 1 " PHP
-let g:r_syntax_folding = 1 " R
-let g:ruby_fold = 1 " Ruby
-let g:sh_fold_enabled = 1 " sh
-let g:vimsyn_folding = 'af' " Vim script
-let g:xml_syntax_folding = 1 " XML
+let g:javaScript_fold = 1
+let g:perl_fold = 1
+let g:php_folding = 1
+let g:r_syntax_folding = 1
+let g:ruby_fold = 1
+let g:sh_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
 set foldmethod=syntax
 " 3}}}  "
 " dbmrq/vim-chalk {{{3 "
 let g:chalk_align = 0
+let g:chalk_space_before = 1
 vmap zf <Plug>Chalk
 nmap zf <Plug>Chalk
 nmap zF <Plug>ChalkRange
@@ -2479,6 +2482,10 @@ nnoremap <Leader>xd :<C-u>ToggleDefxVista<CR>
 " 2}}} FileExplore "
 
 " FileEdit {{{2 "
+"  {{{ "
+nnoremap <Leader>bc :<C-u>cd %:p:h<CR>
+nnoremap <Leader>bx :<C-u>call pandoc#hypertext#OpenSystem(expand('%'))<CR>
+" }}}  "
 " airblade/vim-rooter {{{3 "
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_targets = '*'
@@ -2493,7 +2500,6 @@ let g:rooter_silent_chdir = 1
 let g:rooter_use_lcd = 1
 let g:rooter_resolve_links = 1
 nnoremap <Leader>bb :<C-u>Rooter<CR>
-nnoremap <Leader>bc :<C-u>cd %:p:h<CR>
 " 3}}} airblade/vim-rooter "
 " mhinz/vim-hugefile {{{3 "
 nnoremap <Leader>oh :HugefileToggle<CR>
@@ -2785,9 +2791,8 @@ nnoremap <C-w>y :<C-u>call WindowSwap#EasyWindowSwap()<CR>
 
 " Search {{{2 "
 "  {{{3 "
-"set incsearch " 开启实时搜索功能 sensible
 set hlsearch
-set ignorecase " 搜索时大小写不敏感
+set ignorecase
 set wrapscan
 if exists('&inccommand')
 	set inccommand=nosplit
@@ -2798,12 +2803,6 @@ xmap <Leader># "sy<Esc>?\V\C<C-r>s<CR>
 " justinmk/vim-sneak {{{3 "
 let g:sneak#s_next = 1
 let g:sneak#label = 1
-nmap \ <Plug>Sneak_s
-xmap \ <Plug>Sneak_s
-omap \ <Plug>Sneak_s
-nmap <Bar> <Plug>Sneak_S
-xmap <Bar> <Plug>Sneak_S
-omap <Bar> <Plug>Sneak_S
 nmap f <Plug>Sneak_f
 xmap f <Plug>Sneak_f
 omap f <Plug>Sneak_f
@@ -2822,8 +2821,12 @@ omap z; <Plug>Sneak_;
 nmap z, <Plug>Sneak_,
 xmap z, <Plug>Sneak_,
 omap z, <Plug>Sneak_,
-nmap z\ <Plug>SneakLabel_s
-nmap z<Bar> <Plug>SneakLabel_S
+nmap z/ <Plug>SneakLabel_s
+xmap z/ <Plug>SneakLabel_s
+omap z/ <Plug>SneakLabel_s
+nmap z? <Plug>SneakLabel_S
+xmap z? <Plug>SneakLabel_S
+omap z? <Plug>SneakLabel_S
 " 3}}} justinmk/vim-sneak "
 " haya14busa/is.vim {{{3 "
 nmap n <Plug>(is-nohl)<Plug>(anzu-n-with-echo)
@@ -2840,29 +2843,26 @@ xmap g* <Plug>(is-g*)
 xmap g# <Plug>(is-g#)
 " 3}}} haya14busa/is.vim "
 " haya14busa/incsearch-easymotion.vim {{{3 "
-nmap / <Plug>(incsearch-easymotion-/)
-nmap ? <Plug>(incsearch-easymotion-?)
-xmap / <Plug>(incsearch-easymotion-/)
-xmap ? <Plug>(incsearch-easymotion-?)
-omap / <Plug>(incsearch-easymotion-/)
-omap ? <Plug>(incsearch-easymotion-?)
-nmap Q <Plug>(incsearch-easymotion-stay)
-xmap Q <Plug>(incsearch-easymotion-stay)
+nmap / <Plug>(incsearch-easymotion-stay)
+xmap / <Plug>(incsearch-easymotion-stay)
+omap / <Plug>(incsearch-easymotion-stay)
 " 3}}} haya14busa/incsearch-easymotion.vim "
 " haya14busa/incsearch-fuzzy.vim {{{3 "
-noremap <expr> z/ incsearch#go(init#fuzzymotion#main())
-noremap <expr> z? incsearch#go(init#fuzzymotion#main({'command': '?'}))
-noremap <expr> zQ incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
+nnoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
+xnoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
+onoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
 " 3}}} haya14busa/incsearch-fuzzy.vim "
 " haya14busa/incsearch-migemo.vim {{{3 "
-map <Leader>z/ <Plug>(incsearch-migemo-/)
-map <Leader>z? <Plug>(incsearch-migemo-?)
-map <Leader>zQ <Plug>(incsearch-migemo-stay)
+nmap <Leader>z? <Plug>(incsearch-migemo-stay)
+xmap <Leader>z? <Plug>(incsearch-migemo-stay)
+omap <Leader>z? <Plug>(incsearch-migemo-stay)
 " 3}}} haya14busa/incsearch-migemo.vim "
 " luochen1990/select-and-searce {{{3 "
 let g:select_and_search_active = 4
-xnoremap zn :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>nzz
-xnoremap zN :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>NNzz
+xnoremap n :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>n
+xnoremap N :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>N
+xnoremap zn n
+xnoremap zN N
 " 3}}} luochen1990/select-and-searce "
 " 2}}} Search "
 
@@ -3414,37 +3414,19 @@ augroup init_coc "{{{
 	autocmd CursorHold * call CocActionAsync('highlight')
 	autocmd Colorscheme * CocRestart
 	autocmd VimEnter * CocStart
+	autocmd InsertLeave * execute 'normal! zv'
 augroup END "}}}
 inoremap <silent><expr> <TAB>
 			\ pumvisible() ? coc#_select_confirm() :
 			\ coc#expandableOrJumpable() ? '\<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])\<CR>' :
-			\ init#check_back_space#main() ? '<C-R>=g:Vimim_chinese()<CR>' :
+			\ init#check_back_space#main() ? '<Tab>' :
 			\ coc#refresh()
-inoremap <silent><expr> <S-TAB> pumvisible() ? '<C-e>' : '<s-tab>'
 nnoremap <Leader>po :CocInstall coc-
 nnoremap <Leader>pO :CocList extensions<CR>
 nnoremap <Leader>up :<C-u>call CocAction('pickColor')<CR>
 nnoremap <Leader>ur :<C-u>call CocAction('colorPresentation')<CR>
 nnoremap <Leader>nq :<C-u>CocCommand snippets.openSnippetFiles<CR>
 nnoremap <Leader>nn :<C-u>CocCommand snippets.editSnippets<CR>
-" nnoremap <Leader>jj :<C-u>execute 'CocCommand explorer '.(expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:p:h'))<CR>
-" nnoremap <Leader>jJ :<C-u>execute 'CocCommand explorer '.getcwd()<CR>
-" nnoremap <Leader>jk :<C-u>CocCommand explorer<Space>
-" nnoremap <Leader>jz :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/Trash/files'<CR>
-" nnoremap <Leader>jd :<C-u>execute 'CocCommand explorer '.$HOME.'/Documents'<CR>
-" nnoremap <Leader>jq :<C-u>execute 'CocCommand explorer '.$QQWORKSPACE<CR>
-" nnoremap <Leader>ju :<C-u>execute 'CocCommand explorer '.$UDISK<CR>
-" nnoremap <Leader>jU :<C-u>CocCommand explorer /mnt/cdrom<CR>
-" nnoremap <Leader>jv :<C-u>execute 'CocCommand explorer '.$VIMCONFIG<CR>
-" nnoremap <Leader>jp :<C-u>CocCommand explorer /etc/portage/package.use<CR>
-" nnoremap <Leader>jr :<C-u>execute 'CocCommand explorer '.$GITHUBWORKSPACE.'/'.$GITNAME<CR>
-" nnoremap <Leader>jR :<C-u>execute 'CocCommand explorer '.$GITWORKSPACE.'/.cache/init.vim/.dein<CR>
-" nnoremap <Leader>jt :<C-u>execute 'CocCommand explorer '.$HOME.'/.texlive/texmf-var/tex/latex'<CR>
-" nnoremap <Leader>jf :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/fonts'<CR>
-" nnoremap <Leader>jF :<C-u>execute 'CocCommand explorer '.$FONTS<CR>
-" nnoremap <Leader>ja :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/applications'<CR>
-" nnoremap <Leader>jA :<C-u>execute 'CocCommand explorer '.$APPLICATIONS<CR>
-" nnoremap <Leader>jx :<C-u>execute 'CocCommand explorer '.$HOME.'/.local/share/gnome-shell/extensions'<CR>
 " 3}}} neoclide/coc.nvim "
 " 2}}} LSP "
 
@@ -3675,7 +3657,7 @@ nnoremap <Leader>hd :<C-u>FloatermNew node<CR>
 nnoremap <Leader>hq :<C-u>FloatermNew mysql<CR>
 nnoremap <Leader>hn :<C-u>FloatermNew nethack<CR>
 nnoremap <Leader>hz :<C-u>FloatermNew zsh<CR>
-nnoremap gz :<C-u>FloatermSend<CR><Down>
+nnoremap Q :<C-u>execute 'FloatermSend ' . getline('.')<CR><Down>
 " 3}}} voldikss/vim-floaterm "
 " 2}}} Terminal "
 " 1}}} Program "

@@ -63,13 +63,13 @@ snippet "tr(\d+)" "Add table row of dimension ..." r
 endsnippet
 snippet csv "myUltiSnips" b
 \csvreader[
-	head to column names,
-	tabular=cc$1,
-	table head=\toprule
-	$2
-	\midrule,
-	table foot=\bottomrule
-	late after line=\\\\
+  head to column names,
+  tabular=cc$1,
+  table head=\toprule
+  $2
+  \midrule,
+  table foot=\bottomrule
+  late after line=\\\\
 ]{tab/$3.csv}{}{ \a&\b&\c&\d&\e&\f&\g&\h&\i&\j&\k&\l$3 }$0
 endsnippet
 snippet csvau "myUltiSnips" b
@@ -77,21 +77,21 @@ snippet csvau "myUltiSnips" b
 endsnippet
 snippet timeline "myUltiSnips" b
 \csvreader[
-	head to column names,
-	tabular = @{\,}r <{\hskip 2pt} !{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}} >{\raggedright\arraybackslash}p{5cm},
+  head to column names,
+  tabular = @{\,}r <{\hskip 2pt} !{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}} >{\raggedright\arraybackslash}p{5cm},
 ]{tab/${1:timeline}.csv}{}{%
-	\time & \item
+  \time & \item
 }$0
 endsnippet
 snippet timelin "myUltiSnips" b
 \begin{table}
-	\centering
-	\caption{时间线}%
-	\label{tab:时间线}
-	\begin{tabular}
-		{@{\,}r <{\hskip 2pt} !{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}} >{\raggedright\arraybackslash}p{5cm}}
-		$0
-	\end{tabular}
+  \centering
+  \caption{时间线}%
+  \label{tab:时间线}
+  \begin{tabular}
+    {@{\,}r <{\hskip 2pt} !{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}} >{\raggedright\arraybackslash}p{5cm}}
+    $0
+  \end{tabular}
 \end{table}
 endsnippet
 #表格
@@ -103,8 +103,8 @@ ${VISUAL}
 endsnippet
 snippet diag "myUltiSnips" i
 \diagbox[
-	width = \linewidth,
-	${1:height=}]{$2}{$3}$0
+  width = \linewidth,
+  ${1:height=}]{$2}{$3}$0
 endsnippet
 snippet mulr "myUltiSnips" i
 \multirow{${1:2}}{*}{${VISUAL}$2}$0
@@ -115,79 +115,24 @@ endsnippet
 #子表
 snippet subt "myUltiSnips" b
 \begin{subtable}[htbp]{0.45\linewidth}
-	\centering
-	\caption{$1}%
-	\label{tab:$1}
-	$2
+  \centering
+  \caption{$1}%
+  \label{tab:$1}
+  $2
 \end{subtable}
 ${0:\quad}
-endsnippet
-snippet capset "myUltiSnips" b
-\captionsetup[$1]{${2:labelformat=andtable}}
-$0
-endsnippet
-#长表格
-snippet longtabu "myUltiSnips" b
-begin{longtable}
-	\caption{\textbf{NAC gene family identified in tomato.}}%
-	\label{table:nac}\\
-		\endfirsthead
-	\endhead
-	\endfoot
-	\endlastfoot
-	$0
-\end{longtable}
-endsnippet
-#表格模板
-#book 文本强调
-snippet attention "myUltiSnips" b
-\newenvironment{attention}[1]{%
-	\par\medskip\noindent
-	\begin{tikzpicture}
-		\node[inner sep = 0pt] (box) \bgroup%
-		\begin{minipage}[t]{.99\textwidth}%
-			\begin{minipage}{.3\textwidth}
-				\centering
-				\tikz[scale = 5]\node[scale = 3, rotate = 30]{\bclampe};
-			\end{minipage}%
-			\begin{minipage}{.65\textwidth}
-				\textbf{#1}\par\smallskip
-				\surroundwithmdframed[
-					topline=false,
-					bottomline=false,
-					leftline=false,
-					rightline=false,
-					backgroundcolor=lbcolor
-				]{minted}
-				}{%
-			\end{minipage}\hfill
-		\end{minipage}%
-		\egroup;
-		\draw[black,line width=3pt]
-		( $ (box.north east) + (-5pt,3pt) $ ) -- ( $ (box.north east) + (0,3pt) $ ) -- ( $ (box.south east) + (0,-3pt) $ ) -- + (-5pt,0);
-		\draw[black,line width=3pt]
-		( $ (box.north west) + (5pt,3pt) $ ) -- ( $ (box.north west) + (0,3pt) $ ) -- ( $ (box.south west) + (0,-3pt) $ ) -- + (5pt,0);
-	\end{tikzpicture}
-	\par\medskip
-}
-
-\begin{attention}{$1}
-$2
-\end{attention}
-
-$0
 endsnippet
 # 1}}} table #
 
 # picture {{{1 #
 snippet subfig "myUltiSnips" b
 \begin{subfigure}[htbp]{${1:0.45}\linewidth}
-	\centering
-	\includegraphics[
-	width = \linewidth,
-	]{fig/$2}
-	\caption{${3:$2}}%
-	\label{fig:$3}
+  \centering
+  \includegraphics[
+  width = \linewidth,
+  ]{fig/$2}
+  \caption{${3:$2}}%
+  \label{fig:$3}
 \end{subfigure}
 ${0:\quad}
 endsnippet
@@ -201,23 +146,23 @@ $0
 endsnippet
 snippet wrap "myUltiSnips" b
 \begin{wrapfigure}{${1:r}}{${2:0.2}\linewidth}
-	\vspace{-10pt}
-	\centering
-	${VISUAL}\includegraphics[
-	width = \linewidth,
-	]{fig/$3}
-	\caption{${4:$3}}%
-	\label{$4}
-	\vspace{-10pt}
+  \vspace{-10pt}
+  \centering
+  ${VISUAL}\includegraphics[
+  width = \linewidth,
+  ]{fig/$3}
+  \caption{${4:$3}}%
+  \label{$4}
+  \vspace{-10pt}
 \end{wrapfigure}
 $0
 endsnippet
 #子图
 snippet ov "myUltiSnips" b
 \begin{overpic}[
-	width = \linewidth,
-	]{$1}
-	put$0
+  width = \linewidth,
+  ]{$1}
+  put$0
 \end{overpic}
 endsnippet
 endsnippet
@@ -270,23 +215,6 @@ $0
 endsnippet
 snippet zi "myUltiSnips" i
 \zihao{${1:4}}$0
-endsnippet
-snippet font "myUltiSnips" i
-\fontsize{${1:25}pt}{$1pt}\selectfont$0
-endsnippet
-context "math()"
-snippet mr "myUltiSnips" i
-\mathrm{${VISUAL}$1}$0
-endsnippet
-context "math()"
-snippet dd "myUltiSnips" i
-\dd$1{${VISUAL}$2}$0
-endsnippet
-snippet setq "myUltiSnips" i
-\setquotestyle{${1:e}${1/(e)$|(z)$|(j)$|(b)$|(.*)/(?1:nglish)(?2:h)(?3:a)(?4:ook)/}}$0
-endsnippet
-snippet enq "myUltiSnips" i
-\enquote{${VISUAL}$1}$0
 endsnippet
 #证明
 snippet theo "myUltiSnips" b
@@ -356,12 +284,12 @@ $0
 endsnippet
 snippet fig "myUltiSnips" b
 \begin{figure}[${2:htbp}]
-	\centering
-	\includegraphics[
-		width = ${3:0.8}\linewidth,
-	]{fig/$4}
-	\caption{${5:$4}}%
-	\label{fig:$5}
+  \centering
+  \includegraphics[
+    width = ${3:0.8}\linewidth,
+  ]{fig/$4}
+  \caption{${5:$4}}%
+  \label{fig:$5}
 \end{figure}
 
 $0
@@ -371,36 +299,16 @@ endsnippet
 snippet eqr "myUltiSnips" i
 \eqref{$1}$0
 endsnippet
-snippet ref "myUltiSnips" i
-\ref{${1:f}${1/(t)$|(f)$|(e)$|(i)$|(c)$|(se)$|(su)$|(ss)$|(p)$|(.*)/(?1:ab)(?2:ig)(?3:q)(?4:t)(?5:ha)(?6:c)(?7:b)(?8:ub)(?9:ar)/}:$2}$0
-endsnippet
-snippet subr "myUltiSnips" i
-\subref{${1:t}${1/(t)$|(f)$|(e)$|(i)$|(c)$|(se)$|(su)$|(ss)$|(p)$|(.*)/(?1:ab)(?2:ig)(?3:q)(?4:t)(?5:ha)(?6:c)(?7:b)(?8:ub)(?9:ar)/}:$2}$0
-endsnippet
-snippet namer "myUltiSnips" i
-\nameref{${1:t}${1/(t)$|(f)$|(e)$|(i)$|(c)$|(se)$|(su)$|(ss)$|(p)$|(.*)/(?1:ab)(?2:ig)(?3:q)(?4:t)(?5:ha)(?6:c)(?7:b)(?8:ub)(?9:ar)/}:$2}$0
-endsnippet
 snippet refa "myUltiSnips" i
 \refAnswer{$1}$0
 endsnippet
 # 2}}} ref #
 # 1}}} reference #
 
-# SpecialFunction {{{1 #
-snippet pdfpages "myUltiSnips" b
-$0
-endsnippet
-# 1}}} SpecialFunction #
-
 # debug {{{1 #
 snippet atbeg "myUltiSnips" b
 % Fakesubsection 条件编译
 \usepackage{atbegshi}
-$0
-endsnippet
-snippet lip "myUltiSnips" b
-% Fakesubsection 无义乱文
-\usepackage{lipsum}
 $0
 endsnippet
 snippet showkey "myUltiSnips" b
@@ -415,37 +323,12 @@ snippet draft "myUltiSnips" b
 \usepackage[timestamp,first]{draftcopy}
 \draftcopyVersion{Version ${1:1.0.0}}$0
 endsnippet
-snippet dump "myUltiSnips" b
-\csname
-endofdump
-\endcsname
-$0
-endsnippet
 snippet show "myUltiSnips" b
 \showthe\baselineskip$0
 endsnippet
 # 1}}} debug #
 
 # style {{{1 #
-snippet da "myUltiSnips" iw
-\date{${1:\today}}$0
-endsnippet
-snippet number "myUltiSnips" iw
-\number\year 年 \number\month 月 \number\day 日$0
-endsnippet
-snippet new "myUltiSnips" b
-\newpage
-$0
-endsnippet
-snippet vs "myUltiSnips" i
-\vspace{$1${2:em}}$0
-endsnippet
-snippet hs "myUltiSnips" i
-\hspace{$1${2:em}}$0
-endsnippet
-snippet mb "myUltiSnips" i
-\mbox{${VISUAL}}$0
-endsnippet
 #行距
 snippet spa "myUltiSnips" b
 \begin{spacing}{${1:1}}
@@ -453,20 +336,14 @@ ${VISUAL}$0
 \end{spacing}
 endsnippet
 snippet flush "myUltiSnips" b
-\begin{flush${1:r}${1/(r)$|(l)$|(.*)/(?1:ight)(?2:eft)/}}
-${VISUAL}${2:日期：}
-\end{flush$1${1/(r)$|(l)$|(.*)/(?1:ight)(?2:eft)/}}
+\begin{flushright}
+${VISUAL}${1:日期：}
+\end{flushright}
 
 $0
 endsnippet
 snippet makebox "myUltiSnips" i
 \makebox[${1:12}\ccwd][${2:c}]{$3}$0
-endsnippet
-snippet ft "myUltiSnips" i
-\footnote{${VISUAL}$0}
-endsnippet
-snippet 、、 "myUltiSnips" i
-\\$0
 endsnippet
 #页面
 snippet geo "myUltiSnips" b
@@ -491,47 +368,8 @@ snippet labelfile "myUltiSnips" b
 \sf\labelfile{$1.csv}$0
 endsnippet
 # 颜色
-snippet color "myUltiSnips" b
-\xdefinecolor{lightBlue}{rgb}{0.22,0.45,0.7}
-\xdefinecolor{darkGrey}{rgb}{0.45,0.45,0.45}
-\xdefinecolor{DeepSkyBlue}{RGB}{0, 104, 139}
-\xdefinecolor{dkpurple}{rgb}{0.455, 0.204, 0.506}
-
-$0
-endsnippet
 snippet xdefcolor "myUltiSnips" b
 \xdefinecolor{$1}{rgb}{$2,$3,$4}
-$0
-endsnippet
-# 文字
-snippet cjk "myUltiSnips" b
-%\xeCJKsetup{%
-	%    CJKecglue = {\hskip .10em plus .05em minus .05em},
-	%    CheckSingle = true
-	%}
-%\setCJKmainfont[
-	%    BoldFont = {Noto Serif CJK SC Bold},
-	%    ItalicFont = {AR PL UKai HK}
-	%]{Noto Serif CJK SC ExtraLight}
-%\setCJKsansfont[
-	%    BoldFont = {Noto Sans S Chinese Medium},
-	%    ItalicFont = {Noto Sans S Chinese DemiLight}
-	%]{SimSun}
-%\setCJKmonofont[
-	%    BoldFont = {Adobe Heiti Std},
-	%    ItalicFont = {Adobe Kaiti Std}
-	%]{WenQuanYi Micro Hei Mono Light}
-%\setCJKfamilyfont{zhkesong}{MF KeSong (Noncommercial)}
-%\setCJKfamilyfont{zhhjsd}{MF TheGoldenEra (Noncommercial)}
-%\setCJKfamilyfont{zhlangsong}{MF LangSong (Noncommercial)}
-%\newcommand{\hjsd}{\CJKfamily{zhhjsd}}
-%\newcommand{\KeSong}{\CJKfamily{zhkesong}}
-%\newcommand{\langsong}{\CJKfamily{zhlangsong}}
-%\newfontfamily\KeSongf[Mapping = tex-text]{MF KeSong (Noncommercial)}
-%\newfontfamily\hjsdf[Mapping = tex-text]{MF TheGoldenEra (Noncommercial)}
-%\newfontfamily\langsongf[Mapping = tex-text]{MF LangSong (Noncommercial)}
-%\newfontfamily\SourceCodePro[Mapping = tex-text]{Source Code Pro}
-%\newfontfamily\monaco{Monaco}
 $0
 endsnippet
 # 文本框
@@ -542,24 +380,9 @@ $2
 
 $0
 endsnippet
-snippet fbox "myUltiSnips" b
-\fbox{${1:${VISUAL}}}
-$0
-endsnippet
 #特殊符号输入
 snippet string "myUltiSnips" b
 \string"$1\string"$0
-endsnippet
-#幻灯片
-snippet note "myUltiSnips" i
-\note{${VISUAL}$1}$0
-endsnippet
-#播放顺序
-snippet ons "myUltiSnips" i
-\onslide<${1:+}->$0
-endsnippet
-snippet its "myUltiSnips" b
-\item<${1:+}->$0
 endsnippet
 # exercise {{{2 #
 snippet exe "myUltiSnips" b
@@ -594,28 +417,15 @@ endsnippet
 snippet subfp1 "myUltiSnips" b
 \end{figure}
 
-	\addtocounter{figure}{-1}
-	\newcounter{subf}
-	\begin{figure}[htpb]
-	endsnippet
-	snippet subfp2 "myUltiSnips" b
-	\setcounter{subf}{\value{subfigure}}
-	${VISUAL}
-	\setcounter{subfigure}{\value{subf}}
+  \addtocounter{figure}{-1}
+  \newcounter{subf}
+  \begin{figure}[htpb]
+  endsnippet
+  snippet subfp2 "myUltiSnips" b
+  \setcounter{subf}{\value{subfigure}}
+  ${VISUAL}
+  \setcounter{subfigure}{\value{subf}}
 
-endsnippet
-snippet cou "myUltiSnips" i
-\\${1:a}${1/(a)$|(c)$|(.*)/(?1:rabic)(?2:hinese)/}{${2:c}${2/(c)$|(se)$|(subs)$|(f)$|(t)$|(subf)$|(subt)$|(.*)/(?1:hapter)(?2:ction)(?3:ection)(?4:igure)(?5:able)(?6:igure)(?7:able)/}}$0
-endsnippet
-snippet setc "myUltiSnips" b
-\setcounter{${1:c}${1/(c)$|(se)$|(subs)$|(f)$|(t)$|(subf)$|(subt)$|(to)$|(.*)/(?1:hapter)(?2:ction)(?3:ection)(?4:igure)(?5:able)(?6:igure)(?7:able)(?8:cdepth)/}}{${2:-1}}
-
-$0
-endsnippet
-snippet addc "myUltiSnips" b
-\addtocounter{${1:c}${1/(c)$|(se)$|(subs)$|(f)$|(t)$|(subf)$|(subt)$|(.*)/(?1:hapter)(?2:ction)(?3:ection)(?4:igure)(?5:able)(?6:igure)(?7:able)/}}{${2:-1}}
-
-$0
 endsnippet
 # 2}}} 计数 #
 # 添加目录 {{{2 #
@@ -628,47 +438,17 @@ snippet add "myUltiSnips" b
 
 $0
 endsnippet
-snippet app "myUltiSnips" b
-\appendix
-$0
-endsnippet
-snippet front "myUltiSnips" b
-\frontmatter
-$0
-endsnippet
-snippet main "myUltiSnips" b
-\mainmatter
-$0
-endsnippet
-snippet back "myUltiSnips" b
-\backmatter
-$0
-endsnippet
 snippet qu "myUltiSnips" b
 \begin{quote}
-	$0
+  $0
 \end{quote}
 endsnippet
 snippet quo "myUltiSnips" b
 \begin{quotation}
-	$0
+  $0
 \end{quotation}
 endsnippet
 # 2}}} 添加目录 #
-snippet inc "myUltiSnips" b
-\include{cha/$1}
-inc$0
-endsnippet
-snippet inputtikz "myUltiSnips" b
-\inputtikz{`!p snip.rv=snip.basename`}$0
-endsnippet
-#natbib
-snippet natbib "myUltiSnips" b
-\usepackage[numbers,sort&compress]{natbib}$0
-endsnippet
-snippet index "myUltiSnips" i
-\index{$1}$0
-endsnippet
 # 1}}} body #
 
 # latex-text-font {{{1 #
@@ -703,26 +483,26 @@ endsnippet
 
 global !p
 texMathZones = [
-	'texMathZone'+x for x in [
-		'A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F',
-		'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS',
-		'L', 'LS', 'DS', 'V', 'W', 'X', 'Y', 'Z'
-	]
+  'texMathZone'+x for x in [
+    'A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F',
+    'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS',
+    'L', 'LS', 'DS', 'V', 'W', 'X', 'Y', 'Z'
+  ]
 ]
 texIgnoreMathZones = ['texMathText']
 texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
 texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
 ignore = texIgnoreMathZoneIds[0]
 def math():
-	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
-	try:
-		first = next(
-			i for i in reversed(synstackids)
-			if i in texIgnoreMathZoneIds or i in texMathZoneIds
-		)
-		return first != ignore
-	except StopIteration:
-		return False
+  synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+  try:
+    first = next(
+      i for i in reversed(synstackids)
+      if i in texIgnoreMathZoneIds or i in texMathZoneIds
+    )
+    return first != ignore
+  except StopIteration:
+    return False
 endglobal
 
 context "math()"
@@ -754,22 +534,6 @@ snippet prog "myUltiSnips" i
 %! TEX program = ${1:lualatex}
 $0
 endsnippet
-snippet disc "myUltiSnips" b
-\newcommand{\handlethispage}{}
-\AtBeginShipout{\handlethispage}
-\let\handlethispage\AtBeginShipoutDiscard
-
-${VISUAL}$0
-
-\let\handlethispage\relax
-endsnippet
-snippet com "myUltiSnips" i
-\begin{comment}
-${VISUAL}$1
-\end{comment}
-
-$0
-endsnippet
 # 1}}} comment #
 
 # command {{{1 #
@@ -779,446 +543,18 @@ endsnippet
 snippet str "myUltiSnips" i
 \string"${1:${VISUAL}}\string"$0
 endsnippet
-snippet pac "Package" b
-\usepackage$1{$2}$0
-endsnippet
-snippet use "myUltiSnips" b
-\usetikzlibrary{${VISUAL}$1}$0
-endsnippet
-snippet newc "myUltiSnips" b
-\newcommand{\\$1}[${2:1}]{${3:#1}}
-$0
-endsnippet
-snippet re "myUltiSnips" b
-\renewcommand{\\${1:c}${1/(c)$|(listf)$|(listt)$|(r)$|(i)$|(f)$|(t)$|(a)$|(ap)$|(.*)/(?1:ontentsname)(?2:igurename)(?3:ablename)(?4:efname)(?5:ndexname)(?6:igurename)(?7:ablename)(?8:bstractname)(?9:ppendixname)/}}{$2}
-$0
-endsnippet
-snippet ren "myUltiSnips" b
-\renewcommand{\\${1:E}${1/(E)$|(A)$|(p)$|(Ex)$|(An)$|(Exe)$|(ExeP)$|(l)$|(.*)/(?1:xerciseName)(?2:nswerName)(?3:artname)(?4:erciseListName)(?5:swerListName)(?6:PartName)(?7:artListName)(?8:istexercisename)/}}{$2}
-$0
-endsnippet
-snippet at "myUltiSnips" b
-\makeatletter
-${VISUAL}$1
-\makeatother
-
-$0
-endsnippet
-snippet ifnum "myUltiSnips" b
-\ifnum\strcmp{${1:\jobname}}{${2:main}}=0
-$3
-\fi
-
-$0
-endsnippet
-snippet newif "myUltiSnips" b
-\newif\if${1:myif}\\$1${2:f}${2/(t)$|(f)$|(.*)/(?1:rue)(?2:alse)/}
-$0
-endsnippet
-snippet newco "myUltiSnips" b
-\newcounter{$1}[$2]$0
-endsnippet
-snippet ifthen "myUltiSnips" i
-\ifthenelse{$1}{$2}{$3}$0
-endsnippet
 # 1}}} command #
 
 # template {{{1 #
 # preamble {{{2 #
-snippet handout "myUltiSnips" b
-\ifnum\strcmp{\jobname}{${1:handout}}=0
-\documentclass[handout]{$2}
-\else
-\documentclass{${2:ctexbeamer}}
-\fi$0
-endsnippet
-snippet paper "myUltiSnips" b
-%目录
-\usepackage{titletoc}
-\titlecontents{section}[0pt]{\addvspace{4mm}\filright}{\bfseries\contentspush{\bfseries{\thecontentslabel}\hspace{1.2mm}~}}{}{\titlerule*[3pt]{\bf{.}}\hspace*{-0.8em}\bf{\contentspage}}
-%标题%与beamer 冲突
-\usepackage{titlesec}
-\titleformat{\section}{\centering\LARGE\bfseries}{\S\ifthenelse{\value{section}=0}{}{\thesection}~}{0pt}{}$0
-endsnippet
-snippet afterdumpbeamer "myUltiSnips" b
-\usetheme{${1:Xiaoshan}}
-${2:%}\metroset{progressbar=none}
-\usepackage{pgfpages}
-\ifnum\strcmp{\jobname}{${3:main}}=0
-\setbeameroption{show notes on second screen = right}
-\fi
-$0
-endsnippet
 snippet answer "myUltiSnips" b
 \usepackage{answers}
 \newtheorem{Problem}{Problem}${1:[chapter]}
 \Newassociation{answer}{Answer}{Answer}$0
 endsnippet
-snippet economy "myUltiSnips" b
-\textbf{\fontsize{25pt}{\baselineskip}\kaishu 南京理工大学经济管理学院}
-
-\vspace{5mm}
-
-\textbf{\fontsize{33pt}{\baselineskip}\lishu{课程论文}}}$0
-endsnippet
-snippet title "myUltiSnips" b
-% Fakesection 扉页
-
-\title{\textbf{$1}}
-\author{$2}
-\date{$3}
-\maketitle
-
-$0
-endsnippet
-snippet titlebeamer "myUltiSnips" b
-% Fakesection 扉页
-
-\title{\textbf{$1}}
-\subtitle{$2}
-\author{${3:吴振宇}}
-\institute{${4:南京理工大学}}
-\date{${5:\today}}
-\titlegraphic{%
-	  ${6:\includegraphics[width = .5\linewidth]{njust.ai}
-\vspace{4.5cm}
-\begin{flushright}
-\qrcode[hyperlink, height=1.6cm]{${7:https://github.com/Freed-Wu/}}
-\end{flushright}
-}
-	  }
-\maketitle
-
-$0
-endsnippet
-snippet etoolbox "myUltiSnips" b
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd{\NAT@citexnum}{%
-	\ifx\NAT@last@yr\relax
-	\def@NAT@last@yr{\@citea}%
-	\else
-	\def@NAT@last@yr{--\NAT@penalty}%
-	\fi
-}{%
-	\def@NAT@last@yr{--\NAT@penalty}%
-}{}{\FAIL}
-\makeatother$0
-endsnippet
 # 2}}} preamble #
-# remark {{{2 #
-snippet remark1 "myUltiSnips" b
-\begin{boxedminipage}{\linewidth}
-\zihao{4}
 
-任课老师评语：
-
-\vspace{40mm}
-
-\begin{flushright}
-签名： \underline{\makebox[6\ccwd][c]{}}
-
-年\makebox[2\ccwd][c]{}月\makebox[2\ccwd][c]{}日
-\end{flushright}
-
-\vspace{20mm}
-
-\end{boxedminipage}$0
-endsnippet
-snippet remark2 "myUltiSnips" b
-\begin{tabu}to.75\linewidth{@{}|X[l]|X[l]|@{}}
-\hline
-论文选题符合课程考核要求，具有一定的理论意义和实用价值,作者阅读较广泛,参考文献较充足。
-&
-\begin{tabu}{@{}X[l]@{}}
-很好$ \square $ 较好$ \square $
-\\\\
-一般$ \square $ 尚可$ \square $
-\\\\
-差$ \square $
-\end{tabu}
-\\\\
-\hline
-论文观点正确，结构较合理，层次较清晰，逻辑性强，论述较全面，工作量较充实，结论具有一定的现实指导意义。
-&
-\begin{tabu}{@{}X[l]@{}}
-很好$ \square $ 较好$ \square $
-\\\\
-一般$ \square $ 尚可$ \square $
-\\\\
-差$ \square $
-\end{tabu}
-\\\\
-\hline
-该生平时学习较认真，善于思考，到课率高，不迟到早退。文章语言表达较好，格
-式符合规范要求，体现了较好的学风。
-&
-\begin{tabu}{@{}X[l]@{}}
-很好$ \square $ 较好$ \square $
-\\\\
-一般$ \square $ 尚可$ \square $
-\\\\
-差$ \square $
-\end{tabu}
-\\\\
-\hline
-\begin{tabu}{@{}X[l]@{}}
-教师签名：
-\\\\
-年~月~日
-\end{tabu}
-&
-\\\\
-\hline
-\end{tabu}
-\begin{flushleft}
-\makebox[5\ccwd][c]{}注：请将该封面与论文装订成册（论文双面打印）。
-\end{flushleft}$0
-endsnippet
-# 2}}} remark #
-snippet commit "myUltiSnips" b
-% Fakesection 承诺书
-
-\newcommand{\NumberMilitaryMathModeling}{B028819084}
-\newcommand{\NumberNJUSTMathModeling}{114}
-\newcommand{\NumberProblem}{B}
-\newcommand{\MemberOne}{}
-\newcommand{\MemberTwo}{}
-\newcommand{\MemberThree}{}
-\newcommand{\MemberTeacher}{}
-\newcommand{\MembersUniversity}{}
-\newcommand{\MembersCollege}{}
-\newcommand{\Year}{2019}
-\newcommand{\Month}{5}
-\newcommand{\Day}{4}
-
-\newif\ifMilitaryMathModeling\MilitaryMathModelingfalse
-\newif\ifNJUSTMathModeling\NJUSTMathModelingfalse
-\newif\ifNoAppendix\NoAppendixfalse
-
-\newcounter{NumberSessionMilitaryMathModeling}
-\setcounter{NumberSessionMilitaryMathModeling}{\Year}
-\addtocounter{NumberSessionMilitaryMathModeling}{-2016}
-\ifnum\strcmp{\jobname}{\NumberMilitaryMathModeling}=0
-\MilitaryMathModelingtrue
-\fi
-\ifnum\strcmp{\jobname}{\NumberNJUSTMathModeling}=0
-\NJUSTMathModelingtrue
-\fi
-\ifnum\strcmp{\jobname}{NJUST}=0
-\NJUSTMathModelingtrue
-\NoAppendixtrue
-\fi
-\ifnum\strcmp{\jobname}{main}=0
-\MilitaryMathModelingtrue
-\NJUSTMathModelingtrue
-\fi
-
-% Fakesubsection 军事数学建模
-
-\ifMilitaryMathModeling
-
-\thispagestyle{empty}
-\newgeometry{left=2.5cm,right=2.5cm,top=2cm,bottom=2cm}
-
-\begin{center}
-\zihao{3}
-
-\textbf{第\chinese{NumberSessionMilitaryMathModeling}届全国大学生军事数学建模竞赛学术道德与保密承诺书}
-\end{center}
-
-\vspace{1em}
-
-\begin{spacing}{2.0}
-\fangsong
-\zihao{4}
-
-我们仔细阅读了第\chinese{NumberSessionMilitaryMathModeling}届全国大学生军事数学建模竞赛的竞赛章程。
-
-我们完全清楚，在竞赛开始后参赛队员不能以任何方式（包括电话、电子邮件、网上咨询等）与队外的任何人（包括指导老师）研究、讨论与赛题有关的问题。
-
-我们完全清楚，必须遵守保密规定，不能在互联网等非保密环境和设备上拷贝、张贴、上传、讨论竞赛题目和答卷，不能向任何队外人员传送竞赛题目和答卷。我们提交的竞赛论文等成果涉密等级不超过秘密。
-
-我们知道，抄袭别人的成果是违反竞赛规则的，如果引用别人的成果或其他公开的资料（包括网上查到的资料），必须按照规定的参考文献的表述方式在正文引用处和参考文献中明确列出。
-
-我们郑重承诺，严格遵守竞赛规则，以保证竞赛的公正、公平性。如有违反竞赛规则的行为，我们将受到严肃处理。
-
-我们参赛的题号是（从A、B、C、D中选择一项）：\NumberProblem
-
-我们的参赛队号为：\NumberMilitaryMathModeling
-
-所属单位（填写全称）：\MembersUniversity
-
-参赛队员：1.\underline{\makebox[8\ccwd][c]{\MemberOne}}2.\underline{\makebox[8\ccwd][c]{\MemberTwo}}3.\underline{\makebox[8\ccwd][c]{\MemberThree}}
-
-指导老师：\underline{\makebox[20\ccwd][c]{\MemberTeacher}}
-\end{spacing}
-
-\begin{flushright}
-\fangsong
-\zihao{4}
-
-日期：\Year 年\Month 月\Day 日
-\end{flushright}
-
-\restoregeometry
-\setcounter{page}{1}
-
-\fi
-
-% Fakesubsection 南京理工大学数学建模
-
-\ifNJUSTMathModeling
-
-\thispagestyle{empty}
-\newgeometry{left=2.5cm,right=2.5cm,top=3cm}
-
-\begin{center}
-\textbf{\zihao{4}\Year 南京理工大学大学生数学建模竞赛}
-
-\vspace{2em}
-
-\textbf{\zihao{3}承~诺~书}
-
-\vspace{1em}
-\end{center}
-
-{\zihao{-4}
-
-我们仔细阅读了中国大学生数学建模竞赛的竞赛规则.
-
-我们完全明白，在竞赛开始后参赛队员不能以任何方式（包括电话、电子邮件、网上咨询等）与队外的任何人（包括指导教师）研究、讨论与赛题有关的问题。
-
-我们知道，抄袭别人的成果是违反竞赛规则的, 如果引用别人的成果或其他公开的资料（包括网上查到的资料），必须按照规定的参考文献的表述方式在正文引用处和参考文献中明确列出。
-
-我们郑重承诺，严格遵守竞赛规则，以保证竞赛的公正、公平性。如有违反竞赛规则的行为，我们将受到严肃处理。
-
-我们授权全国大学生数学建模竞赛组委会，可将我们的论文以任何形式进行公开展示（包括进行网上公示，在书籍、期刊和其他媒体进行正式或非正式发表等）。
-
-我们参赛选择的题号是（从A/B中选择一项填写）：\underline{\makebox[12\ccwd][c]{\NumberProblem}}
-
-我们的参赛报名号为（报名编号）：\underline{\makebox[12\ccwd][c]{\NumberNJUSTMathModeling}}
-
-所属学院（请填写完整的全名）：\underline{\makebox[20\ccwd][c]{\MembersCollege}}
-
-参赛队员（打印并签名）：1.\underline{\makebox[12\ccwd][c]{\MemberOne}}
-
-\makebox[11.5\ccwd][c]{}2.\underline{\makebox[12\ccwd][c]{\MemberTwo}}
-
-\makebox[11.5\ccwd][c]{}3.\underline{\makebox[12\ccwd][c]{\MemberThree}}
-
-\begin{flushright}
-日期：\underline{\makebox[4\ccwd][c]{\Year}}年\underline{\makebox[4\ccwd][c]{\Month}}月\underline{\makebox[4\ccwd][c]{\Day}}日
-\end{flushright}
-
-}
-
-\hrulefill
-
-{\zihao{4}评阅编号（由组委会评阅前进行编号）：}
-
-\restoregeometry
-\setcounter{page}{1}
-
-\fi
-
-$0
-endsnippet
-# content {{{2 #
-snippet problem "myUltiSnips" b
-\Opensolutionfile{Answer}[Problem]
-$1
-\Closesolutionfile{Answer}
-$2
-\input{Problem}
-
-$0
-endsnippet
-snippet model "myUltiSnips" b
-\section{引言}%
-\label{sec:引言}
-
-\subsection{背景}%
-\label{sub:背景}
-
-\subsection{分析}%
-\label{sub:分析}
-
-\subsection{假设}%
-\label{sub:假设}
-
-\subsection{标记}%
-\label{sub:标记}
-
-\begin{table}[htpb]
-\centering
-\caption{标记}%
-\label{tab:标记}
-\end{table}
-
-\section{评价与改进}%
-\label{sec:评价与改进}
-
-\subsection{优点}%
-\label{sub:优点}
-
-\subsection{缺点}%
-\label{sub:缺点}
-
-\subsection{改进}%
-\label{sub:改进}
-
-\subsection{推广}%
-\label{sub:推广}
-
-\subsection{展望}%
-\label{sub:展望}
-endsnippet
-# reference {{{2 #
-snippet cite "myUltiSnips" i
-\cite{$1}$0
-endsnippet
-snippet bib "myUltiSnips" b
-\bibliographystyle{IEEEtran}
-\bibliography{bib/${1:main}}
-$0
-endsnippet
-snippet citesec "myUltiSnips" i
-\newcites{${1:sec}}{${2:参考网站}}
-\citesec{${VISUAL}$1}$0
-endsnippet
-# 2}}} reference #
-snippet thanks "myUltiSnips" b
-\begin{frame}{完}
-\begin{columns}
-\begin{column}{.7\textwidth}
-${1:\begin{block}{参考}
-\bibliographystyle{IEEEtran}
-\bibliography{bib/main}
-\end{block}
-}
-\begin{block}{致谢}
-\begin{itemize}
-\item 老师的评审及意见；
-\item 台下同学的聆听和指正。
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{.3\textwidth}
-\centering
-\ifnum\strcmp{\jobname}{titlepage}=0
-\else
-\includegraphics[
-	width = \linewidth,
-	]{${2:titlepage}.pdf}
-\fi
-\end{column}
-\end{columns}
-\end{frame}$0
-endsnippet
-# 1}}} template #
-
-
+# latex-math-python {{{1 #
 snippet sympy "sympy block " w
 sympy $1 endsympy$0
 endsnippet
@@ -1231,9 +567,9 @@ k, m, n = symbols('k m n', integer=True)
 f, g, h = symbols('f g h', cls=Function)
 init_printing()
 snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
-		      .replace('^', '**') \
-		      .replace('{', '(') \
-		   .replace('}', ')') + ')')
+					.replace('^', '**') \
+					.replace('{', '(') \
+			 .replace('}', ')') + ')')
 `
 endsnippet
 
@@ -1251,11 +587,6 @@ endsnippet
 # 1}}} latex-math-python #
 
 # latex-math-function {{{1 #
-
-snippet hat "myUltiSnips" i
-\hat{${1:${VISUAL}}}$0
-endsnippet
-
 snippet int "myUltiSnips" i
 \int\nolimits_{${1:-\infty}}^${2:\infty} $0
 endsnippet
@@ -1288,10 +619,6 @@ snippet Bigg "myUltiSnips" i
 \Biggl${1:(}${3:${VISUAL}}\Biggr${2:)}$0
 endsnippet
 
-snippet \{ "myUltiSnips" i
-\\{${1:${VISUAL}}\\}$0
-endsnippet
-
 snippet "([A-Za-z'])(\d)" "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
@@ -1312,10 +639,6 @@ snippet '([A-Za-z])\^(\d\d)' "auto subscript2" wrA
 `!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}
 endsnippet
 
-snippet bin "myUltiSnips" i
-($1)_{(2)} $0
-endsnippet
-
 snippet sq "myUltiSnips" i
 \sqrt{${1:${VISUAL}}}$0
 endsnippet
@@ -1334,32 +657,26 @@ endsnippet
 
 snippet case "myUltiSnips" b
 \begin{cases}
-	$1
+  $1
 \end{cases}
 $0
 endsnippet
 
 snippet ali "myUltiSnips" b
 \begin{aligned}
-	$1
+  $1
 \end{aligned}
 $0
 endsnippet
 
 snippet dcase "myUltiSnips" b
 \begin{dcases}
-	$1
+  $1
 \end{dcases}
 $0
 endsnippet
 
-snippet over "myUltiSnips" i
-\overline{${1:${VISUAL}}}$0
-endsnippet
-# 1}}} latex-math-function #
-
 # latex-math-font {{{1 #
-
 snippet mb "myUltiSnips" i
 \mathbb{${1:${VISUAL}}}$0
 endsnippet
@@ -1425,10 +742,10 @@ endsnippet
 # 1}}} matrix #
 
 # latex-math-space {{{1 #
-
 snippet - "myUltiSnips" iA
  - $0
 endsnippet
+
 snippet "([^A-Za-z0-9\}\)\]']) - " "myUltiSnips" irA
 `!p snip.rv = match.group(1)`-$0
 endsnippet
@@ -1439,9 +756,5 @@ endsnippet
 
 snippet '(\s) = ' "myUltiSnips" irA
 `!p snip.rv = match.group(1)`= $0
-endsnippet
-
-snippet : "myUltiSnips" iA
-: $0
 endsnippet
 # 1}}} latex-math-space #

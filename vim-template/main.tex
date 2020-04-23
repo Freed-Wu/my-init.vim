@@ -1,55 +1,48 @@
 \documentclass{njustthesis}
 \njustsetup{%
-  title = {},
-  author = {},
-  id = {},
-  discipline = {},
-  title = {},
-  cover-title = {课程设计说明书},
-  abstract-prefix = {课设论文},
-  header-title = {本科课程设计说明书},
+  author = 吴振宇,
+  id = 916101630117,
+  discipline = 电子信息工程,
+  title = 随机信号处理,
+  subtitle = 仿真线性调频脉冲雷达的信号处理,
+  title* = {Random Signal Process},
+  subtitle* = {Signal Processing of Simulated LFM Pulse Radar},
+  cover-title = 课程设计说明书,
+  abstract-prefix = 课设论文,
+  header-title = 本科课程设计说明书,
+  supervisor = 顾红,
+  associate-supervisor = 顾红,
+  judge = 顾红,
 }
-\usepackage{subfiles}
 \usepackage{nomencl}
-\makenomenclature
+\makenomenclature%
 \usepackage{index}
 \makeindex
+\usepackage{minted}
+\usepackage{boxie}
 \begin{document}
 
-% Fakechapter 扉页
 \maketitle
-
-% Fakechapter 使用授权
 \copyrightpage%
-
-% Fakechapter 摘要
 \subfile{sub/abstract}
 
-% Fakechapter 目录
 \frontmatter
 \tableofcontents
-% \subfile{sub/denotation}
-\printnomenclature%
-
-% Fakechapter 正文
-\mainmatter%
-\subfile{sub/ch1}
-
-% Fakechapter 索引
-\backmatter%
 \listoffigures
 \listoftables
+\printnomenclature%
+
+\mainmatter%
+\subfile{sub/introduction}
+
+\backmatter%
+\bibliography{bib/main}
+\subfile{sub/acknowledgement}
 \printindex
 
-% Fakechapter 致谢
-% \subfile{sub/acknowledgement}
-
-% Fakechapter 参考文献
-\bibliography{bib/main}
-
-% Fakechapter 附录
 \appendix
-% \subfile{sub/code}
+\subfile{sub/code}
 
 \end{document}
+
 

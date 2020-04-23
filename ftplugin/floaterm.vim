@@ -20,12 +20,6 @@ endif
 nnoremap <buffer> ZQ i<C-u><C-d>
 nnoremap <buffer> ZZ :<C-u>hide<CR>
 nnoremap <buffer> o :<C-u>execute 'wincmd W\|'.expand('<cword>')<CR>
-nnoremap <buffer> c :<C-u>cd <cfile><CR>
-xnoremap <buffer> c y:cd <C-r>0<CR>
-nnoremap <buffer> x :<C-u>Defx `expand('<cfile>')`<CR>
-xnoremap <buffer> x y:Defx <C-r>0<CR>
-nnoremap <buffer> s :<C-u>split <cfile><CR>
-xnoremap <buffer> s y:<C-u>split <C-r>0<CR>
 nnoremap <buffer> p i<C-w>"+
 nnoremap <buffer> P i<C-w>"
 tnoremap <nowait> <C-w> <C-w>.

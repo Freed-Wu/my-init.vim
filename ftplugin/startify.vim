@@ -38,7 +38,7 @@ function! s:startify() "{{{
 	unmap <buffer> q
 endfunction "}}}
 
-command! -buffer -nargs=* -range FloatermNew call floaterm#new(<q-args>, {}, {'curwin':1})
+command! -buffer -nargs=* -range FloatermNew call floaterm#new(<q-args>, {}, {'curwin':1}, &shell)
 			\| wincmd W
 			\| hide
 command! -buffer -nargs=* -complete=customlist,calendar#argument#complete
@@ -54,7 +54,6 @@ nmap <buffer> n <Plug>(is-nohl)<Plug>(anzu-n-with-echo)
 nmap <buffer> N <Plug>(is-nohl)<Plug>(anzu-N-with-echo)
 nunmap <buffer> n
 nunmap <buffer> N
-nmap <buffer> a <plug>(startify-open-buffers)
 nnoremap <nowait><buffer> . :<C-u>WhichKey '.'<CR>
 nnoremap <nowait><buffer> x :<C-u>WhichKey 'x'<CR>
 nnoremap <buffer> o :call startify#set_mark('B')<CR>
