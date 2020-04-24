@@ -449,14 +449,31 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	" 5}}} Search "
 
-	" Swap {{{5 "
+	" Replace {{{5 "
+	call dein#add('tpope/vim-abolish', {
+				\ 'on_map': 'cr',
+				\ 'on_cmd': 'Subvert',
+				\ })
+	call dein#add('svermeulen/vim-subversive', {
+				\ 'on_map': '<plug>(Subversive',
+				\ })
 	call dein#add('kurkale6ka/vim-swap', {
 				\ 'on_map': '<plug>SwapSwap',
 				\ })
 	call dein#add('mjbrownie/swapit', {
 				\ 'on_map': '<plug>(swap-',
 				\ })
-	" 5}}} Swap "
+	call dein#add('JikkuJose/vim-visincr', {
+				\ 'on_cmd': ['I', 'IA', 'IB', 'IO', 'IX', 'ID', 'IM', 'IDMY', 'IMDY', 'IYMD', 'II', 'IIA', 'IIB', 'IIO', 'IIX'],
+				\ })
+	call dein#add('tpope/vim-speeddating', {
+				\ 'on_map': ['<C-a>', '<C-x>'],
+				\ 'hook_post_source': join([
+				\ 'xunmap <C-a>',
+				\ 'xunmap <C-x>',
+				\ ], "\n"),
+				\ })
+	" 5}}} Replace "
 	" 4}}} CursorMove "
 
 	" CursorVisual {{{4 "
@@ -657,32 +674,22 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('vim-scripts/sketch.vim', {
 				\ 'on_func': 'ToggleSketch',
 				\ })
+	" 5}}} Draw "
+
+	" Filter {{{5 "
 	call dein#add('iwataka/cowsay.vim', {
 				\ 'on_func': 'cowsay#cowsay',
 				\ })
-	" 5}}} Draw "
-
-	" Banner {{{5 "
 	call dein#add('pocke/vanner')
 	call dein#add('LiquidFun/vim-comment-banners', {
 				\ 'on_cmd': ['CommentBanner'],
 				\ })
-	" 5}}} Banner "
+	" 5}}} Filter "
 
 	" Compose {{{5 "
 	call dein#add('junegunn/vim-easy-align', {
 				\ 'on_map': '<Plug>(EasyAlign)',
 				\ 'on_cmd': ['EasyAlign', 'LiveEasyAlign'],
-				\ })
-	call dein#add('JikkuJose/vim-visincr', {
-				\ 'on_cmd': ['I', 'IA', 'IB', 'IO', 'IX', 'ID', 'IM', 'IDMY', 'IMDY', 'IYMD', 'II', 'IIA', 'IIB', 'IIO', 'IIX'],
-				\ })
-	call dein#add('tpope/vim-speeddating', {
-				\ 'on_map': ['<C-a>', '<C-x>'],
-				\ 'hook_post_source': join([
-				\ 'xunmap <C-a>',
-				\ 'xunmap <C-x>',
-				\ ], "\n"),
 				\ })
 	" 5}}} Compose "
 
@@ -700,13 +707,6 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('kdheepak/JuliaFormatter.vim', {
 				\ 'on_cmd': 'JuliaFormatter#Format',
-				\ })
-	call dein#add('tpope/vim-abolish', {
-				\ 'on_map': 'cr',
-				\ 'on_cmd': 'Subvert',
-				\ })
-	call dein#add('svermeulen/vim-subversive', {
-				\ 'on_map': '<plug>(Subversive',
 				\ })
 	call dein#add('editorconfig/editorconfig-vim', {
 				\ 'on_cmd': 'EditorConfigReload',
@@ -1060,7 +1060,7 @@ nnoremap <Leader>qq :copen<CR>
 nnoremap <Leader>ql :lopen<CR>
 " 3}}}  "
 " tpope/vim-scriptease {{{3 "
-nnoremap <Leader>pp :PP<CR>
+nnoremap q= :<C-u>PP<CR>
 nmap <Leader>ps <Plug>ScripteaseSynnames
 nnoremap <Leader>pt :Time<Space>
 nnoremap <Leader>qm :Message<CR>
@@ -1084,8 +1084,7 @@ set fileencodings^=utf-8
 if has('iconv') && executable('tellenc')
 	let g:fencview_autodetect = 1
 	let g:fencview_auto_patterns='*.txt,*.md,*.org,*.htm{l\=}'
-	nnoremap <Leader>xf :<C-u>FencView<CR>
-	"let $FENCVIEW_TELLENC = 'tellenc'
+	nnoremap q\ :<C-u>FencView<CR>
 endif
 " 3}}} vimchina/vim-fencview "
 " 2}}} Encoding "
@@ -1109,10 +1108,9 @@ if has('pythonx')
 	let g:translator_default_engines = ['google', 'bing', 'iciba', 'youdao', executable('trans')? 'trans': '', executable('sdcv')? 'sdcv': '']
 	nmap gK <Plug>TranslateW
 	xmap gK <Plug>TranslateWV
-	nmap <Leader>rt <Plug>TranslateR
-	xmap <Leader>rt <Plug>TranslateRV
-	nnoremap <Leader>rt :TranslateR -w<Space>
-	nnoremap <Leader>xt :TranslateH<CR>
+	nmap <BS> <Plug>TranslateR
+	xmap <BS> <Plug>TranslateRV
+	nnoremap q, :TranslateH<CR>
 	" 3}}} voldikss/vim-translator "
 endif
 " 2}}} Language "
@@ -1125,7 +1123,7 @@ endif
 nnoremap gO i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv{O<Esc>:let @/ = ''<CR>o
 nnoremap go i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv}O<Esc>:let @/ = ''<CR>o
 nnoremap S ch
-nnoremap S cl
+nnoremap s cl
 xnoremap <C-t> <Esc>`.``gvp``:call init#swap#main()<CR>
 nnoremap g. :<C-u>execute v:count?v:count.'go':''<CR><C-g>
 xnoremap g. go
@@ -1385,8 +1383,6 @@ xnoremap <C-w>r <C-w>r
 xnoremap <C-w>R <C-w>R
 nnoremap <C-w>x <C-w>x
 xnoremap <C-w>x <C-w>x
-nnoremap <C-]> <C-]>
-xnoremap <C-]> <C-]>
 " 4}}} windowMoveCursor "
 " cursorMoveWindow {{{4 "
 nnoremap <C-w>j <C-w>J
@@ -1401,20 +1397,16 @@ xnoremap <C-w>l <C-w>L
 " windowModify {{{4 "
 nnoremap <C-w>+ <C-w>+
 nnoremap <C-w>- <C-w>-
-nnoremap <C-w>1 1<C-w>_
 nnoremap <C-w>_ <C-w>_
 nnoremap <C-w>< <C-w><
 nnoremap <C-w>> <C-w>>
-nnoremap <C-w>0 1<C-w><Bar>
 nnoremap <C-w><Bar> <C-w><Bar>
 nnoremap <C-w>= <C-w>=
 xnoremap <C-w>+ <C-w>+
 xnoremap <C-w>- <C-w>-
-xnoremap <C-w>1 1<C-w>_
 xnoremap <C-w>_ <C-w>_
 xnoremap <C-w>< <C-w><
 xnoremap <C-w>> <C-w>>
-xnoremap <C-w>0 1<C-w><Bar>
 xnoremap <C-w><Bar> <C-w><Bar>
 xnoremap <C-w>= <C-w>=
 " 4}}} windowModify "
@@ -1653,6 +1645,8 @@ let g:listdict = {
 nnoremap <Leader>vh :TOhtml<CR>
 xnoremap <Leader>vh :TOhtml<CR>
 nnoremap <Leader>hv :<C-u>silent !gvim -u $VIMCONFIG/test.vim<CR>
+nnoremap m= :<C-u>execute 'echo ' . expand('<cWORD>')<CR>
+xnoremap m= y:<C-u>echo <C-r>0<CR>
 " 3}}}  "
 " liuchengxu/vim-which-key {{{3 "
 let g:which_key_display_names = {' ': '█', '<CR>': '↵', '<TAB>': '⇆'}
@@ -1669,6 +1663,7 @@ nnoremap <nowait> g :<C-u>WhichKey 'g'<CR>
 xnoremap <nowait> g :<C-u>WhichKeyVisual 'g'<CR>
 nnoremap <nowait> <C-w> :WhichKey '<lt>C-w>'<CR>
 xnoremap <nowait> <C-w> :WhichKeyVisual '<lt>C-w>'<CR>
+nnoremap <nowait> co :<C-u>WhichKey 'co'<CR>
 xnoremap <nowait> i :<C-u>WhichKeyVisual 'i'<CR>
 xnoremap <nowait> a :<C-u>WhichKeyVisual 'a'<CR>
 xnoremap <nowait> I :<C-u>WhichKeyVisual 'I'<CR>
@@ -1733,19 +1728,19 @@ nnoremap <Leader>z/ :<C-u>ViMiM<CR>
 inoremap <C-^> <C-R>=Vimim_chinese()<CR>
 " 3}}} vim-scripts/VimIM "
 " gu-fan/mathematic.vim {{{3 "
-nnoremap <Leader>x<Tab> :KeyHelper<CR>
+nnoremap q<Tab> :KeyHelper<CR>
 " 3}}} gu-fan/mathematic.vim "
 " 2}}} KeyMap "
 
 " MacroExplore {{{2 "
 " vim-scripts/marvim {{{3 "
 let g:marvim_store = $VIMCONFIG.'/.marvim'
-let g:marvim_find_key = 'q'''
-let g:marvim_store_key = 'q`'
+let g:marvim_find_key = 'q)'
+let g:marvim_store_key = 'q('
 let g:marvim_register = 'q'
 " 3}}} vim-scripts/marvim "
 " dohsimpson/vim-macroeditor {{{3 "
-nnoremap q= :MacroEdit<Space>
+nnoremap q_ :<C-u>MacroEdit<Space>
 " 3}}} dohsimpson/vim-macroeditor "
 " 2}}} MacroExplore "
 " 1}}} Key "
@@ -1869,7 +1864,7 @@ nnoremap ]Y :ThematicFirst<CR>:ThematicPrevious<CR>
 " Highlight {{{2 "
 " luochen1990/rainbow {{{3 "
 let g:rainbow_active = 1
-nnoremap <Leader>or :RainbowToggle<CR>
+nnoremap cor :RainbowToggle<CR>
 augroup init_syntax "{{{
 	autocmd!
 	autocmd VimEnter * autocmd Syntax * call rainbow_main#load()
@@ -1877,28 +1872,28 @@ augroup END "}}}
 " 3}}} luochen1990/rainbow "
 if has('pythonx')
 	" jaxbot/semantic-highlight.vim {{{3 "
-	nnoremap <Leader>os :SemanticHighlightToggle<CR>
+	nnoremap cos :SemanticHighlightToggle<CR>
 	let g:semanticPersistCacheLocation = $VIMDATA.'/.semantic-highlight.vim/.semantic-highlight-cache'
 	" 3}}} jaxbot/semantic-highlight.vim "
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['calendar', 'help', 'duzzle', 'marksbuffer', 'startify']
-nmap <Leader>oi <Plug>IndentGuidesToggle
+nmap coi <Plug>IndentGuidesToggle
 " 3}}} nathanaelkane/vim-indent-guides "
 " dbmrq/vim-redacted {{{3 "
-nmap <leader>dd <Plug>Redact
-vmap <leader>dd <Plug>Redact
-nnoremap <leader>dr :Redact!<CR>
-nnoremap <leader>dw :RedactedW<CR>
+nmap gz <Plug>Redact
+vmap gz <Plug>Redact
+nnoremap g{ :Redact!<CR>
+nnoremap gZ :RedactedW<CR>
 " 3}}} dbmrq/vim-redacted "
 " vim-utils/vim-troll-stopper {{{3 "
-nnoremap <Leader>ot :<C-u>TrollStop<CR>
+nnoremap cot :<C-u>TrollStop<CR>
 " 3}}} vim-utils/vim-troll-stopper "
 " Soares/longline.vim {{{3 "
 nmap [J <Plug>longline#next
 nmap ]J <Plug>longline#prev
-nmap <Leader>oJ <Plug>longline#toggle
+nmap coJ <Plug>longline#toggle
 " 3}}} Soares/longline.vim "
 " 2}}} Highlight "
 
@@ -2165,17 +2160,15 @@ augroup init_titlestring "{{{
 	autocmd!
 	autocmd Filetype * let &titlestring = '%<%F ' . get(g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols, &filetype, '') . '%=%P' . get(g:, airline_symbols.linenr, 'Ξ') . '%l/%L' . get(g:, 'airline_symbols.maxlinenr', '')
 augroup END "}}}
-nnoremap <Leader>oa :<C-u>AirlineToggle<CR>
-nnoremap <Leader>oA :<C-u>AirlineExtensions<CR>
-nmap z1 <Plug>AirlineSelectTab1
-nmap z2 <Plug>AirlineSelectTab2
-nmap z3 <Plug>AirlineSelectTab3
-nmap z4 <Plug>AirlineSelectTab4
-nmap z5 <Plug>AirlineSelectTab5
-nmap z6 <Plug>AirlineSelectTab6
-nmap z7 <Plug>AirlineSelectTab7
-nmap z8 <Plug>AirlineSelectTab8
-nmap z9 <Plug>AirlineSelectTab9
+nmap <C-w>1 <Plug>AirlineSelectTab1
+nmap <C-w>2 <Plug>AirlineSelectTab2
+nmap <C-w>3 <Plug>AirlineSelectTab3
+nmap <C-w>4 <Plug>AirlineSelectTab4
+nmap <C-w>5 <Plug>AirlineSelectTab5
+nmap <C-w>6 <Plug>AirlineSelectTab6
+nmap <C-w>7 <Plug>AirlineSelectTab7
+nmap <C-w>8 <Plug>AirlineSelectTab8
+nmap <C-w>9 <Plug>AirlineSelectTab9
 nmap [<Tab> <Plug>AirlineSelectPrevTab
 nmap ]<Tab> <Plug>AirlineSelectNextTab
 " ale {{{ "
@@ -2299,7 +2292,7 @@ function! init#locate() "{{{
 endfunction "}}}
 " 3}}}  "
 " junegunn/goyo.vim {{{3 "
-nnoremap <Leader>og :Goyo<CR>
+nnoremap cog :Goyo<CR>
 " 3}}} junegunn/goyo.vim "
 " junegunn/limelight.vim {{{3  "
 augroup init_Goyo "{{{
@@ -2307,7 +2300,7 @@ augroup init_Goyo "{{{
 	autocmd! User GoyoEnter Limelight
 	autocmd! User GoyoLeave Limelight!
 augroup END "}}}
-nnoremap <Leader>ol :Limelight!!<CR>
+nnoremap col :Limelight!!<CR>
 " 3}}} junegunn/limelight.vim "
 " thinca/vim-splash {{{3 "
 let g:splash#path = $VIMCONFIG.'/vim-splash/Yoda.txt'
@@ -2372,7 +2365,7 @@ let g:tex_flavor = 'latex'
 let g:filetype_m = 'octave'
 let g:asmsyntax = 'masm'
 let g:load_doxygen_syntax = 1
-nnoremap <Leader>oy :let g:load_doxygen_syntax = !g:load_doxygen_syntax\| syntax on<CR>
+nnoremap coy :let g:load_doxygen_syntax = !g:load_doxygen_syntax\| syntax on<CR>
 " 3}}}  "
 " sheerun/vim-polyglot {{{3 "
 let g:polyglot_disabled = ['latex', 'markdown']
@@ -2476,7 +2469,7 @@ nnoremap <Leader>jA :<C-u>Defx `$APPLICATIONS`<CR>
 nnoremap <Leader>jx :<C-u>Defx `$HOME`/.local/share/gnome-shell/extensions<CR>
 " 3}}} Shougo/defx.nvim "
 " linjiX/vim-defx-vista {{{3 "
-nnoremap <Leader>xd :<C-u>ToggleDefxVista<CR>
+nnoremap q] :<C-u>ToggleDefxVista<CR>
 " 3}}} linjiX/vim-defx-vista "
 " 2}}} FileExplore "
 " 2}}} FileExplore "
@@ -2502,7 +2495,7 @@ let g:rooter_resolve_links = 1
 nnoremap <Leader>bb :<C-u>Rooter<CR>
 " 3}}} airblade/vim-rooter "
 " mhinz/vim-hugefile {{{3 "
-nnoremap <Leader>oh :HugefileToggle<CR>
+nnoremap coh :HugefileToggle<CR>
 let g:hugefile_trigger_size = 5
 " 3}}} mhinz/vim-hugefile "
 " tpope/vim-eunuch {{{3 "
@@ -2589,7 +2582,7 @@ nnoremap <Leader>gp :Giadd<CR>
 let g:undotree_HelpLine = 0
 let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
 let g:undotree_CustomDiffpanelCmd = 'topleft 5 new'
-nnoremap <Leader>xu :<C-u>UndotreeToggle\| UndotreeFocus<CR>
+nnoremap q; :<C-u>UndotreeToggle\| UndotreeFocus<CR>
 set undofile
 set undodir=$VIMDATA/undo
 let g:undotree_HighlightChangedText  = 1
@@ -2625,7 +2618,7 @@ noremap <Leader>qx :GscopeKill<CR>
 let g:vista_sidebar_width = &columns / 4
 let g:vista_fold_toggle_icons = ['', '']
 let g:vista_close_on_jump = 1
-nnoremap <Leader>xv :Vista<CR>
+nnoremap q[ :Vista<CR>
 " 3}}} liuchengxu/vista.vim "
 " dirn/TODO.vim {{{3 "
 nnoremap <Leader>qo :TODO<CR>
@@ -2661,11 +2654,8 @@ if has('pythonx')
 				\ '<S-Insert>': ['<C-y>'],
 				\ '<Up>': ['<C-p>', '<Up>'],
 				\ '<Down>': ['<C-n>', '<Down>'],
-				\ '<C-x>': ['<C-CR>'],
-				\ '<C-]>': ['<S-CR>'],
-				\ '<C-t>': ['<C-S-CR>'],
 				\ '<F5>': ['<C-z>'],
-				\ '<C-a>': ['<C-x>'],
+				\ '<C-a>': ['<C-l>'],
 				\ '<BS>': ['<C-h>', '<BS>'],
 				\ '<Del>': ['<C-d>', '<Del>'],
 				\ '<Home>': ['<C-a>', '<Home>'],
@@ -2752,14 +2742,14 @@ nnoremap <C-F> :<C-U>call smoothie#forwards()<CR>
 nnoremap <C-B> :<C-U>call smoothie#backwards()<CR>
 " 3}}} psliwka/vim-smoothie "
 " reedes/vim-wheel {{{3 "
-nmap [E <Plug>(WheelUp)
-xmap [E <Plug>(WheelUp)
-nmap ]E <Plug>(WheelDown)
-xmap ]E <Plug>(WheelDown)
-nmap [F <Plug>(WheelLeft)
-xmap [F <Plug>(WheelLeft)
-nmap ]F <Plug>(WheelRight)
-xmap ]F <Plug>(WheelRight)
+nmap z[ <Plug>(WheelUp)
+xmap z[ <Plug>(WheelUp)
+nmap z] <Plug>(WheelDown)
+xmap z] <Plug>(WheelDown)
+nmap z{ <Plug>(WheelLeft)
+xmap z{ <Plug>(WheelLeft)
+nmap z} <Plug>(WheelRight)
+xmap z} <Plug>(WheelRight)
 " 3}}} reedes/vim-wheel "
 " andymass/vim-matchup {{{3 "
 set showmatch
@@ -2866,22 +2856,67 @@ xnoremap zN N
 " 3}}} luochen1990/select-and-searce "
 " 2}}} Search "
 
-" Swap {{{2 "
+" Replace {{{2 "
+" svermeulen/vim-subversive {{{3 "
+nmap , <plug>(SubversiveSubstitute)
+xmap p <plug>(SubversiveSubstitute)
+nmap ,, <plug>(SubversiveSubstituteToEndOfLine)
+nmap z- <plug>(SubversiveSubstituteRange)
+xmap - <plug>(SubversiveSubstituteRange)
+nmap - <plug>(SubversiveSubstituteWordRange)
+nmap -- <plug>(SubversiveSubstituteWordRange)$
+nmap z_ <plug>(SubversiveSubstituteRangeConfirm)
+xmap _ <plug>(SubversiveSubstituteRangeConfirm)
+nmap _ <plug>(SubversiveSubstituteWordRangeConfirm)
+nmap __ <plug>(SubversiveSubstituteWordRangeConfirm)$
+" 3}}} svermeulen/vim-subversive "
+
 " kurkale6ka/vim-swap {{{3 "
-xmap <Leader>rx <plug>SwapSwapOperands
-xmap <Leader>rX <plug>SwapSwapPivotOperands
-nmap <Leader>rk <plug>SwapSwapWithR_WORD
-nmap <Leader>rj <plug>SwapSwapWithL_WORD
+xmap + <plug>SwapSwapOperands
+xmap z+ <plug>SwapSwapPivotOperands
+nmap + <plug>SwapSwapWithR_WORD
+nmap z+ <plug>SwapSwapWithL_WORD
 " 3}}} kurkale6ka/vim-swap "
 
 " mjbrownie/swapit {{{3 "
 let g:swap_no_default_key_mappings = 1
-nmap <Leader>rw <Plug>(swap-interactive)
-xmap <Leader>rw <Plug>(swap-interactive)
-nmap <Leader>rJ <Plug>(swap-prev)
-nmap <Leader>rK <Plug>(swap-next)
+nmap z( <Plug>(swap-prev)
+nmap z) <Plug>(swap-next)
 " 3}}} mjbrownie/swapit "
-" 2}}} Swap "
+
+" JikkuJose/vim-VisIncr {{{3 "
+xnoremap <Leader>ii :I<CR>
+xnoremap <Leader>ia :IA<CR>
+xnoremap <Leader>ib :IB<CR>
+xnoremap <Leader>io :IO<CR>
+xnoremap <Leader>ix :IX<CR>
+xnoremap <Leader>id :ID<CR>
+xnoremap <Leader>im :IM<CR>
+xnoremap <Leader>iD :IDMY<CR>
+xnoremap <Leader>iM :IMDY<CR>
+xnoremap <Leader>iY :IYMD<CR>
+xnoremap <Leader>iI :II<CR>
+xnoremap <Leader>iA :IIA<CR>
+xnoremap <Leader>iB :IIB<CR>
+xnoremap <Leader>iO :IIO<CR>
+xnoremap <Leader>iX :IIX<CR>
+xnoremap <Leader>Ii :I<Space>
+xnoremap <Leader>Ia :IA<Space>
+xnoremap <Leader>Ib :IB<Space>
+xnoremap <Leader>Io :IO<Space>
+xnoremap <Leader>Ix :IX<Space>
+xnoremap <Leader>Id :ID<Space>
+xnoremap <Leader>Im :IM<Space>
+xnoremap <Leader>ID :IDMY<Space>
+xnoremap <Leader>IM :IMDY<Space>
+xnoremap <Leader>IY :IYMD<Space>
+xnoremap <Leader>II :II<Space>
+xnoremap <Leader>IA :IIA<Space>
+xnoremap <Leader>IB :IIB<Space>
+xnoremap <Leader>IO :IIO<Space>
+xnoremap <Leader>IX :IIX<Space>
+" 3}}} JikkuJose/vim-VisIncr "
+" 2}}} Replace "
 " 1}}} CursorMove "
 
 " CursorVisual {{{1 "
@@ -3025,10 +3060,14 @@ omap iTz <Plug>(textobj-datetime-tz)
 " 3}}} kana/vim-textobj-datetime "
 " paulhybryant/vim-textobj-path {{{3 "
 let g:textobj_path_no_default_key_mappings = 0
-xmap iA <Plug>(textobj-path-prev_path-i)
-xmap aA <Plug>(textobj-path-prev_path-a)
-xmap IA <Plug>(textobj-path-next_path-i)
-xmap AA <Plug>(textobj-path-next_path-a)
+xmap iA <Plug>(textobj-path-next_path-i)
+xmap aA <Plug>(textobj-path-next_path-a)
+xmap IA <Plug>(textobj-path-prev_path-i)
+xmap AA <Plug>(textobj-path-prev_path-a)
+omap iA <Plug>(textobj-path-next_path-i)
+omap aA <Plug>(textobj-path-next_path-a)
+omap IA <Plug>(textobj-path-prev_path-i)
+omap AA <Plug>(textobj-path-prev_path-a)
 " 3}}} paulhybryant/vim-textobj-path "
 " jceb/vim-textobj-uri {{{3 "
 let g:textobj_uri_no_default_key_mappings = 1
@@ -3123,33 +3162,21 @@ nnoremap ]R :<C-u>ClearYanks<CR>
 nnoremap <Leader>da :<C-u>DIstart<CR>
 " 3}}} vim-scripts/DrawIt "
 " vim-scripts/sketch.vim {{{3 "
-nnoremap <Leader>dt :<C-u>call ToggleSketch()<CR>
+nnoremap <Leader>dA :<C-u>call ToggleSketch()<CR>
 " 3}}} vim-scripts/sketch.vim "
-" iwataka/cowsay.vim {{{3 "
-nnoremap <Leader>d1 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'milk')<CR><Esc>
-nnoremap <Leader>d2 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'bunny')<CR><Esc>
-nnoremap <Leader>d3 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'elephant')<CR><Esc>
-nnoremap <Leader>d4 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'eyes')<CR><Esc>
-nnoremap <Leader>d5 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'hellokitty')<CR><Esc>
-nnoremap <Leader>d6 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'daemon')<CR><Esc>
-nnoremap <Leader>d7 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'squirrel')<CR><Esc>
-nnoremap <Leader>d8 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'tux')<CR><Esc>
-nnoremap <Leader>d9 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'moose')<CR><Esc>
-nnoremap <Leader>d0 0d$i<C-r><C-O>=cowsay#cowsay([@"], 'default')<CR><Esc>
-xnoremap <Leader>d1 di<C-r><C-O>=cowsay#cowsay([@"], 'milk')<CR><Esc>
-xnoremap <Leader>d2 di<C-r><C-O>=cowsay#cowsay([@"], 'bunny')<CR><Esc>
-xnoremap <Leader>d3 di<C-r><C-O>=cowsay#cowsay([@"], 'elephant')<CR><Esc>
-xnoremap <Leader>d4 di<C-r><C-O>=cowsay#cowsay([@"], 'eyes')<CR><Esc>
-xnoremap <Leader>d5 di<C-r><C-O>=cowsay#cowsay([@"], 'hellokitty')<CR><Esc>
-xnoremap <Leader>d6 di<C-r><C-O>=cowsay#cowsay([@"], 'daemon')<CR><Esc>
-xnoremap <Leader>d7 di<C-r><C-O>=cowsay#cowsay([@"], 'squirrel')<CR><Esc>
-xnoremap <Leader>d8 di<C-r><C-O>=cowsay#cowsay([@"], 'tux')<CR><Esc>
-xnoremap <Leader>d9 di<C-r><C-O>=cowsay#cowsay([@"], 'moose')<CR><Esc>
-xnoremap <Leader>d0 di<C-r><C-O>=cowsay#cowsay([@"], 'default')<CR><Esc>
-" 3}}} iwataka/cowsay.vim "
 " 2}}} Draw "
 
-" Banner {{{2 "
+" Filter {{{2 "
+"  {{{3 "
+nnoremap <Leader>dt !ltoilet<CR>
+xnoremap <Leader>dt !toilet<CR>
+nnoremap <Leader>df !lfiglet<CR>
+xnoremap <Leader>df !figlet<CR>
+nnoremap <Leader>dm !lmd5sum<CR>
+xnoremap <Leader>dm !md5sum<CR>
+nnoremap <Leader>ds !lshasum<CR>
+xnoremap <Leader>ds !shasum<CR>
+" 3}}}  "
 " pocke/vanner {{{3 "
 nnoremap <Leader>dv 0d$i<C-r><C-O>=vanner#string(@", {'font': 1})<CR><Esc>
 " 3}}} pocke/vanner "
@@ -3160,45 +3187,13 @@ nnoremap <Leader>d= :<C-u>call init#banner#main('=')<CR>
 nnoremap <Leader>d+ :<C-u>call init#banner#main('+')<CR>
 nnoremap <Leader>d* :<C-u>call init#banner#main('*')<CR>
 " 3}}} LiquidFun/vim-comment-banners "
-" 2}}} Banner "
+" 2}}} Filter "
 
 " Compose {{{2 "
 " junegunn/vim-easy-align {{{3 "
 xmap gy <Plug>(EasyAlign)
 nmap gy <Plug>(EasyAlign)
 " 3}}} junegunn/vim-easy-align "
-" JikkuJose/vim-VisIncr {{{3 "
-xnoremap <Leader>ii :I<CR>
-xnoremap <Leader>ia :IA<CR>
-xnoremap <Leader>ib :IB<CR>
-xnoremap <Leader>io :IO<CR>
-xnoremap <Leader>ix :IX<CR>
-xnoremap <Leader>id :ID<CR>
-xnoremap <Leader>im :IM<CR>
-xnoremap <Leader>iD :IDMY<CR>
-xnoremap <Leader>iM :IMDY<CR>
-xnoremap <Leader>iY :IYMD<CR>
-xnoremap <Leader>iI :II<CR>
-xnoremap <Leader>iA :IIA<CR>
-xnoremap <Leader>iB :IIB<CR>
-xnoremap <Leader>iO :IIO<CR>
-xnoremap <Leader>iX :IIX<CR>
-xnoremap <Leader>Ii :I<Space>
-xnoremap <Leader>Ia :IA<Space>
-xnoremap <Leader>Ib :IB<Space>
-xnoremap <Leader>Io :IO<Space>
-xnoremap <Leader>Ix :IX<Space>
-xnoremap <Leader>Id :ID<Space>
-xnoremap <Leader>Im :IM<Space>
-xnoremap <Leader>ID :IDMY<Space>
-xnoremap <Leader>IM :IMDY<Space>
-xnoremap <Leader>IY :IYMD<Space>
-xnoremap <Leader>II :II<Space>
-xnoremap <Leader>IA :IIA<Space>
-xnoremap <Leader>IB :IIB<Space>
-xnoremap <Leader>IO :IIO<Space>
-xnoremap <Leader>IX :IIX<Space>
-" 3}}} JikkuJose/vim-VisIncr "
 " 2}}} Compose "
 
 " Format {{{2 "
@@ -3214,7 +3209,7 @@ let g:trailguide_automap = 0
 let g:trailguide_matchgroup = 'SpellBad'
 nmap [j <Plug>trailguide#prev
 nmap ]j <Plug>trailguide#next
-nmap <Leader>oj <Plug>trailguide#toggle
+nmap coj <Plug>trailguide#toggle
 nmap <Leader>rf <Plug>trailguide#fix
 xnoremap <Leader>rf :TrailGuide fix<CR>
 " 3}}} Soares/trailguide.vim "
@@ -3227,17 +3222,6 @@ nnoremap g_ :<C-u>set operatorfunc=init#format#main<CR>g@
 nnoremap <Leader>zz :.Neoformat<CR>
 xnoremap <Leader>zz :Neoformat<CR>
 " 3}}} sbdchd/neoformat "
-" svermeulen/vim-subversive {{{3 "
-nmap , <plug>(SubversiveSubstitute)
-xmap p <plug>(SubversiveSubstitute)
-nmap q, <plug>(SubversiveSubstituteToEndOfLine)
-nmap <Leader>rv <plug>(SubversiveSubstituteRange)
-xmap <Leader>rv <plug>(SubversiveSubstituteRange)
-nmap <Leader>rV <plug>(SubversiveSubstituteWordRange)
-nmap <leader>rc <plug>(SubversiveSubstituteRangeConfirm)
-xmap <leader>rc <plug>(SubversiveSubstituteRangeConfirm)
-nmap <leader>rC <plug>(SubversiveSubstituteWordRangeConfirm)
-" 3}}} svermeulen/vim-subversive "
 " editorconfig/editorconfig-vim {{{3 "
 nnoremap <Leader>ze :<C-u>EditorConfigReload<CR>
 " 3}}} editorconfig/editorconfig-vim "
@@ -3444,8 +3428,6 @@ let g:ale_sign_warning = get(g:, 'airline#extensions#ale#warning_symbol', '')
 let g:ale_echo_msg_error_str = get(g:, 'airline#extensions#ale#error_symbol', '✗')
 let g:ale_echo_msg_warning_str = get(g:, 'airline#extensions#ale#warning_symbol', '')
 let g:ale_echo_msg_format = '%linter%: %severity%! %s'
-nnoremap <Leader>oz :<C-u>ALEToggle<CR>
-nnoremap <Leader>oZ :<C-u>ALEDetail<CR>
 nnoremap [k :<C-u>ALEPrevious<CR>
 nnoremap ]k :<C-u>ALENext<CR>
 nnoremap [K :<C-u>ALEFirst<CR>
@@ -3657,7 +3639,7 @@ nnoremap <Leader>hd :<C-u>FloatermNew node<CR>
 nnoremap <Leader>hq :<C-u>FloatermNew mysql<CR>
 nnoremap <Leader>hn :<C-u>FloatermNew nethack<CR>
 nnoremap <Leader>hz :<C-u>FloatermNew zsh<CR>
-nnoremap Q :<C-u>execute 'FloatermSend ' . getline('.')<CR><Down>
+nnoremap <CR> :<C-u>execute 'FloatermSend ' . getline('.')<CR><Down>
 " 3}}} voldikss/vim-floaterm "
 " 2}}} Terminal "
 " 1}}} Program "
@@ -3667,14 +3649,11 @@ nnoremap Q :<C-u>execute 'FloatermSend ' . getline('.')<CR><Down>
 " itchyny/calendar.vim {{{3 "
 let g:calendar_cyclic_view = 1
 let g:calendar_cache_directory = $VIMDATA.'/.calendar.vim'
-nnoremap <Leader>xc :Calendar -split=horizontal<CR>
-nnoremap <Leader>xC :Calendar -split=horizontal<Space>
+nnoremap q- :Calendar -split=horizontal<CR>
 " 3}}} itchyny/calendar.vim "
 " tyru/open-browser.vim {{{3 "
 nmap g/ <Plug>(openbrowser-smart-search)
 xmap g/ <Plug>(openbrowser-smart-search)
-nnoremap <Leader>xx :<C-u>OpenBrowserSmartSearch<Space>
-nnoremap <Leader>xX :<C-u>OpenBrowserSmartSearch -github<Space>
 " 3}}} tyru/open-browser.vim "
 " ianding1/leetcode.vim {{{3 "
 let g:leetcode_username = readfile($VIMCONFIG.'/.leetcode.vim/leetcode.txt')[0]

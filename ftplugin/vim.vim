@@ -17,6 +17,12 @@ if expand('%:p') ==# $MYVIMRC
 	nnoremap <buffer><silent> <C-w>i :<C-u>execute 'Defx ' . $GITHUBWORKSPACE . '/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0]<CR>
 endif
 
+if &buftype ==# 'nofile'
+	nnoremap <buffer><silent> <CR> <CR>
+	nnoremap <buffer><silent> ZZ <C-c>
+	nnoremap <buffer><silent> ZQ :<C-u>quit<CR>
+endif
+
 call vim#map#main()
 
 setlocal foldmethod=marker

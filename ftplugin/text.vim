@@ -14,3 +14,9 @@ if expand('%:p') =~# 'pandoc output'
 	finish
 endif
 
+if &buftype ==# 'nofile'
+	nnoremap <buffer><silent> <CR> <CR>
+	nnoremap <buffer><silent> ZZ <C-c>
+	nnoremap <buffer><silent> ZQ :<C-u>quit<CR>
+endif
+

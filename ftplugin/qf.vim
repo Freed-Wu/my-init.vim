@@ -4,7 +4,10 @@ call init#map#main()
 
 setlocal previewwindow
 setlocal nomodifiable
+setlocal conceallevel=2
+setlocal concealcursor=nv
 
+nnoremap <buffer><silent> <CR> <CR>
 nnoremap <buffer><silent> <LocalLeader>e :<C-u>execute 'echo '.expand('<cWORD>')<CR>
 xnoremap <buffer><silent> <LocalLeader>e y:echo <C-r>0<CR>
 nnoremap <buffer><silent> <LocalLeader>E :<C-u>execute 'echomsg '.expand('<cWORD>')<CR>

@@ -1,13 +1,3 @@
-if expand('%:p:t:r') ==# 'README'
-	if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~# $GITNAME
-		setlocal nomodifiable
-		setlocal readonly
-		call init#map#main()
-	endif
-else
-	setlocal nospell
-endif
-
 let g:mkdp_auto_close = 0
 let g:mkdp_port = '8090'
 let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
@@ -15,6 +5,22 @@ let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 call vimtex#init()
 call tex#map#main()
 call dot#map#main()
+
+if expand('%:p:t:r') ==# 'README'
+	if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~# $GITNAME
+		setlocal nomodifiable
+		setlocal readonly
+		call init#map#main()
+		nnoremap <buffer> dsd <Nop>
+		nnoremap <buffer> dsc <Nop>
+		nnoremap <buffer> dse <Nop>
+		unmap <buffer> dsd
+		unmap <buffer> dsc
+		unmap <buffer> dse
+	endif
+else
+	setlocal nospell
+endif
 
 if expand('%:p:h') =~# 'vim'
 	call vim#map#main()
@@ -85,16 +91,32 @@ nnoremap <buffer> <LocalLeader>lt :TOC<CR><C-w>L:execute 'vertical resize '.&col
 nmap <buffer> gss <Plug>MarkdownPreview
 nmap <buffer> gS <Plug>StopMarkdownPreview
 nmap <buffer> gsS <Plug>MarkdownPreviewToggle
-nmap <buffer> [\ <plug>(textobj-markdown-Btext-p)
-nmap <buffer> ]\ <plug>(textobj-markdown-Btext-n)
-nmap <buffer> [v <plug>(textobj-markdown-chunk-p)
-nmap <buffer> ]v <plug>(textobj-markdown-chunk-n)
-nmap <buffer> [V <plug>(textobj-markdown-Bchunk-p)
-nmap <buffer> ]V <plug>(textobj-markdown-Bchunk-n)
-xmap <buffer> [\ <plug>(textobj-markdown-Btext-p)
-xmap <buffer> ]\ <plug>(textobj-markdown-Btext-n)
-xmap <buffer> [v <plug>(textobj-markdown-chunk-p)
-xmap <buffer> ]v <plug>(textobj-markdown-chunk-n)
-xmap <buffer> [V <plug>(textobj-markdown-Bchunk-p)
-xmap <buffer> ]V <plug>(textobj-markdown-Bchunk-n)
+nmap <buffer> [f <plug>unimpairedDirectoryPrevious
+nmap <buffer> ]f <plug>unimpairedDirectoryNext
+xmap <buffer> [f <plug>unimpairedDirectoryPrevious
+xmap <buffer> ]f <plug>unimpairedDirectoryNext
+nmap <buffer> [F <plug>(textobj-markdown-text-p)
+nmap <buffer> ]F <plug>(textobj-markdown-text-n)
+nmap <buffer> [E <plug>(textobj-markdown-Btext-p)
+nmap <buffer> ]E <plug>(textobj-markdown-Btext-n)
+nmap <buffer> [m <plug>(textobj-markdown-chunk-p)
+nmap <buffer> ]m <plug>(textobj-markdown-chunk-n)
+nmap <buffer> [M <plug>(textobj-markdown-Bchunk-p)
+nmap <buffer> ]M <plug>(textobj-markdown-Bchunk-n)
+xmap <buffer> [F <plug>(textobj-markdown-text-p)
+xmap <buffer> ]F <plug>(textobj-markdown-text-n)
+xmap <buffer> [E <plug>(textobj-markdown-Btext-p)
+xmap <buffer> ]E <plug>(textobj-markdown-Btext-n)
+xmap <buffer> [m <plug>(textobj-markdown-chunk-p)
+xmap <buffer> ]m <plug>(textobj-markdown-chunk-n)
+xmap <buffer> [M <plug>(textobj-markdown-Bchunk-p)
+xmap <buffer> ]M <plug>(textobj-markdown-Bchunk-n)
+omap <buffer> [F <plug>(textobj-markdown-text-p)
+omap <buffer> ]F <plug>(textobj-markdown-text-n)
+omap <buffer> [E <plug>(textobj-markdown-Btext-p)
+omap <buffer> ]E <plug>(textobj-markdown-Btext-n)
+omap <buffer> [m <plug>(textobj-markdown-chunk-p)
+omap <buffer> ]m <plug>(textobj-markdown-chunk-n)
+omap <buffer> [M <plug>(textobj-markdown-Bchunk-p)
+omap <buffer> ]M <plug>(textobj-markdown-Bchunk-n)
 

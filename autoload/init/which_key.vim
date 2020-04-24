@@ -39,9 +39,6 @@ function! init#which_key#main() "{{{
 				\ 'u': 'Ultisnips',
 				\ 's': 'SnippetMates',
 				\ },
-				\ 'o':{
-				\ 'name': '+option',
-				\ },
 				\ 'p':{
 				\ 'name': '+plugin',
 				\ },
@@ -187,6 +184,12 @@ function! init#which_key#main() "{{{
 				\ }
 	call which_key#register('yo', 'g:which_key_map_y_o')
 	" }}} yo "
+	" co {{{ "
+	let g:which_key_map_c_o = {
+				\ 'name': 'choose a key about toggle options',
+				\ }
+	call which_key#register('co', 'g:which_key_map_c_o')
+	" }}} co "
 	" i {{{ "
 	let g:which_key_map_i = {
 				\ 'name': 'choose a key about inner text object',

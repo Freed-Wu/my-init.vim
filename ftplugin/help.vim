@@ -10,9 +10,8 @@ setlocal nonumber
 setlocal norelativenumber
 if &buftype !=# 'help'
 	setlocal foldlevel=99
-else
-	setlocal buftype=help
 endif
+setlocal buftype=help
 setlocal formatexpr=bucky#md#format()
 setlocal foldmethod=expr
 setlocal iskeyword+=-
@@ -37,10 +36,10 @@ omap <buffer> [m <Plug>(textobj-help-option-p)
 omap <buffer> ]m <Plug>(textobj-help-option-n)
 omap <buffer> [M <Plug>(textobj-help-option-P)
 omap <buffer> ]M <Plug>(textobj-help-option-N)
-omap <buffer> <LocalLeader>k <Plug>(textobj-help-any-p)
-omap <buffer> <LocalLeader>j <Plug>(textobj-help-any-n)
-omap <buffer> <LocalLeader>K <Plug>(textobj-help-any-P)
-omap <buffer> <LocalLeader>J <Plug>(textobj-help-any-N)
+omap <buffer> [F <Plug>(textobj-help-any-p)
+omap <buffer> ]F <Plug>(textobj-help-any-n)
+omap <buffer> [E <Plug>(textobj-help-any-P)
+omap <buffer> ]E <Plug>(textobj-help-any-N)
 nmap <buffer> [[ <Plug>(textobj-help-link-p)
 nmap <buffer> ]] <Plug>(textobj-help-link-n)
 nmap <buffer> [] <Plug>(textobj-help-link-P)
@@ -49,8 +48,8 @@ nmap <buffer> [m <Plug>(textobj-help-option-p)
 nmap <buffer> ]m <Plug>(textobj-help-option-n)
 nmap <buffer> [M <Plug>(textobj-help-option-P)
 nmap <buffer> ]M <Plug>(textobj-help-option-N)
-nmap <buffer> <LocalLeader>k <Plug>(textobj-help-any-p)
-nmap <buffer> <LocalLeader>j <Plug>(textobj-help-any-n)
-nmap <buffer> <LocalLeader>K <Plug>(textobj-help-any-P)
-nmap <buffer> <LocalLeader>J <Plug>(textobj-help-any-N)
+nmap <buffer> [F <Plug>(textobj-help-any-p)
+nmap <buffer> ]F <Plug>(textobj-help-any-n)
+nmap <buffer> [E <Plug>(textobj-help-any-P)
+nmap <buffer> ]E <Plug>(textobj-help-any-N)
 

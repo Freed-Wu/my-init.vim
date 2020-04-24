@@ -1,8 +1,4 @@
 function! vim#map#main() "{{{
-	nnoremap <buffer><silent> <LocalLeader>e :<C-u>execute 'echo '.expand('<cWORD>')<CR>
-	xnoremap <buffer><silent> <LocalLeader>e y:echo <C-r>0<CR>
-	nnoremap <buffer><silent> <LocalLeader>E :<C-u>execute 'echomsg '.expand('<cWORD>')<CR>
-	xnoremap <buffer><silent> <LocalLeader>E y:echomsg <C-r>0<CR>
 	nnoremap <buffer><silent> <LocalLeader>t :<C-u>set <C-r><C-w><CR>
 	xnoremap <buffer><silent> <LocalLeader>t y:set <C-r>0<CR>
 	nnoremap <buffer><silent> <LocalLeader>i :<C-u>highlight <C-r><C-w><CR>
