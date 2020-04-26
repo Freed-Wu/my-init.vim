@@ -10,10 +10,12 @@ let b:clean_temp = [
 
 augroup tex "{{{
 	autocmd!
-	autocmd User VimtexEventQuit *.tex call s:close()
+	autocmd User VimtexEventQuit call s:close()
 				\| call init#clean#main(b:clean_temp)
 	autocmd User VimtexEventTocCreated setfiletype latextoc
 				\| call b:toc.set_syntax()
+	autocmd BufWinEnter *.tex setlocal concealcursor=
+				\| setlocal iskeyword-=:
 augroup END "}}}
 
 function! s:close() "{{{
@@ -24,10 +26,25 @@ endfunction "}}}
 
 call tex#map#main()
 
-setlocal makeprg=lualatex\ -initialize\ -shell-escape\ \"&xelatex\"\ mylatexformat.ltx\ \"\"%\"\"
+if expand('%:e') ==# 'nlo'
+	setlocal makeprg=makeindex\ %\ -s\ nomencl.ist
+elseif expand('%:e') ==# 'idx'
+	setlocal makeprg=makeindex\ %
+elseif expand('%:e') ==# 'mtx'
+	let b:clean_temp += [
+				\ '%<.pmx', '%<.pml',
+				\ '%<.log', 'musixtex.log', 'pmxaerr.dat',
+				\ ]
+	setlocal makeprg=musixtex\ -t\ -F\ "xetex"\ %
+else
+	setlocal makeprg=lualatex\ -initialize\ -shell-escape\ \"&xelatex\"\ mylatexformat.ltx\ \"\"%\"\"
+endif
 setlocal keywordprg=:silent\ !texdoc
 setlocal isfname-={,}
-setlocal iskeyword-=:
+setlocal indentexpr=BuckyTexIndent()
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
 if exists('$TEXWORKSPACE')
 	setlocal path+=$TEXWORKSPACE/**1
 elseif has('unix')
@@ -42,10 +59,6 @@ elseif has('unix')
 elseif has('win32')
 	setlocal path+=C:/Program\ Files/texlive/2019/texmf-dist/**3
 endif
-setlocal indentexpr=BuckyTexIndent()
-setlocal tabstop=2
-setlocal shiftwidth=2
-setlocal expandtab
 
 inoremap <buffer> -- <Space>--<Space>
 inoremap <buffer> - -

@@ -1,7 +1,6 @@
 " Plugin {{{1 "
 "  {{{2 "
 "  {{{3 "
-"  vim: fdm=marker
 scriptencoding utf-8
 let g:mapleader = ' '
 let g:maplocalleader = ';'
@@ -31,6 +30,9 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('Shougo/dein.vim')
 	call dein#add('haya14busa/dein-command.vim', {
 				\ 'on_cmd': 'Dein',
+				\ })
+	call dein#add('wsdjeg/dein-ui.vim', {
+				\ 'on_cmd': ['SPUpdate', 'SPInstall', 'SPReinstall'],
 				\ })
 	" 5}}} PluginManage "
 
@@ -176,7 +178,10 @@ if dein#load_state($GITWORKSPACE)
 	" Conceal {{{5 "
 	call dein#add('ryanoasis/vim-devicons')
 	call dein#add('KeitaNakamura/tex-conceal.vim', {
-				\ 'on_ft': ['tex', 'plaintex', 'markdown', 'pandoc'],
+				\ 'on_ft': ['tex', 'plaintex', 'context', 'markdown', 'pandoc'],
+				\ })
+	call dein#add('Yggdroot/indentLine', {
+				\ 'on_ft': ['python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc'],
 				\ })
 	" 5}}} Conceal "
 
@@ -460,20 +465,16 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('kurkale6ka/vim-swap', {
 				\ 'on_map': '<plug>SwapSwap',
 				\ })
-	call dein#add('mjbrownie/swapit', {
-				\ 'on_map': '<plug>(swap-',
-				\ })
 	call dein#add('JikkuJose/vim-visincr', {
 				\ 'on_cmd': ['I', 'IA', 'IB', 'IO', 'IX', 'ID', 'IM', 'IDMY', 'IMDY', 'IYMD', 'II', 'IIA', 'IIB', 'IIO', 'IIX'],
 				\ })
-	call dein#add('tpope/vim-speeddating', {
-				\ 'on_map': ['<C-a>', '<C-x>'],
-				\ 'hook_post_source': join([
-				\ 'xunmap <C-a>',
-				\ 'xunmap <C-x>',
-				\ ], "\n"),
-				\ })
 	" 5}}} Replace "
+
+	" Increment {{{5 "
+	call dein#add('nishigori/increment-activator', {
+				\ 'on_map': ['<C-a>', '<C-x>'],
+				\ })
+	" 5}}} Increment "
 	" 4}}} CursorMove "
 
 	" CursorVisual {{{4 "
@@ -911,7 +912,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_ft': 'awk',
 				\ })
 	call dein#add('WolfgangMehner/bash-support', {
-				\ 'on_ft': 'shell',
+				\ 'on_ft': 'bash',
 				\ })
 	call dein#add('WolfgangMehner/lua-support', {
 				\ 'on_ft': 'lua',
@@ -937,7 +938,7 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('4Evergreen4/vim-hardy')
 	call dein#add('suoto/vim-hdl', {
 				\ 'if': has('pythonx'),
-				\ 'build': 'pip3 install -r .ci/requirements.txt --user',
+				\ 'build': 'pip wheel .ci/requirements.txt --user',
 				\ 'on_ft': ['vhdl', 'verilog', 'systemverilog', 'verilog_systemverilog'],
 				\ })
 	call dein#add('vhda/verilog_systemverilog.vim', {
@@ -1047,11 +1048,11 @@ nnoremap <Leader>px :call delete('~/.vim/cache_gvim')<CR>:call delete('~/.vim/ca
 " haya14busa/dein-command.vim {{{3 "
 nnoremap <Leader>pc :<C-u>Dein clean<CR>
 nnoremap <Leader>pr :<C-u>Dein recache_runtimepath<CR>
-nnoremap <Leader>pi :<C-u>Dein install<CR>
-nnoremap <Leader>pI :<C-u>Dein install<Space>
-nnoremap <Leader>pu :<C-u>Dein update<CR>
-nnoremap <Leader>pU :<C-u>Dein update<Space>
 " 3}}} haya14busa/dein-command.vim "
+" wsdjeg/dein-ui.vim {{{ "
+nnoremap <Leader>pu :<C-u>SPUpdate<CR>
+nnoremap <Leader>pi :<C-u>SPInstall<CR>
+" }}} wsdjeg/dein-ui.vim "
 " 2}}} PluginManage "
 
 " PluginDetect {{{2 "
@@ -1127,8 +1128,8 @@ nnoremap s cl
 xnoremap <C-t> <Esc>`.``gvp``:call init#swap#main()<CR>
 nnoremap g. :<C-u>execute v:count?v:count.'go':''<CR><C-g>
 xnoremap g. go
-nnoremap gG g<C-g>
-xnoremap gG g<C-g>
+nnoremap g<C-g> g<C-g>
+xnoremap g<C-g> g<C-g>
 nnoremap g> :<C-u>pwd<CR>
 xnoremap g> :<C-u>pwd<CR>
 nnoremap gH :left<CR>
@@ -1265,10 +1266,6 @@ xnoremap [/ [/
 xnoremap ]/ ]/
 onoremap [/ [/
 onoremap ]/ ]/
-"nnoremap [z [z
-"nnoremap ]z ]z
-nnoremap [Z 99[z
-nnoremap ]Z 99]z
 nnoremap [c [c
 nnoremap ]c ]c
 nnoremap [C 99[c
@@ -1277,10 +1274,6 @@ nnoremap [s [s
 nnoremap ]s ]s
 nnoremap [S 99[s
 nnoremap ]S 99]s
-"xnoremap [z [z
-"xnoremap ]z ]z
-xnoremap [Z 99[z
-xnoremap ]Z 99]z
 xnoremap [c [c
 xnoremap ]c ]c
 xnoremap [C 99[c
@@ -1289,10 +1282,6 @@ xnoremap [s [s
 xnoremap ]s ]s
 xnoremap [S 99[s
 xnoremap ]S 99]s
-"onoremap [z [z
-"onoremap ]z ]z
-onoremap [Z 99[z
-onoremap ]Z 99]z
 onoremap [c [c
 onoremap ]c ]c
 onoremap [C 99[c
@@ -1361,6 +1350,7 @@ nnoremap gt gt
 nnoremap gT gT
 " 4}}} tabMoveCursor "
 " windowMoveCursor {{{4 "
+nnoremap <C-Tab> <C-w>w
 nnoremap <C-w>w <C-w>w
 nnoremap <C-w>W <C-w>W
 nnoremap <C-j> <C-w>j
@@ -1529,8 +1519,8 @@ nnoremap g< g<
 xnoremap g< g<
 " 4}}} show "
 " edit {{{4 "
-xnoremap gA g<C-a>
-xnoremap gX g<C-x>
+xnoremap g<C-a> g<C-a>
+xnoremap g<C-x> g<C-x>
 nnoremap gJ gJ
 nnoremap gp gp
 nnoremap gP gP
@@ -1544,6 +1534,7 @@ xnoremap g? g?
 nnoremap g@ g@
 xnoremap g@ g@
 nnoremap g~ g~
+xnoremap g~ g~
 " 4}}} edit "
 " vimL {{{4 "
 nnoremap <Leader>vx :<C-u>X<CR>
@@ -1645,8 +1636,6 @@ let g:listdict = {
 nnoremap <Leader>vh :TOhtml<CR>
 xnoremap <Leader>vh :TOhtml<CR>
 nnoremap <Leader>hv :<C-u>silent !gvim -u $VIMCONFIG/test.vim<CR>
-nnoremap m= :<C-u>execute 'echo ' . expand('<cWORD>')<CR>
-xnoremap m= y:<C-u>echo <C-r>0<CR>
 " 3}}}  "
 " liuchengxu/vim-which-key {{{3 "
 let g:which_key_display_names = {' ': '█', '<CR>': '↵', '<TAB>': '⇆'}
@@ -1878,7 +1867,7 @@ if has('pythonx')
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_exclude_filetypes = ['calendar', 'help', 'duzzle', 'marksbuffer', 'startify']
+let g:indent_guides_exclude_filetypes = ['help', 'man', 'less', 'duzzle', 'startify', 'python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'floaterm']
 nmap coi <Plug>IndentGuidesToggle
 " 3}}} nathanaelkane/vim-indent-guides "
 " dbmrq/vim-redacted {{{3 "
@@ -1944,6 +1933,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'snippets': '',
 			\ 'fountain': '',
 			\ 'txt': '',
+			\ 'u8': '',
 			\ 'plain': '',
 			\ 'rtf': '',
 			\ 'cnx': '中',
@@ -2090,6 +2080,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'ind': '',
 			\ 'ilg': '',
 			\ 'nlo': '',
+			\ 'nls': '',
 			\ 'lof': '',
 			\ 'lot': '',
 			\ 'loe': '',
@@ -2117,6 +2108,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'xdv': '',
 			\ 'dvi': '',
 			\ 'nsi': '',
+			\ 'ipynb': '',
 			\ }
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 			\ '.*\.todo\.txt$': '',
@@ -2134,12 +2126,20 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 			\ '\.bash_profile$': '',
 			\ 'profile$': '',
 			\ '\.gitignore$': '',
+			\ 'index$': '',
+			\ 'HEAD$': '',
+			\ 'FETCH_HEAD$': '',
+			\ 'config$': '',
+			\ 'description$': '',
 			\ '\.github$': '',
 			\ '.*_history$': '',
 			\ '\.viminfo$': '',
 			\ 'tags$': '',
 			\ }
 " 3}}} ryanoasis/vim-devicons "
+" Yggdroot/indentLine {{{ "
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" }}} Yggdroot/indentLine "
 " 2}}} Conceal "
 
 " StatusBar {{{2 "
@@ -2169,8 +2169,8 @@ nmap <C-w>6 <Plug>AirlineSelectTab6
 nmap <C-w>7 <Plug>AirlineSelectTab7
 nmap <C-w>8 <Plug>AirlineSelectTab8
 nmap <C-w>9 <Plug>AirlineSelectTab9
-nmap [<Tab> <Plug>AirlineSelectPrevTab
-nmap ]<Tab> <Plug>AirlineSelectNextTab
+nmap <C-w>; <Plug>AirlineSelectPrevTab
+nmap <C-w>, <Plug>AirlineSelectNextTab
 " ale {{{ "
 let g:airline#extensions#ale#error_symbol = '✗'
 let g:airline#extensions#ale#warning_symbol = ''
@@ -2303,7 +2303,6 @@ augroup END "}}}
 nnoremap col :Limelight!!<CR>
 " 3}}} junegunn/limelight.vim "
 " thinca/vim-splash {{{3 "
-let g:splash#path = $VIMCONFIG.'/vim-splash/Yoda.txt'
 nnoremap <Leader>sq :<C-u>call init#quickui#splash#main()<CR>
 nnoremap <Leader>sp :<C-u>Splash<CR>
 " 3}}} thinca/vim-splash "
@@ -2334,9 +2333,10 @@ augroup init_Startify "{{{
 augroup END "}}}
 function! s:cowsay() "{{{
 	if !argc()
-		" let g:startify_custom_header = split(system('fortune | cowsay -f dragon-and-cow'), '\n')
+		" let g:startify_custom_header = split(system('fortune | cowthink -f dragon-and-cow'), '\n')
 		" let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
-		let g:startify_custom_header = cowsay#cowsay(split(fortune_vimtips#tooltipviewtips(), '\n'), 'dragon-and-cow')
+		" let g:startify_custom_header = cowsay#cowsay(split(fortune_vimtips#tooltipviewtips(), '\n'), 'dragon-and-cow')
+		let g:startify_custom_header = split(fortune_vimtips#tooltipviewtips(), '\n') + readfile($VIMCONFIG . '/.vim-splash/vim.txt')
 	endif
 endfunction "}}}
 let g:startify_lists = [
@@ -2346,9 +2346,6 @@ let g:startify_lists = [
 			\ { 'type': 'commands', 'header': ['    Commands']},
 			\ { 'type': 'bookmarks', 'header': ['    Bookmarks']},
 			\ ]
-for s:item in g:startify_lists
-	let s:item['header'][0] = s:item['header'][0] . ' (press ''<F1>'' to get help)'
-endfor
 nnoremap <Leader>sl :SLoad<CR>
 nnoremap <Leader>sv :SSave<CR>
 nnoremap <Leader>sd :SDelete<CR>
@@ -2368,7 +2365,7 @@ let g:load_doxygen_syntax = 1
 nnoremap coy :let g:load_doxygen_syntax = !g:load_doxygen_syntax\| syntax on<CR>
 " 3}}}  "
 " sheerun/vim-polyglot {{{3 "
-let g:polyglot_disabled = ['latex', 'markdown']
+let g:polyglot_disabled = ['markdown', 'less']
 " 3}}} sheerun/vim-polyglot "
 " vim-pandoc/vim-pandoc-syntax {{{3 "
 let g:pandoc#syntax#codeblocks#embeds#langs = ['octave', 'tex']
@@ -2411,6 +2408,12 @@ let g:fastfold_fold_command_suffixes = [
 			\ 'x', 'X', 'a', 'A', 'o', 'O', 'c', 'C',
 			\ 'm', 'M', 'r', 'R', 'v',
 			\ ]
+nmap [Z 99[z
+nmap ]Z 99]z
+xmap [Z 99[z
+xmap ]Z 99]z
+omap [Z 99[z
+omap ]Z 99]z
 " 3}}} Konfekt/FastFold "
 " embear/vim-foldsearch {{{3 "
 let g:foldsearch_disable_mappings = 1
@@ -2719,7 +2722,7 @@ endif
 
 " MarkExplore {{{2 "
 " kshenoy/vim-signature {{{3 "
-nmap m<Tab> dm
+nmap m_ dm
 " 3}}} kshenoy/vim-signature "
 " 2}}} MarkExplore "
 
@@ -2877,12 +2880,6 @@ xmap z+ <plug>SwapSwapPivotOperands
 nmap + <plug>SwapSwapWithR_WORD
 nmap z+ <plug>SwapSwapWithL_WORD
 " 3}}} kurkale6ka/vim-swap "
-
-" mjbrownie/swapit {{{3 "
-let g:swap_no_default_key_mappings = 1
-nmap z( <Plug>(swap-prev)
-nmap z) <Plug>(swap-next)
-" 3}}} mjbrownie/swapit "
 
 " JikkuJose/vim-VisIncr {{{3 "
 xnoremap <Leader>ii :I<CR>
@@ -3168,13 +3165,13 @@ nnoremap <Leader>dA :<C-u>call ToggleSketch()<CR>
 
 " Filter {{{2 "
 "  {{{3 "
-nnoremap <Leader>dt !ltoilet<CR>
+nnoremap <Leader>dt !!toilet<CR>
 xnoremap <Leader>dt !toilet<CR>
-nnoremap <Leader>df !lfiglet<CR>
+nnoremap <Leader>df !!figlet<CR>
 xnoremap <Leader>df !figlet<CR>
-nnoremap <Leader>dm !lmd5sum<CR>
+nnoremap <Leader>dm !!md5sum<CR>
 xnoremap <Leader>dm !md5sum<CR>
-nnoremap <Leader>ds !lshasum<CR>
+nnoremap <Leader>ds !!shasum<CR>
 xnoremap <Leader>ds !shasum<CR>
 " 3}}}  "
 " pocke/vanner {{{3 "
@@ -3243,6 +3240,7 @@ nmap <Leader>cl <Plug>NERDCommenterAlignLeft
 nmap <Leader>cb <Plug>NERDCommenterAlignBoth
 " 3}}} scrooloose/nerdcommenter "
 " tyru/caw.vim {{{3 "
+let g:caw_dollarpos_sp_left = ' '
 nmap gc <Plug>(caw:prefix)
 xmap gc <Plug>(caw:prefix)
 nmap gcc <Plug>(caw:hatpos:toggle:operator)
@@ -3401,7 +3399,6 @@ augroup init_coc "{{{
 	autocmd InsertLeave * execute 'normal! zv'
 augroup END "}}}
 inoremap <silent><expr> <TAB>
-			\ pumvisible() ? coc#_select_confirm() :
 			\ coc#expandableOrJumpable() ? '\<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])\<CR>' :
 			\ init#check_back_space#main() ? '<Tab>' :
 			\ coc#refresh()
@@ -3630,6 +3627,7 @@ let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
 
 " Terminal {{{2 "
 " voldikss/vim-floaterm {{{3 "
+let g:floaterm_autoclose = 1
 nnoremap <Leader>hh :<C-u>FloatermNew<CR>
 nnoremap <Leader>hH :<C-u>FloatermNew<Space>
 nnoremap <Leader>ho :<C-u>FloatermNew octave<CR>
@@ -3640,6 +3638,9 @@ nnoremap <Leader>hq :<C-u>FloatermNew mysql<CR>
 nnoremap <Leader>hn :<C-u>FloatermNew nethack<CR>
 nnoremap <Leader>hz :<C-u>FloatermNew zsh<CR>
 nnoremap <CR> :<C-u>execute 'FloatermSend ' . getline('.')<CR><Down>
+xnoremap <CR> y:<C-u>FloatermSend <C-r>0<CR>
+nnoremap gs :<C-u>execute 'FloatermSend ' . getline('.')<CR><Down>
+xnoremap gs y:<C-u>FloatermSend <C-r>0<CR>
 " 3}}} voldikss/vim-floaterm "
 " 2}}} Terminal "
 " 1}}} Program "

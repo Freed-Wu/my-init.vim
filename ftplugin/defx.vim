@@ -9,7 +9,7 @@ nmap <buffer> [[ <Plug>(defx-git-prev)
 nmap <buffer> ]] <Plug>(defx-git-next)
 nmap <nowait><buffer> > <Plug>(defx-git-stage)
 nmap <nowait><buffer> < <Plug>(defx-git-reset)
-nmap <buffer> - <Plug>(defx-git-discard)
+nmap <buffer> ~ <Plug>(defx-git-discard)
 nmap <buffer> <Leader>bx mzgggx`z
 nnoremap <buffer><expr> gx
 			\ defx#do_action('execute_system')
@@ -47,14 +47,16 @@ nnoremap <buffer><expr> za
 			\ defx#do_action('open_or_close_tree')
 nnoremap <buffer><expr> zo
 			\ defx#do_action('open_tree')
+nnoremap <buffer><expr> zc
+			\ defx#do_action('close_tree')
 nnoremap <buffer><expr> zO
 			\ defx#do_action('open_tree_recursive')
 nnoremap <buffer><expr> K
 			\ defx#do_action('cd', ['..'])
-nnoremap <buffer><expr> gK
+nnoremap <buffer><expr> J
 			\ defx#do_action('cd', getcwd())
-nmap <buffer> J :<C-u>cd -<CR>gK
-nnoremap <buffer><expr> gJ
+nmap <buffer> gu :<C-u>cd -<CR>J
+nnoremap <buffer><expr> gU
 			\ defx#do_action('cd')
 nnoremap <nowait><buffer><expr> =
 			\ defx#do_action('change_vim_cwd')

@@ -53,18 +53,6 @@ sudo chown $USERNAME ${1:.}${2: -R}
 sudo chgrp $USERNAME $1$2
 $0
 endsnippet
-snippet -- "myUltiSnips" b
----
-
----$0
-endsnippet
-
-snippet cbl "Codeblock" b
-\`\`\`${1:m}${1/(m)$|(p)$|(s)$|(f)$|(d)$|(c)$|(.*)/(?1:ermaid)(?2:landuml)(?3:equence-diagrams)(?4:lowchart)(?5:ot)(?6:hart)/}$2
-\`\`\`
-
-$0
-endsnippet
 snippet mermaid "myUltiSnips" i
 mermaid
 ${1:g}${1/(g)$|(gr)$|(s)$|(p)$|(st)$|(c)$|(.*)/(?1:ant)(?2:raph)(?3:sequenceDiagram)(?4:ie)(?5:tateDiagram)(?6:lassDiagram)/}

@@ -24,6 +24,7 @@ augroup startify "{{{
 	autocmd!
 	autocmd User Startified call s:startify()
 	autocmd User StartifyAllBuffersOpened Rooter
+	autocmd User StartifyBufferOpened execute &filetype ==# 'vim'? 'setlocal foldmethod=marker': ''
 augroup END "}}}
 function! s:startify() "{{{
 	unmap <buffer> b
@@ -38,7 +39,8 @@ function! s:startify() "{{{
 	unmap <buffer> q
 endfunction "}}}
 
-command! -buffer -nargs=* -range FloatermNew call floaterm#new(<q-args>, {}, {'curwin':1}, &shell)
+command! -buffer -nargs=* -range FloatermNew
+			\| call floaterm#new(<q-args>, {}, {'curwin': 1, 'term_finish': 'close'}, &shell)
 			\| wincmd W
 			\| hide
 command! -buffer -nargs=* -complete=customlist,calendar#argument#complete

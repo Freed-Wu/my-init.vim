@@ -9,12 +9,7 @@ if expand('%') ==# 'option-window'
 endif
 
 if expand('%:p') ==# $MYVIMRC
-	setlocal path+=$GITHUBWORKSPACE
-	nnoremap <buffer><silent> gd :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/doc/*.txt'<CR>
-	nnoremap <buffer><silent> gD :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/README*'<CR>
-	nnoremap <buffer><silent> <C-w>d :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/doc/*.txt'<CR>
-	nnoremap <buffer><silent> <C-w>D :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/README*'<CR>
-	nnoremap <buffer><silent> <C-w>i :<C-u>execute 'Defx ' . $GITHUBWORKSPACE . '/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0]<CR>
+	call init#dein#main()
 endif
 
 if &buftype ==# 'nofile'

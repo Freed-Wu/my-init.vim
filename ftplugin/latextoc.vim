@@ -8,7 +8,7 @@ nmap <buffer> t <Plug>Sneak_t
 nmap <buffer> f <Plug>Sneak_f
 nmap <buffer> F <Plug>Sneak_F
 nnoremap <buffer> <F1> :<C-u>call b:toc.toggle_help()<CR>
-nnoremap <buffer> <C-q> :<C-u>call b:toc.close()<CR>
+nnoremap <buffer> ZQ :<C-u>call b:toc.close()<CR>
 nnoremap <buffer> S :<C-u>call b:toc.toggle_sorted_todos()<CR>
 nnoremap <buffer> . :<C-u>call b:toc.clear_filter()<CR>
 nnoremap <buffer> = :<C-u>call b:toc.filter()<CR>

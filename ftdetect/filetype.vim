@@ -7,14 +7,13 @@ augroup filetypedetect "{{{
 	" Text {{{2 "
 	autocmd BufNewFile,BufRead *.synctex.gz,*.synctex,*.rpt,*.fdb_latexmk,*.fls,*.blg,*.ilg,*.lock setfiletype log
 	autocmd BufNewFile,BufRead *.cnx,*.jax,*.ptx setfiletype help
-	autocmd BufNewFile,BufRead README,LICENSE setfiletype txt
 	autocmd BufNewFile,BufRead *.txt execute 'set filetype='.(expand('%:p:t') == 'doc'?'help':'txt')
 	" 2}}} Text "
 
 	" Data_Exchange {{{2 "
 	autocmd BufNewFile,BufRead .mysql_history setfiletype sql
 	autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf setfiletype dosini
-	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc setfiletype conf
+	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc,*latexmkrc setfiletype conf
 	autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 	autocmd BufNewFile,BufRead tags,tags-*,*.tags,*.tags.temp setfiletype tags
 	autocmd BufNewFile,BufRead *.sublime-project,*.vsconfig,*.jscsrc,*.jshintrc,*.plan setfiletype json
@@ -26,11 +25,10 @@ augroup filetypedetect "{{{
 	" 2}}} Data_Exchange "
 
 	" Mark_Up {{{2 "
-	autocmd BufNewFile,BufRead *.def,*.pgf,*.nlo,*.inp,*.out,*.thm,*.eps_tex,*.pygtex,*.pygstyle,*.clo,*.aux,*.brf,*.ind,*.toc,*.lot,*.lof,*.loe,*.nav,*.vrb,*.ins,*.tikz,*.bbx,*.cbx,*.beamer setfiletype tex
+	autocmd BufNewFile,BufRead *.def,*.pgf,*.nlo,*.nls,*.inp,*.out,*.thm,*.eps_tex,*.pygtex,*.pygstyle,*.clo,*.aux,*.brf,*.ind,*.toc,*.lot,*.lof,*.loe,*.nav,*.vrb,*.ins,*.tikz,*.bbx,*.cbx,*.beamer setfiletype tex
 	autocmd BufNewFile,BufRead *.cls set filetype=tex
 	autocmd BufNewFile,BufRead *.plg,*.django setfiletype html
 	autocmd BufNewFile,BufRead *.ess,*.edje setfiletype css
-	autocmd BufNewFile,BufRead *.mtx setfiletype mtx
 	autocmd BufNewFile,BufRead *.gnuplot,.gnuplot_history setfiletype gnuplot
 	autocmd BufNewFile,BufRead *.snippets set filetype=snippets
 	execute 'autocmd BufNewFile,BufRead =template=*,' . g:templates_directory[0] . '/* syn match vimtemplateVariable "%\%(DAY\|YEAR\|MONTH\|MONTHSHORT\|MONTHFULL\|DATE\|TIME\|FILE\|FFILE\|EXT\|MAIL\|USER\|HOST\|GUARD\|CLASS\|MACROCLASS\|CAMELCLASS\|HERE\)%" containedin=ALL'

@@ -11,8 +11,8 @@ let g:which_key_map_fugitive_r = {
 nnoremap <buffer><nowait> c :<C-u>WhichKey 'c'<CR>
 nnoremap <buffer><nowait> d :<C-u>WhichKey 'd'<CR>
 nnoremap <buffer><nowait> r :<C-u>WhichKey 'r'<CR>
+nnoremap <buffer> S :<C-u>G pull origin master --allow-unrelated-histories --rebase<CR>
 nnoremap <buffer> <LocalLeader>a :G remote add origin git@github.com:Freed-Wu/.git<Left><Left><Left><Left>
-nnoremap <buffer> <LocalLeader>l :G pull origin master --allow-unrelated-histories --rebase<CR>
 nnoremap <buffer> <LocalLeader>L :Gclog<CR>
 nnoremap <buffer> <LocalLeader>p :G push --force --set-upstream origin master<CR>
 nnoremap <buffer> <LocalLeader>r :G rebase --interactive HEAD~
