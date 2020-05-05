@@ -1,7 +1,5 @@
-if !exists('b:trailguide')
-	let b:trailguide = 0
-	TrailGuide hide
-endif
+setlocal tabstop=2
+setlocal shiftwidth=2
 
 call init#map#main()
 

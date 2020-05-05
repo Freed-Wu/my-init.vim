@@ -85,8 +85,8 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Language "
 	" 4}}} Default "
 
-	" Key {{{4 "
-	" HotkeyManage {{{5 "
+	" Interaction {{{4 "
+	" UI {{{5 "
 	call dein#add('liuchengxu/vim-which-key', {
 				\ 'on_cmd': ['WhichKey', 'WhichKeyVisual'],
 				\ 'hook_post_source': join([
@@ -99,6 +99,10 @@ if dein#load_state($GITWORKSPACE)
 				\ 'call init#quickui#main()',
 				\ ], "\n"),
 				\ })
+	call dein#add('mhinz/vim-startify')
+	" 5}}} UI "
+
+	" Hotkey {{{5 "
 	call dein#add('tpope/vim-unimpaired', {
 				\ 'on_map': {'n': ['<Plug>', 'yo', '[', ']']},
 				\ 'hook_post_source': join([
@@ -115,7 +119,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'cnoremap <C-y> <C-r>+',
 				\ ], "\n"),
 				\ })
-	" 5}}} HotkeyManage "
+	" 5}}} Hotkey "
 
 	" KeyMap {{{5 "
 	call dein#add('vim-scripts/VimIM', {
@@ -127,9 +131,6 @@ if dein#load_state($GITWORKSPACE)
 				\ 'endfunction',
 				\ ], "\n"),
 				\ })
-	call dein#add('gu-fan/mathematic.vim', {
-				\ 'on_cmd': 'KeyHelper',
-				\ })
 	" 5}}} KeyMap "
 
 	" MacroExplore {{{5 "
@@ -140,7 +141,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': 'MacroEdit',
 				\ })
 	" 5}}} MacroExplore "
-	" 4}}} Key "
+	" 4}}} Interaction "
 
 	" Appearance {{{4 "
 	" Colorscheme {{{5 "
@@ -181,7 +182,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_ft': ['tex', 'plaintex', 'context', 'markdown', 'pandoc'],
 				\ })
 	call dein#add('Yggdroot/indentLine', {
-				\ 'on_ft': ['python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc'],
+				\ 'on_ft': ['python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'defx'],
 				\ })
 	" 5}}} Conceal "
 
@@ -199,7 +200,7 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('tpope/vim-endwise')
 	" 5}}} StatusBar "
 
-	" UI {{{5 "
+	" Display {{{5 "
 	call dein#add('junegunn/goyo.vim', {
 				\ 'on_cmd': 'Goyo',
 				\ })
@@ -222,8 +223,7 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('thinca/vim-splash', {
 				\ 'on_cmd': 'Splash',
 				\ })
-	call dein#add('mhinz/vim-startify')
-	" 5}}} UI "
+	" 5}}} Display "
 
 	" SyntaxMarkUp {{{5 "
 	call dein#add('sheerun/vim-polyglot')
@@ -954,8 +954,8 @@ if dein#load_state($GITWORKSPACE)
 	" 5}}} Debug "
 
 	" Terminal {{{5 "
-	call dein#add('voldikss/vim-floaterm', {
-				\ 'on_cmd': ['FloatermToggle', 'FloatermNew', 'FloatermSend', 'FloatermUpdate', 'FloatermPrev', 'FloatermNext'],
+	call dein#add('sillybun/vim-repl', {
+				\ 'on_cmd': 'REPLToggle',
 				\ })
 	" 5}}} Terminal "
 	" 4}}} Program "
@@ -1117,8 +1117,86 @@ endif
 " 2}}} Language "
 " 1}}} Default "
 
-" Key {{{1 "
-" HotkeyManage {{{2 "
+" Interaction {{{1 "
+" UI {{{2 "
+" liuchengxu/vim-which-key {{{3 "
+let g:which_key_display_names = {' ': '█', '<CR>': '↵', '<TAB>': '⇆'}
+let g:which_key_map_localleader = {
+			\ 'name': 'choose a key about local map',
+			\ }
+nnoremap <nowait> <Leader> :<C-u>WhichKey '<Leader>'<CR>
+xnoremap <nowait> <Leader> :<C-u>WhichKeyVisual '<Leader>'<CR>
+nnoremap <nowait> <LocalLeader> :<C-u>WhichKey '<LocalLeader>'<CR>
+xnoremap <nowait> <LocalLeader> :<C-u>WhichKeyVisual '<LocalLeader>'<CR>
+nnoremap <nowait> z :<C-u>WhichKey 'z'<CR>
+xnoremap <nowait> z :<C-u>WhichKeyVisual 'z'<CR>
+nnoremap <nowait> g :<C-u>WhichKey 'g'<CR>
+xnoremap <nowait> g :<C-u>WhichKeyVisual 'g'<CR>
+nnoremap <nowait> <C-w> :WhichKey '<lt>C-w>'<CR>
+xnoremap <nowait> <C-w> :WhichKeyVisual '<lt>C-w>'<CR>
+nnoremap <nowait> co :<C-u>WhichKey 'co'<CR>
+xnoremap <nowait> i :<C-u>WhichKeyVisual 'i'<CR>
+xnoremap <nowait> a :<C-u>WhichKeyVisual 'a'<CR>
+xnoremap <nowait> I :<C-u>WhichKeyVisual 'I'<CR>
+xnoremap <nowait> A :<C-u>WhichKeyVisual 'A'<CR>
+" 3}}} liuchengxu/vim-which-key "
+" skywind3000/vim-quickui {{{3 "
+let g:quickui_border_style = 3
+nnoremap <Leader>uQ :<C-u>call init#quickui#quickuitheme#main()<CR>
+nnoremap <Leader>uu :<C-u>call quickui#menu#open()<CR>
+nnoremap <Leader>uf :<C-u>call quickui#tools#list_function()<CR>
+nnoremap <Leader>ut :<C-u>call quickui#tools#preview_tag('')<CR>
+nnoremap <Leader>uU :<C-u>call QuickThemeChange(g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)])<CR>
+" 3}}} skywind3000/vim-quickui "
+" mhinz/vim-startify {{{3 "
+let g:startify_session_dir = $VIMDATA.'/.vim-startify'
+let g:startify_enable_special = 0
+let g:startify_change_to_dir = 1
+let g:startify_change_to_vcs_root = 1
+let g:startify_custom_indices = []
+for s:num in range(0, 9)
+	let g:startify_custom_indices += [g:maplocalleader . nr2char(s:num + 48)]
+endfor
+for s:num in range(0, 9)
+	let g:startify_custom_indices += ['.' . nr2char(s:num + 48)]
+endfor
+let g:startify_bookmarks = [
+			\ {g:maplocalleader.'s': '/etc/profile.d/user.sh'},
+			\ {g:maplocalleader.'v': $MYVIMRC},
+			\ {g:maplocalleader.'j': $VIMCONFIG.'/coc-settings.json'},
+			\ {g:maplocalleader.'z': expand('$HOME/.zshrc')},
+			\ {g:maplocalleader.'m': '/etc/portage/make.conf'},
+			\ {g:maplocalleader.'a': expand('$HOME/.local/share/applications/defaults.list')},
+			\ {g:maplocalleader.'x': expand('$HOME/.ssh/id_rsa.pub')},
+			\ ]
+augroup init_Startify "{{{
+	autocmd!
+	autocmd VimEnter * call s:cowsay()
+augroup END "}}}
+function! s:cowsay() "{{{
+	if !argc()
+		" let g:startify_custom_header = split(system('fortune | cowthink -f dragon-and-cow'), '\n')
+		" let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
+		" let g:startify_custom_header = cowsay#cowsay(split(fortune_vimtips#tooltipviewtips(), '\n'), 'dragon-and-cow')
+		let g:startify_custom_header = split(fortune_vimtips#tooltipviewtips(), '\n') + readfile($VIMCONFIG . '/.vim-splash/vim.txt')
+	endif
+endfunction "}}}
+let g:startify_lists = [
+			\ { 'type': 'sessions', 'header': ['    Sessions']},
+			\ { 'type': 'files', 'header': ['    Most Recently Used']},
+			\ { 'type': 'dir', 'header': ['    Most Recently Used @ ' . getcwd()] },
+			\ { 'type': 'commands', 'header': ['    Commands']},
+			\ { 'type': 'bookmarks', 'header': ['    Bookmarks']},
+			\ ]
+nnoremap <Leader>sl :SLoad<CR>
+nnoremap <Leader>sv :SSave<CR>
+nnoremap <Leader>sd :SDelete<CR>
+nnoremap <Leader>sc :SClose<CR>
+nnoremap <Leader>ss :<C-u>call init#startify#main()<CR>
+" 3}}} mhinz/vim-startify "
+" 2}}} UI "
+
+" Hotkey {{{2 "
 "  {{{3 "
 " noVi {{{4 "
 nnoremap gO i<Esc>:<C-u>%s/\v\n{3,}/\r\r/ge<CR>`^zv{O<Esc>:let @/ = ''<CR>o
@@ -1350,7 +1428,7 @@ nnoremap gt gt
 nnoremap gT gT
 " 4}}} tabMoveCursor "
 " windowMoveCursor {{{4 "
-nnoremap <C-Tab> <C-w>w
+nnoremap <C-\><C-\> <C-w>w
 nnoremap <C-w>w <C-w>w
 nnoremap <C-w>W <C-w>W
 nnoremap <C-j> <C-w>j
@@ -1637,44 +1715,6 @@ nnoremap <Leader>vh :TOhtml<CR>
 xnoremap <Leader>vh :TOhtml<CR>
 nnoremap <Leader>hv :<C-u>silent !gvim -u $VIMCONFIG/test.vim<CR>
 " 3}}}  "
-" liuchengxu/vim-which-key {{{3 "
-let g:which_key_display_names = {' ': '█', '<CR>': '↵', '<TAB>': '⇆'}
-let g:which_key_map_localleader = {
-			\ 'name': 'choose a key about local map',
-			\ }
-nnoremap <nowait> <Leader> :<C-u>WhichKey '<Leader>'<CR>
-xnoremap <nowait> <Leader> :<C-u>WhichKeyVisual '<Leader>'<CR>
-nnoremap <nowait> <LocalLeader> :<C-u>WhichKey '<LocalLeader>'<CR>
-xnoremap <nowait> <LocalLeader> :<C-u>WhichKeyVisual '<LocalLeader>'<CR>
-nnoremap <nowait> z :<C-u>WhichKey 'z'<CR>
-xnoremap <nowait> z :<C-u>WhichKeyVisual 'z'<CR>
-nnoremap <nowait> g :<C-u>WhichKey 'g'<CR>
-xnoremap <nowait> g :<C-u>WhichKeyVisual 'g'<CR>
-nnoremap <nowait> <C-w> :WhichKey '<lt>C-w>'<CR>
-xnoremap <nowait> <C-w> :WhichKeyVisual '<lt>C-w>'<CR>
-nnoremap <nowait> co :<C-u>WhichKey 'co'<CR>
-xnoremap <nowait> i :<C-u>WhichKeyVisual 'i'<CR>
-xnoremap <nowait> a :<C-u>WhichKeyVisual 'a'<CR>
-xnoremap <nowait> I :<C-u>WhichKeyVisual 'I'<CR>
-xnoremap <nowait> A :<C-u>WhichKeyVisual 'A'<CR>
-" 3}}} liuchengxu/vim-which-key "
-" skywind3000/vim-quickui {{{3 "
-let g:quickui_border_style = 3
-let s:quickui_color_schemes_path = split(glob($GITHUBWORKSPACE.'/skywind3000/vim-quickui/colors/quickui/*.vim'))
-let g:quickui_color_schemes = []
-for s:quickui_color_scheme_path in s:quickui_color_schemes_path
-	let s:quickui_color_scheme = split(split(s:quickui_color_scheme_path, expand('/'))[-1], '\.')[0]
-	execute 'nnoremap <Leader>u'.len(g:quickui_color_schemes).' :<C-u>call QuickThemeChange("'.s:quickui_color_scheme.'")<CR>'
-	let g:quickui_color_schemes += [s:quickui_color_scheme]
-endfor
-if exists('*rand')
-	let g:quickui_color_scheme = g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)]
-endif
-nnoremap <Leader>uu :<C-u>call quickui#menu#open()<CR>
-nnoremap <Leader>uf :<C-u>call quickui#tools#list_function()<CR>
-nnoremap <Leader>ut :<C-u>call quickui#tools#preview_tag('')<CR>
-nnoremap <Leader>uU :<C-u>call QuickThemeChange(g:quickui_color_schemes[rand()%len(g:quickui_color_schemes)])<CR>
-" 3}}} skywind3000/vim-quickui "
 " tpope/vim-unimpaired {{{3 "
 nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
 " 3}}} tpope/vim-unimpaired "
@@ -1695,7 +1735,7 @@ snoremap <C-a> <Home>
 snoremap <C-e> <End>
 snoremap <C-y> <C-g>pgv<C-g>
 " 3}}} tpope/vim-rsi "
-" 2}}} HotkeyManage "
+" 2}}} Hotkey "
 
 " KeyMap {{{2 "
 "  {{{ "
@@ -1716,9 +1756,6 @@ let g:Vimim_toggle = 'pinyin'
 nnoremap <Leader>z/ :<C-u>ViMiM<CR>
 inoremap <C-^> <C-R>=Vimim_chinese()<CR>
 " 3}}} vim-scripts/VimIM "
-" gu-fan/mathematic.vim {{{3 "
-nnoremap q<Tab> :KeyHelper<CR>
-" 3}}} gu-fan/mathematic.vim "
 " 2}}} KeyMap "
 
 " MacroExplore {{{2 "
@@ -1732,117 +1769,24 @@ let g:marvim_register = 'q'
 nnoremap q_ :<C-u>MacroEdit<Space>
 " 3}}} dohsimpson/vim-macroeditor "
 " 2}}} MacroExplore "
-" 1}}} Key "
+" 1}}} Interaction "
 
 " Appearance {{{1 "
 " Colorscheme {{{2 "
 "  {{{3 "
-nnoremap <Leader>uh :source $VIMRUNTIME/syntax/hitest.vim<CR>
-nnoremap <Leader>ue :colorscheme\| AirlineTheme\| set guifont\| echo g:quickui_color_scheme\| echo g:Lf_StlColorscheme<CR>
-let g:available_colorschemes = ['random']
-let g:available_colorschemes += ['eclipse']
-let g:available_colorschemes += ['darkeclipse']
-let g:available_colorschemes += ['molokai']
-let g:available_colorschemes += ['solarized']
-let g:available_colorschemes += ['pencil']
-let g:available_colorschemes += ['bubblegum']
-let g:available_colorschemes += ['gruvbox']
-let g:available_colorschemes += ['space-vim-dark']
-let g:available_colorschemes += ['spacemacs-theme']
-let g:available_airline_themes = ['random']
-let g:available_airline_themes += ['ouo']
-let g:available_airline_themes += ['qwq']
-let g:available_airline_themes += ['solarized_flood']
-let g:available_airline_themes += ['badwolf']
-let g:available_airline_themes += ['molokai']
-let g:available_airline_themes += ['solarized']
-let g:available_airline_themes += ['light']
-let g:available_airline_themes += ['bubblegum']
-let g:available_airline_themes += ['badcat']
-let g:which_key_map_leader = {}
-for s:indexColorscheme in range(min([len(g:available_colorschemes), 10]))
-	let g:which_key_map_leader[s:indexColorscheme] = {'name': '+'.g:available_colorschemes[s:indexColorscheme]}
-	for s:indexAirline in range(min([len(g:available_airline_themes), 10]))
-		execute 'nnoremap <Leader>'.s:indexColorscheme.s:indexAirline.' :colorscheme '.g:available_colorschemes[s:indexColorscheme].'\| AirlineTheme '.g:available_airline_themes[s:indexAirline].'<CR>'
-		let g:which_key_map_leader[s:indexColorscheme][''.s:indexAirline] = g:available_airline_themes[s:indexAirline]
-	endfor
-endfor
-for s:indexColorscheme in range(min([len(g:available_colorschemes), 10]))
-	execute 'nnoremap <Leader>'.s:indexColorscheme.'` :colorscheme '.g:available_colorschemes[s:indexColorscheme].'<CR>'
-endfor
-let g:which_key_map_leader['`'] = {
-			\ 'name': '+vim-airline-themes&vim-colorschemes',
-			\ '`': 'split colorscheme',
-			\ 'e': 'split AirlineTheme',
-			\ }
-for s:indexAirline in range(min([len(g:available_airline_themes), 10]))
-	execute 'nnoremap <Leader>`'.s:indexAirline.' :AirlineTheme '.g:available_airline_themes[s:indexAirline].'<CR>'
-	let g:which_key_map_leader['`'][s:indexAirline] = g:available_airline_themes[s:indexAirline]
-endfor
+nnoremap <Leader>vh :source $VIMRUNTIME/syntax/hitest.vim<CR>
 " 3}}}  "
-" flazz/vim-colorschemes {{{3 "
-nnoremap <Leader>`` :execute 'split '.$GITHUBWORKSPACE.'/flazz/vim-colorschemes/colors/'.g:colors_name.'.vim'<CR>
-" 3}}} flazz/vim-colorschemes "
-" vim-airline/vim-airline-themes {{{3 "
-nnoremap <Leader>`e :execute 'split '.$GITHUBWORKSPACE.'/vim-airline/vim-airline-themes/autoload/airline/themes/'.g:airline_theme.'.vim'<CR>
-" 3}}} vim-airline/vim-airline-themes "
 " reedes/vim-thematic {{{3 "
-let g:thematic#themes = {
-			\ 'random' :{
-			\ 'colorscheme': 'random',
-			\ 'background': 'dark',
-			\ },
-			\ 'molokai' :{
-			\ 'colorscheme': 'molokai',
-			\ 'airline-theme': 'molokai',
-			\ 'background': 'dark',
-			\ },
-			\ 'solarized_flood' :{
-			\ 'colorscheme': 'solarized',
-			\ 'airline-theme': 'solarized_flood',
-			\ 'background': 'dark',
-			\ },
-			\ 'bubblegum' :{
-			\ 'colorscheme': 'bubblegum',
-			\ 'airline-theme': 'bubblegum',
-			\ 'background': 'dark',
-			\ },
-			\ 'pencil' :{
-			\ 'colorscheme': 'pencil',
-			\ 'airline-theme': 'dark',
-			\ 'background': 'dark',
-			\ },
-			\ 'darkeclipse' :{
-			\ 'colorscheme': 'darkeclipse',
-			\ 'airline-theme': 'dark',
-			\ 'background': 'dark',
-			\ },
-			\ 'space-vim-dark' :{
-			\ 'colorscheme': 'space-vim-dark',
-			\ 'airline-theme': 'dark',
-			\ 'background': 'dark',
-			\ },
-			\ 'spacemacs-theme' :{
-			\ 'colorscheme': 'spacemacs-theme',
-			\ 'airline-theme': 'badwolf',
-			\ 'background': 'dark',
-			\ },
-			\ 'gruvbox' :{
-			\ 'colorscheme': 'gruvbox',
-			\ 'airline-theme': 'badwolf',
-			\ 'background': 'dark',
-			\ },
-			\ }
+source $VIMCONFIG/.vim-thematic/thematic.vim
 augroup init_ThematicRandom "{{{
 	autocmd!
 	autocmd VimEnter * ThematicRandom
 				\| highlight Conceal guibg=NONE
 	autocmd ColorScheme * highlight Conceal guibg=NONE
 augroup END "}}}
-nnoremap <Leader>uT :Thematic<Space>
-nnoremap <Leader>ut :ThematicRandom<CR>:AirlineTheme random<CR>
-nnoremap <Leader>u` :ThematicRandom<CR>
-nnoremap <Leader>`u :AirlineTheme random<CR>
+nnoremap <Leader>ue :colorscheme\| AirlineTheme\| set guifont\| echo g:Lf_StlColorscheme<CR>
+nnoremap <Leader>uq :call init#quickui#thematic#main()<CR>
+nnoremap cox :ThematicRandom<CR>
 nnoremap [X :ThematicPrevious<CR>
 nnoremap ]X :ThematicNext<CR>
 nnoremap [Y :ThematicFirst<CR>
@@ -1867,7 +1811,7 @@ if has('pythonx')
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_exclude_filetypes = ['help', 'man', 'less', 'duzzle', 'startify', 'python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'floaterm']
+let g:indent_guides_exclude_filetypes = ['help', 'man', 'less', 'duzzle', 'startify', 'python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'floaterm', 'defx']
 nmap coi <Plug>IndentGuidesToggle
 " 3}}} nathanaelkane/vim-indent-guides "
 " dbmrq/vim-redacted {{{3 "
@@ -1979,7 +1923,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'cs': '',
 			\ 'csproj': '',
 			\ 'qml': '',
-			\ 'sql': '',
+			\ 'mysql': '',
 			\ 'pdf': '',
 			\ 'bmp': '',
 			\ 'png': '',
@@ -2139,6 +2083,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 " 3}}} ryanoasis/vim-devicons "
 " Yggdroot/indentLine {{{ "
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+nnoremap coI :<C-u>IndentLinesToggle<CR>
 " }}} Yggdroot/indentLine "
 " 2}}} Conceal "
 
@@ -2171,21 +2116,21 @@ nmap <C-w>8 <Plug>AirlineSelectTab8
 nmap <C-w>9 <Plug>AirlineSelectTab9
 nmap <C-w>; <Plug>AirlineSelectPrevTab
 nmap <C-w>, <Plug>AirlineSelectNextTab
-" ale {{{ "
+" ale {{{4 "
 let g:airline#extensions#ale#error_symbol = '✗'
 let g:airline#extensions#ale#warning_symbol = ''
 let g:airline#extensions#ale#open_lnum_symbol = 'Ξ'
 let g:airline#extensions#ale#close_lnum_symbol = ''
-" }}} ale "
-" coc {{{3 "
+" 4}}} ale "
+" coc {{{43 "
 let airline#extensions#coc#error_symbol = '✗'
 let airline#extensions#coc#warning_symbol = ''
-" 3}}} coc "
-" quickfix {{{ "
+" 34}}} coc "
+" quickfix {{{4 "
 let g:airline#extensions#quickfix#quickfix_text = ''
 let g:airline#extensions#quickfix#location_text = ''
-" }}} quickfix "
-" vimtex {{{ "
+" 4}}} quickfix "
+" vimtex {{{4 "
 let g:airline#extensions#vimtex#left = get(g:, 'airline_alt_left_sep', '')
 let g:airline#extensions#vimtex#right = get(g:, 'airline_alt_right_sep', '')
 let g:airline#extensions#vimtex#main = ''
@@ -2194,8 +2139,8 @@ let g:airline#extensions#vimtex#sub_local = ''
 let g:airline#extensions#vimtex#compiled = '✔'
 let g:airline#extensions#vimtex#continuous = ''
 let g:airline#extensions#vimtex#viewer = ''
-" }}} vimtex "
-" tabline {{{ "
+" 4}}} vimtex "
+" tabline {{{4 "
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#show_close_button = 1
@@ -2225,22 +2170,22 @@ let g:airline#extensions#tabline#buffer_idx_format = {
 			\ '19': '⑲ ',
 			\ '20': '⑳ ',
 			\ }
-" }}} tabline "
-" wordcount {{{ "
+" 4}}} tabline "
+" wordcount {{{4 "
 let g:airline#extensions#wordcount#filetypes =['all']
-" }}} wordcount "
-" capslock {{{ "
+" 4}}} wordcount "
+" capslock {{{4 "
 let g:airline#extensions#capslock#symbol = '隷'
-" }}} capslock "
-" whitespace {{{ "
+" 4}}} capslock "
+" whitespace {{{4 "
 let g:airline#extensions#whitespace#trailing_format = '█%s'
 let g:airline#extensions#whitespace#mixed_indent_format =
-			\ '~%s'
-let g:airline#extensions#whitespace#long_format = '+%s'
+			\ '%s'
+let g:airline#extensions#whitespace#long_format = '…%s'
 let g:airline#extensions#whitespace#mixed_indent_file_format =
-			\ '=%s'
-let g:airline#extensions#whitespace#conflicts_format = '%s'
-" }}} whitespace "
+			\ '✗%s'
+let g:airline#extensions#whitespace#conflicts_format = '%s'
+" 4}}} whitespace "
 " 3}}} bling/vim-airline "
 " Wildog/airline-weather.vim {{{3 "
 let g:weather#appid = readfile($VIMCONFIG.'/.airline-weather.vim/airline-weather.txt')[0]
@@ -2253,7 +2198,7 @@ let g:todo#suffix = ''
 " 3}}} Zuckonit/vim-airline-todo "
 " 2}}} StatusBar "
 
-" UI {{{2 "
+" Display {{{2 "
 "  {{{3 "
 set columns=999
 if has('gui_running') && has('win32')
@@ -2304,55 +2249,8 @@ nnoremap col :Limelight!!<CR>
 " 3}}} junegunn/limelight.vim "
 " thinca/vim-splash {{{3 "
 nnoremap <Leader>sq :<C-u>call init#quickui#splash#main()<CR>
-nnoremap <Leader>sp :<C-u>Splash<CR>
 " 3}}} thinca/vim-splash "
-" mhinz/vim-startify {{{3 "
-let g:startify_session_dir = $VIMDATA.'/.vim-startify'
-let g:startify_enable_special = 0
-let g:startify_change_to_dir = 1
-let g:startify_change_to_vcs_root = 1
-let g:startify_custom_indices = []
-for s:num in range(0, 9)
-	let g:startify_custom_indices += [g:maplocalleader . nr2char(s:num + 48)]
-endfor
-for s:num in range(0, 9)
-	let g:startify_custom_indices += ['.' . nr2char(s:num + 48)]
-endfor
-let g:startify_bookmarks = [
-			\ {g:maplocalleader.'s': '/etc/profile.d/user.sh'},
-			\ {g:maplocalleader.'v': $MYVIMRC},
-			\ {g:maplocalleader.'j': $VIMCONFIG.'/coc-settings.json'},
-			\ {g:maplocalleader.'z': expand('$HOME/.zshrc')},
-			\ {g:maplocalleader.'m': '/etc/portage/make.conf'},
-			\ {g:maplocalleader.'a': expand('$HOME/.local/share/applications/defaults.list')},
-			\ {g:maplocalleader.'x': expand('$HOME/.ssh/id_rsa.pub')},
-			\ ]
-augroup init_Startify "{{{
-	autocmd!
-	autocmd VimEnter * call s:cowsay()
-augroup END "}}}
-function! s:cowsay() "{{{
-	if !argc()
-		" let g:startify_custom_header = split(system('fortune | cowthink -f dragon-and-cow'), '\n')
-		" let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
-		" let g:startify_custom_header = cowsay#cowsay(split(fortune_vimtips#tooltipviewtips(), '\n'), 'dragon-and-cow')
-		let g:startify_custom_header = split(fortune_vimtips#tooltipviewtips(), '\n') + readfile($VIMCONFIG . '/.vim-splash/vim.txt')
-	endif
-endfunction "}}}
-let g:startify_lists = [
-			\ { 'type': 'sessions', 'header': ['    Sessions']},
-			\ { 'type': 'files', 'header': ['    Most Recently Used']},
-			\ { 'type': 'dir', 'header': ['    Most Recently Used @ ' . getcwd()] },
-			\ { 'type': 'commands', 'header': ['    Commands']},
-			\ { 'type': 'bookmarks', 'header': ['    Bookmarks']},
-			\ ]
-nnoremap <Leader>sl :SLoad<CR>
-nnoremap <Leader>sv :SSave<CR>
-nnoremap <Leader>sd :SDelete<CR>
-nnoremap <Leader>sc :SClose<CR>
-nnoremap <Leader>ss :<C-u>call init#startify#main()<CR>
-" 3}}} mhinz/vim-startify "
-" 2}}} UI "
+" 2}}} Display "
 
 " SyntaxMarkUp {{{2 "
 "  {{{3 "
@@ -2370,6 +2268,9 @@ let g:polyglot_disabled = ['markdown', 'less']
 " vim-pandoc/vim-pandoc-syntax {{{3 "
 let g:pandoc#syntax#codeblocks#embeds#langs = ['octave', 'tex']
 " 3}}} vim-pandoc/vim-pandoc-syntax "
+" powerman/vim-plugin-AnsiEsc {{{ "
+nnoremap coa :AnsiEsc<CR>
+" }}} powerman/vim-plugin-AnsiEsc "
 " 2}}} SyntaxMarkUp "
 
 " SyntaxScript {{{2 "
@@ -2438,6 +2339,7 @@ let g:netrw_altfile = 1
 augroup init_text "{{{
 	autocmd!
 	autocmd VimEnter * autocmd BufRead,BufNewFile,BufEnter * execute &filetype ==# ''?'setfiletype text':''
+	autocmd BufRead,BufNewFile,BufEnter * execute &buftype ==# 'terminal'?'setfiletype floaterm':''
 	autocmd BufAdd * call s:bufadd()
 augroup END "}}}
 function! s:bufadd() "{{{
@@ -2456,12 +2358,14 @@ nnoremap <Leader>jj :<C-u>Defx `expand('%:p:h')[0] ==# '!'? getcwd(): expand('%:
 nnoremap <Leader>jJ :<C-u>Defx `getcwd()`<CR>
 nnoremap <Leader>jk :<C-u>Defx<Space>
 nnoremap <Leader>jz :<C-u>Defx `$HOME`/.local/share/Trash/files<CR>
+nnoremap <Leader>jZ :<C-u>Defx /tmp<CR>
 nnoremap <Leader>jd :<C-u>Defx `$HOME`/Documents<CR>
 nnoremap <Leader>jq :<C-u>Defx `$QQWORKSPACE`<CR>
 nnoremap <Leader>ju :<C-u>Defx `$UDISK`<CR>
 nnoremap <Leader>jU :<C-u>Defx /mnt/cdrom<CR>
 nnoremap <Leader>jv :<C-u>Defx `$VIMCONFIG`<CR>
 nnoremap <Leader>jp :<C-u>Defx /etc/portage/package.use<CR>
+nnoremap <Leader>jP :<C-u>Defx /var/tmp/portage<CR>
 nnoremap <Leader>jr :<C-u>Defx `$GITHUBWORKSPACE`/`$GITNAME`<CR>
 nnoremap <Leader>jR :<C-u>Defx `$GITWORKSPACE`/.cache/init.vim/.dein<CR>
 nnoremap <Leader>jt :<C-u>Defx `$HOME`/.texlive/texmf-var/tex/latex<CR>
@@ -3626,22 +3530,42 @@ let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
 " 2}}} Debug "
 
 " Terminal {{{2 "
-" voldikss/vim-floaterm {{{3 "
-let g:floaterm_autoclose = 1
-nnoremap <Leader>hh :<C-u>FloatermNew<CR>
-nnoremap <Leader>hH :<C-u>FloatermNew<Space>
-nnoremap <Leader>ho :<C-u>FloatermNew octave<CR>
-nnoremap <Leader>hj :<C-u>FloatermNew julia<CR>
-nnoremap <Leader>hp :<C-u>FloatermNew python<CR>
-nnoremap <Leader>hd :<C-u>FloatermNew node<CR>
-nnoremap <Leader>hq :<C-u>FloatermNew mysql<CR>
-nnoremap <Leader>hn :<C-u>FloatermNew nethack<CR>
-nnoremap <Leader>hz :<C-u>FloatermNew zsh<CR>
-nnoremap <CR> :<C-u>execute 'FloatermSend ' . getline('.')<CR><Down>
-xnoremap <CR> y:<C-u>FloatermSend <C-r>0<CR>
-nnoremap gs :<C-u>execute 'FloatermSend ' . getline('.')<CR><Down>
-xnoremap gs y:<C-u>FloatermSend <C-r>0<CR>
-" 3}}} voldikss/vim-floaterm "
+" sillybun/vim-repl {{{3 "
+let g:repl_program = {
+			\ 'default': &shell,
+			\ 'sh': executable('sh')? 'sh': &shell,
+			\ 'bash': executable('bash')? 'bash': &shell,
+			\ 'csh': executable('csh')? 'csh': &shell,
+			\ 'ksh': executable('ksh')? 'ksh': &shell,
+			\ 'wsh': executable('wsh')? 'wsh': &shell,
+			\ 'mash': executable('mash')? 'mash': &shell,
+			\ 'tcsh': executable('tcsh')? 'tcsh': &shell,
+			\ 'gnash': executable('gnash')? 'gnash': &shell,
+			\ 'fish': executable('fish')? 'fish': &shell,
+			\ 'zsh': executable('zsh')? 'zsh': &shell,
+			\ 'dosbatch': executable('cmd')? 'cmd': &shell,
+			\ 'ps1': executable('powershell')? 'powershell': &shell,
+			\ 'python': 'ptipython',
+			\ 'gnuplot': 'gnuplot',
+			\ 'octave': 'octave',
+			\ 'julia': 'julia --banner=no',
+			\ 'spice': 'spice',
+			\ }
+let g:repl_python_automerge = 1
+let g:repl_position = 1
+let g:repl_console_name = ''
+let g:sendtorepl_invoke_key = '<CR>'
+nnoremap <Leader>hh :<C-u>REPLToggle<CR>
+nnoremap <Leader>hH :<C-u>REPLToggle<Space>
+nnoremap <Leader>hg :<C-u>REPLToggle gnuplot<CR>
+nnoremap <Leader>ho :<C-u>REPLToggle octave<CR>
+nnoremap <Leader>hq :<C-u>REPLToggle mysql<CR>
+nnoremap <Leader>hp :<C-u>REPLToggle ptipython<CR>
+nnoremap <Leader>hj :<C-u>REPLToggle julia --banner=no<CR>
+nnoremap <Leader>hn :<C-u>REPLToggle node<CR>
+nnoremap <Leader>hk :<C-u>REPLToggle nethack<CR>
+nnoremap <Leader>hz :<C-u>REPLToggle zsh<CR>
+" 3}}} sillybun/vim-repl "
 " 2}}} Terminal "
 " 1}}} Program "
 

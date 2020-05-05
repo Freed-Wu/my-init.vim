@@ -6,6 +6,7 @@ augroup filetypedetect "{{{
 
 	" Text {{{2 "
 	autocmd BufNewFile,BufRead *.synctex.gz,*.synctex,*.rpt,*.fdb_latexmk,*.fls,*.blg,*.ilg,*.lock setfiletype log
+	autocmd BufNewFile,BufRead build.log setfiletype less
 	autocmd BufNewFile,BufRead *.cnx,*.jax,*.ptx setfiletype help
 	autocmd BufNewFile,BufRead *.txt execute 'set filetype='.(expand('%:p:t') == 'doc'?'help':'txt')
 	" 2}}} Text "
@@ -13,7 +14,7 @@ augroup filetypedetect "{{{
 	" Data_Exchange {{{2 "
 	autocmd BufNewFile,BufRead .mysql_history setfiletype sql
 	autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf setfiletype dosini
-	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc,*latexmkrc setfiletype conf
+	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc*,zathura-*,*latexmkrc setfiletype conf
 	autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 	autocmd BufNewFile,BufRead tags,tags-*,*.tags,*.tags.temp setfiletype tags
 	autocmd BufNewFile,BufRead *.sublime-project,*.vsconfig,*.jscsrc,*.jshintrc,*.plan setfiletype json

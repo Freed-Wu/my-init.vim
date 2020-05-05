@@ -2,7 +2,7 @@ scriptencoding utf-8
 
 function! init#which_key#main() "{{{
 	" <Leader> {{{ "
-	let g:which_key_map_leader = extend(g:which_key_map_leader, {
+	let g:which_key_map_leader = {
 				\ 'name': 'choose a key about global map',
 				\ ' ':{
 				\ 'name': '+motion',
@@ -71,16 +71,13 @@ function! init#which_key#main() "{{{
 				\ 'w':{
 				\ 'name': '+vimwiki',
 				\ },
-				\ 'x':{
-				\ 'name': '+execute',
-				\ },
 				\ 'y':{
 				\ 'name': '+happy',
 				\ },
 				\ 'z':{
 				\ 'name': '+language',
 				\ },
-				\ })
+				\ }
 	call which_key#register('<Space>', 'g:which_key_map_leader')
 	" }}} <Leader> "
 	" <LocalLeader> {{{ "

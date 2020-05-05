@@ -39,10 +39,8 @@ function! s:startify() "{{{
 	unmap <buffer> q
 endfunction "}}}
 
-command! -buffer -nargs=* -range FloatermNew
-			\| call floaterm#new(<q-args>, {}, {'curwin': 1, 'term_finish': 'close'}, &shell)
-			\| wincmd W
-			\| hide
+command! -buffer -nargs=? REPLToggle execute 'terminal ++close ++curwin <args>'
+			\| setfiletype floaterm
 command! -buffer -nargs=* -complete=customlist,calendar#argument#complete
 			\ Calendar call calendar#new(<q-args>.' -position=here')
 command! -buffer -nargs=? Splash enew

@@ -33,6 +33,11 @@ setlocal makeprg=pandoc\ -o\ %<.pdf\ %\ --filter\ pandoc-csv2table
 setlocal include=^\\s*!
 setlocal iskeyword+=-
 
+augroup pandoc "{{{
+	autocmd!
+	autocmd BufWinEnter *.md,*.markdown,*.mkd,*.pandoc setlocal concealcursor=
+augroup END "}}}
+
 nmap <buffer> <LocalLeader>j :<C-u>Pandoc! pdf --filter pandoc-csv2table<CR>
 if executable('tree')
 	if has('unix')

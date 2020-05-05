@@ -1,0 +1,24 @@
+priority -30
+
+snippet create "myUltiSnips" b
+create table $1(
+	$2
+);
+$0
+endsnippet
+
+snippet load "myUltiSnips" b
+load data infile '$1.csv'
+into table student
+fields terminated by ',' optionally enclosed by '"' escaped by '"'
+lines terminated by '\n';
+$0
+endsnippet
+
+snippet select "myUltiSnips" b
+select ${1:*}
+into outfile '$2.tsv'
+from $3
+$0
+endsnippet
+

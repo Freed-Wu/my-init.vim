@@ -3,26 +3,22 @@ let b:dir = ['\.ropeproject']
 let g:pymode_doc_bind = ''
 
 call textobj#user#map('python', {
-			\   'class': {
-			\     'select-a': '<buffer>ae',
-			\     'select-i': '<buffer>ie',
-			\     'move-p': '<buffer>[[',
-			\     'move-n': '<buffer>]]',
-			\   },
-			\   'function': {
-			\     'select-a': '<buffer>af',
-			\     'select-i': '<buffer>if',
-			\     'move-p': '<buffer>[m',
-			\     'move-n': '<buffer>]m',
-			\   }
+			\ 'class': {
+			\ 'select-a': '<buffer>ae',
+			\ 'select-i': '<buffer>ie',
+			\ 'move-p': '<buffer>[[',
+			\ 'move-n': '<buffer>]]',
+			\ },
+			\ 'function': {
+			\ 'select-a': '<buffer>af',
+			\ 'select-i': '<buffer>if',
+			\ 'move-p': '<buffer>[m',
+			\ 'move-n': '<buffer>]m',
+			\ }
 			\ })
 
 setlocal keywordprg=:Help
 
-"nnoremap <buffer> <LocalLeader>l :call LanguageClient_contextMenu()<CR>
-"nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
-"nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-"nnoremap <buffer> <silent> gD :call LanguageClient#textDocument_rename()<CR>
 nnoremap <buffer> <LocalLeader>u :PymodeRopeUndo<CR>
 nnoremap <buffer> <LocalLeader>U :PymodeRopeRedo<CR>
 nnoremap <buffer> <LocalLeader>i :PymodeRopeAutoImpor<CR>

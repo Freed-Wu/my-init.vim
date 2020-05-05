@@ -1,20 +1,25 @@
 function! init#help#main(word) "{{{
-	call delete('/tmp/'.&filetype)
+	let s:temp = '/tmp/' . &filetype
+	call delete(s:temp)
 	if &filetype ==# 'octave'
-		call vimproc#write('/tmp/'.&filetype, system('octave --eval "help '.a:word.'"'))
+		call writefile(split(system('octave --eval "help '.a:word.'"')), s:temp)
 	elseif &filetype ==# 'gnuplot'
-		call vimproc#write('/tmp/'.&filetype, system('gnuplot -e "help '.a:word.'"'))
+		call writefile(split(system('gnuplot -e "help '.a:word.'"')), s:temp)
 	elseif &filetype ==# 'python'
-		call vimproc#write('/tmp/'.&filetype, system('python -c "help('''.a:word.''')"'))
+		call writefile(split(system('python -c "help('''.a:word.''')"')), s:temp)
 	elseif &filetype =~# 'c\|sh\|bash\|zsh\|fish\|csh\|ksh\|wsh\|tcsh\|mush\|gnash'
-		call vimproc#write('/tmp/'.&filetype, system('man --pager=cat '.a:word))
+		call writefile(split(system('man --pager=cat '.a:word)), s:temp)
 	elseif &filetype =~# 'dosbatch\|ps1'
-		call vimproc#write('/tmp/'.&filetype, system('help '.a:word))
-	elseif &filetype =~# 'sql'
-		call vimproc#write('/tmp/'.&filetype, system('mysql -e "help '.a:word.'"'))
+		call writefile(split(system('help '.a:word)), s:temp)
+	elseif &filetype ==# 'mysql'
+		call writefile(split(system('mysql -e "help '.a:word.'"')), s:temp)
+	elseif &filetype ==# 'sql'
+		call writefile(split(system('mysql -e "help '.a:word.'"')), s:temp)
+	elseif &filetype ==# 'julia'
+		call writefile(split(system('julia -E "? '.a:word.'"')), s:temp)
 	else
-		call vimproc#write('/tmp/'.&filetype, 'No found!')
+		call writefile(split('No found!'), s:temp)
 	endif
-	call quickui#preview#open('/tmp/'.&filetype, {'title': a:word})
+	call quickui#preview#open(s:temp, {'title': a:word})
 endfunction "}}}
 

@@ -14,7 +14,7 @@ augroup tex "{{{
 				\| call init#clean#main(b:clean_temp)
 	autocmd User VimtexEventTocCreated setfiletype latextoc
 				\| call b:toc.set_syntax()
-	autocmd BufWinEnter *.tex setlocal concealcursor=
+	autocmd BufWinEnter *.tex,*.dtx,*.cls,*.sty,*.ins setlocal concealcursor=
 				\| setlocal iskeyword-=:
 augroup END "}}}
 
@@ -36,7 +36,11 @@ elseif expand('%:e') ==# 'mtx'
 				\ '%<.log', 'musixtex.log', 'pmxaerr.dat',
 				\ ]
 	setlocal makeprg=musixtex\ -t\ -F\ "xetex"\ %
-else
+elseif expand('%:e') ==# 'dtx'
+	setlocal makeprg=latexmk\ %<.ins
+elseif expand('%:e') ==# 'ins'
+	setlocal makeprg=latexmk\ %
+elseif expand('%:e') ==# 'tex'
 	setlocal makeprg=lualatex\ -initialize\ -shell-escape\ \"&xelatex\"\ mylatexformat.ltx\ \"\"%\"\"
 endif
 setlocal keywordprg=:silent\ !texdoc
