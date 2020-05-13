@@ -1,13 +1,13 @@
-if exists('g:loaded_%FILE%') || &cp
+if exists('g:loaded_%FILE%') || &cpoptions
   finish
 endif
 let g:loaded_%FILE% = 1
 
-let s:save_cpo = &cpo
-set cpo&vim
+let s:save_cpoptions = &cpoptions
+set cpoptions&vim
 
 %HERE%
 
-let &cpo = s:save_cpo
-unlet s:save_cpo
+let &cpoptions = s:save_cpoptions
+unlet s:save_cpoptions
 

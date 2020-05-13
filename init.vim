@@ -986,6 +986,8 @@ if dein#load_state($GITWORKSPACE)
 				\ 'if': executable('mutt'),
 				\ 'on_ft': 'mail',
 				\ })
+	call dein#add('Freed-Wu/gitdraw.vim')
+	call dein#add('Freed-Wu/asciiart')
 	" 5}}} Tool "
 
 	" Fortune {{{5 "
@@ -1178,7 +1180,7 @@ function! s:cowsay() "{{{
 		" let g:startify_custom_header = split(system('fortune | cowthink -f dragon-and-cow'), '\n')
 		" let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
 		" let g:startify_custom_header = cowsay#cowsay(split(fortune_vimtips#tooltipviewtips(), '\n'), 'dragon-and-cow')
-		let g:startify_custom_header = split(fortune_vimtips#tooltipviewtips(), '\n') + readfile($VIMCONFIG . '/.vim-splash/vim.txt')
+		let g:startify_custom_header = split(fortune_vimtips#tooltipviewtips(), '\n') + readfile($GITHUBWORKSPACE . '/Freed-Wu/asciiart/txt/mythology/103')
 	endif
 endfunction "}}}
 let g:startify_lists = [
@@ -1750,7 +1752,7 @@ nnoremap zi a<C-R>=g:Vimim_gi()<CR>
 nnoremap <Leader>zn :<C-u>call g:Vimim_search()<CR>n
 let g:Vimim_mode = 'dynamic'
 let g:Vimim_mycloud = 1
-let g:Vimim_plugin = $VIMCONFIG.'/.VimIM'
+let g:Vimim_plugin = $VIMDATA.'/.VimIM'
 let g:Vimim_shuangpin = 'ms'
 let g:Vimim_toggle = 'pinyin'
 nnoremap <Leader>z/ :<C-u>ViMiM<CR>
@@ -1760,7 +1762,7 @@ inoremap <C-^> <C-R>=Vimim_chinese()<CR>
 
 " MacroExplore {{{2 "
 " vim-scripts/marvim {{{3 "
-let g:marvim_store = $VIMCONFIG.'/.marvim'
+let g:marvim_store = $VIMDATA.'/.marvim'
 let g:marvim_find_key = 'q)'
 let g:marvim_store_key = 'q('
 let g:marvim_register = 'q'
@@ -1777,14 +1779,14 @@ nnoremap q_ :<C-u>MacroEdit<Space>
 nnoremap <Leader>vh :source $VIMRUNTIME/syntax/hitest.vim<CR>
 " 3}}}  "
 " reedes/vim-thematic {{{3 "
-source $VIMCONFIG/.vim-thematic/thematic.vim
+source $VIMDATA/thematic.vim
 augroup init_ThematicRandom "{{{
 	autocmd!
 	autocmd VimEnter * ThematicRandom
 				\| highlight Conceal guibg=NONE
 	autocmd ColorScheme * highlight Conceal guibg=NONE
 augroup END "}}}
-nnoremap <Leader>ue :colorscheme\| AirlineTheme\| set guifont\| echo g:Lf_StlColorscheme<CR>
+nnoremap <Leader>ue :colorscheme\| AirlineTheme\|execute has('gui_running')? 'set guifont':''\| echo g:Lf_StlColorscheme<CR>
 nnoremap <Leader>uq :call init#quickui#thematic#main()<CR>
 nnoremap cox :ThematicRandom<CR>
 nnoremap [X :ThematicPrevious<CR>
@@ -2188,8 +2190,8 @@ let g:airline#extensions#whitespace#conflicts_format = '%s'
 " 4}}} whitespace "
 " 3}}} bling/vim-airline "
 " Wildog/airline-weather.vim {{{3 "
-let g:weather#appid = readfile($VIMCONFIG.'/.airline-weather.vim/airline-weather.txt')[0]
-let g:weather#area = readfile($VIMCONFIG.'/.airline-weather.vim/airline-weather.txt')[1]
+let g:weather#appid = readfile($VIMDATA.'/airline-weather.txt')[0]
+let g:weather#area = readfile($VIMDATA.'/airline-weather.txt')[1]
 " 3}}} Wildog/airline-weather.vim "
 " Zuckonit/vim-airline-todo {{{3 "
 let g:todo#directory = $VIMDATA.'/.vim-airline-todo'
@@ -2333,7 +2335,7 @@ nnoremap z<Tab>e :<C-u>Fe<CR>
 " FileExplore {{{2 "
 "  {{{3 "
 set directory=$VIMDATA/swap
-let g:netrw_home = $VIMDATA
+let g:netrw_home = $VIMDATA . '/.netrw'
 let g:netrw_nogx = 1
 let g:netrw_altfile = 1
 augroup init_text "{{{
@@ -2360,10 +2362,14 @@ nnoremap <Leader>jk :<C-u>Defx<Space>
 nnoremap <Leader>jz :<C-u>Defx `$HOME`/.local/share/Trash/files<CR>
 nnoremap <Leader>jZ :<C-u>Defx /tmp<CR>
 nnoremap <Leader>jd :<C-u>Defx `$HOME`/Documents<CR>
+nnoremap <Leader>jD :<C-u>Defx `$HOME`/Desktop<CR>
+nnoremap <Leader>jK :<C-u>Defx `$HOME`/Pictures<CR>
 nnoremap <Leader>jq :<C-u>Defx `$QQWORKSPACE`<CR>
+nnoremap <Leader>jQ :<C-u>Defx `$HOME`/Downloads<CR>
 nnoremap <Leader>ju :<C-u>Defx `$UDISK`<CR>
 nnoremap <Leader>jU :<C-u>Defx /mnt/cdrom<CR>
 nnoremap <Leader>jv :<C-u>Defx `$VIMCONFIG`<CR>
+nnoremap <Leader>jV :<C-u>Defx `$VIMDATA`<CR>
 nnoremap <Leader>jp :<C-u>Defx /etc/portage/package.use<CR>
 nnoremap <Leader>jP :<C-u>Defx /var/tmp/portage<CR>
 nnoremap <Leader>jr :<C-u>Defx `$GITHUBWORKSPACE`/`$GITNAME`<CR>
@@ -2390,11 +2396,11 @@ nnoremap <Leader>bx :<C-u>call pandoc#hypertext#OpenSystem(expand('%'))<CR>
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_targets = '*'
 let g:rooter_patterns = [
-			\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
 			\ '.git/', '.svn/',
 			\ '.vs/', '.vscode/', '.idea/',
 			\ '.project', '.sublime-project',
 			\ '.latexmkrc', '.latexmain',
+			\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
 			\ ]
 let g:rooter_silent_chdir = 1
 let g:rooter_use_lcd = 1
@@ -2431,40 +2437,47 @@ nnoremap <Leader>bd :<C-u>DirDiff<Space>
 set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
 set autowrite
 set confirm
-nnoremap <Leader>gC :call init#clean#main(g:clean)<CR>
-let g:clean = ['.git', '.svn']
-nnoremap <Leader>gD :call init#clean#main(get(b:, 'clean', []))<CR>
-nnoremap <Leader>gX :call init#clean#main(get(b:, 'clean_temp', []))<CR>
+nnoremap <Leader>g! :call init#clean#main(b:clean)<CR>
+nnoremap <Leader>g~ :call init#clean#main(b:clean_temp)<CR>
 " 3}}}  "
 " tpope/vim-fugitive {{{3 "
 nnoremap <Leader>gg :G<CR>
-nnoremap <Leader>gi :<C-u>!git init<CR>
+nnoremap <Leader>gG :<C-u>!git init<CR>
 nnoremap <Leader>gc :<C-u>!git clone git@github.com:Freed-Wu/.git<Left><Left><Left><Left>
+nnoremap <Leader>gC :<C-u>!git clone<Space>
 nnoremap <Leader>gs :<C-u>!svn checkout https://github.com/Freed-Wu/trunk/<Left><Left><Left><Left><Left><Left>
+nnoremap <Leader>gS :<C-u>!svn checkout<Space>
 " 3}}} tpope/vim-fugitive "
 " tpope/vim-rhubarb {{{3 "
-nnoremap <Leader>gx :Gbrowse<CR>
-xnoremap <Leader>gx :Gbrowse<CR>
+nnoremap gX :Gbrowse<CR>
+xnoremap gX :Gbrowse<CR>
 " 3}}} tpope/vim-rhubarb "
-" junegunn/gv.vim {{{3 "
-nnoremap <Leader>gv :GV<CR>
-xnoremap <Leader>gv :GV<CR>
-nnoremap <Leader>g1 :GV!<CR>
-nnoremap <Leader>g2 :GV?<CR>
-xnoremap <Leader>g2 :GV?<CR>
-" 3}}} junegunn/gv.vim "
+" cohama/agit.vim {{{3 "
+nnoremap <Leader>gv :Agit<CR>
+xnoremap <Leader>gv :Agit<CR>
+nnoremap <Leader>gV :AgitFile<CR>
+" 3}}} cohama/agit.vim "
 " junegunn/vim-github-dashboard {{{3 "
 let g:github_dashboard = {
 			\ 'username': $GITNAME,
-			\ 'password': readfile($VIMCONFIG.'/.vim-github-dashboard/password.txt')[0]
+			\ 'password': readfile($VIMDATA.'/github-dashboard.txt')[0],
 			\ }
-nnoremap <Leader>gd :GHDashboard! Freed-Wu
-nnoremap <Leader>ga :GHActivity! Freed-Wu
-xnoremap <Leader>gd y:GHDashboard! <C-r>0<CR>
-xnoremap <Leader>ga y:GHActivity! <C-r>0<CR>
+nnoremap <Leader>gd :GHDashboard<CR>
+xnoremap <Leader>gd y:GHDashboard <C-r>0<CR>
+nnoremap <Leader>gD :GHDashboard <C-r><C-w><CR>
+nnoremap <Leader>ga :GHActivity<CR>
+xnoremap <Leader>ga y:GHActivity <C-r>0<CR>
+nnoremap <Leader>gA :GHActivity <C-r><C-w><CR>
 " 3}}} junegunn/vim-github-dashboard "
+" jaxbot/github-issues.vim {{{3 "
+let g:github_access_token = readfile($VIMDATA.'/github-issues.txt')[0]
+let g:gissues_lazy_load = 1
+nnoremap <Leader>gs :Gissues<CR>
+nnoremap <Leader>gp :Giadd<CR>
+nnoremap <Leader>gm :Gmiles<CR>
+" 3}}} jaxbot/github-issues.vim "
 " mhinz/vim-signify {{{3 "
-let g:signify_vcs_list = [ 'git', 'hg' ]
+let g:signify_vcs_list = ['git', 'hg', 'svn']
 nmap [g <plug>(signify-prev-hunk)
 nmap ]g <plug>(signify-next-hunk)
 nmap [G 9999<plug>(signify-prev-hunk)
@@ -2473,18 +2486,7 @@ omap ig <plug>(signify-motion-inner-pending)
 xmap ig <plug>(signify-motion-inner-visual)
 omap ag <plug>(signify-motion-outer-pending)
 xmap ag <plug>(signify-motion-outer-visual)
-nnoremap <Leader>gy :<C-u>SignifyToggle<CR>
-nnoremap <Leader>gY :<C-u>SignifyToggleHighlight<CR>
 " 3}}} mhinz/vim-signify "
-" cohama/agit.vim {{{3 "
-nnoremap <Leader>gt :Agit<CR>
-" 3}}} cohama/agit.vim "
-" jaxbot/github-issues.vim {{{3 "
-let g:github_access_token = readfile($VIMCONFIG.'/.github-issues.vim/github_access_token.txt')[0]
-let g:gissues_lazy_load = 1
-nnoremap <Leader>gs :Gissues<CR>
-nnoremap <Leader>gp :Giadd<CR>
-" 3}}} jaxbot/github-issues.vim "
 " mbbill/undotree {{{3 "
 let g:undotree_HelpLine = 0
 let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
@@ -3044,6 +3046,7 @@ nnoremap <C-r> :<C-U>call repeat#wrap("\<Lt>C-R>",v:count)<CR>
 "  {{{3 "
 set clipboard=unnamed
 set clipboard+=unnamedplus
+set clipboard+=autoselect
 " 3}}}  "
 " svermeulen/vim-yoink {{{3 "
 let g:yoinkSyncNumberedRegisters = 1
@@ -3215,7 +3218,7 @@ let g:disable_protodef_mapping = 1
 
 " Complete {{{2 "
 "  {{{3 "
-execute 'set thesaurus=' . substitute(glob($VIMCONFIG.'/.thesaurus/*'), '\n', ',', 'g')
+execute 'set thesaurus=' . substitute(glob($VIMDATA.'/.thesaurus/*'), '\n', ',', 'g')
 " 3}}}  "
 " mattn/emmet-vim {{{3 "
 let g:user_emmet_leader_key = g:maplocalleader
@@ -3255,7 +3258,7 @@ if has('pythonx')
 	" 3}}} Shougo/deoplete.nvim "
 endif
 " chrisbra/unicode.vim {{{3 "
-let g:Unicode_data_directory = $VIMCONFIG.'/.unicode'
+let g:Unicode_data_directory = $VIMDATA.'/.unicode.vim'
 " 3}}} chrisbra/unicode.vim "
 " ararslan/license-to-vim {{{3 "
 let g:license_email = $GITNAME
@@ -3341,7 +3344,7 @@ nnoremap <Leader>qz :CheckChinese<CR>
 nnoremap <Leader>zp :Pangu<CR>
 " 3}}} hotoo/pangu.vim "
 " dbmrq/vim-ditto {{{3 "
-let s:vim_ditto_config = $VIMCONFIG.'/.vim-ditto'
+let s:vim_ditto_config = $VIMDATA.'/.vim-ditto'
 let g:ditto_dir = s:vim_ditto_config
 nmap [w <Plug>DittoPrev
 nmap ]w <Plug>DittoNext
@@ -3469,9 +3472,9 @@ let g:csv_nomap_bs = 1
 " vim-scripts/dbext.vim {{{3 "
 let g:dbext_map_prefix = '<buffer><LocalLeader>'
 let g:dbext_default_type = 'mysql'
-let g:dbext_default_user = readfile($VIMCONFIG.'/.dbext/'.g:dbext_default_type.'.txt')[0]
-let g:dbext_default_passwd = readfile($VIMCONFIG.'/.dbext/'.g:dbext_default_type.'.txt')[1]
-let g:dbext_default_history_file = $VIMCONFIG.'/.dbext/dbext_sql_history.txt'
+let g:dbext_default_user = readfile($VIMDATA.'/dbext.txt')[0]
+let g:dbext_default_passwd = readfile($VIMDATA.'/dbext.txt')[1]
+let g:dbext_default_history_file = $HOME.'/.mysql_history'
 " 3}}} vim-scripts/dbext.vim "
 " 2}}} Database "
 
@@ -3581,10 +3584,15 @@ nmap g/ <Plug>(openbrowser-smart-search)
 xmap g/ <Plug>(openbrowser-smart-search)
 " 3}}} tyru/open-browser.vim "
 " ianding1/leetcode.vim {{{3 "
-let g:leetcode_username = readfile($VIMCONFIG.'/.leetcode.vim/leetcode.txt')[0]
-let g:leetcode_password = readfile($VIMCONFIG.'/.leetcode.vim/leetcode.txt')[1]
+let g:leetcode_username = readfile($VIMDATA.'/leetcode.txt')[0]
+let g:leetcode_password = readfile($VIMDATA.'/leetcode.txt')[1]
 let g:leetcode_china = 1
 " 3}}} ianding1/leetcode.vim "
+" Freed-Wu/gitdraw.vim {{{ "
+let g:gitdraw#author_name = $GITNAME
+let g:gitdraw#repeat_number = 13
+let g:gitdraw#repo_path = $GITHUBWORKSPACE . '/' . $GITNAME . '/git-drawing'
+" }}} Freed-Wu/gitdraw.vim "
 " 2}}} Tool "
 
 " Fortune {{{2 "

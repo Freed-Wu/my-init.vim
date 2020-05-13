@@ -39,14 +39,13 @@ augroup pandoc "{{{
 augroup END "}}}
 
 nmap <buffer> <LocalLeader>j :<C-u>Pandoc! pdf --filter pandoc-csv2table<CR>
-if executable('tree')
-	if has('unix')
-		nnoremap <buffer> <LocalLeader>o :.read !tree -a<CR>
-		nnoremap <buffer> <LocalLeader>O :.read !tree -d<CR>
-	else
-		nnoremap <buffer> <LocalLeader>o :.read !tree<CR>
-	endif
+if has('unix')
+	nnoremap <buffer> <LocalLeader>oa :.read !tree -a<CR>
+	nnoremap <buffer> <LocalLeader>od :.read !tree -d<CR>
+else
+	nnoremap <buffer> <LocalLeader>oa :.read !tree<CR>
 endif
+nnoremap <buffer> <LocalLeader>oo :.read !gh-md-toc %<CR>
 inoremap <nowait> <buffer> - -
 inoremap <nowait> <buffer> * *
 inoremap <nowait> <buffer> & <Space>&<Space>
