@@ -57,11 +57,11 @@ elseif has('win32')
 	setlocal path+=C:/Program\ Files/texlive/texmf-local/tex/latex/local
 endif
 if exists('$TEXRUNTIME')
-	setlocal path+=$TEXRUNTIME/**3
+	setlocal path+=$TEXRUNTIME/**4
 elseif has('unix')
-	setlocal path+=/usr/share/texmf-dist/**3
-elseif has('win32')
-	setlocal path+=C:/Program\ Files/texlive/2019/texmf-dist/**3
+	setlocal path+=/usr/share/texmf-dist/**4
+elseif has('win42')
+	setlocal path+=C:/Program\ Files/texlive/2019/texmf-dist/**4
 endif
 
 inoremap <buffer> -- <Space>--<Space>

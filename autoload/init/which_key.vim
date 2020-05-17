@@ -22,22 +22,8 @@ function! init#which_key#main() "{{{
 				\ 'g':{
 				\ 'name': '+git',
 				\ },
-				\ 'h':{
-				\ 'name': '+shell',
-				\ },
-				\ 'i':{
-				\ 'name': '+VisIncr',
-				\ },
-				\ 'j':{
-				\ 'name': '+defx',
-				\ },
 				\ 'm':{
 				\ 'name': '+vim-visual-multi',
-				\ },
-				\ 'n':{
-				\ 'name': '+snippets',
-				\ 'u': 'Ultisnips',
-				\ 's': 'SnippetMates',
 				\ },
 				\ 'p':{
 				\ 'name': '+plugin',
@@ -56,12 +42,6 @@ function! init#which_key#main() "{{{
 				\ '|': '\\→\',
 				\ 's': ' →',
 				\ },
-				\ 's':{
-				\ 'name': '+vim-startify&vim-splash',
-				\ },
-				\ 't':{
-				\ 'name': '+vim-template',
-				\ },
 				\ 'u':{
 				\ 'name': '+ui',
 				\ },
@@ -70,9 +50,6 @@ function! init#which_key#main() "{{{
 				\ },
 				\ 'w':{
 				\ 'name': '+vimwiki',
-				\ },
-				\ 'y':{
-				\ 'name': '+happy',
 				\ },
 				\ 'z':{
 				\ 'name': '+language',
@@ -181,12 +158,6 @@ function! init#which_key#main() "{{{
 				\ }
 	call which_key#register('yo', 'g:which_key_map_y_o')
 	" }}} yo "
-	" co {{{ "
-	let g:which_key_map_c_o = {
-				\ 'name': 'choose a key about toggle options',
-				\ }
-	call which_key#register('co', 'g:which_key_map_c_o')
-	" }}} co "
 	" i {{{ "
 	let g:which_key_map_i = {
 				\ 'name': 'choose a key about inner text object',

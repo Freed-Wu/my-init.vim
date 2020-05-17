@@ -1,5 +1,4 @@
 digraph G{
-	label = %FILE%
 	%HERE%
 }
 
