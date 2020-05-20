@@ -1,20 +1,3 @@
-let b:clean_temp = [
-			\ 'stderr.txt', 'stdout.txt',
-			\ '*.map', '*.obj', '*.lst', '*.crf', '*.bak',
-			\ '.vs', '.vscode', 'Debug', 'Release',
-			\ 'JLinkLog.txt',
-			\ '*.bak', '*.ddk', '*.edk', '*.lst', '*.lnp', '*.mpf',
-			\ '*.mpj', '*.obj', '*.omf', '*.plg', '*.rpt', '*.tmp',
-			\ '*.__i', '*.crf', '*.o', '*.d', '*.axf', '*.tra',
-			\ '*.dep', '*.iex', '*.htm', '*.sct', '*.map',
-			\ 'settings', '*.pbi', '*.xcl', '*.pbd', '*.browse',
-			\ '*.linf', '*.out', '*.sim', '*.wsdt', '*.wspos',
-			\ '*.ewt', '*.ewd', '*.dep',
-			\ '*.prefs', '*.launch', '*.ccxml', '.ccsproject',
-			\ 'targetConfigs', '.launches', '.settings',
-			\ ]
-let b:clean = b:clean_temp + ['*.exe', '*.out', '*.dll']
-
 source $GITHUBWORKSPACE/LucHermitte/VimFold4C/ftplugin/c/c-fold.vim
 
 call c#map#main()

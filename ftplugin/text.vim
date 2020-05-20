@@ -1,3 +1,7 @@
+let b:trailguide = 1
+
+setlocal colorcolumn=
+
 if expand('%') ==# 'highlight test'
 	call init#map#main()
 	finish

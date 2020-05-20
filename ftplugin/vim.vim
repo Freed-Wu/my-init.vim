@@ -27,9 +27,6 @@ execute 'nnoremap <buffer> <LocalLeader>lc :<C-u>Leaderf file '.$VIMCONFIG.' --i
 execute 'nnoremap <buffer> <LocalLeader>ld :<C-u>Leaderf file '.$VIMDATA.' --input=.vim<CR>'
 execute 'nnoremap <buffer> <LocalLeader>lr :<C-u>Leaderf file '.$GITHUBWORKSPACE.' --input=.vim<CR>'
 execute 'nnoremap <buffer> <LocalLeader>lf :<C-u>Leaderf file '.$GITWORKSPACE.'/.cache/ --input=.vim<CR>'
-inoremap <nowait><buffer> & &
-inoremap <nowait><buffer> < <
-inoremap <nowait><buffer> > >
 omap <buffer> aL <Plug>(textobj-continuous-vim-a)
 xmap <buffer> aL <Plug>(textobj-continuous-vim-a)
 omap <buffer> iL <Plug>(textobj-continuous-vim-i)

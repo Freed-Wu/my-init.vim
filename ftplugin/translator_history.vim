@@ -1,2 +1,2 @@
-TrailGuide hide
+let b:trailguide = 1
 

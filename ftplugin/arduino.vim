@@ -1,8 +1,3 @@
-let b:clean = [
-			\ '*.filters', '*.user', '.vs',
-			\ 'Debug', 'Release', 'x86', 'x64', '__vm',
-			\ ]
-
 call c#map#main()
 
 setlocal makeprg=arduino_debug\ %:p

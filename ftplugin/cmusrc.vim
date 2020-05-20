@@ -1,2 +1,0 @@
-inoremap <nowait><buffer> - -
-

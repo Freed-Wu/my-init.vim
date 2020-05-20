@@ -1,15 +1,14 @@
-if !exists('b:trailguide')
-	let b:trailguide = 0
-	TrailGuide hide
-endif
+let b:trailguide = 0
+
+TrailGuide hide
 
 call init#map#main()
 
 nmap <buffer> <C-w>o <C-w>o<Plug>(calendar_redraw)
 nunmap <buffer> q
 nunmap <buffer> Q
-nmap <buffer> <M-q> <Plug>(calendar_hide)
-nmap <buffer> <C-q> <Plug>(calendar_exit)
+nmap <buffer> ZZ <Plug>(calendar_hide)
+nmap <buffer> ZQ <Plug>(calendar_exit)
 nunmap <buffer> t
 nunmap <buffer> T
 nunmap <buffer> E

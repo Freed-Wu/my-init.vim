@@ -1,3 +1,6 @@
+let b:trailguide = 0
+TrailGuide hide
+
 setlocal tabstop=2
 setlocal shiftwidth=2
 

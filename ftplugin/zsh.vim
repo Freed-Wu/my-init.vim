@@ -1,5 +1,3 @@
 setlocal foldmethod=marker
 setlocal path+=~/.zinit/plugins/ohmyzsh---ohmyzsh/custom/plugins/
 
-inoremap <buffer> = =
-

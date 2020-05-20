@@ -194,7 +194,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'if': &encoding ==# 'utf-8',
 				\ })
 	call dein#add('mattn/webapi-vim', {
-				\ 'on_source': ['airline-weather.vim', 'excelview-vim'],
+				\ 'on_source': ['airline-weather.vim', 'excelview-vim', 'vim-splash'],
 				\ 'if': executable('wget') || executable('curl'),
 				\ })
 	call dein#add('Wildog/airline-weather.vim')
@@ -214,7 +214,6 @@ if dein#load_state($GITWORKSPACE)
 				\ 'if': has('gui_win32'),
 				\ })
 	call dein#add('mattn/transparency-windows-vim', {
-				\ 'depends': 'mattn/vimtweak',
 				\ 'if': has('gui_win32'),
 				\ })
 	call dein#add('t9md/vim-macvim-transparency', {
@@ -222,6 +221,7 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('Kjwon15/vim-transparent', {
 				\ 'on_if': !has('gui_running'),
+				\ 'on_cmd': 'ClearBackground',
 				\ })
 	call dein#add('thinca/vim-splash', {
 				\ 'on_cmd': 'Splash',
@@ -309,20 +309,17 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('Shougo/defx.nvim', {
 				\ 'if': has('python3'),
-				\ 'on_source': 'vim-defx-vista',
 				\ 'on_cmd': 'Defx',
-				\ 'hook_post_source': join([
-				\ 'call init#defx#main()',
-				\ ], "\n"),
 				\ })
 	call dein#add('linjiX/vim-defx-vista', {
 				\ 'on_cmd': 'ToggleDefxVista',
 				\ })
-	call dein#add('kristijanhusak/defx-git', {
-				\ 'on_ft': 'defx',
-				\ })
+	call dein#add('kristijanhusak/defx-git')
 	call dein#add('kristijanhusak/defx-icons', {
-				\ 'on_ft': 'defx',
+				\ 'on_source': 'defx.nvim',
+				\ 'hook_post_source': join([
+				\ 'call init#defx#main()',
+				\ ], "\n"),
 				\ })
 	" 5}}} FileExplore "
 
@@ -740,6 +737,9 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('kana/vim-smartinput', {
 				\ 'on_event': 'InsertEnter',
 				\ 'on_func': ['smartinput#map_to_trigger', 'smartinput#define_rule'],
+				\ 'hook_post_source': join([
+				\ 'call init#smartinput#main()',
+				\ ], "\n"),
 				\ })
 	call dein#add('tpope/vim-surround', {
 				\ 'on_map': {'n': ['<Plug>Dsurround',
@@ -861,6 +861,7 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('jceb/vim-orgmode')
 	call dein#add('liuchengxu/graphviz.vim')
+	call dein#add('tpope/vim-haml')
 	" 5}}} MarkUp "
 
 	" Office {{{5 "
@@ -917,6 +918,7 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('WolfgangMehner/lua-support', {
 				\ 'on_ft': 'lua',
 				\ })
+	call dein#add('PProvost/vim-ps1')
 	" 5}}} Script "
 
 	" Compile {{{5 "
@@ -956,6 +958,9 @@ if dein#load_state($GITWORKSPACE)
 	" Terminal {{{5 "
 	call dein#add('sillybun/vim-repl', {
 				\ 'on_cmd': 'REPLToggle',
+				\ })
+	call dein#add('edkolev/promptline.vim', {
+				\ 'on_cmd': 'PromptlineSnapshot',
 				\ })
 	" 5}}} Terminal "
 	" 4}}} Program "
@@ -1021,14 +1026,12 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': 'NewGame2048',
 				\ })
 	call dein#add('rbtnn/game_engine.vim', {
-				\ 'on_cmd': ['Mario', 'Puyo'],
+				\ 'on_cmd': 'GameEngineStartGame',
 				\ })
 	call dein#add('rbtnn/mario.vim', {
-				\ 'depends': 'rbtnn/game_engine.vim',
 				\ 'on_cmd': 'Mario',
 				\ })
 	call dein#add('rbtnn/puyo.vim', {
-				\ 'depends': 'rbtnn/game_engine.vim',
 				\ 'on_cmd': 'Puyo',
 				\ })
 	call dein#add('vim/killersheep', {
@@ -1769,7 +1772,7 @@ if has('pythonx')
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_exclude_filetypes = ['help', 'man', 'less', 'duzzle', 'startify', 'python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'floaterm', 'defx']
+let g:indent_guides_exclude_filetypes = ['help', 'man', 'less', 'duzzle', 'startify', 'calendar', 'python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'floaterm', 'defx']
 " 3}}} nathanaelkane/vim-indent-guides "
 " dbmrq/vim-redacted {{{3 "
 nmap gz <Plug>Redact
@@ -2150,14 +2153,16 @@ let g:todo#suffix = ''
 
 " Display {{{2 "
 "  {{{3 "
-set columns=999
-if has('gui_running') && has('win32')
-	augroup init_simalt "{{{
-		autocmd!
-		autocmd VimEnter * simalt ~x
-	augroup END "}}}
+if has('gui_running')
+	set lines=99
+	set columns=999
+	if has('win32')
+		augroup init_simalt "{{{
+			autocmd!
+			autocmd VimEnter * simalt ~x
+		augroup END "}}}
+	endif
 endif
-set lines=99
 set lazyredraw
 set cursorcolumn
 set cursorline
@@ -2192,6 +2197,12 @@ augroup init_Goyo "{{{
 	autocmd! User GoyoLeave Limelight!
 augroup END "}}}
 " 3}}} junegunn/limelight.vim "
+" Kjwon15/vim-transparent {{{3  "
+augroup init_transparent "{{{
+	autocmd!
+	autocmd BufWinEnter * execute has('gui_running') ? '' : 'ClearBackground'
+augroup END "}}}
+" 3}}} Kjwon15/vim-transparent "
 " 2}}} Display "
 
 " SyntaxMarkUp {{{2 "
@@ -2986,39 +2997,9 @@ xmap gcc <Plug>(caw:hatpos:toggle:operator)
 " 2}}} Abbreviate "
 
 " Insert {{{2 "
-"  {{{3 "
-inoremap , ,<C-g>u<Space>
-inoremap ; ;<C-g>u
-inoremap : :<C-g>u
-inoremap ! !<C-g>u<Space>
-inoremap ? ?<C-g>u<Space>
-inoremap + <Space>+<Space>
-inoremap ++ ++
-inoremap += <Space>+=<Space>
-inoremap - <Space>-<Space>
-inoremap -- --
-inoremap -= <Space>-=<Space>
-inoremap = <Space>=<Space>
-inoremap == <Space>==<Space>
-inoremap != <Space>!=<Space>
-inoremap > <Space>><Space>
-inoremap >=  <Space>>=<Space>
-inoremap < <Space><<Space>
-inoremap <=  <Space><=<Space>
-inoremap * <Space>*<Space>
-inoremap ** <Space>**<Space>
-inoremap *. *.
-inoremap & <Space>&<Space>
-inoremap && <Space>&&<Space>
-inoremap <Bar> <Space><Bar><Space>
-inoremap <Bar><Bar> <Space><Bar><Bar><Space>
-inoremap （ （）<Left>
-inoremap 《 《》<Left>
-inoremap 【 【】<Left>
-inoremap 〖 〖〗<Left>
-inoremap ‘ ‘’<Left>
-inoremap “ “”<Left>
-" 3}}}  "
+" kana/vim-smartinput {{{3 "
+let g:smartinput_break_undo = 1
+" 3}}} kana/vim-smartinput "
 " tpope/vim-surround {{{3 "
 let g:surround_no_mappings = 1
 nmap ds <Plug>Dsurround
