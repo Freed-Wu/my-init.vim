@@ -7,6 +7,36 @@ function! init#smartinput#main() "{{{
 	inoremap ‘ ‘’<Left>
 	inoremap “ “”<Left>
 	inoremap ：： ；
+	" call smartinput#map_to_trigger('i', '（', '（', '（')
+	" call smartinput#define_rule({
+	"			\ 'at': '\%#',
+	"			\ 'char': '（',
+	"			\ 'input': '（）<Left>',
+	"			\ })
+	" call smartinput#map_to_trigger('i', '《', '《', '《')
+	" call smartinput#define_rule({
+	"			\ 'at': '\%#',
+	"			\ 'char': '《',
+	"			\ 'input': '《》<Left>',
+	"			\ })
+	" call smartinput#map_to_trigger('i', '【', '【', '【')
+	" call smartinput#define_rule({
+	"			\ 'at': '\%#',
+	"			\ 'char': '【',
+	"			\ 'input': '【】<Left>',
+	"			\ })
+	" call smartinput#map_to_trigger('i', '‘', '‘', '‘')
+	" call smartinput#define_rule({
+	"			\ 'at': '\%#',
+	"			\ 'char': '‘',
+	"			\ 'input': '‘’<Left>',
+	"			\ })
+	" call smartinput#map_to_trigger('i', '“', '“', '“')
+	" call smartinput#define_rule({
+	"			\ 'at': '\%#',
+	"			\ 'char': '“',
+	"			\ 'input': '“”<Left>',
+	"			\ })
 
 	" c {{{ "
 	call smartinput#map_to_trigger('i', '=', '=', '=')
@@ -49,7 +79,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '-',
 				\ 'input': '-',
-				\ 'filetype': ['muttrc', 'json', 'gentoo-make-conf', 'gentoo-package-use', 'cmusrc', 'pandoc', 'markdown', 'gfimarkdown'],
+				\ 'filetype': ['vim', 'muttrc', 'json', 'gentoo-make-conf', 'gentoo-package-use', 'cmusrc', 'pandoc', 'markdown', 'gfimarkdown'],
 				\ })
 	call smartinput#map_to_trigger('i', '--', '--', '--')
 	call smartinput#define_rule({
@@ -68,6 +98,12 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '/',
 				\ 'input': ' / ',
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '/',
+				\ 'input': '/',
+				\ 'filetype': ['text', 'txt', 'vim'],
 				\ })
 	call smartinput#map_to_trigger('i', '+=', '+=', '+=')
 	call smartinput#define_rule({
@@ -229,6 +265,12 @@ function! init#smartinput#main() "{{{
 				\ 'char': '>',
 				\ 'input': ' > ',
 				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '>',
+				\ 'input': '>',
+				\ 'filetype': ['vim', 'html', 'xhtml', 'pandoc', 'markdown', 'gfimarkdown', 'liquid'],
+				\ })
 	call smartinput#map_to_trigger('i', '>=', '>=', '>=')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -378,12 +420,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '!',
 				\ 'input': '! ',
-				\ })
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '!',
-				\ 'input': '!',
-				\ 'filetype': ['tex', 'plaintex', 'context'],
+				\ 'filetype': ['text', 'txt', 'pandoc', 'markdown', 'gfimarkdown'],
 				\ })
 	call smartinput#map_to_trigger('i', '?', '?', '?')
 	call smartinput#define_rule({
@@ -437,7 +474,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': ':',
 				\ 'input': ':',
-				\ 'filetype': ['octave', 'matlab', 'julia', 'vim'],
+				\ 'filetype': ['octave', 'matlab', 'julia', 'vim', 'text', 'txt'],
 				\ })
 	" }}} text "
 	" tex {{{ "

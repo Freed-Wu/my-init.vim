@@ -9,30 +9,15 @@ snippet script "myUltiSnips" b
 scriptencoding utf-8
 $0
 endsnippet
-snippet ' :' "myUltiSnips" ir
- :<C-u>$0
-endsnippet
 snippet '"?\s*fold' "myUltiSnips" br
 `!p snip.rv = get_comment_format()[0]` ${1:${VISUAL}} `!p snip.rv = foldmarker()[0]`${2:3} `!p snip.rv = get_comment_format()[2]`
 $0
 `!p snip.rv = get_comment_format()[0]` $2`!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
 endsnippet
-snippet ' \* ' "myUltiSnips" ir
-*.$0
-endsnippet
-snippet \ "myUltiSnips" i
-\| $0
-endsnippet
 snippet f "myUltiSnips" b
 function! init#${1:`!p snip.rv=snip.basename or "fileName"`}#main($2) "{{{
 	$0
 endfunction "}}}
-endsnippet
-snippet make "myUltiSnips" b
-setlocal makeprg=${VISUAL}$1\ %:p$0
-endsnippet
-snippet hi "myUltiSnips" b
-highlight $1 gui${1:f}g=$2${3: guibg=}$0
 endsnippet
 snippet au "myUltiSnips" b
 augroup init_$1 "{{{
@@ -51,9 +36,6 @@ map <buffer>$0
 endsnippet
 snippet exe "myUltiSnips" i
 execute '${1:normal!$2 }$3'$0
-endsnippet
-snippet exi "myUltiSnips" i
-exists('${1:${VISUAL}}')$0
 endsnippet
 snippet toggle "myUltiSnips" b
 function! init#$1_toggle#main() "{{{

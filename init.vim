@@ -41,6 +41,9 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': ['PP', 'PPmsg', 'Runtime', 'Time', 'Verbose', 'Vedit', 'Vopen', 'Vread', 'Vsplit', 'Vvsplit', 'Vtabedit', 'Vpedit', 'Messages', 'Scriptnames', 'Breakadd', 'Breakdel', 'Disarm'],
 				\ 'on_map': ['<Plug>ScripteaseHelp','<Plug>ScripteaseFilter', '<Plug>ScripteaseSynnames']
 				\ })
+	call dein#add('junegunn/vader.vim', {
+				\ 'on_cmd': 'Vader',
+				\ })
 	" 5}}} PluginDetect "
 	" 4}}} Plugin "
 
@@ -310,6 +313,9 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('Shougo/defx.nvim', {
 				\ 'if': has('python3'),
 				\ 'on_cmd': 'Defx',
+				\ 'hook_post_source': join([
+				\ 'call init#defx#main()',
+				\ ], "\n"),
 				\ })
 	call dein#add('linjiX/vim-defx-vista', {
 				\ 'on_cmd': 'ToggleDefxVista',
@@ -317,9 +323,6 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('kristijanhusak/defx-git')
 	call dein#add('kristijanhusak/defx-icons', {
 				\ 'on_source': 'defx.nvim',
-				\ 'hook_post_source': join([
-				\ 'call init#defx#main()',
-				\ ], "\n"),
 				\ })
 	" 5}}} FileExplore "
 
@@ -751,7 +754,6 @@ if dein#load_state($GITWORKSPACE)
 				\ },
 				\ })
 	call dein#add('aprilwade/auto_operator_spacing.vim', {
-				\ 'if': exists('v:none'),
 				\ 'on_ft': ['coq', 'elm', 'haskell', 'python', 'rust'],
 				\ })
 	call dein#add('feix760/autospace.vim', {
@@ -957,7 +959,12 @@ if dein#load_state($GITWORKSPACE)
 
 	" Terminal {{{5 "
 	call dein#add('sillybun/vim-repl', {
+				\ 'if': !has('nvim'),
 				\ 'on_cmd': 'REPLToggle',
+				\ })
+	call dein#add('voldikss/vim-floaterm', {
+				\ 'if': has('nvim'),
+				\ 'on_cmd': 'FloatermToggle',
 				\ })
 	call dein#add('edkolev/promptline.vim', {
 				\ 'on_cmd': 'PromptlineSnapshot',
@@ -2278,18 +2285,6 @@ set directory=$VIMDATA/swap
 let g:netrw_home = $VIMDATA . '/.netrw'
 let g:netrw_nogx = 1
 let g:netrw_altfile = 1
-augroup init_text "{{{
-	autocmd!
-	autocmd VimEnter * autocmd BufRead,BufNewFile,BufEnter * execute &filetype ==# ''?'setfiletype text':''
-	autocmd BufRead,BufNewFile,BufEnter * execute &buftype ==# 'terminal'?'setfiletype floaterm':''
-	autocmd BufAdd * call s:bufadd()
-augroup END "}}}
-function! s:bufadd() "{{{
-	if &buftype !=# 'terminal'
-		set modifiable
-		set noreadonly
-	endif
-endfunction "}}}
 " 3}}}  "
 " Shougo/defx.nvim {{{3 "
 augroup init_defx "{{{
@@ -2297,6 +2292,12 @@ augroup init_defx "{{{
 	autocmd FileType defx source $VIMCONFIG/ftplugin/defx.vim
 augroup END "}}}
 " 3}}} Shougo/defx.nvim "
+" kristijanhusak/defx-icons {{{3 "
+augroup init_defx_icons "{{{
+	autocmd!
+	autocmd VimEnter * call init#defx_icons#main()
+augroup END "}}}
+" 3}}} kristijanhusak/defx-icons "
 " 2}}} FileExplore "
 
 " FileEdit {{{2 "
@@ -3104,8 +3105,8 @@ augroup init_coc "{{{
 	autocmd InsertLeave * execute 'normal! zv'
 augroup END "}}}
 inoremap <silent><expr> <TAB>
-			\ coc#expandableOrJumpable() ? '\<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])\<CR>' :
-			\ init#check_back_space#main() ? '<Tab>' :
+			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+			\ init#check_back_space#main() ? "\<TAB>" :
 			\ coc#refresh()
 nnoremap <Leader>po :CocInstall coc-
 " 3}}} neoclide/coc.nvim "
@@ -3317,6 +3318,20 @@ let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
 " 2}}} Debug "
 
 " Terminal {{{2 "
+"  {{{3 "
+augroup init_text "{{{
+	autocmd!
+	autocmd VimEnter * autocmd BufRead,BufNewFile,BufEnter * execute &filetype ==# ''?'setfiletype text':''
+	autocmd BufRead,BufNewFile,BufEnter * execute &buftype ==# 'terminal'?'setfiletype floaterm':''
+	autocmd BufAdd * call s:bufadd()
+augroup END "}}}
+function! s:bufadd() "{{{
+	if &buftype !=# 'terminal'
+		set modifiable
+		set noreadonly
+	endif
+endfunction "}}}
+" 3}}}  "
 " sillybun/vim-repl {{{3 "
 let g:repl_program = {
 			\ 'default': &shell,
@@ -3343,6 +3358,14 @@ let g:repl_position = 1
 let g:repl_console_name = ''
 let g:sendtorepl_invoke_key = '<CR>'
 " 3}}} sillybun/vim-repl "
+" voldikss/vim-floaterm {{{3 "
+let g:floaterm_keymap_new = '<C-\>0'
+let g:floaterm_keymap_prev = '<C-\>k'
+let g:floaterm_keymap_next = '<C-\>j'
+let g:floaterm_keymap_toggle = '<C-\><C-\>'
+nnoremap <CR> :execute 'FloatermSend ' . getline('.')<CR>
+xnoremap <CR> y:FloatermSend <C-r>0<CR>
+" 3}}} voldikss/vim-floaterm "
 " 2}}} Terminal "
 " 1}}} Program "
 

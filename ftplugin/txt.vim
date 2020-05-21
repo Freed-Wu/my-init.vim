@@ -1,5 +1,7 @@
 scriptencoding utf-8
 
+setlocal colorcolumn=+1
+
 if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~# $USER
 	setlocal nomodifiable
 	setlocal readonly

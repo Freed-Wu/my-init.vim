@@ -78,17 +78,18 @@ function! init#quickui#main() "{{{
 				\ ['&UDISK', 'Defx `$UDISK`'],
 				\ ['&Mount', 'Defx /mnt/cdrom'],
 				\ ])
+	let l:repl = has('nvim') ? 'FloatermNew' : 'REPLToggle'
 	call quickui#menu#install('&Repl', [
-				\ ['&Repl','REPLToggle'],
-				\ ['&Gnuplot','REPLToggle gnuplot'],
-				\ ['&Octave', 'REPLToggle octave'],
-				\ ['&Mysql', 'REPLToggle mysql'],
-				\ ['&Ptipython', 'REPLToggle ptipython'],
-				\ ['Juli&a', 'REPLToggle julia --banner=no'],
-				\ ['&Node', 'REPLToggle node'],
-				\ ['&Zsh', 'REPLToggle zsh'],
+				\ ['&Repl', l:repl],
+				\ ['&Gnuplot', l:repl . ' gnuplot'],
+				\ ['&Octave', l:repl . ' octave'],
+				\ ['&Mysql', l:repl . ' mysql'],
+				\ ['&Ptipython', l:repl . ' ptipython'],
+				\ ['Juli&a', l:repl . ' julia --banner=no'],
+				\ ['&Node', l:repl . ' node'],
+				\ ['&Zsh', l:repl . ' zsh'],
 				\ ['--',''],
-				\ ['Netha&ck', 'REPLToggle nethack'],
+				\ ['Netha&ck', l:repl . ' nethack'],
 				\ ])
 	call quickui#menu#install('&Template', [
 				\ ['&Open a snippet', 'CocCommand snippets.openSnippetFiles'],
