@@ -31,8 +31,8 @@ function! init#unimpaired#main() "{{{
 	nnoremap yoL :setlocal linebreak! linebreak?<CR>
 	nnoremap [oL :setlocal linebreak<CR>
 	nnoremap ]oL :setlocal nolinebreak<CR>
-	nnoremap yot :<C-u>execute 'setlocal textwidth='.(&textwidth?0:80)<CR>\| :setlocal textwidth<CR>
-	nnoremap [ot :<C-u>setlocal textwidth=80<CR>
+	nnoremap yot :<C-u>let &l:textwidth = &textwidth ? 0 : (g:textwidth)<CR>\| :setlocal textwidth<CR>
+	nnoremap [ot :<C-u>let &l:textwidth = g:textwidth<CR>
 	nnoremap ]ot :<C-u>setlocal textwidth=0<CR>
 	nnoremap yo` :<C-u>set fileformat=unix<CR>
 	nnoremap yo1 :<C-u>set fileformat=dos<CR>
@@ -43,32 +43,33 @@ function! init#unimpaired#main() "{{{
 	nnoremap yom :execute exists('b:nomap')?'unlet b:nomap':'let b:nomap = 1'\| call init#map#main()<CR>
 	nnoremap [om :let b:nomap = 1\| call init#map#main()<CR>
 	nnoremap ]om :let b:nomap = 1\| unlet b:nomap\| call init#map#main()<CR>
-	" drmikehenry/vim-fontsize {{{3 "
-	nmap [of  <Plug>FontsizeBegin<Plug>FontsizeDec
-	nmap ]of  <Plug>FontsizeBegin<Plug>FontsizeInc
-	nmap yof  <Plug>FontsizeDefault
-	" 3}}} drmikehenry/vim-fontsize "
-	nnoremap yog :set guifont=*<CR>
-	nnoremap yok :execute 'set guioptions'.(&guioptions !~# 'm'?'+':'-').'=m'<CR>
-	nnoremap [ok :set guioptions+=m<CR>
-	nnoremap ]ok :set guioptions-=m<CR>
-	nnoremap yoK :execute 'set guioptions'.(&guioptions !~# 'T'?'+':'-').'=T'<CR>
-	nnoremap [oK :set guioptions+=T<CR>
-	nnoremap ]oK :set guioptions-=T<CR>
-	nnoremap yoj :execute 'set guioptions'.(&guioptions !~# 'b'?'+':'-').'=b'<CR>
-	nnoremap [oj :set guioptions+=b<CR>
-	nnoremap ]oj :set guioptions-=b<CR>
-	nnoremap yo[ :execute 'set guioptions'.(&guioptions !~# 'l'?'+':'-').'=l'<CR>
-	nnoremap [o[ :set guioptions+=l<CR>
-	nnoremap ]o[ :set guioptions-=l<CR>
-	nnoremap yo] :execute 'set guioptions'.(&guioptions !~# 'r'?'+':'-').'=r'<CR>
-	nnoremap [o] :set guioptions+=r<CR>
-	nnoremap ]o] :set guioptions-=r<CR>
-	nnoremap yo{ :execute 'set guioptions'.(&guioptions !~# 'L'?'+':'-').'=L'<CR>
-	nnoremap [o{ :set guioptions+=L<CR>
-	nnoremap ]o{ :set guioptions-=L<CR>
-	nnoremap yo} :execute 'set guioptions'.(&guioptions !~# 'R'?'+':'-').'=R'<CR>
-	nnoremap [o} :set guioptions+=R<CR>
-	nnoremap ]o} :set guioptions-=R<CR>
+	if has('gui_running')
+		" drmikehenry/vim-fontsize {{{3 "
+		nmap [of  <Plug>FontsizeBegin<Plug>FontsizeDec
+		nmap ]of  <Plug>FontsizeBegin<Plug>FontsizeInc
+		nmap yof  <Plug>FontsizeDefault
+		" 3}}} drmikehenry/vim-fontsize "
+		nnoremap yok :execute 'set guioptions'.(&guioptions !~# 'm'?'+':'-').'=m'<CR>
+		nnoremap [ok :set guioptions+=m<CR>
+		nnoremap ]ok :set guioptions-=m<CR>
+		nnoremap yoK :execute 'set guioptions'.(&guioptions !~# 'T'?'+':'-').'=T'<CR>
+		nnoremap [oK :set guioptions+=T<CR>
+		nnoremap ]oK :set guioptions-=T<CR>
+		nnoremap yoj :execute 'set guioptions'.(&guioptions !~# 'b'?'+':'-').'=b'<CR>
+		nnoremap [oj :set guioptions+=b<CR>
+		nnoremap ]oj :set guioptions-=b<CR>
+		nnoremap yo[ :execute 'set guioptions'.(&guioptions !~# 'l'?'+':'-').'=l'<CR>
+		nnoremap [o[ :set guioptions+=l<CR>
+		nnoremap ]o[ :set guioptions-=l<CR>
+		nnoremap yo] :execute 'set guioptions'.(&guioptions !~# 'r'?'+':'-').'=r'<CR>
+		nnoremap [o] :set guioptions+=r<CR>
+		nnoremap ]o] :set guioptions-=r<CR>
+		nnoremap yo{ :execute 'set guioptions'.(&guioptions !~# 'L'?'+':'-').'=L'<CR>
+		nnoremap [o{ :set guioptions+=L<CR>
+		nnoremap ]o{ :set guioptions-=L<CR>
+		nnoremap yo} :execute 'set guioptions'.(&guioptions !~# 'R'?'+':'-').'=R'<CR>
+		nnoremap [o} :set guioptions+=R<CR>
+		nnoremap ]o} :set guioptions-=R<CR>
+	endif
 endfunction "}}}
 

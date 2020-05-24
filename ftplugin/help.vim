@@ -1,10 +1,5 @@
-if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~# $GITNAME
-	setlocal nomodifiable
-	setlocal readonly
-	call init#map#main()
-endif
-
 call vim#map#main()
+call init#set#main()
 
 setlocal nonumber
 setlocal norelativenumber

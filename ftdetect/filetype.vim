@@ -12,8 +12,9 @@ augroup filetypedetect "{{{
 	" 2}}} Text "
 
 	" Data_Exchange {{{2 "
-	autocmd BufNewFile,BufRead .mysql_history setfiletype sql
-	autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf setfiletype dosini
+	autocmd BufNewFile,BufRead *.db setfiletype sql
+	autocmd BufNewFile,BufRead .mysql_history setfiletype mysql
+	autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf,qt-settings setfiletype dosini
 	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc*,zathura-*,*latexmkrc setfiletype conf
 	autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 	autocmd BufNewFile,BufRead tags,tags-*,*.tags,*.tags.temp setfiletype tags

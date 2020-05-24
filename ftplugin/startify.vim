@@ -55,7 +55,6 @@ nmap <buffer> N <Plug>(is-nohl)<Plug>(anzu-N-with-echo)
 nunmap <buffer> n
 nunmap <buffer> N
 nnoremap <nowait><buffer> . :<C-u>WhichKey '.'<CR>
-nnoremap <nowait><buffer> x :<C-u>WhichKey 'x'<CR>
 nnoremap <buffer> o :call startify#set_mark('B')<CR>
 nnoremap <buffer> i :call startify#set_mark('S')<CR>
 nnoremap <buffer> O :call startify#set_mark('T')<CR>

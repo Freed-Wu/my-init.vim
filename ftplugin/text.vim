@@ -1,9 +1,22 @@
 let b:trailguide = 1
 
 setlocal colorcolumn=
+setlocal nofoldenable
+
+if expand('%') ==# '[duzzle]'
+	setlocal nonumber
+	setlocal norelativenumber
+	finish
+endif
 
 if expand('%') ==# 'highlight test'
 	call init#map#main()
+	finish
+endif
+
+if expand('%') ==# '__.#$VimSokoban$#.__'
+	setlocal nonumber
+	setlocal norelativenumber
 	finish
 endif
 

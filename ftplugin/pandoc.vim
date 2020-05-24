@@ -5,27 +5,13 @@ let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 call vimtex#init()
 call tex#map#main()
 call dot#map#main()
-
-if expand('%:p:t:r') ==# 'README'
-	if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute($GITWORKSPACE, '\', '\\\\', 'g')) && expand('%:p:h') !~# $GITNAME
-		setlocal nomodifiable
-		setlocal readonly
-		call init#map#main()
-		nnoremap <buffer> dsd <Nop>
-		nnoremap <buffer> dsc <Nop>
-		nnoremap <buffer> dse <Nop>
-		unmap <buffer> dsd
-		unmap <buffer> dsc
-		unmap <buffer> dse
-	endif
-else
-	setlocal nospell
-endif
+call init#set#main()
 
 if expand('%:p:h') =~# 'vim'
 	call vim#map#main()
 endif
 
+setlocal nospell
 setlocal foldexpr=pandoc#folding#FoldExpr()
 setlocal foldtext=foldtext()
 setlocal foldlevel=1

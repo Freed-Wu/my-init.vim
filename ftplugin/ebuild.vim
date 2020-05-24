@@ -1,2 +1,3 @@
-setlocal syntax=zsh
+setlocal makeprg=ebuild\ %\ manifest
 
+command! -buffer -nargs=? Template NewEbuild

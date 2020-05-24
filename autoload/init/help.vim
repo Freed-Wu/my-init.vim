@@ -7,7 +7,7 @@ function! init#help#main(word) "{{{
 		call writefile(split(system('gnuplot -e "help '.a:word.'"')), s:temp)
 	elseif &filetype ==# 'python'
 		call writefile(split(system('python -c "help('''.a:word.''')"')), s:temp)
-	elseif &filetype =~# 'c\|sh\|bash\|zsh\|fish\|csh\|ksh\|wsh\|tcsh\|mush\|gnash'
+	elseif &filetype =~# 'c\|sh\|bash\|fish\|zsh\|ksh\|csh\|tcsh'
 		call writefile(split(system('man --pager=cat '.a:word)), s:temp)
 	elseif &filetype =~# 'dosbatch\|ps1'
 		call writefile(split(system('help '.a:word)), s:temp)

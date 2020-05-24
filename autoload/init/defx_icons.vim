@@ -1,4 +1,7 @@
 let s:default_color = synIDattr(hlID('Normal'), 'fg')
+if s:default_color ==# ''
+	let s:default_color = 'white'
+endif
 function! init#defx_icons#main() "{{{
 	let g:defx_icons_extensions = {}
 	for [l:key, l:value] in items(g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols)

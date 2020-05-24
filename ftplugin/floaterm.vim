@@ -8,6 +8,7 @@ setlocal nowrap
 setlocal readonly
 setlocal scrolloff=0
 setlocal nofoldenable
+setlocal colorcolumn=
 
 if expand('%:p:t') ==# '!octave'
 	if exists('$OCTAVERUNTIME')

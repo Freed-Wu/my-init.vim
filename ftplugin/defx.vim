@@ -11,7 +11,6 @@ nmap <buffer> ]] <Plug>(defx-git-next)
 nmap <nowait><buffer> > <Plug>(defx-git-stage)
 nmap <nowait><buffer> < <Plug>(defx-git-reset)
 nmap <buffer> ~ <Plug>(defx-git-discard)
-nmap <buffer> <Leader>bx mzgggx`z
 nnoremap <buffer><expr> gx
 			\ defx#do_action('execute_system')
 nnoremap <buffer><expr> !

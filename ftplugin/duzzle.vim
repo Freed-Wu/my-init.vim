@@ -1,4 +1,5 @@
-language messages zh_CN.utf-8
+setlocal nonumber
+setlocal norelativenumber
 
 nnoremap <buffer> <Up> <nop>
 nnoremap <buffer> <Down> <nop>

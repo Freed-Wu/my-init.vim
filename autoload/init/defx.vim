@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 function! init#defx#main() "{{{
 	call defx#custom#option('_', {
 				\ 'winwidth': &columns / 4,

@@ -1,18 +1,5 @@
 priority -40
 
-global !p
-from vimsnippets import foldmarker, make_box, get_comment_format
-endglobal
-
-# box {{{1 #
-snippet bx "Box" b
-`!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
-│ $1 │
-`!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
-$0
-endsnippet
-# 1}}} box #
-
 # latex-text-font {{{1 #
 snippet it "myUltiSnips" i
 \textit{${1:${VISUAL:text}}}$0
@@ -60,9 +47,6 @@ priority -40
 
 snippet si "myUltiSnips" i
 \SI{${VISUAL}$1}{\\$0}
-endsnippet
-snippet an "myUltiSnips" i
-\ang{${VISUAL}$1;$2;$3}$0
 endsnippet
 # 1}}} latex-text-symbol #
 
@@ -185,10 +169,6 @@ snippet '([A-Za-z])\^(\d\d)' "auto subscript2" wrA
 `!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}
 endsnippet
 context "math()"
-snippet bin "myUltiSnips" i
-($1)_{(2)} $0
-endsnippet
-context "math()"
 snippet sq "myUltiSnips" i
 \sqrt{${1:${VISUAL}}}$0
 endsnippet
@@ -298,10 +278,6 @@ endsnippet
 # 1}}} matrix #
 
 # latex-math-space {{{1 #
-context "math()"
-snippet - "myUltiSnips" iA
- - $0
-endsnippet
 snippet "([^A-Za-z0-9\}\)\]']) - " "myUltiSnips" irA
 `!p snip.rv = match.group(1)`-$0
 endsnippet
@@ -312,10 +288,6 @@ endsnippet
 context "math()"
 snippet '(\s) = ' "myUltiSnips" irA
 `!p snip.rv = match.group(1)`= $0
-endsnippet
-context "math()"
-snippet : "myUltiSnips" iA
-: $0
 endsnippet
 # 1}}} latex-math-space #
 

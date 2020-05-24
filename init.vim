@@ -4,10 +4,12 @@
 scriptencoding utf-8
 let g:mapleader = 'Q'
 let g:maplocalleader = ';'
-if exists('$VIMWORKSPACE')
-	cd $VIMWORKSPACE
-else
-	cd $HOME/Documents
+if has('gui_running')
+	if exists('$VIMWORKSPACE')
+		cd $VIMWORKSPACE
+	else
+		cd $HOME/Documents
+	endif
 endif
 " 3}}}  "
 " 2}}}  "
@@ -22,8 +24,8 @@ if has('nvim')
 endif
 let g:dein#install_log_filename = $VIMDATA.'/.dein.vim/dein.log'
 set runtimepath=$VIMRUNTIME,$GITHUBWORKSPACE/Shougo/dein.vim
-if dein#load_state($GITWORKSPACE)
-	call dein#begin($GITWORKSPACE)
+if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
+	call dein#begin(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 
 	" Plugin {{{4 "
 	" PluginManage {{{5 "
@@ -33,6 +35,11 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('wsdjeg/dein-ui.vim', {
 				\ 'on_cmd': ['SPUpdate', 'SPInstall', 'SPReinstall'],
+				\ })
+	call dein#add('neoclide/coc.nvim', {
+				\ 'if': executable('node'),
+				\ 'build': 'yarn install --frozen-lockfile',
+				\ 'on_if': 1,
 				\ })
 	" 5}}} PluginManage "
 
@@ -52,9 +59,11 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('tpope/vim-sensible')
 	call dein#add('gentoo/gentoo-syntax', {
 				\ 'on_cmd': ['NewEbuild', 'NewMetadata', 'NewGLEP', 'NewInitd'],
-				\ 'on_ft': ['gentoo-changelog', 'gentoo-common', 'gentoo-conf-d', 'gentoo-env-d', 'gentoo-init-d', 'gentoo-make-conf', 'gentoo-metadata', 'gentoo-mirrors', 'gentoo-package-common', 'gentoo-package-keywords', 'gentoo-package-license', 'gentoo-package-mask', 'gentoo-package-properties', 'gentoo-package-use', 'gentoo-use-desc', 'glep', 'ruidexml'],
+				\ 'on_ft': split(glob($GITHUBWORKSPACE . '/gentoo/gentoo-syntax/syntax/*.vim'), '\(\.vim\n\)\?' . $GITHUBWORKSPACE . '/gentoo/gentoo-syntax/syntax/\|\.vim'),
 				\ })
-	call dein#add($VIMCONFIG)
+	call dein#add($VIMCONFIG, {
+				\ 'frozen': 1,
+				\ })
 	" 5}}}  "
 
 	" Encoding {{{5 "
@@ -128,11 +137,7 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('vim-scripts/VimIM', {
 				\ 'on_func': ['Vimim_chinese', 'Vimim_gi', 'Vimim_search'],
 				\ 'on_cmd': 'ViMiM',
-				\ 'hook_post_source': join([
-				\ 'function! Vimim_onekey()',
-				\ 'return Vimim_chinese()',
-				\ 'endfunction',
-				\ ], "\n"),
+				\ 'on_map': {'i': '<C-space>', 'n': '<C-space>'},
 				\ })
 	" 5}}} KeyMap "
 
@@ -263,6 +268,8 @@ if dein#load_state($GITWORKSPACE)
 
 	" SyntaxCompile {{{5 "
 	call dein#add('yesmar/vim-banned')
+	call dein#add('vim-scripts/sqlite_c')
+	call dein#add('vim-scripts/tcl_sqlite.vim')
 	call dein#add('Kocha/vim-systemc', {
 				\ 'on_ft': 'cpp',
 				\ })
@@ -322,12 +329,20 @@ if dein#load_state($GITWORKSPACE)
 				\ })
 	call dein#add('kristijanhusak/defx-git')
 	call dein#add('kristijanhusak/defx-icons', {
+				\ 'if': has('python3'),
 				\ 'on_source': 'defx.nvim',
 				\ })
+	call dein#add('Yggdroot/LeaderF', {
+				\ 'if': has('pythonx'),
+				\ 'build': has('unix')? './install.sh': './install.bat',
+				\ })
+	call dein#add('tamago324/LeaderF-filer')
+	call dein#add('tamago324/LeaderF-bookmark')
+	call dein#add('TwIStOy/leaderf-cppinclude')
+	call dein#add('tamago324/LeaderF-openbrowser')
 	" 5}}} FileExplore "
 
-	" FieEdit {{{5 "
-	call dein#add('airblade/vim-rooter')
+	" FileEdit {{{5 "
 	call dein#add('mhinz/vim-hugefile')
 	call dein#add('derekwyatt/vim-fswitch', {
 				\ 'on_cmd': ['FSHere', 'FSLeft', 'FSSplitLeft', 'FSRight', 'FSSplitRight', 'FSBelow', 'FSSplitBelow', 'FSAbove', 'FSSplitAbove'],
@@ -370,6 +385,9 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('mbbill/undotree', {
 				\ 'on_cmd': ['UndotreeToggle', 'UndotreeHide', 'UndotreeShow', 'UndotreeFocus'],
 				\ })
+	call dein#add('bennyyip/LeaderF-github-stars', {
+				\ 'on_cmd': 'LeaderfStars',
+				\ })
 	" 5}}} VCS "
 	" 4}}} File "
 
@@ -386,17 +404,13 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('dirn/TODO.vim', {
 				\ 'on_cmd': 'TODO',
 				\ })
+	call dein#add('xltan/LeaderF-tjump')
+	call dein#add('Yggdroot/LeaderF-changes')
 	" 5}}} TagExplore "
-
-	" FuzzyFind {{{5 "
-	call dein#add('Yggdroot/LeaderF', {
-				\ 'if': has('pythonx'),
-				\ 'build': has('unix')? './install.sh': './install.bat',
-				\ })
-	" 5}}} FuzzyFind "
 
 	" MarkExplore {{{5 "
 	call dein#add('kshenoy/vim-signature')
+	call dein#add('Yggdroot/LeaderF-marks')
 	" 5}}} MarkExplore "
 
 	" Move {{{5 "
@@ -496,11 +510,13 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_map': {'o': ['ij', 'aj'], 'x': ['ij', 'aj']},
 				\ })
 	call dein#add('reedes/vim-textobj-quote', {
-				\ 'on_map': {'o': ['ijj', 'ajj', 'ijJ', 'ajJ'], 'x': ['ijj', 'ajj', 'ijJ', 'ajJ', 'S', 's'], 'n': ['ys', 'yS']},
+				\ 'on_map': {'o': ['ijj', 'ajj', 'ijJ', 'ajJ'], 'x': ['ijj', 'ajj', 'ijJ', 'ajJ', '<Plug>SurroundWithDouble', '<Plug>SurroundWithSingle']},
 				\ 'hook_post_source': join([
 				\ 'call textobj#quote#init({"educate": 0})',
 				\ 'nmap ys <Plug>Ysurround',
 				\ 'nmap yS <Plug>YSurround',
+				\ 'xmap s <Plug>VSurround',
+				\ 'xmap S <Plug>VgSurround',
 				\ ], "\n"),
 				\ })
 	call dein#add('reedes/vim-textobj-sentence', {
@@ -754,6 +770,7 @@ if dein#load_state($GITWORKSPACE)
 				\ },
 				\ })
 	call dein#add('aprilwade/auto_operator_spacing.vim', {
+				\ 'if': exists('v:none'),
 				\ 'on_ft': ['coq', 'elm', 'haskell', 'python', 'rust'],
 				\ })
 	call dein#add('feix760/autospace.vim', {
@@ -790,6 +807,7 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': ['License', 'Stub'],
 				\ 'on_func': 'LicenseComplete',
 				\ })
+	call dein#add('youran0715/LeaderF-Cmdpalette')
 	" 5}}} Complete "
 
 	" Snippet {{{5 "
@@ -798,14 +816,6 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': ['Template', 'TemplateHere'],
 				\ })
 	" 5}}} Snippet "
-
-	" LSP {{{5 "
-	call dein#add('neoclide/coc.nvim', {
-				\ 'if': executable('node'),
-				\ 'build': 'yarn install --frozen-lockfile',
-				\ 'on_if': 1,
-				\ })
-	" 5}}} LSP "
 
 	" Check {{{5 "
 	call dein#add('w0rp/ale')
@@ -988,7 +998,11 @@ if dein#load_state($GITWORKSPACE)
 				\ 'on_cmd': 'Cmus',
 				\ })
 	call dein#add('PascalZh/vim-badapple', {
+				\ 'build': 'install.sh',
 				\ 'on_cmd': 'ZBadApple',
+				\ })
+	call dein#add('skanehira/badapple.vim', {
+				\ 'on_cmd': 'BadApple',
 				\ })
 	call dein#add('voldikss/vim-browser-search', {
 				\ 'on_cmd': ['Search', 'SearchCurrentText', 'SearchVisualText'],
@@ -1062,13 +1076,25 @@ augroup init_dein "{{{
 	autocmd VimEnter * call dein#call_hook('post_source')
 augroup END "}}}
 " 3}}} Shougo/dein.vim "
+
+" neoclide/coc.nvim {{{3 "
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
+augroup init_coc "{{{
+	autocmd!
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+	autocmd CursorHold * call CocActionAsync('highlight')
+	autocmd Colorscheme * CocRestart
+	autocmd VimEnter * CocStart
+	autocmd InsertLeave * execute 'normal! zv'
+augroup END "}}}
+" 3}}} neoclide/coc.nvim "
 " 2}}} PluginManage "
 
 " PluginDetect {{{2 "
 " tpope/vim-scriptease {{{3 "
 nnoremap q= :<C-u>PP<CR>
-nmap <Leader>ps <Plug>ScripteaseSynnames
-nnoremap <Leader>pt :Time<Space>
+nmap zS <Plug>ScripteaseSynnames
 nmap g= <Plug>ScripteaseFilter
 nmap g== <Home><Plug>ScripteaseFilter<End>
 xmap g= <Plug>ScripteaseFilter
@@ -1081,8 +1107,7 @@ xmap g= <Plug>ScripteaseFilter
 "  {{{3 "
 set langmenu=zh_CN.utf-8
 set makeencoding=char
-set fileencodings^=cp936
-set fileencodings^=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,default,latin1
 " 3}}}  "
 " vimchina/vim-fencview {{{3 "
 if has('iconv') && executable('tellenc')
@@ -1143,7 +1168,7 @@ xnoremap <nowait> A :<C-u>WhichKeyVisual 'A'<CR>
 " skywind3000/vim-quickui {{{3 "
 let g:quickui_border_style = 3
 nnoremap <Space> :call quickui#menu#open()<CR>
-xnoremap <Space> :call quickui#menu#open()<CR>
+xnoremap <Space> :<C-u>call quickui#menu#open()<CR>
 nnoremap [<C-f> :<C-u>call quickui#tools#list_function()<CR>
 nnoremap ]<C-f> :<C-u>call quickui#tools#preview_tag('')<CR>
 " 3}}} skywind3000/vim-quickui "
@@ -1164,8 +1189,7 @@ let g:startify_bookmarks = [
 			\ {g:maplocalleader.'v': $MYVIMRC},
 			\ {g:maplocalleader.'j': $VIMCONFIG.'/coc-settings.json'},
 			\ {g:maplocalleader.'z': expand('$HOME/.zshrc')},
-			\ {g:maplocalleader.'m': '/etc/portage/make.conf'},
-			\ {g:maplocalleader.'a': expand('$HOME/.local/share/applications/defaults.list')},
+			\ {g:maplocalleader.'p': '/etc/portage/make.conf'},
 			\ {g:maplocalleader.'x': expand('$HOME/.ssh/id_rsa.pub')},
 			\ ]
 augroup init_Startify "{{{
@@ -1187,7 +1211,6 @@ let g:startify_lists = [
 			\ { 'type': 'commands', 'header': ['    Commands']},
 			\ { 'type': 'bookmarks', 'header': ['    Bookmarks']},
 			\ ]
-nnoremap <C-w>0 :<C-u>call init#startify#main()<CR>
 " 3}}} mhinz/vim-startify "
 " 2}}} UI "
 
@@ -1531,6 +1554,8 @@ nnoremap <C-w>q <C-w>q
 xnoremap <C-w>c <C-w>c
 xnoremap <C-w>o <C-w>o
 xnoremap <C-w>q <C-w>q
+nnoremap <C-w>a :qall<CR>
+xnoremap <C-w>a :<C-u>qall<CR>
 nnoremap <C-w>Z :hide<CR>
 xnoremap <C-w>Z :<C-u>hide<CR>
 " 4}}} windowClose "
@@ -1613,13 +1638,7 @@ xnoremap g~ g~
 nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
 " 3}}} tpope/vim-unimpaired "
 " tpope/vim-rsi {{{3 "
-inoremap <expr><C-p> pumvisible()?"\<C-p>": "\<Up>"
-inoremap <expr><C-n> pumvisible()?"\<C-n>": "\<Down>"
-inoremap <C-k> <C-o>:set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR>
 cnoremap <C-k> <C-f>i<C-o>:set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR><C-c>
-inoremap <C-j> <C-e>
-inoremap <C-l> <C-y>
-inoremap <C-\> <C-k>
 cnoremap <C-\> <C-k>
 snoremap <C-b> <Left>
 snoremap <C-f> <Right>
@@ -1635,18 +1654,10 @@ snoremap <C-y> <C-g>pgv<C-g>
 " vim-scripts/VimIM {{{3 "
 set imdisable
 let g:Vimim_punctuation = 3
-let g:Vimim_cloud = 'sogou,google,baidu,qq'
-let g:Vimim_map = ['no-gi', 'no-search']
+let g:Vimim_map = 'no-gino-tabc-space'
 nnoremap zi a<C-R>=g:Vimim_gi()<CR>
-let g:Vimim_mode = 'dynamic'
-let g:Vimim_mycloud = 1
 let g:Vimim_plugin = $VIMDATA.'/.VimIM'
 let g:Vimim_shuangpin = 'ms'
-let g:Vimim_toggle = 'pinyin'
-inoremap <C-^> <C-R>=Vimim_chinese()<CR>
-inoremap <C-Space> <C-R>=Vimim_chinese()<CR>
-nnoremap <C-Space> <Esc><C-R>=Vimim_chinese()<CR>i
-xnoremap <C-Space> <Esc><C-R>=Vimim_chinese()<CR>gv
 " 3}}} vim-scripts/VimIM "
 " 2}}} KeyMap "
 
@@ -1696,7 +1707,7 @@ endif
 " nathanaelkane/vim-indent-guides {{{3 "
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_default_mapping = 0
-let g:indent_guides_exclude_filetypes = ['help', 'man', 'less', 'duzzle', 'startify', 'calendar', 'python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'floaterm', 'defx']
+let g:indent_guides_exclude_filetypes = ['help', 'man', 'less', 'duzzle', 'startify', 'calendar', 'python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'floaterm', 'defx', 'text']
 " 3}}} nathanaelkane/vim-indent-guides "
 " dbmrq/vim-redacted {{{3 "
 nmap gz <Plug>Redact
@@ -1968,9 +1979,9 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " bling/vim-airline {{{3 "
 set showtabline=2
 let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
+let g:airline_left_sep = get(g:, 'Lf_StlSeparator', {'left': ''})['left']
 let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
+let g:airline_right_sep = get(g:, 'Lf_StlSeparator', {'right': ''})['right']
 let g:airline_right_alt_sep = ''
 let g:airline_symbols = {
 			\ 'paste': '',
@@ -2212,122 +2223,23 @@ augroup init_defx_icons "{{{
 	autocmd VimEnter * call init#defx_icons#main()
 augroup END "}}}
 " 3}}} kristijanhusak/defx-icons "
-" 2}}} FileExplore "
-
-" FileEdit {{{2 "
-" airblade/vim-rooter {{{3 "
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_targets = '*'
-let g:rooter_patterns = [
-			\ '.git/', '.svn/',
-			\ '.vs/', '.vscode/', '.idea/',
-			\ '.project', '.sublime-project',
-			\ '.latexmkrc', '.latexmain',
-			\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
-			\ ]
-let g:rooter_silent_chdir = 1
-let g:rooter_use_lcd = 1
-let g:rooter_resolve_links = 1
-let g:rooter_manual_only = 1
-" 3}}} airblade/vim-rooter "
-" 3}}} mhinz/vim-hugefile "
-" tpope/vim-eunuch {{{3 "
-nnoremap <Leader>bC :<C-u>Chmod<Space>
-nnoremap <Leader>br :<C-u>Rename<Space>
-nnoremap <Leader>bm :<C-u>Mkdir<Space>
-nnoremap <Leader>bq :<C-u>Cfind<Space>
-nnoremap <Leader>bl :<C-u>Lfind<Space>
-nnoremap <Leader>bq :<C-u>Clocate<Space>
-nnoremap <Leader>bl :<C-u>Llocate<Space>
-nnoremap <Leader>bE :<C-u>SudoEdit<Space>
-" 3}}} tpope/vim-eunuch "
-" will133/vim-dirdiff {{{3 "
-nnoremap <Leader>bd :<C-u>DirDiff<Space>
-" 3}}} will133/vim-dirdiff "
-" 2}}} FileEdit "
-
-" Compress {{{2 "
-" 2}}} Compress "
-
-" VCS {{{2 "
-"  {{{3 "
-set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-set autowrite
-set confirm
-" 3}}}  "
-" tpope/vim-fugitive {{{3 "
-nnoremap <Leader>gc :Async git clone git@github.com:Freed-Wu/.git<Left><Left><Left><Left>
-nnoremap <Leader>gC :Async git clone<Space>
-nnoremap <Leader>gs :Async svn checkout https://github.com/Freed-Wu/trunk/<Left><Left><Left><Left><Left><Left>
-nnoremap <Leader>gS :Async svn checkout<Space>
-" 3}}} tpope/vim-fugitive "
-" tpope/vim-rhubarb {{{3 "
-nnoremap gX :Gbrowse<CR>
-xnoremap gX :Gbrowse<CR>
-" 3}}} tpope/vim-rhubarb "
-" junegunn/vim-github-dashboard {{{3 "
-let g:github_dashboard = {
-			\ 'username': $GITNAME,
-			\ 'password': readfile($VIMDATA.'/github-dashboard.txt')[0],
-			\ }
-" 3}}} junegunn/vim-github-dashboard "
-" jaxbot/github-issues.vim {{{3 "
-let g:github_access_token = readfile($VIMDATA.'/github-issues.txt')[0]
-let g:gissues_lazy_load = 1
-" 3}}} jaxbot/github-issues.vim "
-" mhinz/vim-signify {{{3 "
-let g:signify_vcs_list = ['git', 'hg', 'svn']
-nmap [g <plug>(signify-prev-hunk)
-nmap ]g <plug>(signify-next-hunk)
-nmap [G 9999<plug>(signify-prev-hunk)
-nmap ]G 9999<plug>(signify-next-hunk)
-omap ig <plug>(signify-motion-inner-pending)
-xmap ig <plug>(signify-motion-inner-visual)
-omap ag <plug>(signify-motion-outer-pending)
-xmap ag <plug>(signify-motion-outer-visual)
-" 3}}} mhinz/vim-signify "
-" mbbill/undotree {{{3 "
-set undofile
-set undodir=$VIMDATA/undo
-let g:undotree_HelpLine = 0
-let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
-let g:undotree_CustomDiffpanelCmd = 'topleft 5 new'
-let g:undotree_HighlightChangedText  = 1
-let g:undotree_DiffAutoOpen = 1
-let g:undotree_RelativeTimestamp = 1
-let g:undotree_HighlightSyntaxAdd = 'ShowMarksHLl'
-let g:undotree_HighlightSyntaxChange = 'ShowMarksHLl'
-" 3}}} mbbill/undotree "
-" 2}}} VCS "
-" 1}}} File "
-
-" CursorMove {{{1 "
-" TagExplore {{{2 "
-" ludovicchabant/vim-gutentags {{{3 "
-let g:gutentags_ctags_tagfile = '.tags'
-let g:gutentags_cache_dir = $VIMDATA.'/.vim-gutentags'
-let g:gutentags_modules = ['ctags', 'cscope']
-" 3}}} ludovicchabant/vim-gutentags "
-" skywind3000/gutentags_plus {{{3 "
-let g:gutentags_plus_nomap = 1
-" 3}}} skywind3000/gutentags_plus "
-" liuchengxu/vista.vim {{{3 "
-let g:vista_sidebar_width = &columns / 4
-let g:vista_fold_toggle_icons = ['', '']
-let g:vista_close_on_jump = 1
-" 3}}} liuchengxu/vista.vim "
-" 2}}} TagExplore "
-
-" FuzzyFind {{{2 "
 if has('pythonx')
 	" Yggdroot/LeaderF {{{3 "
 	let g:Lf_StlSeparator = {
 				\ 'left': get(g:, 'airline_left_sep', ''),
 				\ 'right': get(g:, 'airline_right_sep', ''),
 				\ }
-	let g:Lf_RootMarkers = g:rooter_patterns
-	let g:Lf_ShortcutF = 'q;'
-	let g:Lf_ShortcutB = 'q,'
+	let g:Lf_RootMarkers = [
+				\ '.git', '.yadm', '.hg', '.svn', '.bzr',
+				\ '.darcs', '.fossil', '.cvs', '.rcs',
+				\ '.accurev', '.perforce', '.tfs',
+				\ '.vs', '.vscode', '.idea',
+				\ '.project', '.sublime-project',
+				\ '.latexmkrc', '.latexmain',
+				\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
+				\ ]
+	let g:Lf_ShortcutF = ''
+	let g:Lf_ShortcutB = ''
 	let g:Lf_StlColorscheme = 'gruvbox_material'
 	let g:Lf_HideHelp = 1
 	let g:Lf_ShowHidden = 1
@@ -2359,31 +2271,165 @@ if has('pythonx')
 				\ '<C-Up>': ['<C-t>'],
 				\ '<C-Down>': ['<C-v>'],
 				\ }
-	let g:Lf_NormalMap = {
-				\ 'File': [
-				\ ['i', ':exec g:Lf_py b:Lf_AnyExplManager."accept(''h'')"<CR>'],
-				\ ['<F6>', ':exec g:Lf_py "bufExplManager.quit()"<CR>'],
-				\ ['I', ':exec g:Lf_py b:Lf_AnyExplManager."accept(''v'')"<CR>'],
-				\ ['O', ':exec g:Lf_py b:Lf_AnyExplManager."accept(''t'')"<CR>'],
-				\ ['o', ':exec g:Lf_py b:Lf_AnyExplManager."accept()"<CR>'],
-				\ ],
-				\ 'Buffer': [[]],
-				\ 'Mru': [[]],
-				\ 'Tag': [],
-				\ 'BufTag': [],
-				\ 'Function': [],
-				\ 'Line': [],
-				\ 'History': [],
-				\ 'Help': [],
-				\ 'Self': [],
-				\ 'Colorscheme': []
-				\ }
 	nnoremap q: :<C-u>Leaderf cmdHistory<CR>
 	nnoremap q/ :<C-u>Leaderf searchHistory<CR>
-	nnoremap q? :<C-u>Leaderf self<CR>
 	" 3}}} Yggdroot/LeaderF "
+	" tamago324/LeaderF-filer {{{3 "
+	let g:Lf_FilerUseDefaultInsertMap = 0
+	let g:Lf_FilerUseDefaultNormalMap = 0
+	let g:Lf_FilerInsertMap = {
+				\ '<C-b>': 'left',
+				\ '<C-f>': 'right',
+				\ '<C-p>': 'prev_history',
+				\ '<C-n>': 'next_history',
+				\ '<C-j>': 'down',
+				\ '<C-k>': 'up',
+				\ '<C-a>': 'home',
+				\ '<C-e>': 'end',
+				\ '<C-d>': 'delete',
+				\ '<C-h>': 'backspace',
+				\ '<C-w>': 'delete_left_word',
+				\ '<C-u>': 'clear_line',
+				\ '<C-y>': 'paste',
+				\ '<C-g>': 'open_parent_or_clear_line',
+				\ '<C-o>': 'open_current',
+				\ '<C-s>': 'toggle_hidden_files',
+				\ '<C-r>': 'toggle_regex',
+				\ '<Esc>': 'quit',
+				\ '<CR>': 'accept',
+				\ '<C-x>': 'accept_horizontal',
+				\ '<C-]>': 'accept_vertical',
+				\ '<C-t>': 'accept_tab',
+				\ '<Tab>': 'switch_normal_mode',
+				\ '<2-LeftMouse>': 'accept',
+				\ '<ScroollWhellUp>': 'up3',
+				\ '<ScroollWhellDown>': 'down3',
+				\ }
+	let g:Lf_FilerNormalMap = {
+				\ 'K': 'open_parent',
+				\ 'go': 'open_current',
+				\ 'J': 'goto_root_marker_dir',
+				\ '.': 'toggle_hidden_files',
+				\ 'j': 'down',
+				\ 'k': 'up',
+				\ '<F1>': 'toggle_help',
+				\ '<Tab>': 'switch_insert_mode',
+				\ '<CR>': 'preview',
+				\ '<Esc>': 'quit',
+				\ 'o': 'accept',
+				\ 'i': 'accept_horizontal',
+				\ 'I': 'accept_vertical',
+				\ 'O': 'accept_tab',
+				\ 'u': 'page_up_in_preview',
+				\ 'd': 'page_down_in_preview',
+				\ 'ZZ': 'close_preview_popup',
+				\ 's': 'add_selections',
+				\ '<C-A>': 'select_all',
+				\ 'gq': 'clear_selections',
+				\ 'a': 'create_file',
+				\ 'A': 'mkdir',
+				\ 'r': 'rename',
+				\ 'c': 'copy',
+				\ 'p': 'paste',
+				\ '=': 'change_directory',
+				\ 'gk': 'history_backward',
+				\ 'gj': 'history_forward',
+				\ 'x': 'remove',
+				\ 'X': 'remove_trash',
+				\ }
+	" 3}}} tamago324/LeaderF-filer "
 endif
-" 2}}} FuzzyFind "
+" 2}}} FileExplore "
+
+" FileEdit {{{2 "
+"  {{{3 "
+nnoremap <Leader>bb :<C-u>diffsplit<Space>
+" 3}}}  "
+" tpope/vim-eunuch {{{3 "
+nnoremap <Leader>bC :<C-u>Chmod<Space>
+nnoremap <Leader>br :<C-u>Rename<Space>
+nnoremap <Leader>bm :<C-u>Mkdir<Space>
+nnoremap <Leader>bq :<C-u>Cfind<Space>
+nnoremap <Leader>bl :<C-u>Lfind<Space>
+nnoremap <Leader>bq :<C-u>Clocate<Space>
+nnoremap <Leader>bl :<C-u>Llocate<Space>
+nnoremap <Leader>bE :<C-u>SudoEdit<Space>
+" 3}}} tpope/vim-eunuch "
+" will133/vim-dirdiff {{{3 "
+nnoremap <Leader>bd :<C-u>DirDiff<Space>
+" 3}}} will133/vim-dirdiff "
+" 2}}} FileEdit "
+
+" Compress {{{2 "
+" 2}}} Compress "
+
+" VCS {{{2 "
+"  {{{3 "
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+set autowrite
+set confirm
+" 3}}}  "
+" tpope/vim-rhubarb {{{3 "
+nnoremap gX :Gbrowse<CR>
+xnoremap gX :Gbrowse<CR>
+" 3}}} tpope/vim-rhubarb "
+" junegunn/vim-github-dashboard {{{3 "
+let g:github_dashboard = {
+			\ 'username': $GITNAME,
+			\ 'password': readfile($VIMDATA.'/github-dashboard.txt')[0],
+			\ }
+" 3}}} junegunn/vim-github-dashboard "
+" jaxbot/github-issues.vim {{{3 "
+let g:github_access_token = readfile($VIMDATA.'/github-issues.txt')[0]
+let g:gissues_lazy_load = 1
+" 3}}} jaxbot/github-issues.vim "
+" mhinz/vim-signify {{{3 "
+nmap [g <plug>(signify-prev-hunk)
+nmap ]g <plug>(signify-next-hunk)
+nmap [G 9999<plug>(signify-prev-hunk)
+nmap ]G 9999<plug>(signify-next-hunk)
+omap ig <plug>(signify-motion-inner-pending)
+xmap ig <plug>(signify-motion-inner-visual)
+omap ag <plug>(signify-motion-outer-pending)
+xmap ag <plug>(signify-motion-outer-visual)
+" 3}}} mhinz/vim-signify "
+" mbbill/undotree {{{3 "
+set undofile
+set undodir=$VIMDATA/undo
+let g:undotree_HelpLine = 0
+let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
+let g:undotree_CustomDiffpanelCmd = 'topleft 5 new'
+let g:undotree_HighlightChangedText  = 1
+let g:undotree_DiffAutoOpen = 1
+let g:undotree_RelativeTimestamp = 1
+let g:undotree_HighlightSyntaxAdd = 'ShowMarksHLl'
+let g:undotree_HighlightSyntaxChange = 'ShowMarksHLl'
+" 3}}} mbbill/undotree "
+" bennyyip/LeaderF-github-stars {{{3 "
+let gs#username='Freed-Wu'
+" 3}}} bennyyip/LeaderF-github-stars "
+" 2}}} VCS "
+" 1}}} File "
+
+" CursorMove {{{1 "
+" TagExplore {{{2 "
+" ludovicchabant/vim-gutentags {{{3 "
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_cache_dir = $VIMDATA.'/.vim-gutentags'
+let g:gutentags_modules = ['ctags', 'cscope']
+" 3}}} ludovicchabant/vim-gutentags "
+" skywind3000/gutentags_plus {{{3 "
+let g:gutentags_plus_nomap = 1
+" 3}}} skywind3000/gutentags_plus "
+" liuchengxu/vista.vim {{{3 "
+let g:vista_sidebar_width = &columns / 4
+let g:vista_fold_toggle_icons = ['', '']
+let g:vista_close_on_jump = 1
+" 3}}} liuchengxu/vista.vim "
+" xltan/LeaderF-tjump {{{3 "
+nnoremap g<C-]> :LeaderfTjump <C-r><C-w><CR>
+" 3}}} xltan/LeaderF-tjump "
+" 2}}} TagExplore "
 
 " MarkExplore {{{2 "
 " kshenoy/vim-signature {{{3 "
@@ -2393,14 +2439,17 @@ nmap m_ dm
 
 " Move {{{2 "
 " easymotion/vim-easymotion {{{3 "
-xmap +f <Plug>(easymotion-bd-f)
-nmap +f <Plug>(easymotion-overwin-f)
-xmap ++ <Plug>(easymotion-bd-f2)
-nmap ++ <Plug>(easymotion-overwin-f2)
-xmap +g <Plug>(easymotion-bd-jk)
-nmap +g <Plug>(easymotion-overwin-line)
-xmap +w <Plug>(easymotion-bd-w)
-nmap +w <Plug>(easymotion-overwin-w)
+nmap co <Plug>(easymotion-prefix)
+xmap co <Plug>(easymotion-prefix)
+omap co <Plug>(easymotion-prefix)
+xmap co; <Plug>(easymotion-bd-f)
+nmap co; <Plug>(easymotion-overwin-f)
+xmap co, <Plug>(easymotion-bd-f2)
+nmap co, <Plug>(easymotion-overwin-f2)
+xmap coo <Plug>(easymotion-bd-jk)
+nmap coo <Plug>(easymotion-overwin-line)
+xmap co<Space> <Plug>(easymotion-bd-w)
+nmap co<Space> <Plug>(easymotion-overwin-w)
 " 3}}} easymotion/vim-easymotion "
 " psliwka/vim-smoothie {{{3 "
 nnoremap <C-D> :<C-U>call smoothie#downwards()<CR>
@@ -2625,6 +2674,8 @@ omap X <Plug>(textobj-between-a)
 " reedes/vim-textobj-quote {{{3 "
 let g:textobj#quote#doubleMotion = 'jj'
 let g:textobj#quote#singleMotion = 'jJ'
+xmap sj <Plug>SurroundWithDouble
+xmap sJ <Plug>SurroundWithSingle
 " 3}}} reedes/vim-textobj-quote "
 " 2}}} TextObjChar "
 
@@ -2802,9 +2853,6 @@ nnoremap ]R :<C-u>ClearYanks<CR>
 " 2}}} Draw "
 
 " Filter {{{2 "
-" pocke/vanner {{{3 "
-nnoremap <Leader>dv 0d$i<C-r><C-O>=vanner#string(@", {'font': 1})<CR><Esc>
-" 3}}} pocke/vanner "
 " 2}}} Filter "
 
 " Compose {{{2 "
@@ -2817,6 +2865,7 @@ nmap gy <Plug>(EasyAlign)
 " Format {{{2 "
 "  {{{3 "
 set textwidth=77
+let g:textwidth = &textwidth
 set colorcolumn=+1
 set linebreak
 set formatoptions+=cqrnlmB
@@ -2939,6 +2988,9 @@ let g:Unicode_data_directory = $VIMDATA.'/.unicode.vim'
 let g:license_email = $GITNAME
 let g:license_author = $EMAIL
 " 3}}} ararslan/license-to-vim "
+" youran0715/LeaderF-Cmdpalette {{{3 "
+nnoremap g: :Leaderf command<CR>
+" 3}}} youran0715/LeaderF-Cmdpalette "
 " 2}}} Complete "
 
 " Snippet {{{2 "
@@ -2955,29 +3007,9 @@ let g:username = $GITNAME
 " 3}}} aperezdc/vim-template "
 " 2}}} Snippet "
 
-" LSP {{{2 "
-" neoclide/coc.nvim {{{3 "
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_prev = '<S-Tab>'
-augroup init_coc "{{{
-	autocmd!
-	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-	autocmd CursorHold * call CocActionAsync('highlight')
-	autocmd Colorscheme * CocRestart
-	autocmd VimEnter * CocStart
-	autocmd InsertLeave * execute 'normal! zv'
-augroup END "}}}
-inoremap <silent><expr> <TAB>
-			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-			\ init#check_back_space#main() ? "\<TAB>" :
-			\ coc#refresh()
-" 3}}} neoclide/coc.nvim "
-" 2}}} LSP "
-
 " Check {{{2 "
 "  {{{3 "
 set spelllang=en_us,cjk
-inoremap <C-m> <C-g>u<Esc>[s1z=`]a<C-g>u
 " 3}}}  "
 " w0rp/ale {{{3 "
 let g:ale_linters = {
@@ -3053,6 +3085,9 @@ let g:vimtex_toc_config = {
 			\ 'include': g:maplocalleader.'0'
 			\ }
 			\ }
+if has('nvim') && executable('nvr')
+	let g:vimtex_compiler_progname = 'nvr'
+endif
 if executable('zathura')
 	let g:vimtex_view_method = 'zathura'
 elseif executable('SumatraPDF')
@@ -3203,14 +3238,11 @@ let g:repl_program = {
 			\ 'default': &shell,
 			\ 'sh': executable('sh')? 'sh': &shell,
 			\ 'bash': executable('bash')? 'bash': &shell,
-			\ 'csh': executable('csh')? 'csh': &shell,
-			\ 'ksh': executable('ksh')? 'ksh': &shell,
-			\ 'wsh': executable('wsh')? 'wsh': &shell,
-			\ 'mash': executable('mash')? 'mash': &shell,
-			\ 'tcsh': executable('tcsh')? 'tcsh': &shell,
-			\ 'gnash': executable('gnash')? 'gnash': &shell,
 			\ 'fish': executable('fish')? 'fish': &shell,
 			\ 'zsh': executable('zsh')? 'zsh': &shell,
+			\ 'ksh': executable('ksh')? 'ksh': &shell,
+			\ 'csh': executable('csh')? 'csh': &shell,
+			\ 'tcsh': executable('tcsh')? 'tcsh': &shell,
 			\ 'dosbatch': executable('cmd')? 'cmd': &shell,
 			\ 'ps1': executable('powershell')? 'powershell': &shell,
 			\ 'python': 'ptipython',
@@ -3267,15 +3299,6 @@ augroup init_duzzle "{{{
 	autocmd SourcePre duzzle.vim language message en_US
 augroup END "}}}
 " 3}}} deris/vim-duzzle "
-" jmanoel7/vim-games {{{3 "
-if has('python')
-	nnoremap <Leader>y1 :<C-u>SudokuEasy<CR>
-	nnoremap <Leader>y2 :<C-u>SudokuMedium<CR>
-	nnoremap <Leader>y3 :<C-u>SudokuHard<CR>
-	nnoremap <Leader>y4 :<C-u>SudokuVeryHard<CR>
-	nnoremap <Leader>y0 :<C-u>SudokuCustom<Space>
-endif
-" 3}}} jmanoel7/vim-games "
 " 2}}} Game "
 " 1}}} SpecialFunction "
 
