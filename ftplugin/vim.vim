@@ -10,6 +10,7 @@ endif
 
 if expand('%:p') ==# $MYVIMRC
 	call init#dein#main()
+	let b:browser_search_default_engine = 'github'
 endif
 
 if &buftype ==# 'nofile'

@@ -1,6 +1,8 @@
 call init#map#main()
 
-AnsiEsc
+if !has('nvim')
+	AnsiEsc
+endif
 
 setlocal nowrap
 setlocal readonly
@@ -33,12 +35,12 @@ nnoremap <buffer> K i<C-p><CR>
 nnoremap <buffer> p i<C-w>"+
 nnoremap <buffer> P i<C-w>"
 if !exists('g:terminal_map')
-	if !has('nvim')
+	if has('nvim')
+		tnoremap <Esc> <C-\><C-N>
+	else
 		tnoremap <nowait> <C-w> <C-w>.
-	endif
-	tnoremap <C-^> <C-w>N
-	tnoremap <C-\> <C-w>
-	if !has('nvim')
+		tnoremap <C-^> <C-w>N
+		tnoremap <C-\> <C-w>
 		if has('gui_running')
 			for s:i in range(char2nr('0'), char2nr('9')) + range(char2nr('a'), char2nr('z'))
 				execute 'tnoremap <M-' . nr2char(s:i) . '> <Esc>' . nr2char(s:i)

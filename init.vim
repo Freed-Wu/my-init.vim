@@ -2,7 +2,7 @@
 "  {{{2 "
 "  {{{3 "
 scriptencoding utf-8
-let g:mapleader = ' '
+let g:mapleader = 'Q'
 let g:maplocalleader = ';'
 if exists('$VIMWORKSPACE')
 	cd $VIMWORKSPACE
@@ -969,6 +969,12 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('edkolev/promptline.vim', {
 				\ 'on_cmd': 'PromptlineSnapshot',
 				\ })
+	call dein#add('skywind3000/asynctasks.vim', {
+				\ 'on_cmd': 'AsyncTask',
+				\ })
+	call dein#add('skywind3000/asyncrun.vim', {
+				\ 'on_cmd': ['AsyncRun', 'AsyncStop'],
+				\ })
 	" 5}}} Terminal "
 	" 4}}} Program "
 
@@ -984,9 +990,9 @@ if dein#load_state($GITWORKSPACE)
 	call dein#add('PascalZh/vim-badapple', {
 				\ 'on_cmd': 'ZBadApple',
 				\ })
-	call dein#add('tyru/open-browser.vim', {
-				\ 'on_cmd': ['OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch'],
-				\ 'on_map': '<Plug>(openbrowser-',
+	call dein#add('voldikss/vim-browser-search', {
+				\ 'on_cmd': ['Search', 'SearchCurrentText', 'SearchVisualText'],
+				\ 'on_map': ['<Plug>SearchNormal', '<Plug>SearchVisual'],
 				\ })
 	call dein#add('ianding1/leetcode.vim', {
 				\ 'on_cmd': ['LeetCodeList', 'LeetCodeTest', 'LeetCodeSubmit', 'LeetCodeSignIn', 'LeetCodeReset'],
@@ -1107,7 +1113,6 @@ if has('pythonx')
 	xmap gK <Plug>TranslateWV
 	nmap <BS> <Plug>TranslateR
 	xmap <BS> <Plug>TranslateRV
-	nnoremap q, :TranslateH<CR>
 	" 3}}} voldikss/vim-translator "
 endif
 " 2}}} Language "
@@ -1137,13 +1142,13 @@ xnoremap <nowait> A :<C-u>WhichKeyVisual 'A'<CR>
 " 3}}} liuchengxu/vim-which-key "
 " skywind3000/vim-quickui {{{3 "
 let g:quickui_border_style = 3
-nnoremap Q :call quickui#menu#open()<CR>
-xnoremap Q :call quickui#menu#open()<CR>
-nnoremap <Leader>uf :<C-u>call quickui#tools#list_function()<CR>
-nnoremap <Leader>ut :<C-u>call quickui#tools#preview_tag('')<CR>
+nnoremap <Space> :call quickui#menu#open()<CR>
+xnoremap <Space> :call quickui#menu#open()<CR>
+nnoremap [<C-f> :<C-u>call quickui#tools#list_function()<CR>
+nnoremap ]<C-f> :<C-u>call quickui#tools#preview_tag('')<CR>
 " 3}}} skywind3000/vim-quickui "
 " mhinz/vim-startify {{{3 "
-let g:startify_session_dir = $VIMDATA.'/.vim-startify'
+let g:startify_session_dir = $VIMDATA . '/.vim-startify'
 let g:startify_enable_special = 0
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
@@ -1604,97 +1609,6 @@ xnoremap g@ g@
 nnoremap g~ g~
 xnoremap g~ g~
 " 4}}} edit "
-" vimL {{{4 "
-nnoremap <Leader>v= :<C-u>redir @
-nnoremap <Leader>v+ :<C-u>redir END<CR>
-nnoremap <Leader>vv :<C-u>execute 'split $VIMCONFIG/ftplugin/'.split(&filetype, '\.')[0].'.vim'<CR>
-nnoremap <Leader>vg :<C-u>execute 'vim //gj '.expand('<cfile>')<S-Left>
-xnoremap <Leader>vg y:execute 'vim //gj '.@0<S-Left>
-nnoremap <Leader>vd :<C-u>diffsplit<Space>
-" 4}}} vimL "
-" substitute {{{4 "
-nnoremap <Leader>rr :%s///gc<Left><Left><Left><Left>
-xnoremap <Leader>rr :s///gc<Left><Left><Left><Left>
-nnoremap <Leader>rc :%s///gn<Left><Left><Left><Left>
-xnoremap <Leader>rc :s///gn<Left><Left><Left><Left>
-nnoremap <Leader>rd :%s/\v\n{2,}/\r\r/g<CR>
-xnoremap <Leader>rd :%s/\v\n\{2,}/\r\r/g<CR>
-nnoremap <Leader>r/ :s=\\=\/=g<CR>
-xnoremap <Leader>r/ :s=\\=\/=g<CR>
-if has('win32')
-	nnoremap <Leader>r? :s=\/=\\=g<CR>
-	xnoremap <Leader>r? :s=\/=\\=g<CR>
-else
-	nnoremap <Leader>r\ :s=\/=\\=g<CR>
-	xnoremap <Leader>r\ :s=\/=\\=g<CR>
-endif
-nnoremap <Leader>r\ :s=\/=\\=g<CR>
-xnoremap <Leader>r\ :s=\/=\\=g<CR>
-nnoremap <Leader>r<Bar> :s=\\\\=\\=gc<CR>
-xnoremap <Leader>r<Bar> :s=\\\\=\\gc<CR>
-nnoremap <Leader>r<Tab> :s=\\=\\\\=gc<CR>
-xnoremap <Leader>r<Tab> :s=\\=\\\\=gc<CR>
-nnoremap <Leader>rs :s/\v \|　//gc<CR>
-xnoremap <Leader>rs :s/\v \|　//gc<CR>
-nnoremap <Leader>rz :<C-u>call init#substitute#main('%', [g:zhdict], 'ce')<CR>
-nnoremap <Leader>re :<C-u>call init#substitute#main('%', [g:endict], 'ce')<CR>
-nnoremap <Leader>rt :<C-u>call init#substitute#main('%', g:texdicts, 'ce')<CR>
-nnoremap <Leader>rl :<C-u>call init#substitute#main('%', [g:listdict], 'ce')<CR>
-xnoremap <Leader>rz :<C-u>call init#substitute#main('*', [g:zhdict], 'ce')<CR>
-xnoremap <Leader>re :<C-u>call init#substitute#main('*', [g:endict], 'ce')<CR>
-xnoremap <Leader>rt :<C-u>call init#substitute#main('*', g:texdicts, 'ce')<CR>
-xnoremap <Leader>rl :<C-u>call init#substitute#main('*', [g:listdict], 'ce')<CR>
-let g:zhdict = {
-			\ ',': '，',
-			\ '\v\.': '。',
-			\ ';': '；',
-			\ '!': '！',
-			\ '\v\?': '？',
-			\ '%': '％',
-			\ }
-let g:endict = {
-			\ '\s*,\s*': ', ',
-			\ '\v\s*\.\s*': '.',
-			\ '\s*-\s*': ' - ',
-			\ '\v\s*\+\s*': ' + ',
-			\ '\v\s*\/\s*': ' / ',
-			\ '\v\s*=\s*': ' = ',
-			\ '\v\s*<\s*': ' < ',
-			\ '\v\s*>\s*': ' > ',
-			\ }
-let g:texdict_blackslash = {
-			\ '\\': '\\blackslash',
-			\ }
-let g:texdict_math = {
-			\ '\v^\d(\.|．)\s*': '\t\\item ',
-			\ '%': '\\%',
-			\ '\V&': '\\\&',
-			\ '\V~': '\\sim',
-			\ '\V≈': '\\approx',
-			\ '\V^': '\\^',
-			\ '\V$': '\\$',
-			\ '_': '\\_',
-			\ '@': '\\@',
-			\ '#': '\\#',
-			\ '\V[': '\\[',
-			\ '\V]': '\\]',
-			\ '\v\{': '\\{',
-			\ '\v\}': '\\}',
-			\ }
-let g:texdict_quote = {
-			\ '“': '\\enquote{',
-			\ '”': '}',
-			\ '‘': '\\enquote{',
-			\ '’': '}',
-			\ }
-let g:texdicts = [g:texdict_blackslash, g:texdict_math, g:texdict_quote]
-let g:listdict = {
-			\ ',': ''', ''',
-			\ '{': '{''',
-			\ '}': '''}',
-			\ }
-" 4}}} substitute "
-" 3}}}  "
 " tpope/vim-unimpaired {{{3 "
 nmap y<Space> <Plug>unimpairedBlankUp<Plug>unimpairedBlankDown
 " 3}}} tpope/vim-unimpaired "
@@ -1724,13 +1638,15 @@ let g:Vimim_punctuation = 3
 let g:Vimim_cloud = 'sogou,google,baidu,qq'
 let g:Vimim_map = ['no-gi', 'no-search']
 nnoremap zi a<C-R>=g:Vimim_gi()<CR>
-nnoremap <Leader>zn :<C-u>call g:Vimim_search()<CR>n
 let g:Vimim_mode = 'dynamic'
 let g:Vimim_mycloud = 1
 let g:Vimim_plugin = $VIMDATA.'/.VimIM'
 let g:Vimim_shuangpin = 'ms'
 let g:Vimim_toggle = 'pinyin'
 inoremap <C-^> <C-R>=Vimim_chinese()<CR>
+inoremap <C-Space> <C-R>=Vimim_chinese()<CR>
+nnoremap <C-Space> <Esc><C-R>=Vimim_chinese()<CR>i
+xnoremap <C-Space> <Esc><C-R>=Vimim_chinese()<CR>gv
 " 3}}} vim-scripts/VimIM "
 " 2}}} KeyMap "
 
@@ -1779,6 +1695,7 @@ if has('pythonx')
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
 let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_default_mapping = 0
 let g:indent_guides_exclude_filetypes = ['help', 'man', 'less', 'duzzle', 'startify', 'calendar', 'python', 'yaml', 'tex', 'plaintex', 'context', 'markdown', 'pandoc', 'floaterm', 'defx']
 " 3}}} nathanaelkane/vim-indent-guides "
 " dbmrq/vim-redacted {{{3 "
@@ -2183,9 +2100,6 @@ set whichwrap+=h,l,<,>,~,[,]
 set virtualedit=block
 set scrolloff=3
 set showcmd
-if exists(':checkhealth')
-	nnoremap <Leader>pH :checkhealth<CR>
-endif
 augroup init_vim "{{{
 	autocmd!
 	autocmd VimResized * wincmd =
@@ -2225,7 +2139,7 @@ let g:load_doxygen_syntax = 1
 let g:polyglot_disabled = ['markdown', 'less']
 " 3}}} sheerun/vim-polyglot "
 " vim-pandoc/vim-pandoc-syntax {{{3 "
-let g:pandoc#syntax#codeblocks#embeds#langs = ['octave', 'tex']
+let g:pandoc#syntax#codeblocks#embeds#langs = ['vim']
 " 3}}} vim-pandoc/vim-pandoc-syntax "
 " 2}}} SyntaxMarkUp "
 
@@ -2342,11 +2256,10 @@ set autowrite
 set confirm
 " 3}}}  "
 " tpope/vim-fugitive {{{3 "
-nnoremap <C-w>u :G<CR>
-nnoremap <Leader>gc :<C-u>!git clone git@github.com:Freed-Wu/.git<Left><Left><Left><Left>
-nnoremap <Leader>gC :<C-u>!git clone<Space>
-nnoremap <Leader>gs :<C-u>!svn checkout https://github.com/Freed-Wu/trunk/<Left><Left><Left><Left><Left><Left>
-nnoremap <Leader>gS :<C-u>!svn checkout<Space>
+nnoremap <Leader>gc :Async git clone git@github.com:Freed-Wu/.git<Left><Left><Left><Left>
+nnoremap <Leader>gC :Async git clone<Space>
+nnoremap <Leader>gs :Async svn checkout https://github.com/Freed-Wu/trunk/<Left><Left><Left><Left><Left><Left>
+nnoremap <Leader>gS :Async svn checkout<Space>
 " 3}}} tpope/vim-fugitive "
 " tpope/vim-rhubarb {{{3 "
 nnoremap gX :Gbrowse<CR>
@@ -2357,10 +2270,6 @@ let g:github_dashboard = {
 			\ 'username': $GITNAME,
 			\ 'password': readfile($VIMDATA.'/github-dashboard.txt')[0],
 			\ }
-nnoremap <Leader>gd :GHDashboard <C-r><C-w><CR>
-xnoremap <Leader>gd y:GHDashboard <C-r>0<CR>
-nnoremap <Leader>ga :GHActivity <C-r><C-w><CR>
-xnoremap <Leader>ga y:GHActivity <C-r>0<CR>
 " 3}}} junegunn/vim-github-dashboard "
 " jaxbot/github-issues.vim {{{3 "
 let g:github_access_token = readfile($VIMDATA.'/github-issues.txt')[0]
@@ -2388,7 +2297,6 @@ let g:undotree_DiffAutoOpen = 1
 let g:undotree_RelativeTimestamp = 1
 let g:undotree_HighlightSyntaxAdd = 'ShowMarksHLl'
 let g:undotree_HighlightSyntaxChange = 'ShowMarksHLl'
-nnoremap q; :<C-u>UndotreeToggle\| UndotreeFocus<CR>
 " 3}}} mbbill/undotree "
 " 2}}} VCS "
 " 1}}} File "
@@ -2402,21 +2310,11 @@ let g:gutentags_modules = ['ctags', 'cscope']
 " 3}}} ludovicchabant/vim-gutentags "
 " skywind3000/gutentags_plus {{{3 "
 let g:gutentags_plus_nomap = 1
-noremap <Leader>qs :GscopeFind s <C-R><C-W><CR>
-noremap <Leader>qg :GscopeFind g <C-R><C-W><CR>
-noremap <Leader>qc :GscopeFind c <C-R><C-W><CR>
-noremap <Leader>qt :GscopeFind t <C-R><C-W><CR>
-noremap <Leader>qe :GscopeFind e <C-R><C-W><CR>
-noremap <Leader>qf :GscopeFind f <C-R>=expand("<cfile>")<CR><CR>
-noremap <Leader>qi :GscopeFind i <C-R>=expand("<cfile>")<CR><CR>
-noremap <Leader>qd :GscopeFind d <C-R><C-W><CR>
-noremap <Leader>qa :GscopeFind a <C-R><C-W><CR>
 " 3}}} skywind3000/gutentags_plus "
 " liuchengxu/vista.vim {{{3 "
 let g:vista_sidebar_width = &columns / 4
 let g:vista_fold_toggle_icons = ['', '']
 let g:vista_close_on_jump = 1
-nnoremap q. :<C-u>Vista<CR>
 " 3}}} liuchengxu/vista.vim "
 " 2}}} TagExplore "
 
@@ -2428,8 +2326,8 @@ if has('pythonx')
 				\ 'right': get(g:, 'airline_right_sep', ''),
 				\ }
 	let g:Lf_RootMarkers = g:rooter_patterns
-	let g:Lf_ShortcutF = '<Leader>ff'
-	let g:Lf_ShortcutB = '<Leader>fb'
+	let g:Lf_ShortcutF = 'q;'
+	let g:Lf_ShortcutB = 'q,'
 	let g:Lf_StlColorscheme = 'gruvbox_material'
 	let g:Lf_HideHelp = 1
 	let g:Lf_ShowHidden = 1
@@ -2444,7 +2342,6 @@ if has('pythonx')
 				\ }
 	let g:Lf_MruWildIgnore = g:Lf_WildIgnore
 	let g:Lf_CommandMap = {
-				\ '<Esc>': ['<C-q>','<Esc>'],
 				\ '<C-f>': ['<C-s>'],
 				\ '<S-Insert>': ['<C-y>'],
 				\ '<Up>': ['<C-p>', '<Up>'],
@@ -2457,7 +2354,7 @@ if has('pythonx')
 				\ '<End>': ['<C-e>', '<End>'],
 				\ '<Left>': ['<C-b>', '<Left>'],
 				\ '<Right>': ['<C-f>', '<Right>'],
-				\ '<C-p>': ['<C-o>'],
+				\ '<C-p>': ['<C-\>'],
 				\ '<C-o>': ['<C-c>'],
 				\ '<C-Up>': ['<C-t>'],
 				\ '<C-Down>': ['<C-v>'],
@@ -2481,33 +2378,9 @@ if has('pythonx')
 				\ 'Self': [],
 				\ 'Colorscheme': []
 				\ }
-	nnoremap <Leader>f<Tab> :<C-u>Leaderf self<CR>
-	nnoremap <Leader>ff :<C-u>Leaderf file<CR>
-	nnoremap <Leader>ft :<C-u>Leaderf filetype<CR>
-	nnoremap <Leader>fw :<C-u>Leaderf window<CR>
-	nnoremap <Leader>fb :<C-u>Leaderf buffer<CR>
-	nnoremap <Leader>fB :<C-u>Leaderf buffer --all<CR>
-	nnoremap <Leader>fa :<C-u>Leaderf buffer --tabpage<CR>
-	nnoremap <Leader>fA :<C-u>Leaderf buffer --tabpage --all<CR>
-	nnoremap <Leader>fm :<C-u>Leaderf mru<CR>
-	nnoremap <Leader>fM :<C-u>Leaderf mru --cwd<CR>
-	nnoremap <Leader>fg :<C-u>Leaderf tag<CR>
-	nnoremap <Leader>fG :<C-u>Leaderf gtag<CR>
-	nnoremap <Leader>f] :<C-u>Leaderf bufTag<CR>
-	nnoremap <Leader>f} :<C-u>Leaderf bufTag --all<CR>
-	nnoremap <Leader>fs :<C-u>Leaderf function<CR>
-	nnoremap <Leader>fS :<C-u>Leaderf function --all<CR>
-	nnoremap <Leader>fl :<C-u>Leaderf line<CR>
-	nnoremap <Leader>fL :<C-u>Leaderf line --all<CR>
-	nnoremap <Leader>f: :<C-u>Leaderf cmdHistory<CR>
-	nnoremap <Leader>f/ :<C-u>Leaderf searchHistory<CR>
-	nnoremap <Leader>fh :<C-u>Leaderf help<CR>
-	nnoremap <Leader>fc :<C-u>Leaderf colorscheme<CR>
-	nnoremap <Leader>fv :<C-u>execute 'Leaderf file '.$VIM.' --input '.split(&filetype, '\.')[0].'.vim'<CR>
-	nnoremap <Leader>fV :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.' --input '.split(&filetype, '\.')[0].'.vim'<CR>
-	nnoremap <Leader>fz :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.'/sbdchd/neoformat/autoload/neoformat/formatters --input '.split(&filetype, '\.')[0].'.vim'<CR>
-	nnoremap <Leader>fZ :<C-u>execute 'Leaderf file '.$GITHUBWORKSPACE.'/w0rp/ale/ale_linters/'.split(&filetype, '\.')[0]<CR>
-	nnoremap <Leader>f; :Leaderf file<Space>
+	nnoremap q: :<C-u>Leaderf cmdHistory<CR>
+	nnoremap q/ :<C-u>Leaderf searchHistory<CR>
+	nnoremap q? :<C-u>Leaderf self<CR>
 	" 3}}} Yggdroot/LeaderF "
 endif
 " 2}}} FuzzyFind "
@@ -2520,15 +2393,14 @@ nmap m_ dm
 
 " Move {{{2 "
 " easymotion/vim-easymotion {{{3 "
-map <Nop> <Plug>(easymotion-prefix)
-xmap <Leader><Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
-xmap <Leader><Leader>- <Plug>(easymotion-bd-f2)
-nmap <Leader><Leader>- <Plug>(easymotion-overwin-f2)
-xmap <Leader><Leader>g <Plug>(easymotion-bd-jk)
-nmap <Leader><Leader>g <Plug>(easymotion-overwin-line)
-xmap <Leader><Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+xmap +f <Plug>(easymotion-bd-f)
+nmap +f <Plug>(easymotion-overwin-f)
+xmap ++ <Plug>(easymotion-bd-f2)
+nmap ++ <Plug>(easymotion-overwin-f2)
+xmap +g <Plug>(easymotion-bd-jk)
+nmap +g <Plug>(easymotion-overwin-line)
+xmap +w <Plug>(easymotion-bd-w)
+nmap +w <Plug>(easymotion-overwin-w)
 " 3}}} easymotion/vim-easymotion "
 " psliwka/vim-smoothie {{{3 "
 nnoremap <C-D> :<C-U>call smoothie#downwards()<CR>
@@ -2637,11 +2509,6 @@ nnoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
 xnoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
 onoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
 " 3}}} haya14busa/incsearch-fuzzy.vim "
-" haya14busa/incsearch-migemo.vim {{{3 "
-nmap <Leader>z? <Plug>(incsearch-migemo-stay)
-xmap <Leader>z? <Plug>(incsearch-migemo-stay)
-omap <Leader>z? <Plug>(incsearch-migemo-stay)
-" 3}}} haya14busa/incsearch-migemo.vim "
 " luochen1990/select-and-searce {{{3 "
 let g:select_and_search_active = 4
 xnoremap n :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>n
@@ -2667,10 +2534,10 @@ nmap __ <plug>(SubversiveSubstituteWordRangeConfirm)$
 " 3}}} svermeulen/vim-subversive "
 
 " kurkale6ka/vim-swap {{{3 "
-xmap + <plug>SwapSwapOperands
-xmap z+ <plug>SwapSwapPivotOperands
-nmap + <plug>SwapSwapWithR_WORD
-nmap z+ <plug>SwapSwapWithL_WORD
+xmap [= <plug>SwapSwapPivotOperands
+xmap ]= <plug>SwapSwapOperands
+nmap [= <plug>SwapSwapWithL_WORD
+nmap ]= <plug>SwapSwapWithR_WORD
 " 3}}} kurkale6ka/vim-swap "
 
 " JikkuJose/vim-VisIncr {{{3 "
@@ -3051,7 +2918,6 @@ let g:user_emmet_expandword_key = g:maplocalleader.','
 " 3}}} mattn/emmet-vim "
 " junegunn/vim-emoji {{{3 "
 set completefunc=emoji#complete
-nnoremap <Leader>rj :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/ge<CR>
 " 3}}} junegunn/vim-emoji "
 " rhysd/github-complete.vim {{{3 "
 let g:github_complete_enable_omni_completion = 0
@@ -3086,9 +2952,6 @@ let g:templates_global_name_prefix = ''
 let g:templates_directory = [$VIMCONFIG.'/vim-template']
 let g:email = $EMAIL
 let g:username = $GITNAME
-for s:templates_directory in g:templates_directory
-	execute 'nnoremap <Leader>f' . index(g:templates_directory, s:templates_directory) . ' :<C-u>Leaderf file ' . s:templates_directory .'<CR>'
-endfor
 " 3}}} aperezdc/vim-template "
 " 2}}} Snippet "
 
@@ -3108,7 +2971,6 @@ inoremap <silent><expr> <TAB>
 			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
 			\ init#check_back_space#main() ? "\<TAB>" :
 			\ coc#refresh()
-nnoremap <Leader>po :CocInstall coc-
 " 3}}} neoclide/coc.nvim "
 " 2}}} LSP "
 
@@ -3140,11 +3002,11 @@ nmap zy <Plug>DittoGood
 nmap zuy <Plug>DittoBad
 nmap [W <Plug>DittoLess
 nmap ]W <Plug>DittoMore
-nmap <Leader>zd <Plug>ToggleDitto
+nmap zI <Plug>ToggleDitto
 " 3}}} dbmrq/vim-ditto "
 " reedes/vim-wordy {{{3 "
-nnoremap <Leader>zw :Wordy<Space>
-nnoremap <Leader>zW :NoWordy<CR>
+nnoremap zY :Wordy<Space>
+nnoremap zuY :NoWordy<CR>
 nnoremap [U :PrevWordy<CR>
 nnoremap ]U :NextWordy<CR>
 " 3}}} reedes/vim-wordy "
@@ -3321,8 +3183,12 @@ let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
 "  {{{3 "
 augroup init_text "{{{
 	autocmd!
+	if exists('#TermEnter')
+		autocmd TermEnter * setfiletype floaterm
+	else
+		autocmd BufRead,BufNewFile,BufEnter * execute &buftype ==# 'terminal'?'setfiletype floaterm':''
+	endif
 	autocmd VimEnter * autocmd BufRead,BufNewFile,BufEnter * execute &filetype ==# ''?'setfiletype text':''
-	autocmd BufRead,BufNewFile,BufEnter * execute &buftype ==# 'terminal'?'setfiletype floaterm':''
 	autocmd BufAdd * call s:bufadd()
 augroup END "}}}
 function! s:bufadd() "{{{
@@ -3375,10 +3241,10 @@ xnoremap <CR> y:FloatermSend <C-r>0<CR>
 let g:calendar_cyclic_view = 1
 let g:calendar_cache_directory = $VIMDATA.'/.calendar.vim'
 " 3}}} itchyny/calendar.vim "
-" tyru/open-browser.vim {{{3 "
-nmap g/ <Plug>(openbrowser-smart-search)
-xmap g/ <Plug>(openbrowser-smart-search)
-" 3}}} tyru/open-browser.vim "
+" voldikss/vim-browser-search {{{3 "
+nmap g/ <Plug>SearchNormal
+xmap g/ <Plug>SearchVisual
+" 3}}} voldikss/vim-browser-search "
 " ianding1/leetcode.vim {{{3 "
 let g:leetcode_username = readfile($VIMDATA.'/leetcode.txt')[0]
 let g:leetcode_password = readfile($VIMDATA.'/leetcode.txt')[1]

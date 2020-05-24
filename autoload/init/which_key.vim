@@ -4,56 +4,6 @@ function! init#which_key#main() "{{{
 	" <Leader> {{{ "
 	let g:which_key_map_leader = {
 				\ 'name': 'choose a key about global map',
-				\ ' ':{
-				\ 'name': '+motion',
-				\ },
-				\ 'b':{
-				\ 'name': '+buffer',
-				\ },
-				\ 'c':{
-				\ 'name':'+comment',
-				\ },
-				\ 'd':{
-				\ 'name': '+draw',
-				\ },
-				\ 'f':{
-				\ 'name': '+leaderf',
-				\ },
-				\ 'g':{
-				\ 'name': '+git',
-				\ },
-				\ 'm':{
-				\ 'name': '+vim-visual-multi',
-				\ },
-				\ 'p':{
-				\ 'name': '+plugin',
-				\ },
-				\ 'q':{
-				\ 'name': '+quickfix',
-				\ },
-				\ 'r':{
-				\ 'name': '+replace',
-				\ 'r': '+substitute',
-				\ 'c': '+count',
-				\ 'd': 'delete empty lines',
-				\ '/': '\→/',
-				\ '?': '/→\',
-				\ '<Tab>': '\→\\',
-				\ '|': '\\→\',
-				\ 's': ' →',
-				\ },
-				\ 'u':{
-				\ 'name': '+ui',
-				\ },
-				\ 'v':{
-				\ 'name': '+vim',
-				\ },
-				\ 'w':{
-				\ 'name': '+vimwiki',
-				\ },
-				\ 'z':{
-				\ 'name': '+language',
-				\ },
 				\ }
 	call which_key#register('<Space>', 'g:which_key_map_leader')
 	" }}} <Leader> "
