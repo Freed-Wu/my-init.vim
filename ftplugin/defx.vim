@@ -68,6 +68,8 @@ nnoremap <buffer><expr> P
 			\ defx#do_action('print')
 nnoremap <buffer><expr> C
 			\ defx#do_action('yank_path')
+nnoremap <buffer><expr> <C-C>
+			\ defx#do_action('call', 'defx#yank_name#main')
 nnoremap <buffer><expr> r
 			\ defx#do_action('rename')
 nnoremap <buffer><expr> c

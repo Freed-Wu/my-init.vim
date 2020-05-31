@@ -51,6 +51,12 @@ function! init#smartinput#main() "{{{
 				\ 'char': '=',
 				\ 'input': ' = ',
 				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '=',
+				\ 'input': '=',
+				\ 'filetype': ['sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch'],
+				\ })
 	call smartinput#map_to_trigger('i', '<<', '<<', '<<')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -287,7 +293,13 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '>',
 				\ 'input': '>',
-				\ 'filetype': ['vim', 'html', 'xhtml', 'pandoc', 'markdown', 'gfimarkdown', 'liquid', 'txt', 'text'],
+				\ 'filetype': ['vim', 'html', 'xhtml', 'liquid', 'txt', 'text'],
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '>',
+				\ 'input': '> ',
+				\ 'filetype': ['pandoc', 'markdown', 'gfimarkdown'],
 				\ })
 	call smartinput#map_to_trigger('i', '>=', '>=', '>=')
 	call smartinput#define_rule({
@@ -438,7 +450,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '!',
 				\ 'input': '! ',
-				\ 'filetype': ['text', 'txt', 'pandoc', 'markdown', 'gfimarkdown'],
+				\ 'filetype': ['text', 'txt'],
 				\ })
 	call smartinput#map_to_trigger('i', '?', '?', '?')
 	call smartinput#define_rule({

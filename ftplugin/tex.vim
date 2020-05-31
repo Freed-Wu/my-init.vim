@@ -8,6 +8,16 @@ let b:clean_temp = [
 			\ '**/*.dia~',
 			\ ]
 
+if expand('%:p') =~# '/usr/share/texmf'
+	setlocal nomodifiable
+	setlocal readonly
+	call init#map#main()
+else
+	nnoremap <Buffer> dsc <Plug>(vimtex-cmd-delete)
+	nnoremap <Buffer> dsd <Plug>(vimtex-delim-delete)
+	nnoremap <Buffer> dse <Plug>(vimtex-env-delete)
+endif
+
 augroup tex "{{{
 	autocmd!
 	autocmd User VimtexEventQuit call s:close()

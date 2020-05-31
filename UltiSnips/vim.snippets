@@ -1,18 +1,9 @@
 priority -30
 
-global !p
-from vimsnippets import foldmarker, make_box, get_comment_format
-endglobal
-
 # Vim {{{1 #
 snippet script "myUltiSnips" b
 scriptencoding utf-8
 $0
-endsnippet
-snippet '"?\s*fold' "myUltiSnips" br
-`!p snip.rv = get_comment_format()[0]` ${1:${VISUAL}} `!p snip.rv = foldmarker()[0]`${2:3} `!p snip.rv = get_comment_format()[2]`
-$0
-`!p snip.rv = get_comment_format()[0]` $2`!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
 endsnippet
 snippet f "myUltiSnips" b
 function! init#${1:`!p snip.rv=snip.basename or "fileName"`}#main($2) "{{{
@@ -37,41 +28,10 @@ endsnippet
 snippet exe "myUltiSnips" i
 execute '${1:normal!$2 }$3'$0
 endsnippet
-snippet toggle "myUltiSnips" b
-function! init#$1_toggle#main() "{{{
-	if !exists('g:$1_toggle')
-		let g:$1_toggle = 1
-	endif
-	if g:$1_toggle
-		$3
-	else
-		$5
-	endif
-	let g:$1_toggle=!g:$1_toggle
-endfunction "}}}
-endsnippet
-snippet dir "myUltiSnips" b
-let s:$1_${2:d}${2/(d)$|(c)$|(.*)/(?1:ata)(?2:onfig)/} = \$VIM${2/(d)$|(c)$|(.*)/(?1:DATA)(?2:CONFIG)/}.'/${VISUAL}$3'
-if !isdirectory(s:$1_$2${2/(d)$|(c)$|(.*)/(?1:ata)(?2:onfig)/})
-	call mkdir(s:$1_$2${2/(d)$|(c)$|(.*)/(?1:ata)(?2:onfig)/}, 'p')
-endif$0
-endsnippet
-snippet file "myUltiSnips"
-let s:$1 = s:$2.'/${VISUAL}$3'
-if filereadable(s:$1)
-	let g:$1 = readfile(s:$1)
-endif$0
-endsnippet
 snippet warn "myUltiSnips" i
 echohl WarningMsg
 echo "$1"
 echohl None$0
-endsnippet
-snippet exec "myUltiSnips" i
-executable('$1')$0
-endsnippet
-snippet exp "myUltiSnips" i
-expand('${1:%:}$2')$0
 endsnippet
 # 1}}} Vim #
 
@@ -104,19 +64,4 @@ snippet hook "myUltiSnips" b
 $0
 endsnippet
 # 1}}} dein #
-
-# vim-which-key {{{1 #
-snippet name "myUltiSnips" i
-			\ '$1':{
-			\ 'name': '+$2',
-			\ },$0
-endsnippet
-snippet which "myUltiSnips" i
-let g:which_key_map_$2 = {
-			\ 'name':"choose a key about $3",
-$0
-			\ }
-call which_key#register('$1', "g:which_key_map_$2")
-endsnippet
-# 1}}} vim-which-key #
 

@@ -3,6 +3,10 @@ let b:trailguide = 1
 setlocal colorcolumn=
 setlocal nofoldenable
 
+if expand('%:t') ==# 'LICENSE'
+	command! -buffer -nargs=? Template call init#quickui#license#main(1)
+endif
+
 if expand('%') ==# '[duzzle]'
 	setlocal nonumber
 	setlocal norelativenumber

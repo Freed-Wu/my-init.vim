@@ -307,90 +307,6 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	" 5}}} Fold "
 	" 4}}} Appearance "
 
-	" File {{{4 "
-	" FileExplore {{{5 "
-	call dein#add('roxma/nvim-yarp', {
-				\ 'if': !has('nvim') && has('python3'),
-				\ 'on_source': ['deoplete.nvim', 'defx.nvim'],
-				\ })
-	call dein#add('roxma/vim-hug-neovim-rpc', {
-				\ 'if': !has('nvim') && has('python3'),
-				\ 'on_source': ['deoplete.nvim', 'defx.nvim'],
-				\ })
-	call dein#add('Shougo/defx.nvim', {
-				\ 'if': has('python3'),
-				\ 'on_cmd': 'Defx',
-				\ 'hook_post_source': join([
-				\ 'call init#defx#main()',
-				\ ], "\n"),
-				\ })
-	call dein#add('linjiX/vim-defx-vista', {
-				\ 'on_cmd': 'ToggleDefxVista',
-				\ })
-	call dein#add('kristijanhusak/defx-git')
-	call dein#add('kristijanhusak/defx-icons', {
-				\ 'if': has('python3'),
-				\ 'on_source': 'defx.nvim',
-				\ })
-	call dein#add('Yggdroot/LeaderF', {
-				\ 'if': has('pythonx'),
-				\ 'build': has('unix')? './install.sh': './install.bat',
-				\ })
-	call dein#add('tamago324/LeaderF-filer')
-	call dein#add('tamago324/LeaderF-bookmark')
-	call dein#add('TwIStOy/leaderf-cppinclude')
-	call dein#add('tamago324/LeaderF-openbrowser')
-	" 5}}} FileExplore "
-
-	" FileEdit {{{5 "
-	call dein#add('mhinz/vim-hugefile')
-	call dein#add('derekwyatt/vim-fswitch', {
-				\ 'on_cmd': ['FSHere', 'FSLeft', 'FSSplitLeft', 'FSRight', 'FSSplitRight', 'FSBelow', 'FSSplitBelow', 'FSAbove', 'FSSplitAbove'],
-				\ })
-	call dein#add('tpope/vim-eunuch', {
-				\ 'on_cmd': ['Delete', 'Unlink', 'Move', 'Rename', 'Chmod', 'Mkdir', 'Cfind', 'Clocate', 'Lfind', 'Llocate', 'Wall', 'SudoWrite', 'SudoEdit'],
-				\ })
-	call dein#add('pbrisbin/vim-mkdir')
-	call dein#add('will133/vim-dirdiff', {
-				\ 'on_cmd': 'DirDiff',
-				\ })
-	" 5}}} FileEdit "
-
-	" Compress {{{5 "
-	call dein#add('lbrayner/vim-rzip')
-	" 5}}} Compress "
-
-	" VCS {{{5 "
-	call dein#add('tpope/vim-fugitive', {
-				\ 'if': executable('git'),
-				\ })
-	call dein#add('tpope/vim-rhubarb')
-	call dein#add('junegunn/gv.vim', {
-				\ 'on_cmd': ['GV', 'GV?'],
-				\ })
-	call dein#add('mhinz/vim-signify', {
-				\ 'if': executable('git') || executable('svn'),
-				\ })
-	call dein#add('cohama/agit.vim', {
-				\ 'on_cmd': 'Agit',
-				\ })
-	call dein#add('junegunn/vim-github-dashboard', {
-				\ 'if': has('ruby'),
-				\ 'on_cmd': ['GHDashboard', 'GHActivity'],
-				\ })
-	call dein#add('jaxbot/github-issues.vim', {
-				\ 'if': has('pythonx'),
-				\ 'on_cmd': ['Gissues', 'Gmiles', 'Giadd'],
-				\ })
-	call dein#add('mbbill/undotree', {
-				\ 'on_cmd': ['UndotreeToggle', 'UndotreeHide', 'UndotreeShow', 'UndotreeFocus'],
-				\ })
-	call dein#add('bennyyip/LeaderF-github-stars', {
-				\ 'on_cmd': 'LeaderfStars',
-				\ })
-	" 5}}} VCS "
-	" 4}}} File "
-
 	" CursorMove {{{4 "
 	" TagExplore {{{5 "
 	call dein#add('ludovicchabant/vim-gutentags', {
@@ -803,10 +719,6 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('chrisbra/unicode.vim', {
 				\ 'on_map': {'i': '<C-x>'},
 				\ })
-	call dein#add('ararslan/license-to-vim', {
-				\ 'on_cmd': ['License', 'Stub'],
-				\ 'on_func': 'LicenseComplete',
-				\ })
 	call dein#add('youran0715/LeaderF-Cmdpalette')
 	" 5}}} Complete "
 
@@ -814,6 +726,10 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('honza/vim-snippets')
 	call dein#add('aperezdc/vim-template', {
 				\ 'on_cmd': ['Template', 'TemplateHere'],
+				\ })
+	call dein#add('ararslan/license-to-vim', {
+				\ 'on_cmd': ['License', 'Stub'],
+				\ 'on_func': 'LicenseComplete',
 				\ })
 	" 5}}} Snippet "
 
@@ -834,6 +750,89 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ })
 	" 5}}} Check "
 	" 4}}} Edit "
+
+	" File {{{4 "
+	" FileExplore {{{5 "
+	call dein#add('roxma/nvim-yarp', {
+				\ 'if': !has('nvim') && has('python3'),
+				\ 'on_source': ['deoplete.nvim', 'defx.nvim'],
+				\ })
+	call dein#add('roxma/vim-hug-neovim-rpc', {
+				\ 'if': !has('nvim') && has('python3'),
+				\ 'on_source': ['deoplete.nvim', 'defx.nvim'],
+				\ })
+	call dein#add('Shougo/defx.nvim', {
+				\ 'if': has('python3'),
+				\ 'on_cmd': 'Defx',
+				\ 'hook_post_source': join([
+				\ 'call init#defx#main()',
+				\ ], "\n"),
+				\ })
+	call dein#add('linjiX/vim-defx-vista', {
+				\ 'on_cmd': 'ToggleDefxVista',
+				\ })
+	call dein#add('kristijanhusak/defx-git')
+	call dein#add('kristijanhusak/defx-icons', {
+				\ 'if': has('python3'),
+				\ 'on_source': 'defx.nvim',
+				\ })
+	call dein#add('Yggdroot/LeaderF', {
+				\ 'if': has('pythonx'),
+				\ 'build': has('unix')? './install.sh': './install.bat',
+				\ })
+	call dein#add('tamago324/LeaderF-filer')
+	call dein#add('tamago324/LeaderF-bookmark')
+	call dein#add('TwIStOy/leaderf-cppinclude')
+	" 5}}} FileExplore "
+
+	" FileEdit {{{5 "
+	call dein#add('mhinz/vim-hugefile')
+	call dein#add('derekwyatt/vim-fswitch', {
+				\ 'on_cmd': ['FSHere', 'FSLeft', 'FSSplitLeft', 'FSRight', 'FSSplitRight', 'FSBelow', 'FSSplitBelow', 'FSAbove', 'FSSplitAbove'],
+				\ })
+	call dein#add('tpope/vim-eunuch', {
+				\ 'on_cmd': ['Delete', 'Unlink', 'Move', 'Rename', 'Chmod', 'Mkdir', 'Cfind', 'Clocate', 'Lfind', 'Llocate', 'Wall', 'SudoWrite', 'SudoEdit'],
+				\ })
+	call dein#add('pbrisbin/vim-mkdir')
+	call dein#add('will133/vim-dirdiff', {
+				\ 'on_cmd': 'DirDiff',
+				\ })
+	" 5}}} FileEdit "
+
+	" Compress {{{5 "
+	call dein#add('lbrayner/vim-rzip')
+	" 5}}} Compress "
+
+	" VCS {{{5 "
+	call dein#add('tpope/vim-fugitive', {
+				\ 'if': executable('git'),
+				\ })
+	call dein#add('tpope/vim-rhubarb')
+	call dein#add('junegunn/gv.vim', {
+				\ 'on_cmd': ['GV', 'GV?'],
+				\ })
+	call dein#add('mhinz/vim-signify', {
+				\ 'if': executable('git') || executable('svn'),
+				\ })
+	call dein#add('cohama/agit.vim', {
+				\ 'on_cmd': 'Agit',
+				\ })
+	call dein#add('junegunn/vim-github-dashboard', {
+				\ 'if': has('ruby'),
+				\ 'on_cmd': ['GHDashboard', 'GHActivity'],
+				\ })
+	call dein#add('jaxbot/github-issues.vim', {
+				\ 'if': has('pythonx'),
+				\ 'on_cmd': ['Gissues', 'Gmiles', 'Giadd'],
+				\ })
+	call dein#add('mbbill/undotree', {
+				\ 'on_cmd': ['UndotreeToggle', 'UndotreeHide', 'UndotreeShow', 'UndotreeFocus'],
+				\ })
+	call dein#add('bennyyip/LeaderF-github-stars', {
+				\ 'on_cmd': 'LeaderfStars',
+				\ })
+	" 5}}} VCS "
+	" 4}}} File "
 
 	" Program {{{4 "
 	" Document {{{5 "
@@ -989,10 +988,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	" 4}}} Program "
 
 	" SpecialFunction {{{4 "
-	" Tool {{{5 "
-	call dein#add('itchyny/calendar.vim', {
-				\ 'on_cmd': 'Calendar',
-				\ })
+	" Music {{{5 "
 	call dein#add('azadkuh/vim-cmus', {
 				\ 'if': executable('cmus'),
 				\ 'on_cmd': 'Cmus',
@@ -1004,10 +1000,17 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('skanehira/badapple.vim', {
 				\ 'on_cmd': 'BadApple',
 				\ })
-	call dein#add('voldikss/vim-browser-search', {
-				\ 'on_cmd': ['Search', 'SearchCurrentText', 'SearchVisualText'],
-				\ 'on_map': ['<Plug>SearchNormal', '<Plug>SearchVisual'],
+	" 5}}} Music "
+
+	" Tool {{{5 "
+	call dein#add('itchyny/calendar.vim', {
+				\ 'on_cmd': 'Calendar',
 				\ })
+	call dein#add('Freed-Wu/gitdraw.vim')
+	call dein#add('Freed-Wu/asciiart')
+	" 5}}} Tool "
+
+	" Web {{{5 "
 	call dein#add('ianding1/leetcode.vim', {
 				\ 'on_cmd': ['LeetCodeList', 'LeetCodeTest', 'LeetCodeSubmit', 'LeetCodeSignIn', 'LeetCodeReset'],
 				\ })
@@ -1018,9 +1021,21 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'if': executable('mutt'),
 				\ 'on_ft': 'mail',
 				\ })
-	call dein#add('Freed-Wu/gitdraw.vim')
-	call dein#add('Freed-Wu/asciiart')
-	" 5}}} Tool "
+	" 5}}} Web "
+
+	" Browse {{{5 "
+	call dein#add('voldikss/vim-browser-search', {
+				\ 'on_cmd': ['Search', 'SearchCurrentText', 'SearchVisualText'],
+				\ 'on_map': ['<Plug>SearchNormal', '<Plug>SearchVisual'],
+				\ })
+	call dein#add('tamago324/LeaderF-openbrowser')
+	call dein#add('tyru/open-browser.vim', {
+				\ 'on_cmd': 'OpenBrowser',
+				\ })
+	call dein#add('dawsers/LeaderF-firefox', {
+				\ 'if': executable('firefox'),
+				\ })
+	" 5}}} Browse "
 
 	" Fortune {{{5 "
 	call dein#add('openuado/vimtips-fortune', {
@@ -1179,15 +1194,15 @@ let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_indices = []
 for s:num in range(0, 9)
-	let g:startify_custom_indices += [g:maplocalleader . nr2char(s:num + 48)]
+	let g:startify_custom_indices += [g:maplocalleader . s:num]
 endfor
 for s:num in range(0, 9)
-	let g:startify_custom_indices += ['.' . nr2char(s:num + 48)]
+	let g:startify_custom_indices += ['.' . s:num]
 endfor
 let g:startify_bookmarks = [
-			\ {g:maplocalleader.'s': '/etc/profile.d/user.sh'},
+			\ {g:maplocalleader.'s': has('unix') ? '/etc/profile.d/user.sh' : glob('$VIMCONFIG/etc/*.ps1')},
 			\ {g:maplocalleader.'v': $MYVIMRC},
-			\ {g:maplocalleader.'j': $VIMCONFIG.'/coc-settings.json'},
+			\ {g:maplocalleader.'j': expand('$VIMCONFIG/coc-settings.json')},
 			\ {g:maplocalleader.'z': expand('$HOME/.zshrc')},
 			\ {g:maplocalleader.'p': '/etc/portage/make.conf'},
 			\ {g:maplocalleader.'x': expand('$HOME/.ssh/id_rsa.pub')},
@@ -1200,7 +1215,6 @@ function! s:cowsay() "{{{
 	if !argc()
 		" let g:startify_custom_header = split(system('fortune | cowthink -f dragon-and-cow'), '\n')
 		" let g:startify_custom_header = cowsay#cowsay(fortune#fortune(), 'dragon-and-cow')
-		" let g:startify_custom_header = cowsay#cowsay(split(fortune_vimtips#tooltipviewtips(), '\n'), 'dragon-and-cow')
 		let g:startify_custom_header = split(fortune_vimtips#tooltipviewtips(), '\n') + readfile($GITHUBWORKSPACE . '/Freed-Wu/asciiart/txt/mythology/103')
 	endif
 endfunction "}}}
@@ -1542,10 +1556,10 @@ nnoremap <C-w>i <C-w>i
 nnoremap <C-w>d <C-w>d
 xnoremap <C-w>i <C-w>i
 xnoremap <C-w>d <C-w>d
-nnoremap <C-w>f :<C-u>execute isdirectory(expand('<cfile>'))? 'Defx `expand("<cfile>")`': 'sfind '.expand("<cfile>")<CR>
-xnoremap <C-w>f y:execute isdirectory(<C-r>0)? 'Defx <C-r>0': 'sfind <C-r>0'<CR>
-nnoremap <C-w>F :<C-u>execute isdirectory(expand('<cfile>'))? 'cd expand("<cfile>")': 'sfind '.expand("<cfile>")<CR>
-xnoremap <C-w>F y:execute isdirectory(<C-r>0)? 'cd <C-r>0': 'sfind <C-r>0'<CR>
+nnoremap <C-w>f :<C-u>execute finddir(expand('<cfile>')) !=# '' ? 'Defx ' . finddir(expand('<cfile>')) : 'sfind <cfile>'<CR>
+xnoremap <C-w>f y:execute finddir(<C-r>0) !=# '' ? 'Defx ' . finddir(<C-r>0) : 'sfind <C-r>0'<CR>
+nnoremap <C-w>F :<C-u>execute finddir(expand('<cfile>')) !=# '' ? 'cd ' . expand('<cfile>') : 'sfind <cfile>'<CR>
+xnoremap <C-w>F y:execute finddir(<C-r>0) !=# '' ? 'cd ' . finddir(<C-r>0) : 'sfind <C-r>0'<CR>
 " 4}}} windowOpen "
 " windowClose {{{4 "
 nnoremap <C-w>c <C-w>c
@@ -2203,214 +2217,6 @@ let g:foldsearch_disable_mappings = 1
 " 2}}} Fold "
 " 1}}} Appearance "
 
-" File {{{1 "
-" FileExplore {{{2 "
-"  {{{3 "
-set directory=$VIMDATA/swap
-let g:netrw_home = $VIMDATA . '/.netrw'
-let g:netrw_nogx = 1
-let g:netrw_altfile = 1
-" 3}}}  "
-" Shougo/defx.nvim {{{3 "
-augroup init_defx "{{{
-	autocmd!
-	autocmd FileType defx source $VIMCONFIG/ftplugin/defx.vim
-augroup END "}}}
-" 3}}} Shougo/defx.nvim "
-" kristijanhusak/defx-icons {{{3 "
-augroup init_defx_icons "{{{
-	autocmd!
-	autocmd VimEnter * call init#defx_icons#main()
-augroup END "}}}
-" 3}}} kristijanhusak/defx-icons "
-if has('pythonx')
-	" Yggdroot/LeaderF {{{3 "
-	let g:Lf_StlSeparator = {
-				\ 'left': get(g:, 'airline_left_sep', ''),
-				\ 'right': get(g:, 'airline_right_sep', ''),
-				\ }
-	let g:Lf_RootMarkers = [
-				\ '.git', '.yadm', '.hg', '.svn', '.bzr',
-				\ '.darcs', '.fossil', '.cvs', '.rcs',
-				\ '.accurev', '.perforce', '.tfs',
-				\ '.vs', '.vscode', '.idea',
-				\ '.project', '.sublime-project',
-				\ '.latexmkrc', '.latexmain',
-				\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
-				\ ]
-	let g:Lf_ShortcutF = ''
-	let g:Lf_ShortcutB = ''
-	let g:Lf_StlColorscheme = 'gruvbox_material'
-	let g:Lf_HideHelp = 1
-	let g:Lf_ShowHidden = 1
-	let g:Lf_WindowPosition = 'popup'
-	let g:Lf_CacheDirectory = $VIMDATA
-	let g:Lf_DevIconsExactSymbols = g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols
-	let g:Lf_DevIconsExtensionSymbols = g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols
-	let g:Lf_UseVersionControlTool = 0
-	let g:Lf_WildIgnore = {
-				\ 'dir': ['.svn', '.git', '.hg'],
-				\ 'file': ['*.sw?', '~$*', '*.bak', '*.exe', '*.o', '*.so', '*.py[co]'],
-				\ }
-	let g:Lf_MruWildIgnore = g:Lf_WildIgnore
-	let g:Lf_CommandMap = {
-				\ '<C-f>': ['<C-s>'],
-				\ '<S-Insert>': ['<C-y>'],
-				\ '<Up>': ['<C-p>', '<Up>'],
-				\ '<Down>': ['<C-n>', '<Down>'],
-				\ '<F5>': ['<C-z>'],
-				\ '<C-a>': ['<C-l>'],
-				\ '<BS>': ['<C-h>', '<BS>'],
-				\ '<Del>': ['<C-d>', '<Del>'],
-				\ '<Home>': ['<C-a>', '<Home>'],
-				\ '<End>': ['<C-e>', '<End>'],
-				\ '<Left>': ['<C-b>', '<Left>'],
-				\ '<Right>': ['<C-f>', '<Right>'],
-				\ '<C-p>': ['<C-\>'],
-				\ '<C-o>': ['<C-c>'],
-				\ '<C-Up>': ['<C-t>'],
-				\ '<C-Down>': ['<C-v>'],
-				\ }
-	nnoremap q: :<C-u>Leaderf cmdHistory<CR>
-	nnoremap q/ :<C-u>Leaderf searchHistory<CR>
-	" 3}}} Yggdroot/LeaderF "
-	" tamago324/LeaderF-filer {{{3 "
-	let g:Lf_FilerUseDefaultInsertMap = 0
-	let g:Lf_FilerUseDefaultNormalMap = 0
-	let g:Lf_FilerInsertMap = {
-				\ '<C-b>': 'left',
-				\ '<C-f>': 'right',
-				\ '<C-p>': 'prev_history',
-				\ '<C-n>': 'next_history',
-				\ '<C-j>': 'down',
-				\ '<C-k>': 'up',
-				\ '<C-a>': 'home',
-				\ '<C-e>': 'end',
-				\ '<C-d>': 'delete',
-				\ '<C-h>': 'backspace',
-				\ '<C-w>': 'delete_left_word',
-				\ '<C-u>': 'clear_line',
-				\ '<C-y>': 'paste',
-				\ '<C-g>': 'open_parent_or_clear_line',
-				\ '<C-o>': 'open_current',
-				\ '<C-s>': 'toggle_hidden_files',
-				\ '<C-r>': 'toggle_regex',
-				\ '<Esc>': 'quit',
-				\ '<CR>': 'accept',
-				\ '<C-x>': 'accept_horizontal',
-				\ '<C-]>': 'accept_vertical',
-				\ '<C-t>': 'accept_tab',
-				\ '<Tab>': 'switch_normal_mode',
-				\ '<2-LeftMouse>': 'accept',
-				\ '<ScroollWhellUp>': 'up3',
-				\ '<ScroollWhellDown>': 'down3',
-				\ }
-	let g:Lf_FilerNormalMap = {
-				\ 'K': 'open_parent',
-				\ 'go': 'open_current',
-				\ 'J': 'goto_root_marker_dir',
-				\ '.': 'toggle_hidden_files',
-				\ 'j': 'down',
-				\ 'k': 'up',
-				\ '<F1>': 'toggle_help',
-				\ '<Tab>': 'switch_insert_mode',
-				\ '<CR>': 'preview',
-				\ '<Esc>': 'quit',
-				\ 'o': 'accept',
-				\ 'i': 'accept_horizontal',
-				\ 'I': 'accept_vertical',
-				\ 'O': 'accept_tab',
-				\ 'u': 'page_up_in_preview',
-				\ 'd': 'page_down_in_preview',
-				\ 'ZZ': 'close_preview_popup',
-				\ 's': 'add_selections',
-				\ '<C-A>': 'select_all',
-				\ 'gq': 'clear_selections',
-				\ 'a': 'create_file',
-				\ 'A': 'mkdir',
-				\ 'r': 'rename',
-				\ 'c': 'copy',
-				\ 'p': 'paste',
-				\ '=': 'change_directory',
-				\ 'gk': 'history_backward',
-				\ 'gj': 'history_forward',
-				\ 'x': 'remove',
-				\ 'X': 'remove_trash',
-				\ }
-	" 3}}} tamago324/LeaderF-filer "
-endif
-" 2}}} FileExplore "
-
-" FileEdit {{{2 "
-"  {{{3 "
-nnoremap <Leader>bb :<C-u>diffsplit<Space>
-" 3}}}  "
-" tpope/vim-eunuch {{{3 "
-nnoremap <Leader>bC :<C-u>Chmod<Space>
-nnoremap <Leader>br :<C-u>Rename<Space>
-nnoremap <Leader>bm :<C-u>Mkdir<Space>
-nnoremap <Leader>bq :<C-u>Cfind<Space>
-nnoremap <Leader>bl :<C-u>Lfind<Space>
-nnoremap <Leader>bq :<C-u>Clocate<Space>
-nnoremap <Leader>bl :<C-u>Llocate<Space>
-nnoremap <Leader>bE :<C-u>SudoEdit<Space>
-" 3}}} tpope/vim-eunuch "
-" will133/vim-dirdiff {{{3 "
-nnoremap <Leader>bd :<C-u>DirDiff<Space>
-" 3}}} will133/vim-dirdiff "
-" 2}}} FileEdit "
-
-" Compress {{{2 "
-" 2}}} Compress "
-
-" VCS {{{2 "
-"  {{{3 "
-set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-set autowrite
-set confirm
-" 3}}}  "
-" tpope/vim-rhubarb {{{3 "
-nnoremap gX :Gbrowse<CR>
-xnoremap gX :Gbrowse<CR>
-" 3}}} tpope/vim-rhubarb "
-" junegunn/vim-github-dashboard {{{3 "
-let g:github_dashboard = {
-			\ 'username': $GITNAME,
-			\ 'password': readfile($VIMDATA.'/github-dashboard.txt')[0],
-			\ }
-" 3}}} junegunn/vim-github-dashboard "
-" jaxbot/github-issues.vim {{{3 "
-let g:github_access_token = readfile($VIMDATA.'/github-issues.txt')[0]
-let g:gissues_lazy_load = 1
-" 3}}} jaxbot/github-issues.vim "
-" mhinz/vim-signify {{{3 "
-nmap [g <plug>(signify-prev-hunk)
-nmap ]g <plug>(signify-next-hunk)
-nmap [G 9999<plug>(signify-prev-hunk)
-nmap ]G 9999<plug>(signify-next-hunk)
-omap ig <plug>(signify-motion-inner-pending)
-xmap ig <plug>(signify-motion-inner-visual)
-omap ag <plug>(signify-motion-outer-pending)
-xmap ag <plug>(signify-motion-outer-visual)
-" 3}}} mhinz/vim-signify "
-" mbbill/undotree {{{3 "
-set undofile
-set undodir=$VIMDATA/undo
-let g:undotree_HelpLine = 0
-let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
-let g:undotree_CustomDiffpanelCmd = 'topleft 5 new'
-let g:undotree_HighlightChangedText  = 1
-let g:undotree_DiffAutoOpen = 1
-let g:undotree_RelativeTimestamp = 1
-let g:undotree_HighlightSyntaxAdd = 'ShowMarksHLl'
-let g:undotree_HighlightSyntaxChange = 'ShowMarksHLl'
-" 3}}} mbbill/undotree "
-" bennyyip/LeaderF-github-stars {{{3 "
-let gs#username='Freed-Wu'
-" 3}}} bennyyip/LeaderF-github-stars "
-" 2}}} VCS "
-" 1}}} File "
-
 " CursorMove {{{1 "
 " TagExplore {{{2 "
 " ludovicchabant/vim-gutentags {{{3 "
@@ -2984,27 +2790,27 @@ endif
 " chrisbra/unicode.vim {{{3 "
 let g:Unicode_data_directory = $VIMDATA.'/.unicode.vim'
 " 3}}} chrisbra/unicode.vim "
-" ararslan/license-to-vim {{{3 "
-let g:license_email = $GITNAME
-let g:license_author = $EMAIL
-" 3}}} ararslan/license-to-vim "
 " youran0715/LeaderF-Cmdpalette {{{3 "
 nnoremap g: :Leaderf command<CR>
 " 3}}} youran0715/LeaderF-Cmdpalette "
 " 2}}} Complete "
 
 " Snippet {{{2 "
-" honza/vim-snippets {{{3 "
-let g:snips_author = $GITNAME
-let g:snips_github = $GITNAME
-let g:snips_email = $EMAIL
-" 3}}} honza/vim-snippets "
 " aperezdc/vim-template {{{3 "
 let g:templates_global_name_prefix = ''
 let g:templates_directory = [$VIMCONFIG.'/vim-template']
-let g:email = $EMAIL
-let g:username = $GITNAME
+let g:email = matchstr($ECHANGELOG_USER, "\\(<\\)\\@<=[^>]\\+\\(>\\)\\@=")
+let g:username = matchstr($ECHANGELOG_USER, "^[^<]\\+\\( <\\)\\@=")
 " 3}}} aperezdc/vim-template "
+" honza/vim-snippets {{{3 "
+let g:snips_author = g:username
+let g:snips_github = g:username
+let g:snips_email = g:email
+" 3}}} honza/vim-snippets "
+" ararslan/license-to-vim {{{3 "
+let g:license_email = g:email
+let g:license_author = g:username
+" 3}}} ararslan/license-to-vim "
 " 2}}} Snippet "
 
 " Check {{{2 "
@@ -3045,6 +2851,245 @@ nnoremap ]U :NextWordy<CR>
 " 2}}} Check "
 " 1}}} Edit "
 
+" File {{{1 "
+" FileExplore {{{2 "
+"  {{{3 "
+set directory=$VIMDATA/swap
+let g:netrw_home = $VIMDATA . '/.netrw'
+let g:netrw_nogx = 1
+let g:netrw_altfile = 1
+" 3}}}  "
+" Shougo/defx.nvim {{{3 "
+augroup init_defx "{{{
+	autocmd!
+	autocmd FileType defx source $VIMCONFIG/ftplugin/defx.vim
+augroup END "}}}
+" 3}}} Shougo/defx.nvim "
+" kristijanhusak/defx-icons {{{3 "
+augroup init_defx_icons "{{{
+	autocmd!
+	autocmd VimEnter * call init#defx_icons#main()
+augroup END "}}}
+" 3}}} kristijanhusak/defx-icons "
+if has('pythonx')
+	" Yggdroot/LeaderF {{{3 "
+	let g:Lf_StlSeparator = {
+				\ 'left': get(g:, 'airline_left_sep', ''),
+				\ 'right': get(g:, 'airline_right_sep', ''),
+				\ }
+	let g:Lf_RootMarkers = [
+				\ '.git', '.yadm', '.hg', '.svn', '.bzr',
+				\ '.darcs', '.fossil', '.cvs', '.rcs',
+				\ '.accurev', '.perforce', '.tfs',
+				\ '.vs', '.vscode', '.idea',
+				\ '.project', '.sublime-project',
+				\ '.latexmkrc', '.latexmain',
+				\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
+				\ ]
+	let g:Lf_ShortcutF = ''
+	let g:Lf_ShortcutB = ''
+	let g:Lf_StlColorscheme = 'gruvbox_material'
+	let g:Lf_HideHelp = 1
+	let g:Lf_ShowHidden = 1
+	let g:Lf_WindowPosition = 'popup'
+	let g:Lf_CacheDirectory = $VIMDATA
+	let g:Lf_DevIconsExactSymbols = g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols
+	let g:Lf_DevIconsExtensionSymbols = g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols
+	let g:Lf_UseVersionControlTool = 0
+	let g:Lf_WildIgnore = {
+				\ 'dir': ['.svn', '.git', '.hg'],
+				\ 'file': ['*.sw?', '~$*', '*.bak', '*.exe', '*.o', '*.so', '*.py[co]'],
+				\ }
+	let g:Lf_MruWildIgnore = g:Lf_WildIgnore
+	let g:Lf_CommandMap = {
+				\ '<C-f>': ['<C-s>'],
+				\ '<S-Insert>': ['<C-y>'],
+				\ '<Up>': ['<C-p>', '<Up>'],
+				\ '<Down>': ['<C-n>', '<Down>'],
+				\ '<F5>': ['<C-z>'],
+				\ '<C-a>': ['<C-l>'],
+				\ '<BS>': ['<C-h>', '<BS>'],
+				\ '<Del>': ['<C-d>', '<Del>'],
+				\ '<Home>': ['<C-a>', '<Home>'],
+				\ '<End>': ['<C-e>', '<End>'],
+				\ '<Left>': ['<C-b>', '<Left>'],
+				\ '<Right>': ['<C-f>', '<Right>'],
+				\ '<C-p>': ['<C-\>'],
+				\ '<C-o>': ['<C-c>'],
+				\ '<C-Up>': ['<C-t>'],
+				\ '<C-Down>': ['<C-v>'],
+				\ }
+	let g:Lf_NormalMap = {
+				\ '_': [
+				\ ['<nowait>u', '<C-u>'],
+				\ ['<nowait>d', '<C-d>'],
+				\ ['<nowait>U', '<C-b>'],
+				\ ['<nowait>D', '<C-f>'],
+				\ ],
+				\ 'File': [
+				\ ],
+				\ 'Buffer': [
+				\ ['<nowait>x', ':<C-u>execute g:Lf_py "bufExplManager.deleteBuffer(1)"<CR>'],
+				\ ],
+				\ 'Mru': [
+				\ ],
+				\ 'Tag': [
+				\ ],
+				\ 'BufTag': [
+				\ ],
+				\ 'Function': [
+				\ ],
+				\ 'Line': [
+				\ ],
+				\ 'History':[
+				\ ],
+				\ 'Help': [
+				\ ],
+				\ 'Self': [
+				\ ],
+				\ 'Colorscheme': [
+				\ ],
+				\}
+	nnoremap q: :<C-u>Leaderf cmdHistory<CR>
+	nnoremap q/ :<C-u>Leaderf searchHistory<CR>
+	" 3}}} Yggdroot/LeaderF "
+	" tamago324/LeaderF-filer {{{3 "
+	let g:Lf_FilerUseDefaultInsertMap = 0
+	let g:Lf_FilerUseDefaultNormalMap = 0
+	let g:Lf_FilerInsertMap = {
+				\ '<C-b>': 'left',
+				\ '<C-f>': 'right',
+				\ '<C-p>': 'prev_history',
+				\ '<C-n>': 'next_history',
+				\ '<C-j>': 'down',
+				\ '<C-k>': 'up',
+				\ '<C-a>': 'home',
+				\ '<C-e>': 'end',
+				\ '<C-d>': 'delete',
+				\ '<C-h>': 'backspace',
+				\ '<C-w>': 'delete_left_word',
+				\ '<C-u>': 'clear_line',
+				\ '<C-y>': 'paste',
+				\ '<C-g>': 'open_parent_or_clear_line',
+				\ '<C-o>': 'open_current',
+				\ '<C-s>': 'toggle_hidden_files',
+				\ '<C-r>': 'toggle_regex',
+				\ '<Esc>': 'quit',
+				\ '<CR>': 'accept',
+				\ '<C-x>': 'accept_horizontal',
+				\ '<C-]>': 'accept_vertical',
+				\ '<C-t>': 'accept_tab',
+				\ '<Tab>': 'switch_normal_mode',
+				\ '<2-LeftMouse>': 'accept',
+				\ '<ScroollWhellUp>': 'up3',
+				\ '<ScroollWhellDown>': 'down3',
+				\ }
+	let g:Lf_FilerNormalMap = {
+				\ 'K': 'open_parent',
+				\ 'go': 'open_current',
+				\ 'J': 'goto_root_marker_dir',
+				\ '.': 'toggle_hidden_files',
+				\ 'j': 'down',
+				\ 'k': 'up',
+				\ '<F1>': 'toggle_help',
+				\ '<Tab>': 'switch_insert_mode',
+				\ '<CR>': 'preview',
+				\ '<Esc>': 'quit',
+				\ 'o': 'accept',
+				\ 'i': 'accept_horizontal',
+				\ 'I': 'accept_vertical',
+				\ 'O': 'accept_tab',
+				\ 'u': 'page_up_in_preview',
+				\ 'd': 'page_down_in_preview',
+				\ 'ZZ': 'close_preview_popup',
+				\ 's': 'add_selections',
+				\ '<C-A>': 'select_all',
+				\ 'gq': 'clear_selections',
+				\ 'a': 'create_file',
+				\ 'A': 'mkdir',
+				\ 'r': 'rename',
+				\ 'c': 'copy',
+				\ 'p': 'paste',
+				\ '=': 'change_directory',
+				\ 'gk': 'history_backward',
+				\ 'gj': 'history_forward',
+				\ 'x': 'remove',
+				\ 'X': 'remove_trash',
+				\ }
+	" 3}}} tamago324/LeaderF-filer "
+endif
+" 2}}} FileExplore "
+
+" FileEdit {{{2 "
+"  {{{3 "
+nnoremap <Leader>bb :<C-u>diffsplit<Space>
+" 3}}}  "
+" tpope/vim-eunuch {{{3 "
+nnoremap <Leader>bC :<C-u>Chmod<Space>
+nnoremap <Leader>br :<C-u>Rename<Space>
+nnoremap <Leader>bm :<C-u>Mkdir<Space>
+nnoremap <Leader>bq :<C-u>Cfind<Space>
+nnoremap <Leader>bl :<C-u>Lfind<Space>
+nnoremap <Leader>bq :<C-u>Clocate<Space>
+nnoremap <Leader>bl :<C-u>Llocate<Space>
+nnoremap <Leader>bE :<C-u>SudoEdit<Space>
+" 3}}} tpope/vim-eunuch "
+" will133/vim-dirdiff {{{3 "
+nnoremap <Leader>bd :<C-u>DirDiff<Space>
+" 3}}} will133/vim-dirdiff "
+" 2}}} FileEdit "
+
+" Compress {{{2 "
+" 2}}} Compress "
+
+" VCS {{{2 "
+"  {{{3 "
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+set autowrite
+set confirm
+" 3}}}  "
+" tpope/vim-rhubarb {{{3 "
+nnoremap gX :Gbrowse<CR>
+xnoremap gX :Gbrowse<CR>
+" 3}}} tpope/vim-rhubarb "
+" junegunn/vim-github-dashboard {{{3 "
+let g:github_dashboard = {
+			\ 'username': g:username,
+			\ 'password': readfile($VIMDATA.'/github-dashboard.txt')[0],
+			\ }
+" 3}}} junegunn/vim-github-dashboard "
+" jaxbot/github-issues.vim {{{3 "
+let g:github_access_token = readfile($VIMDATA.'/github-issues.txt')[0]
+let g:gissues_lazy_load = 1
+" 3}}} jaxbot/github-issues.vim "
+" mhinz/vim-signify {{{3 "
+nmap [g <plug>(signify-prev-hunk)
+nmap ]g <plug>(signify-next-hunk)
+nmap [G 9999<plug>(signify-prev-hunk)
+nmap ]G 9999<plug>(signify-next-hunk)
+omap ig <plug>(signify-motion-inner-pending)
+xmap ig <plug>(signify-motion-inner-visual)
+omap ag <plug>(signify-motion-outer-pending)
+xmap ag <plug>(signify-motion-outer-visual)
+" 3}}} mhinz/vim-signify "
+" mbbill/undotree {{{3 "
+set undofile
+set undodir=$VIMDATA/undo
+let g:undotree_HelpLine = 0
+let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
+let g:undotree_CustomDiffpanelCmd = 'topleft 5 new'
+let g:undotree_HighlightChangedText  = 1
+let g:undotree_DiffAutoOpen = 1
+let g:undotree_RelativeTimestamp = 1
+let g:undotree_HighlightSyntaxAdd = 'ShowMarksHLl'
+let g:undotree_HighlightSyntaxChange = 'ShowMarksHLl'
+" 3}}} mbbill/undotree "
+" bennyyip/LeaderF-github-stars {{{3 "
+let gs#username='Freed-Wu'
+" 3}}} bennyyip/LeaderF-github-stars "
+" 2}}} VCS "
+" 1}}} File "
+
 " Program {{{1 "
 " Document {{{2 "
 " 2}}} Document "
@@ -3053,7 +3098,7 @@ nnoremap ]U :NextWordy<CR>
 " lervag/vimtex {{{3 "
 let g:vimtex_imaps_leader = '.'
 let g:vimtex_mappings_disable = {
-			\ 'n': ['ds$', 'cs$', 'tsc', 'tse', 'tsd', 'tsD', '<F7>', 'K'],
+			\ 'n': ['ds$', 'cs$', 'tsc', 'tse', 'tsd', 'tsD', '<F7>', 'K', 'dsd', 'dse', 'dsc'],
 			\ 'x': ['<F7>', 'tsd', 'tsD'],
 			\ 'i': ['<F7>', 'tsD'],
 			\ }
@@ -3119,9 +3164,9 @@ let g:vimwiki_use_mouse = 1
 let g:vimwiki_valid_html_tags = 'a,img,b,i,s,u,sub,sup,br,hr,div,del,code,red,center,left,right,h1,h2,h3,h4,h5,h6,pre,script,style'
 let g:vimwiki_list = [
 			\ {
-			\ 'path': expand('$GITHUBWORKSPACE/$GITNAME/vimwiki'),
-			\ 'path_html': expand('$GITHUBWORKSPACE/$GITNAME/vimwiki/_site'),
-			\ 'template_path': expand('$GITHUBWORKSPACE/$GITNAME/vimwiki/_layouts'),
+			\ 'path': $GITHUBWORKSPACE . '/' . g:username . '/vimwiki',
+			\ 'path_html': $GITHUBWORKSPACE . '/' . g:username . '/vimwiki/_site',
+			\ 'template_path': $GITHUBWORKSPACE . '/' . g:username . '/vimwiki/_layouts',
 			\ },
 			\ ]
 " 3}}} vimwiki/vimwiki "
@@ -3273,21 +3318,27 @@ xnoremap <CR> y:FloatermSend <C-r>0<CR>
 let g:calendar_cyclic_view = 1
 let g:calendar_cache_directory = $VIMDATA.'/.calendar.vim'
 " 3}}} itchyny/calendar.vim "
-" voldikss/vim-browser-search {{{3 "
-nmap g/ <Plug>SearchNormal
-xmap g/ <Plug>SearchVisual
-" 3}}} voldikss/vim-browser-search "
+" Freed-Wu/gitdraw.vim {{{ "
+let g:gitdraw#author_name = g:username
+let g:gitdraw#repeat_number = 13
+let g:gitdraw#repo_path = $GITHUBWORKSPACE . '/' . g:username . '/git-drawing'
+" }}} Freed-Wu/gitdraw.vim "
+" 2}}} Tool "
+
+" Web {{{2 "
 " ianding1/leetcode.vim {{{3 "
 let g:leetcode_username = readfile($VIMDATA.'/leetcode.txt')[0]
 let g:leetcode_password = readfile($VIMDATA.'/leetcode.txt')[1]
 let g:leetcode_china = 1
 " 3}}} ianding1/leetcode.vim "
-" Freed-Wu/gitdraw.vim {{{ "
-let g:gitdraw#author_name = $GITNAME
-let g:gitdraw#repeat_number = 13
-let g:gitdraw#repo_path = $GITHUBWORKSPACE . '/' . $GITNAME . '/git-drawing'
-" }}} Freed-Wu/gitdraw.vim "
-" 2}}} Tool "
+" 2}}} Web "
+
+" Browse {{{2 "
+" voldikss/vim-browser-search {{{3 "
+nmap g/ <Plug>SearchNormal
+xmap g/ <Plug>SearchVisual
+" 3}}} voldikss/vim-browser-search "
+" 2}}} Browse "
 
 " Fortune {{{2 "
 " 2}}} Fortune "
