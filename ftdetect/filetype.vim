@@ -33,7 +33,6 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead *.ess,*.edje setfiletype css
 	autocmd BufNewFile,BufRead *.gnuplot,.gnuplot_history setfiletype gnuplot
 	autocmd BufNewFile,BufRead *.snippets set filetype=snippets
-	execute 'autocmd BufNewFile,BufRead =template=*,' . g:templates_directory[0] . '/* syn match vimtemplateVariable "%\%(DAY\|YEAR\|MONTH\|MONTHSHORT\|MONTHFULL\|DATE\|TIME\|FILE\|FFILE\|EXT\|MAIL\|USER\|HOST\|GUARD\|CLASS\|MACROCLASS\|CAMELCLASS\|HERE\)%" containedin=ALL'
 	" 2}}} Mark_Up "
 
 	" Script {{{2 "
@@ -51,7 +50,8 @@ augroup filetypedetect "{{{
 	" Script }}}2 "
 
 	" Simulate {{{2 "
-	autocmd BufNewFile,BufRead *.lib setfiletype spice
+	autocmd BufNewFile,BufRead sp* execute expand('%:p:h') ==# '/tmp' ? 'setfiletype spice' : ''
+	autocmd BufNewFile,BufRead *.lib,*.net,*.cir set filetype=spice
 	autocmd BufNewFile,BufRead *.mif setfiletype ahdl
 	autocmd BufNewFile,BufRead *.vht,*.cmp setfiletype vhdl
 	autocmd BufNewFile,BufRead *.vl,*.vlg,*.verilog,*.vt setfiletype verilog_systemverilog
@@ -60,6 +60,14 @@ augroup filetypedetect "{{{
 	" 2}}} Simulate "
 
 	" Compile {{{2 "
+	autocmd BufNewFile,BufRead config call s:config()
+	function! s:config() "{{{
+		if expand('%:p:h:t') ==# '.cabal'
+			setfiletype haskell
+		elseif expand('%:p:h:t') ==# '.git'
+			setfiletype gitconfig
+		endif
+	endfunction "}}}
 	autocmd BufNewFile,BufRead *.icf,*.acg,*.68k,*.56k,*.isl setfiletype asm
 	autocmd BufNewFile,BufRead *.gel,*.yfx,*.qdoc,*.c.noindent,*.cc.noindent,*.rh,*.ver,*.cilk,*.gui setfiletype c
 	" 2}}} Compile "

@@ -5,12 +5,23 @@
 	"snippets.editSnippetsCommand": "split",
 	"highlight.colors.enable": true,
 	"highlight.document.enable": true,
-		"emmet.includeLanguages": {
-			"vue-html": "html",
-			"javascript": "javascriptreact",
-			"gfimarkdown": "html",
-			"markdown": "html",
-		},
+	"emmet.includeLanguages": {
+		"vue-html": "html",
+		"javascript": "javascriptreact",
+		"gfimarkdown": "html",
+		"markdown": "html",
+	},
+	"template.license": "GPL",
+	"template.templatesDirectory": "~/.config/nvim/vim-template",
+	"list.insertMappings": {
+		"<C-f>": "prompt:right",
+		"<C-b>": "prompt:left",
+		"<C-t>": "action:tabe",
+		"<C-y>": "eval:@@"
+	},
+	"list.normalMappings": {
+		"x": "action:delete"
+	},
 	"explorer.icon.enableNerdfont": true,
 	"explorer.icon.enableVimDevicons": true,
 	"explorer.keyMappingMode": "none",
@@ -59,13 +70,13 @@
 		"gf": "gotoSource:file",
 		"gF": "gotoSource:buffer",
 		"[[": "sourcePrev",
-		"]]": "sourceNext",
-		"[d": "diagnosticPrev",
-		"]d": "diagnosticNext",
-		"[g": "gitPrev",
-		"]g": "gitNext",
-		"<": "gitStage",
-		">": "gitUnstage"
+			"]]": "sourceNext",
+			"[d": "diagnosticPrev",
+				"]d": "diagnosticNext",
+				"[g": "gitPrev",
+					"]g": "gitNext",
+					"<": "gitStage",
+					">": "gitUnstage"
 	},
 	"snippets.ultisnips.directories": [
 		"coc-snippets/UltiSnips",

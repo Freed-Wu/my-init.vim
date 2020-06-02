@@ -20,4 +20,7 @@ setlocal formatexpr=bucky#md#format()
 nnoremap <buffer> J :<C-u>execute('silent! .+1,.+'.v:count1.'substitute/\v^　*//g\|.-'.v:count1.',.join\| normal! ``')<CR>:let @/= ''<CR>
 xnoremap <buffer> J :<C-u>execute('silent! ''<+1,''>substitute/\v^　*//g\|''<,''>join\| normal! ``')<CR>:let @/= ''<CR>
 nnoremap <buffer> <Localleader>d :!aria2c -i %<CR>
-
+nmap <buffer> w <Plug>(coc-ci-w)
+nmap <buffer> b <Plug>(coc-ci-b)
+nnoremap <buffer> W w
+nnoremap <silent> B b

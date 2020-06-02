@@ -13,10 +13,18 @@ if expand('%:p') =~# '/usr/share/texmf'
 	setlocal readonly
 	call init#map#main()
 else
-	nnoremap <Buffer> dsc <Plug>(vimtex-cmd-delete)
-	nnoremap <Buffer> dsd <Plug>(vimtex-delim-delete)
-	nnoremap <Buffer> dse <Plug>(vimtex-env-delete)
+	nmap <buffer> dsc <Plug>(vimtex-cmd-delete)
+	nmap <buffer> dsd <Plug>(vimtex-delim-delete)
+	nmap <buffer> dse <Plug>(vimtex-env-delete)
 endif
+nmap <buffer> crf <Plug>(vimtex-cmd-toggle-frac)
+nmap <buffer> crj <Plug>(vimtex-delim-toggle-modifier)
+nmap <buffer> crk <Plug>(vimtex-delim-toggle-modifier-reverse)
+nmap <buffer> cre <Plug>(vimtex-env-toggle-star)
+nmap <buffer> crc <Plug>(vimtex-cmd-toggle-star)
+xmap <buffer> crf <Plug>(vimtex-cmd-toggle-frac)
+xmap <buffer> crj <Plug>(vimtex-delim-toggle-modifier)
+xmap <buffer> crk <Plug>(vimtex-delim-toggle-modifier-reverse)
 
 augroup tex "{{{
 	autocmd!

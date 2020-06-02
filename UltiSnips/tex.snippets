@@ -387,18 +387,14 @@ endsnippet
 # exercise {{{2 #
 snippet exe "myUltiSnips" b
 \begin{Exercise}
-
 ${VISUAL}$1
-
 \end{Exercise}
 
 $0
 endsnippet
 snippet ans "myUltiSnips" b
 \begin{Answer}
-
 ${VISUAL}$0
-
 \end{Answer}
 endsnippet
 snippet pro "myUltiSnips" b
@@ -742,10 +738,6 @@ endsnippet
 # 1}}} matrix #
 
 # latex-math-space {{{1 #
-snippet - "myUltiSnips" iA
- - $0
-endsnippet
-
 snippet "([^A-Za-z0-9\}\)\]']) - " "myUltiSnips" irA
 `!p snip.rv = match.group(1)`-$0
 endsnippet

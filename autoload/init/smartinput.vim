@@ -75,6 +75,18 @@ function! init#smartinput#main() "{{{
 				\ 'char': '+',
 				\ 'input': ' + ',
 				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '+',
+				\ 'input': '+',
+				\ 'filetype': ['html', 'xhtml', 'liquid', 'xml'],
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '+',
+				\ 'input': '+ ',
+				\ 'filetype': ['spice'],
+				\ })
 	call smartinput#map_to_trigger('i', '++', '++', '++')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -91,13 +103,19 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '-',
 				\ 'input': '-',
-				\ 'filetype': ['vim', 'muttrc', 'json', 'ebuild', 'gentoo-make-conf', 'gentoo-package-use', 'cmusrc', 'pandoc', 'markdown', 'gfimarkdown', 'gitcommit', 'txt', 'text', 'bib', 'sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch', 'gentoo-metadata'],
+				\ 'filetype': ['vim', 'muttrc', 'json', 'ebuild', 'gentoo-make-conf', 'gentoo-package-use', 'cmusrc', 'pandoc', 'markdown', 'gfimarkdown', 'gitcommit', 'txt', 'text', 'bib', 'sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch', 'gentoo-metadata', 'html', 'xhtml', 'liquid', 'xml', 'spice'],
 				\ })
 	call smartinput#map_to_trigger('i', '--', '--', '--')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '--',
 				\ 'input': ' -- ',
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '--',
+				\ 'input': '--',
+				\ 'filetype': ['pandoc', 'markdown', 'gfimarkdown', 'vim'],
 				\ })
 	call smartinput#map_to_trigger('i', '*', '*', '*')
 	call smartinput#define_rule({
@@ -109,7 +127,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '*',
 				\ 'input': '*',
-				\ 'filetype': ['gitignore', 'gitcommit'],
+				\ 'filetype': ['gitignore', 'gitcommit', 'vim', 'html', 'xhtml', 'liquid', 'xml'],
 				\ })
 	call smartinput#map_to_trigger('i', '/', '/', '/')
 	call smartinput#define_rule({
@@ -121,7 +139,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '/',
 				\ 'input': '/',
-				\ 'filetype': ['text', 'txt', 'vim', 'sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch', 'markdown', 'pandoc', 'gfimarkdown', 'rst', 'html', 'xhtml', 'liquid', 'xml', 'gitignore', 'gitcommit'],
+				\ 'filetype': ['text', 'txt', 'vim', 'sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch', 'markdown', 'pandoc', 'gfimarkdown', 'rst', 'html', 'xhtml', 'liquid', 'xml', 'gitignore', 'gitcommit', 'json', 'gentoo-package-use'],
 				\ })
 	call smartinput#map_to_trigger('i', '+=', '+=', '+=')
 	call smartinput#define_rule({
@@ -193,7 +211,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '^',
 				\ 'input': '^',
-				\ 'filetype': ['vim'],
+				\ 'filetype': ['vim', 'pandoc', 'markdown', 'gfimarkdown', 'tex', 'plaintex', 'context', 'html', 'xhtml', 'liquid', 'xml'],
 				\ })
 	call smartinput#map_to_trigger('i', '^^', '^^', '^^')
 	call smartinput#define_rule({
@@ -479,7 +497,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': ',',
 				\ 'input': ',',
-				\ 'filetype': ['csv'],
+				\ 'filetype': ['csv', 'json'],
 				\ })
 	call smartinput#map_to_trigger('i', '.', '.', '.')
 	call smartinput#define_rule({
@@ -499,12 +517,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': ':',
 				\ 'input': ': ',
-				\ })
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': ':',
-				\ 'input': ':',
-				\ 'filetype': ['octave', 'matlab', 'julia', 'vim', 'text', 'txt', 'snippets'],
+				\ 'filetype': ['text', 'txt', 'json'],
 				\ })
 	" }}} text "
 	" tex {{{ "
@@ -519,7 +532,7 @@ function! init#smartinput#main() "{{{
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '$$',
-				\ 'input': '$$<Left>$$',
+				\ 'input': '$$$$<Left><Left>',
 				\ 'filetype': ['tex', 'plaintex', 'context', 'pandoc', 'markdown', 'gfimarkdown'],
 				\ })
 	" }}} tex "

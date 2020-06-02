@@ -15,27 +15,26 @@ setlocal nospell
 setlocal foldexpr=pandoc#folding#FoldExpr()
 setlocal foldtext=foldtext()
 setlocal foldlevel=1
-setlocal makeprg=pandoc\ -o\ %<.pdf\ %\ --filter\ pandoc-csv2table
+setlocal makeprg=pandoc\ -o\ %<.pdf\ %\ --filter\ pandoc-csv2table\ --filter\ pandoc-xnos\ --filter\ pandoc-docx-pagebreakpy
 setlocal include=^\\s*!
 setlocal iskeyword+=-
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
 
 augroup pandoc "{{{
 	autocmd!
 	autocmd BufWinEnter *.md,*.markdown,*.mkd,*.pandoc setlocal concealcursor=
 augroup END "}}}
 
-nmap <buffer> <LocalLeader>j :<C-u>Pandoc! pdf --filter pandoc-csv2table<CR>
+nnoremap <buffer> <LocalLeader>j :<C-u>Pandoc! docx --filter pandoc-csv2table --filter pandoc-xnos --filter pandoc-docx-pagebreakpy<CR>
 if has('unix')
 	nnoremap <buffer> <LocalLeader>oa :.read !tree -a<CR>
 	nnoremap <buffer> <LocalLeader>od :.read !tree -d<CR>
 else
 	nnoremap <buffer> <LocalLeader>oa :.read !tree<CR>
 endif
-nnoremap <buffer> <LocalLeader>oo :.read !gh-md-toc %<CR>
-inoremap <nowait> <buffer> - -
-inoremap <nowait> <buffer> * *
-inoremap <nowait> <buffer> & <Space>&<Space>
-inoremap <nowait> <buffer> <Bar> <Bar>
+nnoremap <buffer> <LocalLeader>oo :.read !~/.zinit/plugins/ekalinin---github-markdown-toc/gh-md-toc %<CR>
 nnoremap <buffer> gsp :<C-u>Defx ~/.pandoc<CR>
 inoremap <buffer> <C-x><C-x> <Plug>(github-complete-manual-completion)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)

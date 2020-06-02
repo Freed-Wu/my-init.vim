@@ -1,5 +1,2 @@
-if !has('nvim')
-	set nocompatible
-endif
-set runtimepath +=$GITHUBWORKSPACE/%HERE%
-
+set nocompatible
+set runtimepath+=$GITHUBWORKSPACE/%HERE%

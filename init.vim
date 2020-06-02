@@ -74,6 +74,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 
 	" Help {{{5 "
 	call dein#add('yianwillis/vimcdoc', {
+				\ 'on_map': ['K', '<F1>'],
 				\ 'on_ft': 'help',
 				\ })
 	" 5}}} Help "
@@ -313,8 +314,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'if': executable('ctags') || executable('cscope') || executable('gtags-cscope'),
 				\ })
 	call dein#add('skywind3000/gutentags_plus', {
-				\ 'depends': 'ludovicchabant/vim-gutentags',
-				\ 'on_cmd': ['GscopeFind', 'GscopeKill'],
+				\ 'on_cmd': ['GscopeFind', 'GscopeKill', 'GscopeAdd'],
 				\ })
 	call dein#add('liuchengxu/vista.vim')
 	call dein#add('dirn/TODO.vim', {
@@ -644,7 +644,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('editorconfig/editorconfig-vim', {
 				\ 'on_cmd': 'EditorConfigReload',
 				\ })
-	call dein#add('Freed-Wu/masmIndent.vim')
+	call dein#add('philj56/vim-asm-indent')
 	" 5}}} Format "
 
 	" Comment {{{5 "
@@ -707,6 +707,9 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	" 5}}} Parse "
 
 	" Complete {{{5 "
+	call dein#add('mattn/emmet-vim', {
+				\ 'on_cmd': ['Emmet', 'EmmetInstall'],
+				\ })
 	call dein#add('junegunn/vim-emoji')
 	call dein#add('rhysd/github-complete.vim', {
 				\ 'on_ft': ['pandoc', 'markdown', 'gfimarkdown'],
@@ -726,6 +729,10 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('honza/vim-snippets')
 	call dein#add('aperezdc/vim-template', {
 				\ 'on_cmd': ['Template', 'TemplateHere'],
+				\ 'on_ft': 'vim-template',
+				\ 'hook_post_source': join([
+				\ 'CocRestart',
+				\ ], "\n"),
 				\ })
 	call dein#add('ararslan/license-to-vim', {
 				\ 'on_cmd': ['License', 'Stub'],
@@ -852,6 +859,9 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_ft': ['pandoc', 'markdown', 'gfimarkdown'],
 				\ })
 	call dein#add('vim-pandoc/vim-pandoc', {
+				\ 'on_ft': ['pandoc', 'markdown', 'rst', 'textile', 'gfimarkdown'],
+				\ })
+	call dein#add('vim-pandoc/vim-pandoc-after', {
 				\ 'on_ft': ['pandoc', 'markdown', 'rst', 'textile', 'gfimarkdown'],
 				\ })
 	call dein#add('parkr/vim-jekyll', {
@@ -1102,7 +1112,9 @@ augroup init_coc "{{{
 	autocmd Colorscheme * CocRestart
 	autocmd VimEnter * CocStart
 	autocmd InsertLeave * execute 'normal! zv'
+	autocmd BufNewFile * CocCommand template.templateTop
 augroup END "}}}
+" command! -nargs=* Template CocCommand template.template
 " 3}}} neoclide/coc.nvim "
 " 2}}} PluginManage "
 
@@ -1736,6 +1748,9 @@ nmap ]J <Plug>longline#prev
 " Conceal {{{2 "
 " ryanoasis/vim-devicons {{{3 "
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
+			\ 'sp': '',
+			\ 'cir': '',
+			\ 'net': '',
 			\ 'commonmark': '',
 			\ 'pandoc': '',
 			\ 'html5': '',
@@ -1757,7 +1772,6 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'bib': '',
 			\ 'bst': '',
 			\ 'ist': '',
-			\ 'cir': '',
 			\ 'ahk': '',
 			\ 'mkd': '',
 			\ 'OutJob': '',
@@ -1819,6 +1833,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'eot': '',
 			\ 'svg': '',
 			\ 'opf': '',
+			\ 'brd': '',
 			\ 'xml': '',
 			\ 'inx': '',
 			\ 'cof': '',
@@ -2221,8 +2236,18 @@ let g:foldsearch_disable_mappings = 1
 " TagExplore {{{2 "
 " ludovicchabant/vim-gutentags {{{3 "
 let g:gutentags_ctags_tagfile = '.tags'
-let g:gutentags_cache_dir = $VIMDATA.'/.vim-gutentags'
+let g:gutentags_cache_dir = $VIMDATA . '/.vim-gutentags'
 let g:gutentags_modules = ['ctags', 'cscope']
+let g:gutentags_project_root = [
+				\ '.git', '.yadm', '.hg', '.svn', '.bzr',
+				\ '.darcs', '.fossil', '.cvs', '.rcs',
+				\ '.accurev', '.perforce', '.tfs',
+				\ '.fslckout', '_darcs', '_FOSSIL_',
+				\ '.vs', '.vscode', '.idea',
+				\ '.project', '.sublime-project',
+				\ '.latexmkrc', '.latexmain',
+				\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
+				\ ]
 " 3}}} ludovicchabant/vim-gutentags "
 " skywind3000/gutentags_plus {{{3 "
 let g:gutentags_plus_nomap = 1
@@ -2695,17 +2720,15 @@ nnoremap g_ :<C-u>set operatorfunc=init#format#main<CR>g@
 " Comment {{{2 "
 " scrooloose/nerdcommenter {{{3 "
 let g:NERDSpaceDelims = 1
-nmap <Leader>cn <Plug>NERDCommenterNested
-nmap <Leader>cm <Plug>NERDCommenterMinimal
-nmap <Leader>cs <Plug>NERDCommenterSexy
-xmap <Leader>cs <Plug>NERDCommenterSexy
-nmap <Leader>cg <Plug>NERDCommenterToEOL
-xmap <Leader>cg <Plug>NERDCommenterToEOL
-nmap <Leader>cA <Plug>NERDCommenterAppend
-nmap <Leader>cI <Plug>NERDCommenterInsert
-nmap <Leader>ca <Plug>NERDCommenterAltDelims
-nmap <Leader>cl <Plug>NERDCommenterAlignLeft
-nmap <Leader>cb <Plug>NERDCommenterAlignBoth
+nmap gcn <Plug>NERDCommenterNested
+nmap gcm <Plug>NERDCommenterMinimal
+nmap gcs <Plug>NERDCommenterSexy
+xmap gcs <Plug>NERDCommenterSexy
+nmap gcg <Plug>NERDCommenterToEOL
+xmap gcg <Plug>NERDCommenterToEOL
+nmap gcx <Plug>NERDCommenterAltDelims
+nmap gcy <Plug>NERDCommenterAlignLeft
+nmap gcz <Plug>NERDCommenterAlignBoth
 " 3}}} scrooloose/nerdcommenter "
 " tyru/caw.vim {{{3 "
 let g:caw_dollarpos_sp_left = ' '
@@ -2754,22 +2777,9 @@ execute 'set thesaurus=' . substitute(glob($VIMDATA.'/.thesaurus/*'), '\n', ',',
 " mattn/emmet-vim {{{3 "
 let g:user_emmet_leader_key = g:maplocalleader
 let g:user_emmet_install_global = 0
-let g:user_emmet_mode = 'a' " enable all function! init#in all mode.
-let g:user_emmet_expandabbr_key = g:maplocalleader.g:maplocalleader
-let g:user_emmet_expandword_key = g:maplocalleader.','
-"let g:user_emmet_update_tag = '<C-y>u'
-"let g:user_emmet_balancetaginward_key = '<C-y>d'
-"let g:user_emmet_balancetagoutward_key = '<C-y>D'
-"let g:user_emmet_next_key = '<C-y>n'
-"let g:user_emmet_prev_key = '<C-y>N'
-"let g:user_emmet_imagesize_key = '<C-y>i'
-"let g:user_emmet_togglecomment_key = '<C-y>/'
-"let g:user_emmet_splitjointag_key = '<C-y>j'
-"let g:user_emmet_removetag_key = '<C-y>k'
-"let g:user_emmet_anchorizeurl_key = '<C-y>a'
-"let g:user_emmet_anchorizesummary_key = '<C-y>A'
-"let g:user_emmet_mergelines_key = '<C-y>m'
-"let g:user_emmet_codepretty_key = '<C-y>c'
+let g:user_emmet_mode = 'a'
+let g:user_emmet_expandabbr_key = g:maplocalleader . g:maplocalleader
+let g:user_emmet_expandword_key = g:maplocalleader . ','
 " 3}}} mattn/emmet-vim "
 " junegunn/vim-emoji {{{3 "
 set completefunc=emoji#complete
@@ -2797,20 +2807,8 @@ nnoremap g: :Leaderf command<CR>
 
 " Snippet {{{2 "
 " aperezdc/vim-template {{{3 "
-let g:templates_global_name_prefix = ''
-let g:templates_directory = [$VIMCONFIG.'/vim-template']
-let g:email = matchstr($ECHANGELOG_USER, "\\(<\\)\\@<=[^>]\\+\\(>\\)\\@=")
-let g:username = matchstr($ECHANGELOG_USER, "^[^<]\\+\\( <\\)\\@=")
+let g:templates_directory = [$VIMCONFIG . '/vim-template']
 " 3}}} aperezdc/vim-template "
-" honza/vim-snippets {{{3 "
-let g:snips_author = g:username
-let g:snips_github = g:username
-let g:snips_email = g:email
-" 3}}} honza/vim-snippets "
-" ararslan/license-to-vim {{{3 "
-let g:license_email = g:email
-let g:license_author = g:username
-" 3}}} ararslan/license-to-vim "
 " 2}}} Snippet "
 
 " Check {{{2 "
@@ -2877,15 +2875,7 @@ if has('pythonx')
 				\ 'left': get(g:, 'airline_left_sep', ''),
 				\ 'right': get(g:, 'airline_right_sep', ''),
 				\ }
-	let g:Lf_RootMarkers = [
-				\ '.git', '.yadm', '.hg', '.svn', '.bzr',
-				\ '.darcs', '.fossil', '.cvs', '.rcs',
-				\ '.accurev', '.perforce', '.tfs',
-				\ '.vs', '.vscode', '.idea',
-				\ '.project', '.sublime-project',
-				\ '.latexmkrc', '.latexmain',
-				\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
-				\ ]
+	let g:Lf_RootMarkers = g:gutentags_project_root
 	let g:Lf_ShortcutF = ''
 	let g:Lf_ShortcutB = ''
 	let g:Lf_StlColorscheme = 'gruvbox_material'
@@ -2897,8 +2887,18 @@ if has('pythonx')
 	let g:Lf_DevIconsExtensionSymbols = g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols
 	let g:Lf_UseVersionControlTool = 0
 	let g:Lf_WildIgnore = {
-				\ 'dir': ['.svn', '.git', '.hg'],
-				\ 'file': ['*.sw?', '~$*', '*.bak', '*.exe', '*.o', '*.so', '*.py[co]'],
+				\ 'dir': [
+				\ '.git', '.yadm', '.hg', '.svn', '.bzr',
+				\ '.darcs', '.fossil', '.cvs', '.rcs',
+				\ '.accurev', '.perforce', '.tfs',
+				\ '.fslckout', '_darcs', '_FOSSIL_',
+				\ '.vs', '.vscode', '.idea',
+				\ '.project', '.sublime-project',
+				\ ],
+				\ 'file': [
+				\ '*.sw?', '~$*', '*.bak', '*.exe',
+				\ '*.o', '*.so', '*.py[co]'
+				\ ],
 				\ }
 	let g:Lf_MruWildIgnore = g:Lf_WildIgnore
 	let g:Lf_CommandMap = {
@@ -3054,8 +3054,8 @@ xnoremap gX :Gbrowse<CR>
 " 3}}} tpope/vim-rhubarb "
 " junegunn/vim-github-dashboard {{{3 "
 let g:github_dashboard = {
-			\ 'username': g:username,
-			\ 'password': readfile($VIMDATA.'/github-dashboard.txt')[0],
+			\ 'username': system('git config --global user.name'),
+			\ 'password': readfile($VIMDATA . '/github-dashboard.txt')[0],
 			\ }
 " 3}}} junegunn/vim-github-dashboard "
 " jaxbot/github-issues.vim {{{3 "
@@ -3084,9 +3084,6 @@ let g:undotree_RelativeTimestamp = 1
 let g:undotree_HighlightSyntaxAdd = 'ShowMarksHLl'
 let g:undotree_HighlightSyntaxChange = 'ShowMarksHLl'
 " 3}}} mbbill/undotree "
-" bennyyip/LeaderF-github-stars {{{3 "
-let gs#username='Freed-Wu'
-" 3}}} bennyyip/LeaderF-github-stars "
 " 2}}} VCS "
 " 1}}} File "
 
@@ -3096,11 +3093,16 @@ let gs#username='Freed-Wu'
 
 " MarkUp {{{2 "
 " lervag/vimtex {{{3 "
-let g:vimtex_imaps_leader = '.'
+let g:vimtex_delim_toggle_mod_list = [
+			\ ['\bigl', '\bigr'],
+			\ ['\Bigl', '\Bigr'],
+			\ ['\biggl', '\biggr'],
+			\ ['\Biggl', '\Biggr'],
+			\]
 let g:vimtex_mappings_disable = {
-			\ 'n': ['ds$', 'cs$', 'tsc', 'tse', 'tsd', 'tsD', '<F7>', 'K', 'dsd', 'dse', 'dsc'],
-			\ 'x': ['<F7>', 'tsd', 'tsD'],
-			\ 'i': ['<F7>', 'tsD'],
+			\ 'n': ['ds$', 'cs$', 'tsc', 'tse', 'tsd', 'tsD', 'tsf', '<F7>', 'K', 'dsd', 'dse', 'dsc'],
+			\ 'x': ['<F7>', 'tsd', 'tsD', 'tsf'],
+			\ 'i': ['<F7>'],
 			\ }
 let g:vimtex_env_change_autofill = 1
 let g:vimtex_fold_enabled = 1
@@ -3164,9 +3166,9 @@ let g:vimwiki_use_mouse = 1
 let g:vimwiki_valid_html_tags = 'a,img,b,i,s,u,sub,sup,br,hr,div,del,code,red,center,left,right,h1,h2,h3,h4,h5,h6,pre,script,style'
 let g:vimwiki_list = [
 			\ {
-			\ 'path': $GITHUBWORKSPACE . '/' . g:username . '/vimwiki',
-			\ 'path_html': $GITHUBWORKSPACE . '/' . g:username . '/vimwiki/_site',
-			\ 'template_path': $GITHUBWORKSPACE . '/' . g:username . '/vimwiki/_layouts',
+			\ 'path': $GITHUBWORKSPACE . '/' . system('git config --global user.name') . '/vimwiki',
+			\ 'path_html': $GITHUBWORKSPACE . '/' . system('git config --global user.name') . '/vimwiki/_site',
+			\ 'template_path': $GITHUBWORKSPACE . '/' . system('git config --global user.name') . '/vimwiki/_layouts',
 			\ },
 			\ ]
 " 3}}} vimwiki/vimwiki "
@@ -3181,8 +3183,11 @@ let g:pandoc#formatting#smart_autoformat_on_cursormoved = 1
 let g:pandoc#completion#bib#mode = 'citeproc'
 let g:pandoc#command#latex_engine = 'lualatex'
 nnoremap gx :<C-u>call pandoc#hypertext#OpenSystem()<CR>
-xnoremap gx y:call pandoc#hypertext#OpenSystem(<C-r>0)<CR>
+xnoremap gx y:call pandoc#hypertext#OpenSystem('<C-r>0')<CR>
 " 3}}} vim-pandoc/vim-pandoc "
+" vim-pandoc/vim-pandoc-after {{{3 "
+let g:pandoc#after#modules#enabled = ["nrrwrgn", "ultisnips"]
+" 3}}} vim-pandoc/vim-pandoc-after "
 " szymonmaszke/vimpyter {{{3 "
 let g:vimpyter_view_directory = $VIMDATA.'/.vimpyter'
 " 3}}} szymonmaszke/vimpyter "
@@ -3242,9 +3247,6 @@ let g:C_GlobalTemplateFile = $GITHUBWORKSPACE.'/WolfgangMehner/c-support/c-suppo
 let g:C_LocalTemplateFile = $GITHUBWORKSPACE.'/WolfgangMehner/c-support/c-support/templates/Templates'
 let g:C_CodeSnippets = $GITHUBWORKSPACE.'/WolfgangMehner/c-support/c-support/codesnippets'
 " 3}}} WolfgangMehner/c-support "
-" 4Evergreen4/vim-hardy {{{3 "
-let g:hardy_arduino_path = 'arduino_debug'
-" 3}}} 4Evergreen4/vim-hardy "
 " fatih/vim-go {{{3 "
 let g:go_version_warning = 0
 " 3}}} fatih/vim-go "
@@ -3319,9 +3321,8 @@ let g:calendar_cyclic_view = 1
 let g:calendar_cache_directory = $VIMDATA.'/.calendar.vim'
 " 3}}} itchyny/calendar.vim "
 " Freed-Wu/gitdraw.vim {{{ "
-let g:gitdraw#author_name = g:username
 let g:gitdraw#repeat_number = 13
-let g:gitdraw#repo_path = $GITHUBWORKSPACE . '/' . g:username . '/git-drawing'
+let g:gitdraw#repo_path = $GITHUBWORKSPACE . '/' . system('git config --global user.name') . '/git-drawing'
 " }}} Freed-Wu/gitdraw.vim "
 " 2}}} Tool "
 

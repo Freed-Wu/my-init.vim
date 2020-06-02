@@ -5,3 +5,5 @@ call init#map#main()
 
 setlocal nofoldenable
 
+nnoremap <buffer> [[ ?^x<CR>
+nnoremap <buffer> ]] /^x<CR>

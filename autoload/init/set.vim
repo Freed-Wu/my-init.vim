@@ -1,5 +1,5 @@
 function! init#set#main() "{{{
-	if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'), '\', '\\\\', 'g')) && expand('%:p:h') !~# g:username
+	if (expand('%:p:h') =~# substitute($VIMRUNTIME, '\', '\\\\', 'g') || expand('%:p:h') =~# substitute(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'), '\', '\\\\', 'g')) && expand('%:p:h') !~# system('git config --global user.name')
 		setlocal nomodifiable
 		setlocal readonly
 		call init#map#main()

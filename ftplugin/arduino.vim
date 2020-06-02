@@ -1,9 +1,9 @@
 call c#map#main()
 
-setlocal makeprg=arduino_debug\ %:p
+setlocal path+=~/Arduino/libraries/**
+setlocal path+=~/.arduino15/packages/arduino/hardware/avr/1.8.2/**
+setlocal makeprg=arduino\ %:p\ --verify
 
-nnoremap <buffer> <LocalLeader>1 :make --verify<CR>
-nnoremap <buffer> <LocalLeader>2 :make --upload<CR>
-nnoremap <buffer> <LocalLeader>m :ArduinoVerify<CR>
-nnoremap <buffer> <LocalLeader>M :ArduinoUpload<CR>
+nnoremap <buffer> gs :ArduinoVerify<CR>
+nnoremap <buffer> gS :ArduinoUpload<CR>
 
