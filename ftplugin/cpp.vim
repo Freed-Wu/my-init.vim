@@ -1,5 +1,13 @@
 call c#map#main()
 
+if expand('%:e') ==# 'cpp'
+	let b:fswitchdst = 'h,hpp'
+	let b:fswitchlocs = '../inc'
+elseif expand('%:e') ==# 'hpp'
+	let b:fswitchdst = 'cpp'
+	let b:fswitchlocs = '../src'
+endif
+
 setlocal makeprg=clang\ %\ -o\ %<.exe
 
 nnoremap <buffer><silent> <LocalLeader>ra :call C_MakeArguments()<CR>

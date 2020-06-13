@@ -77,6 +77,11 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_map': ['K', '<F1>'],
 				\ 'on_ft': 'help',
 				\ })
+	call dein#add('vim-jp/vimdoc-ja', {
+				\ 'if': expand('$LANG')[0:1] ==# 'ja',
+				\ 'on_map': ['K', '<F1>'],
+				\ 'on_ft': 'help',
+				\ })
 	" 5}}} Help "
 
 	" Log {{{5 "
@@ -265,9 +270,14 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('vim-scripts/forth.vim')
 	call dein#add('fasterthanlime/ooc.vim')
 	call dein#add('ykanda/squirrel.vim')
+	call dein#add('idling-mind/vim-ansys-help')
+	call dein#add('idling-mind/vim-ansys-syntax')
 	" 5}}} SyntaxScript "
 
 	" SyntaxCompile {{{5 "
+	call dein#add('jackguo380/vim-lsp-cxx-highlight', {
+				\ 'on_ft': ['c', 'cpp', 'objc'],
+				\ })
 	call dein#add('yesmar/vim-banned')
 	call dein#add('vim-scripts/sqlite_c')
 	call dein#add('vim-scripts/tcl_sqlite.vim')
@@ -284,6 +294,9 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('Konfekt/FastFold')
 	call dein#add('embear/vim-foldsearch', {
 				\ 'on_cmd': ['Fw', 'Fs', 'FS', 'Fl', 'Fi', 'Fd', 'Fe'],
+				\ })
+	call dein#add('pseewald/vim-anyfold', {
+				\ 'on_cmd': 'AnyFoldActivate',
 				\ })
 	call dein#add('LucHermitte/lh-vim-lib', {
 				\ 'on_ft': ['c', 'cpp', 'cs', 'java', 'arduino', 'objc', 'objcpp'],
@@ -313,7 +326,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('ludovicchabant/vim-gutentags', {
 				\ 'if': executable('ctags') || executable('cscope') || executable('gtags-cscope'),
 				\ })
-	call dein#add('skywind3000/gutentags_plus', {
+	call dein#add('Freed-Wu/gutentags_plus', {
 				\ 'on_cmd': ['GscopeFind', 'GscopeKill', 'GscopeAdd'],
 				\ })
 	call dein#add('liuchengxu/vista.vim')
@@ -727,7 +740,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 
 	" Snippet {{{5 "
 	call dein#add('honza/vim-snippets')
-	call dein#add('aperezdc/vim-template', {
+	call dein#add('Freed-Wu/vim-template', {
 				\ 'on_cmd': ['Template', 'TemplateHere'],
 				\ 'on_ft': 'vim-template',
 				\ 'hook_post_source': join([
@@ -793,6 +806,9 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	" 5}}} FileExplore "
 
 	" FileEdit {{{5 "
+	call dein#add('airblade/vim-rooter', {
+				\ 'on_cmd': 'Rooter',
+				\ })
 	call dein#add('mhinz/vim-hugefile')
 	call dein#add('derekwyatt/vim-fswitch', {
 				\ 'on_cmd': ['FSHere', 'FSLeft', 'FSSplitLeft', 'FSRight', 'FSSplitRight', 'FSBelow', 'FSSplitBelow', 'FSAbove', 'FSSplitAbove'],
@@ -1112,7 +1128,7 @@ augroup init_coc "{{{
 	autocmd Colorscheme * CocRestart
 	autocmd VimEnter * CocStart
 	autocmd InsertLeave * execute 'normal! zv'
-	autocmd BufNewFile * CocCommand template.templateTop
+	autocmd BufNewFile * Template
 augroup END "}}}
 " command! -nargs=* Template CocCommand template.template
 " 3}}} neoclide/coc.nvim "
@@ -2187,6 +2203,7 @@ let g:pandoc#syntax#codeblocks#embeds#langs = ['vim']
 " 2}}} SyntaxScript "
 
 " SyntaxCompile {{{2 "
+let g:c_syntax_for_h = 1
 " 2}}} SyntaxCompile "
 
 " Fold {{{2 "
@@ -2239,14 +2256,15 @@ let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_cache_dir = $VIMDATA . '/.vim-gutentags'
 let g:gutentags_modules = ['ctags', 'cscope']
 let g:gutentags_project_root = [
+				\ '.latexmkrc', '.latexmain', 'main.c',
+				\ 'README.rst', 'README.txt', 'README.mkd',
+				\ 'README.md',
 				\ '.git', '.yadm', '.hg', '.svn', '.bzr',
 				\ '.darcs', '.fossil', '.cvs', '.rcs',
 				\ '.accurev', '.perforce', '.tfs',
 				\ '.fslckout', '_darcs', '_FOSSIL_',
 				\ '.vs', '.vscode', '.idea',
 				\ '.project', '.sublime-project',
-				\ '.latexmkrc', '.latexmain',
-				\ 'README.rst', 'README.txt', 'README.mkd', 'README.md',
 				\ ]
 " 3}}} ludovicchabant/vim-gutentags "
 " skywind3000/gutentags_plus {{{3 "
@@ -2807,6 +2825,7 @@ nnoremap g: :Leaderf command<CR>
 
 " Snippet {{{2 "
 " aperezdc/vim-template {{{3 "
+let g:templates_global_name_prefix = ''
 let g:templates_directory = [$VIMCONFIG . '/vim-template']
 " 3}}} aperezdc/vim-template "
 " 2}}} Snippet "
@@ -3024,6 +3043,10 @@ endif
 "  {{{3 "
 nnoremap <Leader>bb :<C-u>diffsplit<Space>
 " 3}}}  "
+" airblade/vim-rooter {{{3 "
+let g:rooter_manual_only = 1
+let g:rooter_patterns = g:gutentags_project_root
+" 3}}} airblade/vim-rooter "
 " tpope/vim-eunuch {{{3 "
 nnoremap <Leader>bC :<C-u>Chmod<Space>
 nnoremap <Leader>br :<C-u>Rename<Space>
@@ -3089,6 +3112,10 @@ let g:undotree_HighlightSyntaxChange = 'ShowMarksHLl'
 
 " Program {{{1 "
 " Document {{{2 "
+" vim-scripts/doxygen-support.vim {{{3 "
+let g:Doxy_GlobalTemplateFile = $VIMCONFIG . '/.doxygen-support.vim/doxygen.templates'
+let g:Doxy_DoxygenExecutable = 'doxygen'
+" 3}}} vim-scripts/doxygen-support.vim "
 " 2}}} Document "
 
 " MarkUp {{{2 "
@@ -3353,4 +3380,5 @@ augroup END "}}}
 " 3}}} deris/vim-duzzle "
 " 2}}} Game "
 " 1}}} SpecialFunction "
+
 

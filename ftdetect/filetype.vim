@@ -8,18 +8,19 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead *.synctex.gz,*.synctex,*.rpt,*.fdb_latexmk,*.fls,*.blg,*.ilg,*.lock setfiletype log
 	autocmd BufNewFile,BufRead build.log setfiletype less
 	autocmd BufNewFile,BufRead *.cnx,*.jax,*.ptx setfiletype help
-	autocmd BufNewFile,BufRead *.txt execute 'set filetype='.(expand('%:p:t') == 'doc'?'help':'txt')
+	autocmd BufNewFile,BufRead *.txt execute 'set filetype=' . (expand('%:p:h:t') ==# 'doc' ? 'help' : 'txt')
 	" 2}}} Text "
 
 	" Data_Exchange {{{2 "
+	autocmd BufNewFile,BufRead *gitignore setfiletype gitignore
 	autocmd BufNewFile,BufRead *.db setfiletype sql
 	autocmd BufNewFile,BufRead .mysql_history setfiletype mysql
 	autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf,qt-settings setfiletype dosini
-	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc*,zathura-*,*latexmkrc setfiletype conf
+	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc*,zathura-*,*latexmkrc,wpa_supplicant*.conf setfiletype conf
 	autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 	autocmd BufNewFile,BufRead tags,tags-*,*.tags,*.tags.temp setfiletype tags
-	autocmd BufNewFile,BufRead *.sublime-project,*.vsconfig,*.jscsrc,*.jshintrc,*.plan setfiletype json
-	autocmd BufNewFile,BufRead *.mdl setfiletype yaml
+	autocmd BufNewFile,BufRead *.sublime-project,*.vsconfig,*.jscsrc,*.jshintrc,*.plan,*.ccls setfiletype json
+	autocmd BufNewFile,BufRead *.mdl,*.clang-format setfiletype yaml
 	autocmd BufNewFile,BufRead *.opensslconf,*.qdocconf,*.eclipseproduct,*.DsnWrk,*.PrjPCB,*.PrjMbdStructure,*.PrjMbd,*.PrjMbdStructure,*.LIBPKG,*.OutJob,*.BomDoc,*.Harness,*.wspos,*.jlink,*.dni,*.pjt,*.mac,*.qws,SumatraPDF-settings.txt setfiletype toml
 	autocmd BufNewFile,BufRead *.theme,*.desktop,*.cache,*.list,*.directory setfiletype desktop
 	autocmd BufNewFile,BufRead *.inx,*.projectspec,*.xaml,*.pyproj,*.cof,*.stp,tesseract_opencl_profile_devices.dat setfiletype xml

@@ -103,7 +103,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '-',
 				\ 'input': '-',
-				\ 'filetype': ['vim', 'muttrc', 'json', 'ebuild', 'gentoo-make-conf', 'gentoo-package-use', 'cmusrc', 'pandoc', 'markdown', 'gfimarkdown', 'gitcommit', 'txt', 'text', 'bib', 'sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch', 'gentoo-metadata', 'html', 'xhtml', 'liquid', 'xml', 'spice'],
+				\ 'filetype': ['vim', 'muttrc', 'json', 'ebuild', 'gentoo-make-conf', 'gentoo-package-use', 'cmusrc', 'pandoc', 'markdown', 'gfimarkdown', 'gitcommit', 'txt', 'text', 'bib', 'sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch', 'gentoo-metadata', 'html', 'xhtml', 'liquid', 'xml', 'spice', 'gitconfig', 'gitignore'],
 				\ })
 	call smartinput#map_to_trigger('i', '--', '--', '--')
 	call smartinput#define_rule({
@@ -256,6 +256,18 @@ function! init#smartinput#main() "{{{
 				\ 'char': '%=',
 				\ 'input': ' %= ',
 				\ 'filetype': ['c', 'julia', 'python', 'vim'],
+				\ })
+	call smartinput#map_to_trigger('i', '/*', '/*', '/*')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '/*',
+				\ 'input': ' /* ',
+				\ })
+	call smartinput#map_to_trigger('i', '*/', '*/', '*/')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '*/',
+				\ 'input': ' */ ',
 				\ })
 	" }}} c "
 	" ruby {{{ "
@@ -505,6 +517,12 @@ function! init#smartinput#main() "{{{
 				\ 'char': '.',
 				\ 'input': ' . ',
 				\ 'filetype': ['vim'],
+				\ })
+	call smartinput#map_to_trigger('i', '..', '..', '..')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '..',
+				\ 'input': '..',
 				\ })
 	call smartinput#map_to_trigger('i', '...', '...', '...')
 	call smartinput#define_rule({

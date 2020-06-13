@@ -78,7 +78,7 @@ endsnippet
 snippet timeline "myUltiSnips" b
 \csvreader[
   head to column names,
-  tabular = @{\,}r <{\hskip 2pt} !{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}} >{\raggedright\arraybackslash}p{5cm},
+  tabular = @{\,}r <{\hskip 2pt} !{\color{blue}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}} >{\raggedright\arraybackslash}p{5cm},
 ]{tab/${1:timeline}.csv}{}{%
   \time & \item
 }$0
@@ -130,7 +130,7 @@ snippet subfig "myUltiSnips" b
   \centering
   \includegraphics[
   width = \linewidth,
-  ]{fig/$2}
+  ]{$2}
   \caption{${3:$2}}%
   \label{fig:$3}
 \end{subfigure}
@@ -150,7 +150,7 @@ snippet wrap "myUltiSnips" b
   \centering
   ${VISUAL}\includegraphics[
   width = \linewidth,
-  ]{fig/$3}
+  ]{$3}
   \caption{${4:$3}}%
   \label{$4}
   \vspace{-10pt}
@@ -287,7 +287,7 @@ snippet fig "myUltiSnips" b
   \centering
   \includegraphics[
     width = ${3:0.8}\linewidth,
-  ]{fig/$4}
+  ]{$4}
   \caption{$5}%
   \label{fig:$4}
 \end{figure}

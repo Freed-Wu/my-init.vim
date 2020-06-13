@@ -1,3 +1,5 @@
+let b:fswitchdst = expand('%:e:e:r')
+
 if expand('%') =~# 'xls'
 	nnoremap <buffer> <C-r> :ExcelView %<CR>
 endif
@@ -11,6 +13,4 @@ endif
 call init#map#main()
 
 setlocal buftype=
-
-nnoremap <buffer> . :split %<<CR>
 

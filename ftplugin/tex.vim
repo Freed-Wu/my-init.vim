@@ -2,6 +2,12 @@ if getcwd() !=# expand('%:p:h')
 	setlocal foldlevel=1
 endif
 
+if expand('%:e') ==# 'tex'
+	let b:fswitchdst = 'bib,mtx'
+	let b:fswitchlocs = 'bib'
+elseif expand('%:e') ==# 'mtx'
+	let b:fswitchlocs = 'tex'
+endif
 let b:clean_temp = [
 			\ 'missfont.log', 'texput.log', 'mylatexformat.log',
 			\ 'xelatex*.fls', '_markdown_*', '_minted-*',
