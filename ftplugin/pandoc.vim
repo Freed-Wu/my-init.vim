@@ -17,7 +17,7 @@ setlocal nospell
 setlocal foldexpr=pandoc#folding#FoldExpr()
 setlocal foldtext=foldtext()
 setlocal foldlevel=1
-setlocal makeprg=pandoc\ -o\ %<.pdf\ %\ --filter\ pandoc-csv2table\ --filter\ pandoc-xnos\ --filter\ pandoc-docx-pagebreakpy
+setlocal makeprg=pandoc\ -o\ %<.docx\ %\ --filter\ pandoc-csv2table\ --filter\ pandoc-xnos\ --filter\ pandoc-docx-pagebreakpy
 setlocal include=^\\s*!
 setlocal iskeyword+=-
 setlocal tabstop=2
@@ -29,14 +29,10 @@ augroup pandoc "{{{
 	autocmd BufWinEnter *.md,*.markdown,*.mkd,*.pandoc setlocal concealcursor=
 augroup END "}}}
 
-nnoremap <buffer> <LocalLeader>lL :<C-u>Pandoc! docx --filter pandoc-csv2table --filter pandoc-xnos --filter pandoc-docx-pagebreakpy<CR>
-if has('unix')
-	nnoremap <buffer> <LocalLeader>oa :.read !tree -a<CR>
-	nnoremap <buffer> <LocalLeader>od :.read !tree -d<CR>
-else
-	nnoremap <buffer> <LocalLeader>oa :.read !tree<CR>
-endif
-nnoremap <buffer> <LocalLeader>oo :.read !~/.zinit/plugins/ekalinin---github-markdown-toc/gh-md-toc %<CR>
+nmap <buffer> <LocalLeader>lL <Plug>MarkdownPreview
+nnoremap <buffer> <LocalLeader>lt :TOC<CR><C-w>L:execute 'vertical resize '.&columns / 4<CR>
+nnoremap <buffer> <LocalLeader>oo :.read !tree<CR>
+nnoremap <buffer> <LocalLeader>oO :.read !~/.zinit/plugins/ekalinin---github-markdown-toc/gh-md-toc %<CR>
 inoremap <buffer> <C-x><C-x> <Plug>(github-complete-manual-completion)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
@@ -77,8 +73,6 @@ omap <buffer> iPt :normal viPl<CR>
 nmap <buffer> <LocalLeader>rr <Plug>(pandoc-keyboard-ref-insert)
 nmap <buffer> <localleader>rg <Plug>(pandoc-keyboard-ref-goto)
 nmap <buffer> <localleader>rb <Plug>(pandoc-keyboard-ref-backfrom)
-nnoremap <buffer> <LocalLeader>lt :TOC<CR><C-w>L:execute 'vertical resize '.&columns / 4<CR>
-nmap <buffer> <LocalLeader>ll <Plug>MarkdownPreview
 nmap <buffer> [f <plug>unimpairedDirectoryPrevious
 nmap <buffer> ]f <plug>unimpairedDirectoryNext
 xmap <buffer> [f <plug>unimpairedDirectoryPrevious

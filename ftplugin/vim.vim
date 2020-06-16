@@ -1,3 +1,18 @@
+let b:fswitchdst = 'vim'
+if expand('%:p:h:t') ==# 'ftplugin'
+	let b:fswitchlocs = 'syntax'
+elseif expand('%:p:h:t') ==# 'syntax'
+	let b:fswitchlocs = 'ftplugin'
+elseif expand('%:p:h:t') ==# 'plugin'
+	let b:fswitchlocs = 'autoload'
+elseif expand('%:p:h:t') ==# 'autoload'
+	let b:fswitchlocs = 'plugin'
+elseif expand('%:p:h:t') ==# 'themes'
+	let b:fswitchlocs = $GITHUBWORKSPACE . '/flazz/vim-colorschemes/colors,' . $VIMRUNTIME . '/colors'
+elseif expand('%:p:h:t') ==# 'colors'
+	let b:fswitchlocs = $GITHUBWORKSPACE . '/vim-airline/vim-airline-themes/autoload/airline/themes'
+endif
+
 if expand('%') ==# 'option-window'
 	call init#map#main()
 endif
@@ -35,7 +50,7 @@ omap <buffer> af <Plug>(textobj-function-a)
 omap <buffer> if <Plug>(textobj-function-i)
 omap <buffer> aF <Plug>(textobj-function-A)
 omap <buffer> iF <Plug>(textobj-function-I)
-nnoremap <buffer><silent> gs :<C-u>set operatorfunc=vim#source#main<CR>g@
-nnoremap <buffer><silent> gss :<C-u>execute getline(line('.'))<CR>
-xnoremap <buffer><silent> gs :<C-u>execute substitute(join(getline(line("'<"),line("'>")), "\n"), ' "[{}]\{3}', '', 'g')<CR>
+nnoremap <buffer><silent> <LocalLeader>l :<C-u>set operatorfunc=vim#source#main<CR>g@
+nnoremap <buffer><silent> <LocalLeader>ll :<C-u>execute getline(line('.'))<CR>
+xnoremap <buffer><silent> <LocalLeader>ll :<C-u>execute substitute(join(getline(line("'<"),line("'>")), "\n"), ' "[{}]\{3}', '', 'g')<CR>
 

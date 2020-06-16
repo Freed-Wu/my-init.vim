@@ -498,6 +498,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '?',
 				\ 'input': ' ? ',
+				\ 'filetype': ['cs'],
 				\ })
 	call smartinput#map_to_trigger('i', ',', ',', ',')
 	call smartinput#define_rule({

@@ -20,8 +20,8 @@ function! c#map#main() "{{{
 
 	setlocal path+=~/.local/include
 
-	nnoremap <buffer> <LocalLeader>o :set paste<CR>i<C-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<CR><Esc>='[:set Nopaste<CR>
-	nnoremap <buffer> <LocalLeader>O :set paste<CR>i<C-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({'includeNS': 0})<CR><Esc>='[:set Nopaste<CR>
+	nnoremap <buffer> <LocalLeader>o :set paste<CR>i<C-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<CR><Esc>='[:set nopaste<CR>
+	nnoremap <buffer> <LocalLeader>O :set paste<CR>i<C-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({'includeNS': 0})<CR><Esc>='[:set nopaste<CR>
 	omap <buffer> aL <Plug>(textobj-continuous-cpp-a)
 	xmap <buffer> aL <Plug>(textobj-continuous-cpp-a)
 	omap <buffer> iL <Plug>(textobj-continuous-cpp-i)

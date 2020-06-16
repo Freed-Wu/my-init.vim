@@ -16,6 +16,7 @@ function! init#quickui#main() "{{{
 				\ ['&Z Recover', 'recover'],
 				\ ['&Switch', 'FSHere'],
 				\ ['&Delete', 'Delete'],
+				\ ['S&udoEdit', 'SudoEdit %'],
 				\ ['Chan&ge path', 'cd %:p:h'],
 				\ ['&Rooter', 'Rooter'],
 				\ ['&Open', 'call pandoc#hypertext#OpenSystem(expand("%"))'],
@@ -63,6 +64,7 @@ function! init#quickui#main() "{{{
 				\ ['&Init', '!git init'],
 				\ ['&View', 'Agit'],
 				\ ['View &file', 'AgitFile'],
+				\ ['&Clone', 'execute "AsyncRun git clone " . @+|copen'],
 				\ ['--', ''],
 				\ ['I&ssues', 'Gissues'],
 				\ ['A&dd an issue', 'Giadd'],
@@ -71,6 +73,10 @@ function! init#quickui#main() "{{{
 				\ ['&Dashboard', 'GHDashboard'],
 				\ ['&Activity', 'GHActivity'],
 				\ ['S&tars', 'LeaderfStars'],
+				\ ['--', ''],
+				\ ['Md&5', '.!md5sum %'],
+				\ ['Sha&1', '.!shasum %'],
+				\ ['Crc&32', '.!crc32 %'],
 				\ ])
 	call quickui#menu#install('&Quickfix', [
 				\ ['&Quickfix', 'copen'],
@@ -90,6 +96,9 @@ function! init#quickui#main() "{{{
 				\ ['&Including', 'GscopeFind i'],
 				\ ['&Symbol', 'GscopeFind s'],
 				\ ['&Text', 'GscopeFind t'],
+				\ ['--', ''],
+				\ ['&X Lfind', 'execute "Lfind! " . expand("<cfile>")'],
+				\ ['&Y Llocate', 'execute " Llocate" . expand("<cfile>")'],
 				\ ])
 	call quickui#menu#install('E&xplore', [
 				\ ['E&xplore', 'execute "Defx" . substitute(expand("%:t")[0] ==# "!"? "": expand("%:p:h"), " ", "\\\\ ", "g")'],
@@ -116,20 +125,22 @@ function! init#quickui#main() "{{{
 				\ ['&Mount', 'Defx /mnt/cdrom'],
 				\ ])
 	let l:repl = has('nvim') ? 'FloatermNew' : 'REPLToggle'
-	call quickui#menu#install('&Repl', [
-				\ ['&Repl', l:repl],
+	call quickui#menu#install('&Terminal', [
+				\ ['&Terminal', l:repl],
+				\ ['--', ''],
+				\ ['J&ulia', l:repl . ' julia --banner=no'],
+				\ ['&Ptipython', l:repl . ' ptipython'],
+				\ ['&R', l:repl . ' R'],
 				\ ['&Gnuplot', l:repl . ' gnuplot'],
 				\ ['&Octave', l:repl . ' octave'],
-				\ ['&Mysql', l:repl . ' mysql'],
-				\ ['&Ptipython', l:repl . ' ptipython'],
-				\ ['Juli&a', l:repl . ' julia --banner=no'],
 				\ ['&Node', l:repl . ' node'],
+				\ ['&Mysql', l:repl . ' mysql'],
 				\ ['&Zsh', l:repl . ' zsh'],
 				\ ['--', ''],
 				\ ['Ng&spice', l:repl . ' ngspice'],
-				\ ['Netha&ck', l:repl . ' nethack'],
+				\ ['N&ethack', l:repl . ' nethack'],
 				\ ])
-	call quickui#menu#install('&Template', [
+	call quickui#menu#install('&Snippet', [
 				\ ['&Template', 'Template'],
 				\ ['T&emplates', 'CocList templates'],
 				\ ['Stu&b', 'call init#quickui#license#main(0)'],
@@ -139,20 +150,6 @@ function! init#quickui#main() "{{{
 				\ ['&All', 'split $VIMCONFIG/UltiSnips/all.snippets'],
 				\ ['&UltiSnips', 'split $GITHUBWORKSPACE/honza/vim-snippets/UltiSnips/all.snippets'],
 				\ ['&_.snipmate', 'split $GITHUBWORKSPACE/honza/vim-snippets/snippets/_.snippets'],
-				\ ])
-	call quickui#menu#install('In&sert', [
-				\ ['&Toilet', '.!toilet'],
-				\ ['&Figlet', '.!figlet'],
-				\ ['&Vanner', 'put =vanner#string(getline("."),{}))'],
-				\ ['--', ''],
-				\ ['&Md5', '.!md5sum %'],
-				\ ['&Sha', '.!shasum %'],
-				\ ['--', ''],
-				\ ['&-', 'call init#banner#main("-")'],
-				\ ['&_', 'call init#banner#main("_")'],
-				\ ['&=', 'call init#banner#main("=")'],
-				\ ['&+', 'call init#banner#main("+")'],
-				\ ['&*', 'call init#banner#main("*")'],
 				\ ])
 	call quickui#menu#install('&Increase', [
 				\ ['&Increase', 'I'],

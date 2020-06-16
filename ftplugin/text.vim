@@ -1,7 +1,15 @@
 let b:trailguide = 1
+if expand('%:e') ==# 'gitmodules'
+	let b:fswitchdst = 'gitignore'
+endif
 
 setlocal colorcolumn=
 setlocal nofoldenable
+
+if expand('%:t')[0:8] ==# 'FencView_'
+	call init#map#main()
+	finish
+endif
 
 if expand('%:t') ==# 'LICENSE'
 	command! -buffer -nargs=? Template call init#quickui#license#main(1)

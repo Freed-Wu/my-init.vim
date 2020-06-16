@@ -73,14 +73,9 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	" 5}}} Encoding "
 
 	" Help {{{5 "
-	call dein#add('yianwillis/vimcdoc', {
-				\ 'on_map': ['K', '<F1>'],
-				\ 'on_ft': 'help',
-				\ })
+	call dein#add('yianwillis/vimcdoc')
 	call dein#add('vim-jp/vimdoc-ja', {
 				\ 'if': expand('$LANG')[0:1] ==# 'ja',
-				\ 'on_map': ['K', '<F1>'],
-				\ 'on_ft': 'help',
 				\ })
 	" 5}}} Help "
 
@@ -648,7 +643,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_func': ['bucky#tex#format()', 'BuckyTexIndent()', 'bucky#tex#format()'],
 				\ 'on_ft': ['tex', 'markdown'],
 				\ })
-	call dein#add('sbdchd/neoformat', {
+	call dein#add('Freed-Wu/neoformat', {
 				\ 'on_cmd': 'Neoformat',
 				\ })
 	call dein#add('kdheepak/JuliaFormatter.vim', {
@@ -812,6 +807,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('mhinz/vim-hugefile')
 	call dein#add('derekwyatt/vim-fswitch', {
 				\ 'on_cmd': ['FSHere', 'FSLeft', 'FSSplitLeft', 'FSRight', 'FSSplitRight', 'FSBelow', 'FSSplitBelow', 'FSAbove', 'FSSplitAbove'],
+				\ 'on_source': 'vim-protodef',
 				\ })
 	call dein#add('tpope/vim-eunuch', {
 				\ 'on_cmd': ['Delete', 'Unlink', 'Move', 'Rename', 'Chmod', 'Mkdir', 'Cfind', 'Clocate', 'Lfind', 'Llocate', 'Wall', 'SudoWrite', 'SudoEdit'],
@@ -956,6 +952,9 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_ft': 'lua',
 				\ })
 	call dein#add('PProvost/vim-ps1')
+	call dein#add('derekwyatt/vim-scala', {
+				\ 'on_ft': 'scala',
+				\ })
 	" 5}}} Script "
 
 	" Compile {{{5 "
@@ -1199,6 +1198,8 @@ nnoremap <nowait> <LocalLeader> :<C-u>WhichKey '<LocalLeader>'<CR>
 xnoremap <nowait> <LocalLeader> :<C-u>WhichKeyVisual '<LocalLeader>'<CR>
 nnoremap <nowait> z :<C-u>WhichKey 'z'<CR>
 xnoremap <nowait> z :<C-u>WhichKeyVisual 'z'<CR>
+nnoremap <nowait> Z :<C-u>WhichKey 'Z'<CR>
+xnoremap <nowait> Z :<C-u>WhichKeyVisual 'Z'<CR>
 nnoremap <nowait> g :<C-u>WhichKey 'g'<CR>
 xnoremap <nowait> g :<C-u>WhichKeyVisual 'g'<CR>
 nnoremap <nowait> <C-w> :WhichKey '<lt>C-w>'<CR>
@@ -1585,9 +1586,9 @@ nnoremap <C-w>d <C-w>d
 xnoremap <C-w>i <C-w>i
 xnoremap <C-w>d <C-w>d
 nnoremap <C-w>f :<C-u>execute finddir(expand('<cfile>')) !=# '' ? 'Defx ' . finddir(expand('<cfile>')) : 'sfind <cfile>'<CR>
-xnoremap <C-w>f y:execute finddir(<C-r>0) !=# '' ? 'Defx ' . finddir(<C-r>0) : 'sfind <C-r>0'<CR>
+xnoremap <C-w>f y:execute finddir('<C-r>0') !=# '' ? 'Defx ' . finddir('<C-r>0') : 'sfind <C-r>0'<CR>
 nnoremap <C-w>F :<C-u>execute finddir(expand('<cfile>')) !=# '' ? 'cd ' . expand('<cfile>') : 'sfind <cfile>'<CR>
-xnoremap <C-w>F y:execute finddir(<C-r>0) !=# '' ? 'cd ' . finddir(<C-r>0) : 'sfind <C-r>0'<CR>
+xnoremap <C-w>F y:execute finddir('<C-r>0') !=# '' ? 'cd ' . finddir('<C-r>0') : 'sfind <C-r>0'<CR>
 " 4}}} windowOpen "
 " windowClose {{{4 "
 nnoremap <C-w>c <C-w>c
@@ -1600,6 +1601,10 @@ nnoremap <C-w>a :qall<CR>
 xnoremap <C-w>a :<C-u>qall<CR>
 nnoremap <C-w>Z :hide<CR>
 xnoremap <C-w>Z :<C-u>hide<CR>
+nnoremap ZZ ZZ
+xnoremap ZZ ZZ
+nnoremap ZQ ZQ
+xnoremap ZQ ZQ
 " 4}}} windowClose "
 " fold+- {{{4 "
 nnoremap zd zd
@@ -1978,7 +1983,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'mw': '',
 			\ 'mx1': '',
 			\ 'pyg': '',
-			\ 'gnuplot': '',
+			\ 'gnuplot': '',
 			\ 'nav': '',
 			\ 'snm': '',
 			\ 'vrb': '',
@@ -1986,7 +1991,10 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'xdv': '',
 			\ 'dvi': '',
 			\ 'nsi': '',
-			\ 'ipynb': '',
+			\ 'sublime-workspace': '',
+			\ 'ipynb': '',
+			\ 'gitignore': '',
+			\ 'snippet': '',
 			\ }
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 			\ '.*\.todo\.txt$': '',
@@ -1998,7 +2006,6 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 			\ 'Dockerfile$': '',
 			\ 'Makefile$': '',
 			\ '\.octaverc$': '',
-			\ '\.pyrc$': '',
 			\ '\.editorconfig$': '',
 			\ '\.inputrc$': '',
 			\ '\.bash_profile$': '',
@@ -2121,8 +2128,8 @@ let g:airline#extensions#whitespace#conflicts_format = '%s'
 " 4}}} whitespace "
 " 3}}} bling/vim-airline "
 " Wildog/airline-weather.vim {{{3 "
-let g:weather#appid = readfile($VIMDATA.'/airline-weather.txt')[0]
-let g:weather#area = readfile($VIMDATA.'/airline-weather.txt')[1]
+let g:weather#appid = readfile($VIMDATA . '/airline-weather.txt')[0]
+let g:weather#area = readfile($VIMDATA . '/airline-weather.txt')[1]
 " 3}}} Wildog/airline-weather.vim "
 " Zuckonit/vim-airline-todo {{{3 "
 let g:todo#directory = $VIMDATA.'/.vim-airline-todo'
@@ -2160,6 +2167,9 @@ augroup init_vim "{{{
 	autocmd!
 	autocmd VimResized * wincmd =
 	autocmd BufRead * call init#locate()
+	autocmd BufRead history,*_history,*-hsts,*_hist,*_stat call init#map#main()
+				\| setlocal nomodifiable
+				\| setlocal readonly
 augroup END "}}}
 function! init#locate() "{{{
 	if line("'\"") > 1 && line("'\"") <= line('$')
@@ -2407,13 +2417,11 @@ nnoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
 xnoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
 onoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
 " 3}}} haya14busa/incsearch-fuzzy.vim "
-" luochen1990/select-and-searce {{{3 "
-let g:select_and_search_active = 4
-xnoremap n :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>n
-xnoremap N :<C-u>let @/=select_and_search#get_search_pat()<CR><Esc>N
+" luochen1990/select-and-search {{{3 "
+let g:select_and_search_active = 1
 xnoremap zn n
 xnoremap zN N
-" 3}}} luochen1990/select-and-searce "
+" 3}}} luochen1990/select-and-search "
 " 2}}} Search "
 
 " Replace {{{2 "
@@ -3040,26 +3048,10 @@ endif
 " 2}}} FileExplore "
 
 " FileEdit {{{2 "
-"  {{{3 "
-nnoremap <Leader>bb :<C-u>diffsplit<Space>
-" 3}}}  "
 " airblade/vim-rooter {{{3 "
 let g:rooter_manual_only = 1
 let g:rooter_patterns = g:gutentags_project_root
 " 3}}} airblade/vim-rooter "
-" tpope/vim-eunuch {{{3 "
-nnoremap <Leader>bC :<C-u>Chmod<Space>
-nnoremap <Leader>br :<C-u>Rename<Space>
-nnoremap <Leader>bm :<C-u>Mkdir<Space>
-nnoremap <Leader>bq :<C-u>Cfind<Space>
-nnoremap <Leader>bl :<C-u>Lfind<Space>
-nnoremap <Leader>bq :<C-u>Clocate<Space>
-nnoremap <Leader>bl :<C-u>Llocate<Space>
-nnoremap <Leader>bE :<C-u>SudoEdit<Space>
-" 3}}} tpope/vim-eunuch "
-" will133/vim-dirdiff {{{3 "
-nnoremap <Leader>bd :<C-u>DirDiff<Space>
-" 3}}} will133/vim-dirdiff "
 " 2}}} FileEdit "
 
 " Compress {{{2 "
@@ -3200,7 +3192,8 @@ let g:vimwiki_list = [
 			\ ]
 " 3}}} vimwiki/vimwiki "
 " parkr/vim-jekyll {{{3 "
-let g:jekyll_build_command = 'jekyll --no-auto --no-server'
+let g:jekyll_post_extension = '.md'
+let g:jekyll_post_filetype = 'pandoc'
 " 3}}} parkr/vim-jekyll "
 " vim-pandoc/vim-pandoc {{{3 "
 let g:pandoc#keyboard#blacklist_submodule_mappings = ['references', 'styles']
@@ -3380,5 +3373,4 @@ augroup END "}}}
 " 3}}} deris/vim-duzzle "
 " 2}}} Game "
 " 1}}} SpecialFunction "
-
 

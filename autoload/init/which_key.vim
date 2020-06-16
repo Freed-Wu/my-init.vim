@@ -23,6 +23,12 @@ function! init#which_key#main() "{{{
 				\ }
 	call which_key#register('z', 'g:which_key_map_z')
 	" }}} z "
+	" Z {{{ "
+	let g:which_key_map_Z = {
+				\ 'name': 'choose a key about quit',
+				\ }
+	call which_key#register('Z', 'g:which_key_map_Z')
+	" }}} Z "
 	" g {{{ "
 	let g:which_key_map_g = {
 				\ 'name': 'choose a key about go&get',
