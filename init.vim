@@ -1164,7 +1164,7 @@ endif
 
 " Log {{{2 "
 " AD7six/vim-activity-log {{{3 "
-let g:activity_log_location = $VIMDATA.'/.vim-activity-log/%Y/%m/%d.log'
+let g:activity_log_location = $VIMDATA . '/.vim-activity-log/%Y/%m/%d.log'
 " 3}}} AD7six/vim-activity-log "
 " 2}}} Log "
 
@@ -1928,6 +1928,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'yml': '',
 			\ 'yaml': '',
 			\ 'toml': '',
+			\ 'service': '',
 			\ 'desktop': '',
 			\ 'theme': '',
 			\ 'list': '',

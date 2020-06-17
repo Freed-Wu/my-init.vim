@@ -17,12 +17,11 @@ function! init#quickui#main() "{{{
 				\ ['&Switch', 'FSHere'],
 				\ ['&Delete', 'Delete'],
 				\ ['S&udoEdit', 'SudoEdit %'],
+				\ ['Sud&oWrite', 'SudoWrite'],
+				\ ['Chow&n', 'Chown ' . $USER . ':' . $USER],
 				\ ['Chan&ge path', 'cd %:p:h'],
 				\ ['&Rooter', 'Rooter'],
 				\ ['&Open', 'call pandoc#hypertext#OpenSystem(expand("%"))'],
-				\ ['--', ''],
-				\ ['Clea&n', 'call init#clean#main(b:clean)'],
-				\ ['Clean t&emp', 'call init#clean#main(b:clean_temp)'],
 				\ ])
 	call quickui#menu#install('&Edit', [
 				\ ['&EditorConfigReload', 'EditorConfigReload'],
@@ -235,6 +234,7 @@ function! init#quickui#main() "{{{
 				\ ['Coc&Update', 'CocUpdate'],
 				\ ['--', ''],
 				\ ['&Find', 'Leaderf self'],
+				\ ['H&elp', 'Leaderf help'],
 				\ ['--', ''],
 				\ ['&Test', 'AsyncRun gvim -u $VIMCONFIG/test.vim'],
 				\ ])
