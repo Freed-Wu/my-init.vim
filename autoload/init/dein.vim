@@ -4,17 +4,9 @@ function! init#dein#main() "{{{
 	else
 		setlocal path+=$GITHUBWORKSPACE/*
 	endif
-	if expand('%:p') ==# $MYVIMRC
-		nnoremap <buffer><silent> gd :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/doc/*.txt'<CR>
-		nnoremap <buffer><silent> gD :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/README*'<CR>
-		nnoremap <buffer><silent> <C-w>d :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/doc/*.txt'<CR>
-		nnoremap <buffer><silent> <C-w>D :<C-u>execute 'sfind $GITHUBWORKSPACE/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/README*'<CR>
-	endif
-	if &filetype ==# 'SpaceVimPlugManager'
-		nnoremap <buffer><silent> gd :<C-u>execute 'sfind $GITHUBWORKSPACE/*/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/doc/*.txt'<CR>
-		nnoremap <buffer><silent> gD :<C-u>execute 'sfind $GITHUBWORKSPACE/*/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/README*'<CR>
-		nnoremap <buffer><silent> <C-w>d :<C-u>execute 'sfind $GITHUBWORKSPACE/*/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/doc/*.txt'<CR>
-		nnoremap <buffer><silent> <C-w>D :<C-u>execute 'sfind $GITHUBWORKSPACE/*/' . split(split(expand('<cWORD>'), 'dein#add(')[-1], '''')[0] . '/README*'<CR>
-	endif
+	nnoremap <buffer><silent> gd :<C-u>execute 'edit  ' . split(glob($GITHUBWORKSPACE . '/' . (&filetype ==# 'vim' ? '' : '*/') . expand('<cfile>') . '/doc/*.txt'))[0]<CR>
+	nnoremap <buffer><silent> gD :<C-u>execute 'edit  ' . split(glob($GITHUBWORKSPACE . '/' . (&filetype ==# 'vim' ? '' : '*/') . expand('<cfile>') . '/README*'))[0]<CR>
+	nnoremap <buffer><silent> <C-w>d :<C-u>execute 'split  ' . split(glob($GITHUBWORKSPACE . '/' . (&filetype ==# 'vim' ? '' : '*/') . expand('<cfile>') . '/doc/*.txt'))[0]<CR>
+	nnoremap <buffer><silent> <C-w>D :<C-u>execute 'split  ' . split(glob($GITHUBWORKSPACE . '/' . (&filetype ==# 'vim' ? '' : '*/') . expand('<cfile>') . '/README*'))[0]<CR>
 endfunction "}}}
 

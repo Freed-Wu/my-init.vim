@@ -5,6 +5,13 @@ endif
 
 setlocal colorcolumn=
 setlocal nofoldenable
+if expand('%:t') ==# 'requirements.txt'
+	setlocal makeprg=pip\ install\ -r\ %
+elseif expand('%:t') ==# 'aria2c.txt'
+	setlocal makeprg=aria2c\ -i\ %
+else
+	setlocal makeprg=pandoc\ -o\ %:r.pdf\ --latex-engine=lualatex\ %
+endif
 
 if expand('%:t')[0:8] ==# 'FencView_'
 	call init#map#main()

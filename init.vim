@@ -389,6 +389,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ })
 	call dein#add('luochen1990/select-and-search', {
 				\ 'on_func': 'select_and_search#get_search_pat',
+				\ 'on_map': {'x': 'n'},
 				\ })
 	" 5}}} Search "
 
@@ -1127,9 +1128,7 @@ augroup init_coc "{{{
 	autocmd Colorscheme * CocRestart
 	autocmd VimEnter * CocStart
 	autocmd InsertLeave * execute 'normal! zv'
-	autocmd BufNewFile * Template
 augroup END "}}}
-" command! -nargs=* Template CocCommand template.template
 " 3}}} neoclide/coc.nvim "
 " 2}}} PluginManage "
 
@@ -1248,11 +1247,11 @@ function! s:cowsay() "{{{
 	endif
 endfunction "}}}
 let g:startify_lists = [
-			\ { 'type': 'sessions', 'header': ['    Sessions']},
-			\ { 'type': 'files', 'header': ['    Most Recently Used']},
-			\ { 'type': 'dir', 'header': ['    Most Recently Used @ ' . getcwd()] },
-			\ { 'type': 'commands', 'header': ['    Commands']},
-			\ { 'type': 'bookmarks', 'header': ['    Bookmarks']},
+			\ {'type': 'sessions', 'header': ['    Sessions']},
+			\ {'type': 'files', 'header': ['    Most recently used']},
+			\ {'type': 'dir', 'header': ['    Most recently used at current working directory']},
+			\ {'type': 'commands', 'header': ['    Commands']},
+			\ {'type': 'bookmarks', 'header': ['    Bookmarks']},
 			\ ]
 " 3}}} mhinz/vim-startify "
 " 2}}} UI "
@@ -1769,6 +1768,7 @@ nmap ]J <Plug>longline#prev
 " Conceal {{{2 "
 " ryanoasis/vim-devicons {{{3 "
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
+			\ expand('$HOST'): '',
 			\ 'sp': '',
 			\ 'cir': '',
 			\ 'net': '',
@@ -1778,7 +1778,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {
 			\ 'docbook': '',
 			\ 'docbook5': '',
 			\ 'patch': '',
-			\ 'aap': '',
+			\ 'aap': '',
 			\ 'tex': '',
 			\ 'latex': '',
 			\ 'context': '',
@@ -2330,24 +2330,6 @@ xmap z} <Plug>(WheelRight)
 " andymass/vim-matchup {{{3 "
 set showmatch
 let g:loaded_matchit = 1
-nmap [h <plug>(matchup-g%)
-omap [h <plug>(matchup-g%)
-xmap [h <plug>(matchup-g%)
-nmap ]h <plug>(matchup-%)
-omap ]h <plug>(matchup-%)
-xmap ]h <plug>(matchup-%)
-nmap [H <plug>(matchup-[%)
-omap [H <plug>(matchup-[%)
-xmap [H <plug>(matchup-[%)
-nmap ]H <plug>(matchup-]%)
-omap ]H <plug>(matchup-]%)
-xmap ]H <plug>(matchup-]%)
-xmap ah <plug>(matchup-a%)
-xmap ih <plug>(matchup-i%)
-omap ah <plug>(matchup-a%)
-omap ih <plug>(matchup-i%)
-nmap dsh <plug>(matchup-ds%)
-nmap csh <plug>(matchup-cs%)
 " 3}}} andymass/vim-matchup "
 " wesQ3/vim-windowswap {{{3 "
 let g:windowswap_map_keys = 0 "prevent default bindings
@@ -2397,8 +2379,8 @@ omap z? <Plug>SneakLabel_S
 " haya14busa/is.vim {{{3 "
 nmap n <Plug>(is-nohl)<Plug>(anzu-n-with-echo)
 nmap N <Plug>(is-nohl)<Plug>(anzu-N-with-echo)
-xmap n <Plug>(is-n)<Plug>(anzu-n-with-echo)
-xmap N <Plug>(is-n)<Plug>(anzu-N-with-echo)
+xmap zn <Plug>(is-n)<Plug>(anzu-n-with-echo)
+xmap zN <Plug>(is-n)<Plug>(anzu-N-with-echo)
 nmap * <Plug>(is-*)
 nmap # <Plug>(is-#)
 nmap g* <Plug>(is-g*)
@@ -2420,8 +2402,6 @@ onoremap <expr> ? incsearch#go(init#fuzzymotion#main({'is_stay': 1}))
 " 3}}} haya14busa/incsearch-fuzzy.vim "
 " luochen1990/select-and-search {{{3 "
 let g:select_and_search_active = 1
-xnoremap zn n
-xnoremap zN N
 " 3}}} luochen1990/select-and-search "
 " 2}}} Search "
 
@@ -3197,7 +3177,6 @@ let g:jekyll_post_extension = '.md'
 let g:jekyll_post_filetype = 'pandoc'
 " 3}}} parkr/vim-jekyll "
 " vim-pandoc/vim-pandoc {{{3 "
-let g:pandoc#keyboard#blacklist_submodule_mappings = ['references', 'styles']
 let g:pandoc#formatting#mode = 'h'
 let g:pandoc#formatting#textwidth = &textwidth
 let g:pandoc#formatting#smart_autoformat_on_cursormoved = 1

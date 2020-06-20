@@ -46,6 +46,7 @@ command! -buffer -nargs=* -complete=customlist,calendar#argument#complete
 command! -buffer -nargs=? Splash enew
 			\| call splash#command(<q-args>)
 
+setlocal nowrap
 setlocal nonumber
 setlocal norelativenumber
 setlocal buftype=nofile
@@ -63,4 +64,11 @@ nnoremap <buffer> go :call startify#set_batchmode('B')<CR>
 nnoremap <buffer> gi :call startify#set_batchmode('S')<CR>
 nnoremap <buffer> gO :call startify#set_batchmode('T')<CR>
 nnoremap <buffer> gI :call startify#set_batchmode('V')<CR>
-
+let b:startify_lists = []
+for b:startify_list in g:startify_lists
+	let b:startify_lists += [b:startify_list['header'][0]]
+endfor
+nnoremap <buffer> [[ ?<C-r>=join(b:startify_lists, '\\|')<CR><CR>:let @/=''<CR>
+nnoremap <buffer> ]] /<C-r>=join(b:startify_lists, '\\|')<CR><CR>:let @/=''<CR>
+nnoremap <buffer> [] ?<C-r>=join(b:startify_lists, '\\|')<CR><CR>}:let @/=''<CR>
+nnoremap <buffer> ][ /<C-r>=join(b:startify_lists, '\\|')<CR><CR>{:let @/=''<CR>

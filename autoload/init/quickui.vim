@@ -64,6 +64,7 @@ function! init#quickui#main() "{{{
 				\ ['&View', 'Agit'],
 				\ ['View &file', 'AgitFile'],
 				\ ['&Clone', 'execute "AsyncRun git clone " . @+|copen'],
+				\ ['&Submodule', 'execute "AsyncRun git submodule add " . @+|copen'],
 				\ ['--', ''],
 				\ ['I&ssues', 'Gissues'],
 				\ ['A&dd an issue', 'Giadd'],
@@ -79,10 +80,10 @@ function! init#quickui#main() "{{{
 				\ ])
 	call quickui#menu#install('&Quickfix', [
 				\ ['&Quickfix', 'copen'],
-				\ ['Locatio&n', 'lopen'],
+				\ ['L&ocation', 'lopen'],
 				\ ['As&yncRun', 'execute "AsyncRun " . &makeprg|copen'],
 				\ ['--', ''],
-				\ ['T&odo', 'TODO'],
+				\ ['Todo &XXX', 'TODO'],
 				\ ['&Message', 'Message'],
 				\ ['Scri&ptnames', 'Scriptnames'],
 				\ ['--', ''],
@@ -96,8 +97,8 @@ function! init#quickui#main() "{{{
 				\ ['&Symbol', 'GscopeFind s'],
 				\ ['&Text', 'GscopeFind t'],
 				\ ['--', ''],
-				\ ['&X Lfind', 'execute "Lfind! " . expand("<cfile>")'],
-				\ ['&Y Llocate', 'execute " Llocate" . expand("<cfile>")'],
+				\ ['Lfi&nd', 'execute "Lfind! " . expand("<cfile>")'],
+				\ ['&Z Llocate', 'execute " Llocate" . expand("<cfile>")'],
 				\ ])
 	call quickui#menu#install('E&xplore', [
 				\ ['E&xplore', 'execute "Defx" . substitute(expand("%:t")[0] ==# "!"? "": expand("%:p:h"), " ", "\\\\ ", "g")'],

@@ -7,8 +7,11 @@ augroup filetypedetect "{{{
 	" Text {{{2 "
 	autocmd BufNewFile,BufRead *.synctex.gz,*.synctex,*.rpt,*.fdb_latexmk,*.fls,*.blg,*.ilg,*.lock setfiletype log
 	autocmd BufNewFile,BufRead build.log setfiletype less
-	autocmd BufNewFile,BufRead *.cnx,*.jax,*.ptx setfiletype help
-	autocmd BufNewFile,BufRead *.txt execute 'set filetype=' . (expand('%:p:h:t') ==# 'doc' ? 'help' : 'txt')
+	autocmd BufNewFile,BufRead *.cnx setfiletype help_cn
+	autocmd BufNewFile,BufRead *.jax setfiletype help_ja
+	autocmd BufNewFile,BufRead *.ptx setfiletype help_pt
+	autocmd BufNewFile,BufRead *.txt execute matchstr(getline(1), '\S') > 'Z' ? 'set filetype=txt' : ''
+	execute 'autocmd BufNewFile,BufRead *.' . expand('$HOST') . ' setfiletype mail'
 	" 2}}} Text "
 
 	" Data_Exchange {{{2 "
@@ -21,7 +24,7 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead tags,tags-*,*.tags,*.tags.temp setfiletype tags
 	autocmd BufNewFile,BufRead *.sublime-project,*.vsconfig,*.jscsrc,*.jshintrc,*.plan,*.ccls,*.sublime-workspace setfiletype json
 	autocmd BufNewFile,BufRead *.mdl,*.clang-format setfiletype yaml
-	autocmd BufNewFile,BufRead *.opensslconf,*.qdocconf,*.eclipseproduct,*.DsnWrk,*.PrjPCB,*.PrjMbdStructure,*.PrjMbd,*.PrjMbdStructure,*.LIBPKG,*.OutJob,*.BomDoc,*.Harness,*.wspos,*.jlink,*.dni,*.pjt,*.mac,*.qws,SumatraPDF-settings.txt setfiletype toml
+	autocmd BufNewFile,BufRead *.opensslconf,*.qdocconf,*.eclipseproduct,*.DsnWrk,*.PrjPCB,*.PrjMbdStructure,*.PrjMbd,*.PrjMbdStructure,*.LIBPKG,*.OutJob,*.BomDoc,*.Harness,*.wspos,*.jlink,*.dni,*.pjt,*.mac,*.qws,SumatraPDF-settings.txt,getmailrc setfiletype toml
 	autocmd BufNewFile,BufRead *.theme,*.desktop,*.cache,*.list,*.directory setfiletype desktop
 	autocmd BufNewFile,BufRead *.inx,*.projectspec,*.xaml,*.pyproj,*.cof,*.stp,tesseract_opencl_profile_devices.dat setfiletype xml
 	autocmd BufRead,BufNewFile *.ipynb execute substitute(expand('%:p:h'), '//', '\', 'g') == g:vimpyter_view_directory?'setfiletype json':''

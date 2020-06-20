@@ -1,10 +1,6 @@
 priority -30
 
 # Vim {{{1 #
-snippet script "myUltiSnips" b
-scriptencoding utf-8
-$0
-endsnippet
 snippet f "myUltiSnips" b
 function! init#${1:`!p snip.rv=snip.basename or "fileName"`}#main($2) "{{{
 	$0
@@ -54,9 +50,6 @@ endsnippet
 # 1}}} python #
 
 # dein {{{1 #
-snippet add "myUltiSnips" b
-call dein#add('${VISUAL}$0')
-endsnippet
 snippet hook "myUltiSnips" b
 			\ 'hook_post_source': join([
 			\ '$1',
