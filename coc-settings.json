@@ -1,7 +1,7 @@
 {
 	"suggest.maxPreviewWidth": 999,
 	"suggest.snippetIndicator": "⭐︎",
-	"snippets.userSnippetsDirectory": "$VIMCONFIG/UltiSnips",
+	"snippets.userSnippetsDirectory": "$XDG_CONFIG_HOME/nvim/UltiSnips",
 	"snippets.editSnippetsCommand": "split",
 	"highlight.colors.enable": true,
 	"highlight.document.enable": true,

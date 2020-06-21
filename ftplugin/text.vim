@@ -9,7 +9,7 @@ if expand('%:t') ==# 'requirements.txt'
 	setlocal makeprg=pip\ install\ -r\ %
 elseif expand('%:t') ==# 'aria2c.txt'
 	setlocal makeprg=aria2c\ -i\ %
-else
+elseif expand('%:t')[-4:-1] ==# '.txt'
 	setlocal makeprg=pandoc\ -o\ %:r.pdf\ --latex-engine=lualatex\ %
 endif
 

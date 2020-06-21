@@ -27,7 +27,6 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead *.opensslconf,*.qdocconf,*.eclipseproduct,*.DsnWrk,*.PrjPCB,*.PrjMbdStructure,*.PrjMbd,*.PrjMbdStructure,*.LIBPKG,*.OutJob,*.BomDoc,*.Harness,*.wspos,*.jlink,*.dni,*.pjt,*.mac,*.qws,SumatraPDF-settings.txt,getmailrc setfiletype toml
 	autocmd BufNewFile,BufRead *.theme,*.desktop,*.cache,*.list,*.directory setfiletype desktop
 	autocmd BufNewFile,BufRead *.inx,*.projectspec,*.xaml,*.pyproj,*.cof,*.stp,tesseract_opencl_profile_devices.dat setfiletype xml
-	autocmd BufRead,BufNewFile *.ipynb execute substitute(expand('%:p:h'), '//', '\', 'g') == g:vimpyter_view_directory?'setfiletype json':''
 	" 2}}} Data_Exchange "
 
 	" Mark_Up {{{2 "

@@ -63,6 +63,7 @@ function! init#quickui#main() "{{{
 				\ ['&Init', '!git init'],
 				\ ['&View', 'Agit'],
 				\ ['View &file', 'AgitFile'],
+				\ ['L&og', 'Gclog!'],
 				\ ['&Clone', 'execute "AsyncRun git clone " . @+|copen'],
 				\ ['&Submodule', 'execute "AsyncRun git submodule add " . @+|copen'],
 				\ ['--', ''],

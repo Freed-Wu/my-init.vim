@@ -8,9 +8,8 @@ endif
 
 let b:clean_temp = ['.ipynb_checkpoints']
 
-nnoremap <buffer> gs :VimpyterStartJupyter<CR>
-nnoremap <buffer> gS :VimpyterStartNteract<CR>
-nnoremap <buffer> <LocalLeader>g :split $HOME/.jupyter/jupyter_notebook_config.py<CR>
-nnoremap <buffer> <LocalLeader>o o<Esc>:VimpyterInsertPythonBlock<CR>i
-nnoremap <buffer> <LocalLeader>p :silent !jupyter nbconvert % --to python<CR>
+setlocal makeprg=jupyter\ nbconvert\ %\ --to\ python
 
+nnoremap <buffer> <LocalLeader>ll :VimpyterStartJupyter<CR>
+nnoremap <buffer> <LocalLeader>lL :VimpyterStartNteract<CR>
+nnoremap <buffer> <LocalLeader>o o<Esc>:VimpyterInsertPythonBlock<CR>i

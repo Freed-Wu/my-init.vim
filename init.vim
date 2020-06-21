@@ -22,7 +22,7 @@ endif
 if has('nvim')
 	let g:dein#install_progress_type = 'title'
 endif
-let g:dein#install_log_filename = $VIMDATA.'/.dein.vim/dein.log'
+let g:dein#install_log_filename = $XDG_DATA_HOME . '/nvim/.dein.vim/dein.log'
 set runtimepath=$VIMRUNTIME,$GITHUBWORKSPACE/Shougo/dein.vim
 if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#begin(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
@@ -61,7 +61,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_cmd': ['NewEbuild', 'NewMetadata', 'NewGLEP', 'NewInitd'],
 				\ 'on_ft': split(glob($GITHUBWORKSPACE . '/gentoo/gentoo-syntax/syntax/*.vim'), '\(\.vim\n\)\?' . $GITHUBWORKSPACE . '/gentoo/gentoo-syntax/syntax/\|\.vim'),
 				\ })
-	call dein#add($VIMCONFIG, {
+	call dein#add($XDG_CONFIG_HOME . '/nvim', {
 				\ 'frozen': 1,
 				\ })
 	" 5}}}  "
@@ -349,7 +349,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_map': '<Plug>(Wheel',
 				\ })
 	call dein#add('andymass/vim-matchup', {
-				\ 'on_map': '<plug>(matchup-',
+				\ 'on_map': {'n': ['%', 'g%', 'z%', '[%', ']%'], 'o': ['%', 'g%', 'z%', '[%', ']%', 'i%', 'a%'], 'x': ['%', 'g%', 'z%', '[%', ']%', 'i%', 'a%']},
 				\ })
 	call dein#add('wesQ3/vim-windowswap')
 	" 5}}} Move "
@@ -878,10 +878,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_ft': ['pandoc', 'markdown', 'rst', 'textile', 'gfimarkdown'],
 				\ })
 	call dein#add('parkr/vim-jekyll', {
-				\ 'on_cmd': ['Jpost', 'JSpost', 'JVpost', 'JTpost', 'Jbuild', 'Jserve'],
-				\ 'hook_post_source': join([
-				\ 'doautocmd User Jekyll',
-				\ ], "\n"),
+				\ 'on_ft': ['liquid', 'yaml', 'pandoc'],
 				\ })
 	call dein#add('vimwiki/vimwiki', {
 				\ 'on_ft': 'vimwiki',
@@ -998,7 +995,6 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_cmd': 'REPLToggle',
 				\ })
 	call dein#add('voldikss/vim-floaterm', {
-				\ 'if': has('nvim'),
 				\ 'on_cmd': 'FloatermToggle',
 				\ })
 	call dein#add('edkolev/promptline.vim', {
@@ -1163,7 +1159,7 @@ endif
 
 " Log {{{2 "
 " AD7six/vim-activity-log {{{3 "
-let g:activity_log_location = $VIMDATA . '/.vim-activity-log/%Y/%m/%d.log'
+let g:activity_log_location = $XDG_DATA_HOME . '/nvim/.vim-activity-log/%Y/%m/%d.log'
 " 3}}} AD7six/vim-activity-log "
 " 2}}} Log "
 
@@ -1216,7 +1212,7 @@ nnoremap [<C-f> :<C-u>call quickui#tools#list_function()<CR>
 nnoremap ]<C-f> :<C-u>call quickui#tools#preview_tag('')<CR>
 " 3}}} skywind3000/vim-quickui "
 " mhinz/vim-startify {{{3 "
-let g:startify_session_dir = $VIMDATA . '/.vim-startify'
+let g:startify_session_dir = $XDG_DATA_HOME . '/nvim/.vim-startify'
 let g:startify_enable_special = 0
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
@@ -1228,12 +1224,12 @@ for s:num in range(0, 9)
 	let g:startify_custom_indices += ['.' . s:num]
 endfor
 let g:startify_bookmarks = [
-			\ {g:maplocalleader.'s': has('unix') ? '/etc/profile.d/user.sh' : glob('$VIMCONFIG/etc/*.ps1')},
-			\ {g:maplocalleader.'v': $MYVIMRC},
-			\ {g:maplocalleader.'j': expand('$VIMCONFIG/coc-settings.json')},
-			\ {g:maplocalleader.'z': expand('$HOME/.zshrc')},
-			\ {g:maplocalleader.'p': '/etc/portage/make.conf'},
-			\ {g:maplocalleader.'x': expand('$HOME/.ssh/id_rsa.pub')},
+			\ {g:maplocalleader . 's': has('unix') ? '/etc/profile.d/user.sh' : glob($XDG_CONFIG_HOME . '/nvim/etc/*.ps1')},
+			\ {g:maplocalleader . 'v': $MYVIMRC},
+			\ {g:maplocalleader . 'j': expand($XDG_CONFIG_HOME . '/nvim/coc-settings.json')},
+			\ {g:maplocalleader . 'z': expand('$HOME/.zshrc')},
+			\ {g:maplocalleader . 'p': '/etc/portage/make.conf'},
+			\ {g:maplocalleader . 'x': expand('$HOME/.ssh/id_rsa.pub')},
 			\ ]
 augroup init_Startify "{{{
 	autocmd!
@@ -1702,14 +1698,14 @@ set imdisable
 let g:Vimim_punctuation = 3
 let g:Vimim_map = 'no-gino-tabc-space'
 nnoremap zi a<C-R>=g:Vimim_gi()<CR>
-let g:Vimim_plugin = $VIMDATA.'/.VimIM'
+let g:Vimim_plugin = $XDG_DATA_HOME . '/nvim/.VimIM'
 let g:Vimim_shuangpin = 'ms'
 " 3}}} vim-scripts/VimIM "
 " 2}}} KeyMap "
 
 " MacroExplore {{{2 "
 " vim-scripts/marvim {{{3 "
-let g:marvim_store = $VIMDATA.'/.marvim'
+let g:marvim_store = $XDG_DATA_HOME . '/nvim/.marvim'
 let g:marvim_find_key = 'q)'
 let g:marvim_store_key = 'q('
 let g:marvim_register = 'q'
@@ -1723,7 +1719,7 @@ nnoremap q_ :<C-u>MacroEdit<Space>
 " Appearance {{{1 "
 " Colorscheme {{{2 "
 " reedes/vim-thematic {{{3 "
-source $VIMDATA/thematic.vim
+source $XDG_DATA_HOME/nvim/thematic.vim
 augroup init_ThematicRandom "{{{
 	autocmd!
 	autocmd VimEnter * ThematicRandom
@@ -1747,7 +1743,7 @@ augroup END "}}}
 " 3}}} luochen1990/rainbow "
 if has('pythonx')
 	" jaxbot/semantic-highlight.vim {{{3 "
-	let g:semanticPersistCacheLocation = $VIMDATA.'/.semantic-highlight.vim/.semantic-highlight-cache'
+	let g:semanticPersistCacheLocation = $XDG_DATA_HOME . '/nvim/.semantic-highlight.vim/.semantic-highlight-cache'
 	" 3}}} jaxbot/semantic-highlight.vim "
 endif
 " nathanaelkane/vim-indent-guides {{{3 "
@@ -2129,11 +2125,11 @@ let g:airline#extensions#whitespace#conflicts_format = '%s'
 " 4}}} whitespace "
 " 3}}} bling/vim-airline "
 " Wildog/airline-weather.vim {{{3 "
-let g:weather#appid = readfile($VIMDATA . '/airline-weather.txt')[0]
-let g:weather#area = readfile($VIMDATA . '/airline-weather.txt')[1]
+let g:weather#appid = readfile($XDG_DATA_HOME . '/nvim/airline-weather.txt')[0]
+let g:weather#area = readfile($XDG_DATA_HOME . '/nvim/airline-weather.txt')[1]
 " 3}}} Wildog/airline-weather.vim "
 " Zuckonit/vim-airline-todo {{{3 "
-let g:todo#directory = $VIMDATA.'/.vim-airline-todo'
+let g:todo#directory = $XDG_DATA_HOME . '/nvim/.vim-airline-todo'
 let g:todo#remind = ''
 let g:todo#suffix = ''
 " 3}}} Zuckonit/vim-airline-todo "
@@ -2264,7 +2260,7 @@ let g:foldsearch_disable_mappings = 1
 " TagExplore {{{2 "
 " ludovicchabant/vim-gutentags {{{3 "
 let g:gutentags_ctags_tagfile = '.tags'
-let g:gutentags_cache_dir = $VIMDATA . '/.vim-gutentags'
+let g:gutentags_cache_dir = $XDG_DATA_HOME . '/nvim/.vim-gutentags'
 let g:gutentags_modules = ['ctags', 'cscope']
 let g:gutentags_project_root = [
 				\ '.latexmkrc', '.latexmain', 'main.c',
@@ -2779,7 +2775,7 @@ let g:disable_protodef_mapping = 1
 
 " Complete {{{2 "
 "  {{{3 "
-execute 'set thesaurus=' . substitute(glob($VIMDATA.'/.thesaurus/*'), '\n', ',', 'g')
+execute 'set thesaurus=' . substitute(glob($XDG_DATA_HOME . '/nvim/.thesaurus/*'), '\n', ',', 'g')
 " 3}}}  "
 " mattn/emmet-vim {{{3 "
 let g:user_emmet_leader_key = g:maplocalleader
@@ -2805,7 +2801,7 @@ if has('pythonx')
 	" 3}}} Shougo/deoplete.nvim "
 endif
 " chrisbra/unicode.vim {{{3 "
-let g:Unicode_data_directory = $VIMDATA.'/.unicode.vim'
+let g:Unicode_data_directory = $XDG_DATA_HOME . '/nvim/.unicode.vim'
 " 3}}} chrisbra/unicode.vim "
 " youran0715/LeaderF-Cmdpalette {{{3 "
 nnoremap g: :Leaderf command<CR>
@@ -2815,7 +2811,7 @@ nnoremap g: :Leaderf command<CR>
 " Snippet {{{2 "
 " aperezdc/vim-template {{{3 "
 let g:templates_global_name_prefix = ''
-let g:templates_directory = [$VIMCONFIG . '/vim-template']
+let g:templates_directory = [$XDG_CONFIG_HOME . '/nvim/vim-template']
 " 3}}} aperezdc/vim-template "
 " 2}}} Snippet "
 
@@ -2838,7 +2834,7 @@ nnoremap [K :<C-u>ALEFirst<CR>
 nnoremap ]K :<C-u>ALELast<CR>
 " 3}}} w0rp/ale "
 " dbmrq/vim-ditto {{{3 "
-let s:vim_ditto_config = $VIMDATA.'/.vim-ditto'
+let s:vim_ditto_config = $XDG_DATA_HOME . '/nvim/.vim-ditto'
 let g:ditto_dir = s:vim_ditto_config
 nmap [w <Plug>DittoPrev
 nmap ]w <Plug>DittoNext
@@ -2860,15 +2856,15 @@ nnoremap ]U :NextWordy<CR>
 " File {{{1 "
 " FileExplore {{{2 "
 "  {{{3 "
-set directory=$VIMDATA/swap
-let g:netrw_home = $VIMDATA . '/.netrw'
+set directory=$XDG_DATA_HOME/nvim/swap
+let g:netrw_home = $XDG_DATA_HOME . '/nvim/.netrw'
 let g:netrw_nogx = 1
 let g:netrw_altfile = 1
 " 3}}}  "
 " Shougo/defx.nvim {{{3 "
 augroup init_defx "{{{
 	autocmd!
-	autocmd FileType defx source $VIMCONFIG/ftplugin/defx.vim
+	autocmd FileType defx source $XDG_CONFIG_HOME/nvim/ftplugin/defx.vim
 augroup END "}}}
 " 3}}} Shougo/defx.nvim "
 " kristijanhusak/defx-icons {{{3 "
@@ -2890,7 +2886,7 @@ if has('pythonx')
 	let g:Lf_HideHelp = 1
 	let g:Lf_ShowHidden = 1
 	let g:Lf_WindowPosition = 'popup'
-	let g:Lf_CacheDirectory = $VIMDATA
+	let g:Lf_CacheDirectory = $XDG_DATA_HOME . '/nvim'
 	let g:Lf_DevIconsExactSymbols = g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols
 	let g:Lf_DevIconsExtensionSymbols = g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols
 	let g:Lf_UseVersionControlTool = 0
@@ -3051,11 +3047,11 @@ xnoremap gX :Gbrowse<CR>
 " junegunn/vim-github-dashboard {{{3 "
 let g:github_dashboard = {
 			\ 'username': system('git config --global user.name'),
-			\ 'password': readfile($VIMDATA . '/github-dashboard.txt')[0],
+			\ 'password': readfile($XDG_DATA_HOME . '/nvim/github-dashboard.txt')[0],
 			\ }
 " 3}}} junegunn/vim-github-dashboard "
 " jaxbot/github-issues.vim {{{3 "
-let g:github_access_token = readfile($VIMDATA.'/github-issues.txt')[0]
+let g:github_access_token = readfile($XDG_DATA_HOME . '/nvim/github-issues.txt')[0]
 let g:gissues_lazy_load = 1
 " 3}}} jaxbot/github-issues.vim "
 " mhinz/vim-signify {{{3 "
@@ -3070,7 +3066,7 @@ xmap ag <plug>(signify-motion-outer-visual)
 " 3}}} mhinz/vim-signify "
 " mbbill/undotree {{{3 "
 set undofile
-set undodir=$VIMDATA/undo
+set undodir=$XDG_DATA_HOME/nvim/undo
 let g:undotree_HelpLine = 0
 let g:undotree_CustomUndotreeCmd = 'botright vertical '.'30'.' new'
 let g:undotree_CustomDiffpanelCmd = 'topleft 5 new'
@@ -3086,7 +3082,7 @@ let g:undotree_HighlightSyntaxChange = 'ShowMarksHLl'
 " Program {{{1 "
 " Document {{{2 "
 " vim-scripts/doxygen-support.vim {{{3 "
-let g:Doxy_GlobalTemplateFile = $VIMCONFIG . '/.doxygen-support.vim/doxygen.templates'
+let g:Doxy_GlobalTemplateFile = $XDG_CONFIG_HOME . '/nvim/.doxygen-support.vim/doxygen.templates'
 let g:Doxy_DoxygenExecutable = 'doxygen'
 " 3}}} vim-scripts/doxygen-support.vim "
 " 2}}} Document "
@@ -3189,7 +3185,7 @@ xnoremap gx y:call pandoc#hypertext#OpenSystem('<C-r>0')<CR>
 let g:pandoc#after#modules#enabled = ["nrrwrgn", "ultisnips"]
 " 3}}} vim-pandoc/vim-pandoc-after "
 " szymonmaszke/vimpyter {{{3 "
-let g:vimpyter_view_directory = $VIMDATA.'/.vimpyter'
+let g:vimpyter_view_directory = $XDG_DATA_HOME . '/nvim/.vimpyter'
 " 3}}} szymonmaszke/vimpyter "
 " 2}}} MarkUp "
 
@@ -3204,8 +3200,8 @@ let g:csv_nomap_bs = 1
 " vim-scripts/dbext.vim {{{3 "
 let g:dbext_map_prefix = '<buffer><LocalLeader>'
 let g:dbext_default_type = 'mysql'
-let g:dbext_default_user = readfile($VIMDATA.'/dbext.txt')[0]
-let g:dbext_default_passwd = readfile($VIMDATA.'/dbext.txt')[1]
+let g:dbext_default_user = readfile($XDG_DATA_HOME . '/nvim/dbext.txt')[0]
+let g:dbext_default_passwd = readfile($XDG_DATA_HOME . '/nvim/dbext.txt')[1]
 let g:dbext_default_history_file = $HOME.'/.mysql_history'
 " 3}}} vim-scripts/dbext.vim "
 " 2}}} Database "
@@ -3251,7 +3247,7 @@ let g:C_CodeSnippets = $GITHUBWORKSPACE.'/WolfgangMehner/c-support/c-support/cod
 let g:go_version_warning = 0
 " 3}}} fatih/vim-go "
 " suoto/vim-hdl {{{3 "
-let g:vimhdl_conf_file = $VIMCONFIG.'/.vim-hdl/.hdl_checker.config'
+let g:vimhdl_conf_file = $XDG_CONFIG_HOME . '/nvim/.vim-hdl/.hdl_checker.config'
 " 3}}} suoto/vim-hdl "
 " 2}}} Compile "
 
@@ -3318,7 +3314,7 @@ xnoremap <CR> y:FloatermSend <C-r>0<CR>
 " Tool {{{2 "
 " itchyny/calendar.vim {{{3 "
 let g:calendar_cyclic_view = 1
-let g:calendar_cache_directory = $VIMDATA.'/.calendar.vim'
+let g:calendar_cache_directory = $XDG_DATA_HOME . '/nvim/.calendar.vim'
 " 3}}} itchyny/calendar.vim "
 " Freed-Wu/gitdraw.vim {{{ "
 let g:gitdraw#repeat_number = 13
@@ -3328,8 +3324,8 @@ let g:gitdraw#repo_path = $GITHUBWORKSPACE . '/' . system('git config --global u
 
 " Web {{{2 "
 " ianding1/leetcode.vim {{{3 "
-let g:leetcode_username = readfile($VIMDATA.'/leetcode.txt')[0]
-let g:leetcode_password = readfile($VIMDATA.'/leetcode.txt')[1]
+let g:leetcode_username = readfile($XDG_DATA_HOME . '/nvim/leetcode.txt')[0]
+let g:leetcode_password = readfile($XDG_DATA_HOME . '/nvim/leetcode.txt')[1]
 let g:leetcode_china = 1
 " 3}}} ianding1/leetcode.vim "
 " 2}}} Web "

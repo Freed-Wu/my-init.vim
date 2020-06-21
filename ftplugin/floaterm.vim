@@ -9,6 +9,8 @@ setlocal readonly
 setlocal scrolloff=0
 setlocal nofoldenable
 setlocal colorcolumn=
+setlocal cursorline
+setlocal cursorcolumn
 
 if expand('%:p:t') ==# '!octave'
 	if exists('$OCTAVERUNTIME')
