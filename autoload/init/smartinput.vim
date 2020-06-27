@@ -170,12 +170,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '^',
 				\ 'input': ' ^ ',
-				\ })
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '^',
-				\ 'input': '^',
-				\ 'filetype': ['vim', 'pandoc', 'markdown', 'gfimarkdown', 'tex', 'plaintex', 'context', 'html', 'xhtml', 'liquid', 'xml'],
+				\ 'filetype': ['c', 'cpp', 'cs', 'java', 'objc', 'objcpp', 'arduino', 'julia', 'python'],
 				\ })
 	call smartinput#map_to_trigger('i', '^^', '^^', '^^')
 	call smartinput#define_rule({

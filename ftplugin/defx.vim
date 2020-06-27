@@ -64,7 +64,7 @@ nnoremap <buffer><expr> A
 			\ defx#do_action('new_directory')
 nnoremap <buffer><expr> a
 			\ defx#do_action('new_file')
-nnoremap <buffer><expr> P
+nnoremap <buffer><expr> gp
 			\ defx#do_action('print')
 nnoremap <buffer><expr> C
 			\ defx#do_action('yank_path')
@@ -118,11 +118,11 @@ nnoremap <buffer><expr> O
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
 			\ defx#do_action('drop', 'tab split')
-nnoremap <buffer><expr> <CR>
+nnoremap <buffer><expr> gP
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
 			\ defx#do_action('multi', [['drop', 'pedit'], 'quit'])
-nnoremap <buffer><expr> <S-tab>
+nnoremap <buffer><expr> P
 			\ defx#is_directory() ?
 			\ defx#do_action('drop') :
 			\ defx#do_action('drop', 'pedit')

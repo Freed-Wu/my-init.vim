@@ -10,7 +10,7 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead *.cnx setfiletype help_cn
 	autocmd BufNewFile,BufRead *.jax setfiletype help_ja
 	autocmd BufNewFile,BufRead *.ptx setfiletype help_pt
-	autocmd BufNewFile,BufRead *.txt execute matchstr(getline(1), '\S') > 'Z' ? 'set filetype=txt' : ''
+	autocmd BufNewFile,BufRead *.txt execute matchstr(getline(1), '\S') ># 'Z' ? 'set filetype=txt' : ''
 	execute 'autocmd BufNewFile,BufRead *.' . expand('$HOST') . ' setfiletype mail'
 	" 2}}} Text "
 
@@ -18,7 +18,7 @@ augroup filetypedetect "{{{
 	autocmd BufNewFile,BufRead *gitignore,*.snippet setfiletype gitignore
 	autocmd BufNewFile,BufRead *.db setfiletype sql
 	autocmd BufNewFile,BufRead .mysql_history setfiletype mysql
-	autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf,qt-settings,*.trashinfo setfiletype dosini
+	autocmd BufNewFile,BufRead *.editorconfig,.nethackrc*,*astylerc,pip.conf,layman.conf,qt-settings,*.trashinfo,lang.dat setfiletype dosini
 	autocmd BufNewFile,BufRead *.ctags,*doxyfile,zathurarc*,zathura-*,*latexmkrc,wpa_supplicant*.conf setfiletype conf
 	autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 	autocmd BufNewFile,BufRead tags,tags-*,*.tags,*.tags.temp setfiletype tags
@@ -40,7 +40,7 @@ augroup filetypedetect "{{{
 
 	" Script {{{2 "
 	autocmd BufNewFile,BufRead .bash_history setfiletype bash
-	autocmd BufNewFile,BufRead .zsh_history setfiletype zsh
+	autocmd BufNewFile,BufRead .zsh_history,*.gentoo-config setfiletype zsh
 	autocmd BufNewFile,BufRead .netrwhist setfiletype vim
 	autocmd BufNewFile,BufRead *.nut setfiletype squirrel
 	autocmd BufNewFile,BufRead *.jsfl,*.xs,*.xdc,*.bld,*.fe,*.edc,*.xtext setfiletype javascript

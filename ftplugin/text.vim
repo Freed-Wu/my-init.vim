@@ -1,4 +1,3 @@
-let b:trailguide = 1
 if expand('%:e') ==# 'gitmodules'
 	let b:fswitchdst = 'gitignore'
 endif

@@ -12,7 +12,7 @@ let g:ale_c_gcc_options = '-std=c11 -Wall -I ~/.local/include/STM32F10x_StdPerip
 
 call c#map#main()
 
-setlocal path+=~/.local/include/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/**
+setlocal path+=~/.local/include/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x,~/.local/include/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/CMSIS/CM3/CoreSupport,~/.local/include/STM32F10x_StdPeriph_Lib_V3.5.0/Libraries/STM32F10x_StdPeriph_Driver/inc
 setlocal makeprg=clang\ %\ -o\ %<.exe
 setlocal keywordprg=:Help
 

@@ -6,26 +6,16 @@ setlocal keywordprg=:Help
 setlocal iskeyword-=:
 if exists('$OCTAVEFORGE')
 	setlocal path+=$OCTAVERUNTIME/**2
-	execute 'nnoremap <buffer> <LocalLeader>lf :<C-u>Leaderf file '.$OCTAVEFORGE.' --input=.m<CR>'
 elseif has('unix')
 	setlocal path+=$HOME/octave/**2
-	execute 'nnoremap <buffer> <LocalLeader>lf :<C-u>Leaderf file '.$HOME.'/octave --input=.m<CR>'
 elseif has('win32')
 	setlocal path+=C:/Program\ Files/octave-5.1.0-w64/mingw64/share/octave/packages/**2
-	nnoremap <buffer> <LocalLeader>lf :<C-u>Leaderf file C:/Program\ Files/octave-5.1.0-w64/mingw64/share/octave/packages --input=.m<CR>
 endif
 if exists('$OCTAVERUNTIME')
-	execute 'nnoremap <buffer> <LocalLeader>lF :<C-u>Leaderf file '.$OCTAVERUNTIME.' --input=.m<CR>'
+	setlocal path+=$OCTAVERUNTIME/**2
 elseif has('unix')
-	nnoremap <buffer> <LocalLeader>lF :<C-u>Leaderf file /usr/share/octave/5.1.0/m --input=.m<CR>
+	setlocal path+=/usr/share/octave/5.1.0/m/**2
 elseif has('win32')
-	nnoremap <buffer> <LocalLeader>lF :<C-u>Leaderf file C:/Program\ Files/octave-5.1.0-w64/mingw64/share/octave/5.1.0/m --input=.m<CR>
+	setlocal path+=C:/Program\ Files/octave-5.1.0-w64/mingw64/share/octave/5.1.0/m/**2
 endif
-
-nnoremap <buffer> gs :split ~/.octaverc<CR>
-nnoremap <buffer> gS :split ~/.config/octave/qt-settings<CR>
-inoremap <buffer> .* <Space>.*<Space>
-inoremap <buffer> ./ <Space>./<Space>
-inoremap <buffer> .\ <Space>.\<Space>
-inoremap <buffer> .^ <Space>.^<Space>
 

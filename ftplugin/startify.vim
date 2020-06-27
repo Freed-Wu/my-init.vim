@@ -37,6 +37,22 @@ function! s:startify() "{{{
 	unmap <buffer> V
 	unmap <buffer> e
 	unmap <buffer> q
+	nunmap <buffer> n
+	nunmap <buffer> N
+	nmap <buffer> o <plug>(startify-open-buffers)
+	nnoremap <nowait><buffer> . :<C-u>WhichKey '.'<CR>
+	nnoremap <buffer> i :call startify#set_mark('B')<CR>
+	nnoremap <buffer> s :call startify#set_mark('S')<CR>
+	nnoremap <buffer> I :call startify#set_mark('T')<CR>
+	nnoremap <buffer> S :call startify#set_mark('V')<CR>
+	nnoremap <buffer> gi :call startify#set_batchmode('B')<CR>
+	nnoremap <buffer> gs :call startify#set_batchmode('S')<CR>
+	nnoremap <buffer> gI :call startify#set_batchmode('T')<CR>
+	nnoremap <buffer> gS :call startify#set_batchmode('V')<CR>
+	nnoremap <buffer> [[ ?<C-r>=join(b:startify_lists, '\\|')<CR><CR>:let @/=''<CR>
+	nnoremap <buffer> ]] /<C-r>=join(b:startify_lists, '\\|')<CR><CR>:let @/=''<CR>
+	nnoremap <buffer> [] ?<C-r>=join(b:startify_lists, '\\|')<CR><CR>}:let @/=''<CR>
+	nnoremap <buffer> ][ /<C-r>=join(b:startify_lists, '\\|')<CR><CR>{:let @/=''<CR>
 endfunction "}}}
 
 command! -buffer -nargs=? REPLToggle execute 'terminal ++close ++curwin <args>'
@@ -51,24 +67,7 @@ setlocal nonumber
 setlocal norelativenumber
 setlocal buftype=nofile
 
-nmap <buffer> n <Plug>(is-nohl)<Plug>(anzu-n-with-echo)
-nmap <buffer> N <Plug>(is-nohl)<Plug>(anzu-N-with-echo)
-nunmap <buffer> n
-nunmap <buffer> N
-nnoremap <nowait><buffer> . :<C-u>WhichKey '.'<CR>
-nnoremap <buffer> o :call startify#set_mark('B')<CR>
-nnoremap <buffer> i :call startify#set_mark('S')<CR>
-nnoremap <buffer> O :call startify#set_mark('T')<CR>
-nnoremap <buffer> I :call startify#set_mark('V')<CR>
-nnoremap <buffer> go :call startify#set_batchmode('B')<CR>
-nnoremap <buffer> gi :call startify#set_batchmode('S')<CR>
-nnoremap <buffer> gO :call startify#set_batchmode('T')<CR>
-nnoremap <buffer> gI :call startify#set_batchmode('V')<CR>
 let b:startify_lists = []
 for b:startify_list in g:startify_lists
 	let b:startify_lists += [b:startify_list['header'][0]]
 endfor
-nnoremap <buffer> [[ ?<C-r>=join(b:startify_lists, '\\|')<CR><CR>:let @/=''<CR>
-nnoremap <buffer> ]] /<C-r>=join(b:startify_lists, '\\|')<CR><CR>:let @/=''<CR>
-nnoremap <buffer> [] ?<C-r>=join(b:startify_lists, '\\|')<CR><CR>}:let @/=''<CR>
-nnoremap <buffer> ][ /<C-r>=join(b:startify_lists, '\\|')<CR><CR>{:let @/=''<CR>

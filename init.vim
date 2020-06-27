@@ -33,7 +33,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('haya14busa/dein-command.vim', {
 				\ 'on_cmd': 'Dein',
 				\ })
-	call dein#add('wsdjeg/dein-ui.vim', {
+	call dein#add('Freed-Wu/dein-ui.vim', {
 				\ 'on_cmd': ['SPUpdate', 'SPInstall', 'SPReinstall'],
 				\ })
 	call dein#add('neoclide/coc.nvim', {
@@ -247,13 +247,6 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('vim-scripts/fountain.vim')
 	call dein#add('TrustifierLabs/vim-lyx-layout')
 	call dein#add('vim-scripts/tpp.vim')
-	call dein#add('lambdalisue/vim-manpager', {
-				\ 'on_ft': 'man',
-				\ 'on_cmd': ['Man', 'MANPAGER'],
-				\ })
-	call dein#add('lambdalisue/vim-pager', {
-				\ 'on_cmd': 'PAGER',
-				\ })
 	call dein#add('jwalton512/vim-blade')
 	call dein#add('rdolgushin/gitignore.vim')
 	" 5}}} SyntaxMarkUp "
@@ -342,9 +335,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'on_map': '<Plug>',
 				\ 'on_source': 'incsearch-easymotion.vim',
 				\ })
-	call dein#add('psliwka/vim-smoothie', {
-				\ 'on_func': ['smoothie#upwards', 'smoothie#downwards', 'smoothie#forwards', 'smoothie#backwards'],
-				\ })
+	call dein#add('psliwka/vim-smoothie')
 	call dein#add('reedes/vim-wheel', {
 				\ 'on_map': '<Plug>(Wheel',
 				\ })
@@ -419,7 +410,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	" CursorVisual {{{4 "
 	" Select {{{5 "
 	call dein#add('mg979/vim-visual-multi', {
-				\ 'on_map': ['<Plug>VM', '<Leader>m'],
+				\ 'on_map': ['\'],
 				\ })
 	" 5}}} Select "
 
@@ -694,8 +685,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'i': ['<Plug>Isurround', '<Plug>ISurround'],
 				\ },
 				\ })
-	call dein#add('aprilwade/auto_operator_spacing.vim', {
-				\ 'if': exists('v:none'),
+	call dein#add('Freed-Wu/auto_operator_spacing.vim', {
 				\ 'on_ft': ['coq', 'elm', 'haskell', 'python', 'rust'],
 				\ })
 	call dein#add('feix760/autospace.vim', {
@@ -856,6 +846,17 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 
 	" Program {{{4 "
 	" Document {{{5 "
+	call dein#add('lambdalisue/vim-manpager', {
+				\ 'on_ft': 'man',
+				\ 'on_cmd': ['Man', 'MANPAGER'],
+				\ })
+	call dein#add('lambdalisue/vim-pager', {
+				\ 'on_cmd': 'PAGER',
+				\ })
+	call dein#add('HiPhish/info.vim', {
+				\ 'on_ft': 'info',
+				\ 'on_cmd': 'Info',
+				\ })
 	call dein#add('vim-scripts/DoxygenToolkit.vim', {
 				\ 'on_cmd': ['Dox', 'DoxAuthor', 'DoxBlock', 'DoxLic', 'DoxUndoc'],
 				\ })
@@ -1130,7 +1131,6 @@ augroup END "}}}
 
 " PluginDetect {{{2 "
 " tpope/vim-scriptease {{{3 "
-nnoremap q= :<C-u>PP<CR>
 nmap zS <Plug>ScripteaseSynnames
 nmap g= <Plug>ScripteaseFilter
 nmap g== <Home><Plug>ScripteaseFilter<End>
@@ -1173,8 +1173,8 @@ if has('pythonx')
 	let g:translator_default_engines = ['google', 'bing', 'iciba', 'youdao', executable('trans')? 'trans': '', executable('sdcv')? 'sdcv': '']
 	nmap gK <Plug>TranslateW
 	xmap gK <Plug>TranslateWV
-	nmap <BS> <Plug>TranslateR
-	xmap <BS> <Plug>TranslateRV
+	nmap g! <Plug>TranslateR
+	xmap g! <Plug>TranslateRV
 	" 3}}} voldikss/vim-translator "
 endif
 " 2}}} Language "
@@ -1208,8 +1208,6 @@ xnoremap <nowait> A :<C-u>WhichKeyVisual 'A'<CR>
 let g:quickui_border_style = 3
 nnoremap <Space> :call quickui#menu#open()<CR>
 xnoremap <Space> :<C-u>call quickui#menu#open()<CR>
-nnoremap [<C-f> :<C-u>call quickui#tools#list_function()<CR>
-nnoremap ]<C-f> :<C-u>call quickui#tools#preview_tag('')<CR>
 " 3}}} skywind3000/vim-quickui "
 " mhinz/vim-startify {{{3 "
 let g:startify_session_dir = $XDG_DATA_HOME . '/nvim/.vim-startify'
@@ -2008,6 +2006,8 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 			\ '\.bash_profile$': '',
 			\ 'profile$': '',
 			\ '\.gitignore$': '',
+			\ '\.git$': '',
+			\ '\.gitmodules$': '',
 			\ 'index$': '',
 			\ 'HEAD$': '',
 			\ 'FETCH_HEAD$': '',
@@ -2021,6 +2021,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {
 " 3}}} ryanoasis/vim-devicons "
 " Yggdroot/indentLine {{{ "
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_fileTypeExclude = ['calendar', 'defx']
 " }}} Yggdroot/indentLine "
 " 2}}} Conceal "
 
@@ -2307,12 +2308,6 @@ nmap coo <Plug>(easymotion-overwin-line)
 xmap co<Space> <Plug>(easymotion-bd-w)
 nmap co<Space> <Plug>(easymotion-overwin-w)
 " 3}}} easymotion/vim-easymotion "
-" psliwka/vim-smoothie {{{3 "
-nnoremap <C-D> :<C-U>call smoothie#downwards()<CR>
-nnoremap <C-U> :<C-U>call smoothie#upwards()<CR>
-nnoremap <C-F> :<C-U>call smoothie#forwards()<CR>
-nnoremap <C-B> :<C-U>call smoothie#backwards()<CR>
-" 3}}} psliwka/vim-smoothie "
 " reedes/vim-wheel {{{3 "
 nmap z[ <Plug>(WheelUp)
 xmap z[ <Plug>(WheelUp)
@@ -2446,17 +2441,10 @@ xnoremap <Leader>IX :IIX<Space>
 " CursorVisual {{{1 "
 " Select {{{2 "
 " mg979/vim-visual-multi {{{3 "
-let g:VM_leader = '<Leader>m'
+let g:VM_leader = '\'
 let g:VM_maps = {}
-let g:VM_maps['Find Under'] = g:VM_leader.'m'
-let g:VM_maps['Find Subword Under'] = g:VM_leader.'m'
-let g:VM_maps['Get Operator'] = g:VM_leader.'g'
-let g:VM_maps['Reselect Last'] = g:VM_leader.'r'
-let g:VM_maps['Add Cursor At Pos'] = g:VM_leader.'a'
-let g:VM_maps['Select Cursor Up'] = g:VM_leader.'k'
-let g:VM_maps['Select Cursor Down'] = g:VM_leader.'j'
-let g:VM_maps['Select Cursor Left'] = g:VM_leader.'h'
-let g:VM_maps['Select Cursor Right'] = g:VM_leader.'l'
+let g:VM_maps['Find Under'] = g:VM_leader . g:VM_leader
+let g:VM_maps['Find Subword Under'] = g:VM_leader . g:VM_leader
 " 3}}} mg979/vim-visual-multi "
 " 2}}} Select "
 
@@ -2790,22 +2778,9 @@ set completefunc=emoji#complete
 " rhysd/github-complete.vim {{{3 "
 let g:github_complete_enable_omni_completion = 0
 " 3}}} rhysd/github-complete.vim "
-if has('pythonx')
-	" Shougo/deoplete.nvim {{{3 "
-	if exists('&pyxversion')
-		set pyxversion=3
-		" let g:deoplete#enable_at_startup = 1
-	else
-		let g:loaded_python_provider=0
-	endif
-	" 3}}} Shougo/deoplete.nvim "
-endif
 " chrisbra/unicode.vim {{{3 "
 let g:Unicode_data_directory = $XDG_DATA_HOME . '/nvim/.unicode.vim'
 " 3}}} chrisbra/unicode.vim "
-" youran0715/LeaderF-Cmdpalette {{{3 "
-nnoremap g: :Leaderf command<CR>
-" 3}}} youran0715/LeaderF-Cmdpalette "
 " 2}}} Complete "
 
 " Snippet {{{2 "
@@ -2861,12 +2836,6 @@ let g:netrw_home = $XDG_DATA_HOME . '/nvim/.netrw'
 let g:netrw_nogx = 1
 let g:netrw_altfile = 1
 " 3}}}  "
-" Shougo/defx.nvim {{{3 "
-augroup init_defx "{{{
-	autocmd!
-	autocmd FileType defx source $XDG_CONFIG_HOME/nvim/ftplugin/defx.vim
-augroup END "}}}
-" 3}}} Shougo/defx.nvim "
 " kristijanhusak/defx-icons {{{3 "
 augroup init_defx_icons "{{{
 	autocmd!

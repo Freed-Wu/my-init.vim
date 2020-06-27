@@ -9,7 +9,7 @@ function! vim#map#main() "{{{
 	xnoremap <buffer><silent> <LocalLeader>p y:echo hasmapto('<C-r>0')<CR>
 	nnoremap <buffer><silent> <LocalLeader>P :<C-u>echo mapcheck(expand("<cWORD>"))<CR>
 	xnoremap <buffer><silent> <LocalLeader>P y:echo mapcheck('<C-r>0')<CR>
-	nnoremap <buffer> m= :<C-u>execute 'echo ' . expand('<cWORD>')<CR>
-	xnoremap <buffer> m= y:<C-u>echo <C-r>0<CR>
+	nnoremap <buffer> q= :<C-u>execute 'echo ' . expand('<cWORD>')<CR>
+	xnoremap <buffer> q= y:<C-u>echo <C-r>0<CR>
 endfunction "}}}
 
