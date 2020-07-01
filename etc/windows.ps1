@@ -13,17 +13,10 @@ if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administra
 }
 #endregion
 
-#region system
-setx /m FONTS C:\WINDOWS\Fonts
-setx /m APPLICATIONS 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs'
-setx /m UDISK E:\
-#endregion
 #region init.vim
-setx /m VIMCONFIG $HOME\AppData\Local\nvim
-setx /m VIMDATA $HOME\AppData\Local\nvim-data
-setx /m WAKATIME_HOME $HOME/.config/nvim/.vim-wakatime
-setx /m GITWORKSPACE $HOME\vimfiles
+setx /m XDG_CONFIG_HOME $HOME\AppData\Local
+setx /m XDG_DATA_HOME $HOME\AppData\Local\nvim-data
+setx /m WAKATIME_HOME $XDG_DATA_HOME
 setx /m GITHUBWORKSPACE $HOME\vimfiles\repos\github.com
-setx /m DISPLAY X
 #endregion
 

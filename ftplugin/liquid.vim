@@ -1,1 +1,2 @@
-call jekyll#map#main()
+setlocal makeprg=jekyll\ server
+

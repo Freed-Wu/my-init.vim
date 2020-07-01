@@ -1,3 +1,3 @@
 setlocal makeprg=ebuild\ %\ manifest
 
-command! -buffer -nargs=? Template NewEbuild
+nnoremap <LocalLeader>ll :<C-u>NewEbuild<CR>

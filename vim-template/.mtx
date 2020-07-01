@@ -1,6 +1,6 @@
 TeX: \font\scm="SimSun" at 10pt
 TeX: \largemusicsize\scm
-Title: %HERE%
+Title: %FILE%
 Composer: 
 Width: 180mm
 Style: Singer Piano

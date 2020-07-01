@@ -2,17 +2,23 @@ scriptencoding utf-8
 function! init#smartinput#main() "{{{
 	inoremap <expr><C-p> pumvisible()?"\<C-p>": "\<Up>"
 	inoremap <expr><C-n> pumvisible()?"\<C-n>": "\<Down>"
-	inoremap <C-k> <C-o>:set virtualedit +=onemore<CR><C-o>d$<C-o>:set virtualedit -=onemore<CR>
 	inoremap <C-j> <C-e>
 	inoremap <C-l> <C-y>
 	inoremap <C-\> <C-k>
-	inoremap <C-]> <C-g>u<Esc>[s1z=`]a<C-g>u
+	inoremap <C-q> <End><C-u>
+	inoremap <C-s> <C-o>/
+	inoremap <C-_> <C-o>u
+	inoremap <M-h> <C-o>K
+	inoremap <M-s> <C-g>u<Esc>[s1z=`]a<C-g>u
+	inoremap <M-g> <Home><C-o>y<End>
+	inoremap <M-a> <End><CR>
+	inoremap <M-e> <Up><End><CR>
 	inoremap <silent><expr> <TAB>
 				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-				\ init#check_back_space#main() ? "\<TAB>" :
-				\ coc#refresh()
-
-	inoremap ：： ；
+				\ "\<TAB>" . coc#refresh()
+	if !exists('$WINDOWID')
+		inoremap ：： ；
+	endif
 	call smartinput#map_to_trigger('i', '（', '（', '（')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -44,6 +50,13 @@ function! init#smartinput#main() "{{{
 				\ 'input': '“”<Left>',
 				\ })
 
+	call smartinput#map_to_trigger('i', '(', '(', '(')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '(',
+				\ 'input': ' ()<Left>',
+				\ 'filetype': ['text', 'txt'],
+				\ })
 	" c {{{ "
 	call smartinput#map_to_trigger('i', '=', '=', '=')
 	call smartinput#define_rule({
@@ -78,12 +91,6 @@ function! init#smartinput#main() "{{{
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '+',
-				\ 'input': '+',
-				\ 'filetype': ['html', 'xhtml', 'liquid', 'xml'],
-				\ })
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '+',
 				\ 'input': '+ ',
 				\ 'filetype': ['spice'],
 				\ })
@@ -91,19 +98,13 @@ function! init#smartinput#main() "{{{
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '++',
-				\ 'input': ' ++ ',
+				\ 'input': '++',
 				\ })
-	call smartinput#map_to_trigger('i', '*', '*', '*')
+	call smartinput#map_to_trigger('i', '+-', '+-', '+-')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
-				\ 'char': '*',
-				\ 'input': ' * ',
-				\ })
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '*',
-				\ 'input': '*',
-				\ 'filetype': ['gitignore', 'gitcommit', 'vim', 'html', 'xhtml', 'liquid', 'xml'],
+				\ 'char': '+-',
+				\ 'input': '+-',
 				\ })
 	call smartinput#map_to_trigger('i', '+=', '+=', '+=')
 	call smartinput#define_rule({
@@ -111,11 +112,23 @@ function! init#smartinput#main() "{{{
 				\ 'char': '+=',
 				\ 'input': ' += ',
 				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '+=',
+				\ 'input': '+=',
+				\ 'filetype': ['zsh'],
+				\ })
 	call smartinput#map_to_trigger('i', '-=', '-=', '-=')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '-=',
 				\ 'input': ' -= ',
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '-=',
+				\ 'input': '-=',
+				\ 'filetype': ['zsh'],
 				\ })
 	call smartinput#map_to_trigger('i', '*=', '*=', '*=')
 	call smartinput#define_rule({
@@ -129,11 +142,23 @@ function! init#smartinput#main() "{{{
 				\ 'char': '/=',
 				\ 'input': ' /= ',
 				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '*=',
+				\ 'input': '*=',
+				\ 'filetype': ['zsh'],
+				\ })
 	call smartinput#map_to_trigger('i', '&=', '&=', '&=')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '&=',
 				\ 'input': ' &= ',
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '&=',
+				\ 'input': '&=',
+				\ 'filetype': ['zsh'],
 				\ })
 	call smartinput#map_to_trigger('i', '<Bar>=', '<Bar>=', '<Bar>=')
 	call smartinput#define_rule({
@@ -141,23 +166,23 @@ function! init#smartinput#main() "{{{
 				\ 'char': '<Bar>=',
 				\ 'input': ' <Bar>= ',
 				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '<Bar>=',
+				\ 'input': '<Bar>=',
+				\ 'filetype': ['zsh'],
+				\ })
 	call smartinput#map_to_trigger('i', '^=', '^=', '^=')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '^=',
 				\ 'input': ' ^= ',
 				\ })
-	call smartinput#map_to_trigger('i', '&', '&', '&')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
-				\ 'char': '&',
-				\ 'input': ' & ',
-				\ })
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '&',
-				\ 'input': '&',
-				\ 'filetype': ['vim'],
+				\ 'char': '^=',
+				\ 'input': '^=',
+				\ 'filetype': ['zsh'],
 				\ })
 	call smartinput#map_to_trigger('i', '&&', '&&', '&&')
 	call smartinput#define_rule({
@@ -202,13 +227,6 @@ function! init#smartinput#main() "{{{
 				\ 'char': '<Bar><Bar>',
 				\ 'input': ' <Bar><Bar> ',
 				\ })
-	call smartinput#map_to_trigger('i', '%', '%', '%')
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '%',
-				\ 'input': ' % ',
-				\ 'filetype': ['c', 'julia', 'python'],
-				\ })
 	call smartinput#map_to_trigger('i', '%=', '%=', '%=')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -222,11 +240,23 @@ function! init#smartinput#main() "{{{
 				\ 'char': '/*',
 				\ 'input': ' /* ',
 				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '/*',
+				\ 'input': '/*',
+				\ 'filetype': ['gitignore'],
+				\ })
 	call smartinput#map_to_trigger('i', '*/', '*/', '*/')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '*/',
 				\ 'input': ' */ ',
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '*/',
+				\ 'input': '*/',
+				\ 'filetype': ['gitignore'],
 				\ })
 	" }}} c "
 	" ruby {{{ "
@@ -270,13 +300,19 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '<',
 				\ 'input': '<lt>><Left>',
-				\ 'filetype': ['vim', 'html', 'xhtml', 'pandoc', 'markdown', 'gfimarkdown', 'liquid', 'txt', 'text'],
+				\ 'filetype': ['vim', 'html', 'xhtml', 'pandoc', 'markdown', 'gfimarkdown', 'liquid', 'txt', 'text', 'tex', 'plaintex', 'context'],
 				\ })
 	call smartinput#map_to_trigger('i', '>', '>', '>')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '>',
 				\ 'input': ' > ',
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '>',
+				\ 'input': '><CR><C-u><CR><lt><Up><Tab>',
+				\ 'filetype': ['help'],
 				\ })
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -301,6 +337,12 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '<=',
 				\ 'input': ' <= ',
+				\ })
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '<=',
+				\ 'input': '<=',
+				\ 'filetype': ['vim'],
 				\ })
 	call smartinput#map_to_trigger('i', '=~', '=~', '=~')
 	call smartinput#define_rule({
@@ -504,7 +546,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '$',
 				\ 'input': '$$<Left>',
-				\ 'filetype': ['tex', 'plaintex', 'context', 'pandoc', 'markdown', 'gfimarkdown'],
+				\ 'filetype': ['tex', 'plaintex', 'context', 'pandoc', 'markdown', 'gfimarkdown', 'csv'],
 				\ })
 	call smartinput#map_to_trigger('i', '$$', '$$', '$$')
 	call smartinput#define_rule({

@@ -11,3 +11,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - %HERE%
 
+[Unreleased]: https://github.com/Freed-Wu/iec101/compare/v0.0.1...Unreleased
+[0.0.1]: https://github.com/Freed-Wu/iec101/releases/tag/v0.0.1

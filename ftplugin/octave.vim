@@ -1,21 +1,20 @@
 call vimtex#init()
 
-setlocal foldmethod=syntax
-setlocal makeprg=octave\ %:p
+setlocal foldexpr=MatlabFoldExpr()
+setlocal foldtext=MatlabFoldText()
+setlocal makeprg=octave\ %
 setlocal keywordprg=:Help
 setlocal iskeyword-=:
-if exists('$OCTAVEFORGE')
-	setlocal path+=$OCTAVERUNTIME/**2
-elseif has('unix')
-	setlocal path+=$HOME/octave/**2
-elseif has('win32')
-	setlocal path+=C:/Program\ Files/octave-5.1.0-w64/mingw64/share/octave/packages/**2
-endif
-if exists('$OCTAVERUNTIME')
-	setlocal path+=$OCTAVERUNTIME/**2
-elseif has('unix')
-	setlocal path+=/usr/share/octave/5.1.0/m/**2
-elseif has('win32')
-	setlocal path+=C:/Program\ Files/octave-5.1.0-w64/mingw64/share/octave/5.1.0/m/**2
+execute 'setlocal path+=' . split(system('octave-config -p DATAROOTDIR'))[0] . '/octave/' . split(system('octave-config -p VERSION'))[0] . '/m/**2'
+execute 'setlocal path+=' . split(system('octave-config --m-site-dir'))[0] . '/**2'
+if filereadable('.octave_packages')
+	let s:list = readfile('.octave_packages')
+	let s:i = 0
+	let s:ans = match(s:list, '# name: dir', 0, s:i)
+	while s:ans != -1
+		execute 'setlocal path+=' . s:list[s:ans + 4] . '/**1'
+		let s:i += 1
+		let s:ans = match(s:list, '# name: dir', 0, s:i)
+	endwhile
 endif
 

@@ -1,12 +1,9 @@
-let g:mkdp_auto_close = 0
-let g:mkdp_port = '8090'
 let b:fswitchdst = 'bib'
 let b:fswitchlocs = 'bib'
 let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 
 call vimtex#init()
 call tex#map#main()
-call dot#map#main()
 call init#set#main()
 
 if expand('%:p:h') =~# 'vim'
@@ -17,22 +14,23 @@ setlocal nospell
 setlocal foldexpr=pandoc#folding#FoldExpr()
 setlocal foldtext=foldtext()
 setlocal foldlevel=1
-setlocal makeprg=pandoc\ -o\ %<.docx\ %\ --filter\ pandoc-csv2table\ --filter\ pandoc-xnos\ --filter\ pandoc-docx-pagebreakpy
+if glob(expand('%:p:h') . '/_config.yml') !=# ''
+	setlocal makeprg=jekyll\ server
+else
+	setlocal makeprg=:Pandoc\ pdf\ %\ --filter\ pandoc-csv2table\ --filter\ pandoc-xnos\ --filter\ pandoc-docx-pagebreakpy
+endif
 setlocal include=^\\s*!
 setlocal iskeyword+=-
 setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
 
-augroup pandoc "{{{
-	autocmd!
-	autocmd BufWinEnter *.md,*.markdown,*.mkd,*.pandoc setlocal concealcursor=
-augroup END "}}}
-
-nmap <buffer> <LocalLeader>lL <Plug>MarkdownPreview
+nmap <buffer> <LocalLeader>ll <Plug>MarkdownPreview
 nnoremap <buffer> <LocalLeader>lt :TOC<CR><C-w>L:execute 'vertical resize '.&columns / 4<CR>
+nnoremap <buffer> <LocalLeader>= :CommentBanner -w auto -1 spaces:0 -p 1,=<CR>
+nnoremap <buffer> <LocalLeader>- :CommentBanner -w auto -1 spaces:0 -p 1,-<CR>
 nnoremap <buffer> <LocalLeader>oo :.read !tree<CR>
-nnoremap <buffer> <LocalLeader>oO :.read !~/.zinit/plugins/ekalinin---github-markdown-toc/gh-md-toc %<CR>
+nnoremap <buffer> <LocalLeader>oO :.read !gh-md-toc %<CR>
 inoremap <buffer> <C-x><C-x> <Plug>(github-complete-manual-completion)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)

@@ -34,17 +34,17 @@ function! c#map#main() "{{{
 	omap <buffer> if <Plug>(textobj-function-i)
 	omap <buffer> aF <Plug>(textobj-function-A)
 	omap <buffer> iF <Plug>(textobj-function-I)
-	nnoremap <buffer> [[ ?{<CR>w99[{
-	nnoremap <buffer> ][ /}<CR>b99]}
-	nnoremap <buffer> ]] j0[[%/{<CR>
-	nnoremap <buffer> [] k$][%?}<CR>
-	xnoremap <buffer> [[ ?{<CR>w99[{
-	xnoremap <buffer> ][ /}<CR>b99]}
-	xnoremap <buffer> ]] j0[[%/{<CR>
-	onoremap <buffer> [] k$][%?}<CR>
-	onoremap <buffer> [[ ?{<CR>w99[{
-	onoremap <buffer> ][ /}<CR>b99]}
-	onoremap <buffer> ]] j0[[%/{<CR>
-	onoremap <buffer> [] k$][%?}<CR>
+	nnoremap <buffer> [[ ?{<CR>:let @/ = ''<CR>w99[{
+	nnoremap <buffer> ]] /}<CR>:let @/ = ''<CR>b99]}
+	nnoremap <buffer> ][ j0[[%/{<CR>:let @/ = ''<CR>
+	nnoremap <buffer> [] k$][%?}<CR>:let @/ = ''<CR>
+	xnoremap <buffer> [[ ?{<CR>:let @/ = ''<CR>w99[{
+	xnoremap <buffer> ]] /}<CR>:let @/ = ''<CR>b99]}
+	xnoremap <buffer> ][ j0[[%/{<CR>:let @/ = ''<CR>
+	xnoremap <buffer> [] k$][%?}<CR>:let @/ = ''<CR>
+	onoremap <buffer> [[ ?{<CR>:let @/ = ''<CR>w99[{
+	onoremap <buffer> ]] /}<CR>:let @/ = ''<CR>b99]}
+	onoremap <buffer> ][ j0[[%/{<CR>:let @/ = ''<CR>
+	onoremap <buffer> [] k$][%?}<CR>:let @/ = ''<CR>
 endfunction "}}}
 

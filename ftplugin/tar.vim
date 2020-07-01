@@ -1,16 +1,12 @@
 let b:fswitchdst = expand('%:e:e:r')
 
 if expand('%') =~# 'xls'
-	nnoremap <buffer> <C-r> :ExcelView %<CR>
-endif
-
-if expand('%') =~# 'jar'
-	setlocal makeprg=java\ -jar\ %:p
+	setlocal makeprg=:ExcelView\ %
+elseif expand('%') =~# 'jar'
+	setlocal makeprg=java\ -jar\ %
 else
-	setlocal makeprg=7z\ x\ %:p
+	setlocal makeprg=7z\ x\ %
 endif
 
 call init#map#main()
-
-setlocal buftype=
 

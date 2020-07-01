@@ -1,0 +1,1 @@
+call init#map#main()

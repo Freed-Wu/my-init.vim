@@ -11,27 +11,7 @@ let g:which_key_map_fugitive_r = {
 nnoremap <buffer><nowait> c :<C-u>WhichKey 'c'<CR>
 nnoremap <buffer><nowait> d :<C-u>WhichKey 'd'<CR>
 nnoremap <buffer><nowait> r :<C-u>WhichKey 'r'<CR>
-nnoremap <buffer> S :<C-u>G pull origin master --allow-unrelated-histories --rebase<CR>
 nnoremap <buffer> R :<C-u>edit<CR>
-nnoremap <buffer> <LocalLeader>a :G remote add origin git@github.com:Freed-Wu/.git<Left><Left><Left><Left>
-nnoremap <buffer> <LocalLeader>L :Gclog<CR>
-nnoremap <buffer> <LocalLeader>p :G push --force --set-upstream origin master<CR>
-nnoremap <buffer> <LocalLeader>r :G rebase --interactive HEAD~
-nnoremap <buffer> <LocalLeader>cm :G checkout master<CR>
-nnoremap <buffer> <LocalLeader>bd :G checkout -b dev<CR>
-nnoremap <buffer> <LocalLeader>bf :G checkout -b feature-
-nnoremap <buffer> <LocalLeader>br :G checkout -b release-
-nnoremap <buffer> <LocalLeader>bg :G checkout -b bug-
-nnoremap <buffer> <LocalLeader>cd :G checkout dev<CR>
-nnoremap <buffer> <LocalLeader>cf :G checkout feature-
-nnoremap <buffer> <LocalLeader>cr :G checkout release-
-nnoremap <buffer> <LocalLeader>cb :G checkout bug-
-nnoremap <buffer> <LocalLeader>dd :G branch -d dev<CR>
-nnoremap <buffer> <LocalLeader>df :G branch -d feature-
-nnoremap <buffer> <LocalLeader>dr :G branch -d release-
-nnoremap <buffer> <LocalLeader>db :G branch -d bug-
-nnoremap <buffer> <LocalLeader>bb :G branch<CR>
-nnoremap <buffer> <LocalLeader>tt :G tag v
-nnoremap <buffer> <LocalLeader>tm :G tag -a v -m ""
-nnoremap <buffer> <LocalLeader>td :G tag -d v
+nnoremap <buffer> A :G remote add origin <C-r>+<CR>
+nnoremap <buffer> S :<C-u>G pull origin master --allow-unrelated-histories --recurse-submodules<CR>
 

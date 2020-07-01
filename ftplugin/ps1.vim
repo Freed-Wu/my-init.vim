@@ -1,2 +1,2 @@
-setlocal makeprg=powershell\ %:p
+setlocal makeprg=powershell\ %
 

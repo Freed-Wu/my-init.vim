@@ -1,293 +1,83 @@
 priority -40
 
-# latex-text-font {{{1 #
-snippet it "myUltiSnips" i
-\textit{${1:${VISUAL:text}}}$0
+# fake {{{1 #
+snippet fakeint
+`!v fake#int()`
 endsnippet
-snippet bf "myUltiSnips" i
-\textbf{${1:${VISUAL}}}$0
+snippet fakeint0-100
+`!v fake#int(0, 100)`
 endsnippet
-snippet under "myUltiSnips" i
-\underline{${1:${VISUAL}}}$0
+snippet fakefloat
+`!v fake#float()`
 endsnippet
-snippet sc "myUltiSnips" i
-\textsc{${1:${VISUAL}}}$0
+snippet fakepassword8
+`!v fake#chars(8)`
 endsnippet
-snippet sf "myUltiSnips" i
-\textsf{${1:${VISUAL}}}$0
+snippet fakenumbers4
+`!v fake#chars(4, '\d')`
 endsnippet
-snippet rm "myUltiSnips" i
-\textrm{${1:${VISUAL}}}$0
+snippet fakeage
+`!v fake#gen('age')`
 endsnippet
-snippet tt "myUltiSnips" i
-\texttt{${1:${VISUAL}}}$0
+snippet fakemale
+`!v fake#gen('male_name')`
 endsnippet
-snippet tsub "myUltiSnips" i
-\textsubscript{${1:${VISUAL}}}$0
+snippet fakefemale
+`!v fake#gen('female_name')`
 endsnippet
-snippet tsup "myUltiSnips" i
-\textsuperscript{${1:${VISUAL}}}$0
+snippet fakesurname
+`!v fake#gen('surname')`
 endsnippet
-# 1}}} latex-text-font #
-
-# latex-text-symbol {{{1 #
-snippet $ "myUltiSnips" i
- $${VISUAL}$1$ $0
+snippet fakename
+`!v fake#gen('name')`
 endsnippet
-
-priority -30
-
-snippet $$ "myUltiSnips" i
-$$
-${VISUAL}$1
-$$$0
+snippet fakefullname
+`!v fake#gen('fullname')`
 endsnippet
-
-priority -40
-
-snippet si "myUltiSnips" i
-\SI{${VISUAL}$1}{\\$0}
+snippet fakeuser
+`!v tolower(fake#gen('name'))`
 endsnippet
-# 1}}} latex-text-symbol #
-
-global !p
-texMathZones = [
-	'texMathZone'+x for x in [
-		'A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F', 'FS', 'G',
-		'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS', 'DS', 'V',
-		'W', 'X', 'Y', 'Z'
-	]
-]
-texIgnoreMathZones = ['texMathText']
-texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
-texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
-ignore = texIgnoreMathZoneIds[0]
-def math():
-	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
-	try:
-		first = next(
-			i for i in reversed(synstackids)
-			if i in texIgnoreMathZoneIds or i in texMathZoneIds
-		)
-		return first != ignore
-	except StopIteration:
-		return False
-endglobal
-
-# latex-math-python {{{1 #
-context "math()"
-snippet sympy "sympy block " w
-sympy $1 endsympy$0
+snippet fakeemail
+`!v fake#gen('email')`
 endsnippet
-context "math()"
-snippet 'sympy(.*)endsympy' "evaluate sympy" wr
-`!p
-from sympy import *
-x, y, z, t = symbols('x y z t')
-k, m, n = symbols('k m n', integer=True)
-f, g, h = symbols('f g h', cls=Function)
-init_printing()
-snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
-		      .replace('^', '**') \
-		      .replace('{', '(') \
-		   .replace('}', ')') + ')')
-`
+snippet fakeparagraph
+`!v fake#gen('paragraph')`
 endsnippet
-context "math()"
-snippet math "mathematica block" w
-math $1 endmath$0
+snippet fakesentense
+`!v fake#gen('sentense')`
 endsnippet
-context "math()"
-snippet 'math(.*)endmath' "evaluate mathematica" wr
-`!p
-import subprocess
-code = 'ToString[' + match.group(1) + ', TeXForm]'
-snip.rv = subprocess.check_output(['wolframscript', '-code', code])
-`
+snippet fakecountry
+`!v fake#gen('country')`
 endsnippet
-# 1}}} latex-math-python #
-
-# latex-math-function {{{1 #
-context "math()"
-snippet hat "myUltiSnips" i
-\hat{${1:${VISUAL}}}$0
+snippet fakeword
+`!v fake#gen('word')`
 endsnippet
-context "math()"
-snippet int "myUltiSnips" i
-\int\nolimits_{${1:-\infty}}^${2:\infty} $0
+snippet fakejob
+`!v fake#gen('job')`
 endsnippet
-context "math()"
-snippet sum "myUltiSnips" i
-\sum_{${1:i} = ${2:-\infty}}^${3:\infty} $0
-endsnippet
-context "math()"
-snippet pro "myUltiSnips" i
-\prod_{${1:i} = ${2:-\infty}}^${3:\infty} $0
-endsnippet
-context "math()"
-snippet lef "myUltiSnips" i
-\left${1:(}${3:${VISUAL}}\right${2:)}$0
-endsnippet
-context "math()"
-snippet big "myUltiSnips" i
-\bigl${1:(}${3:${VISUAL}}\bigr${2:)}$0
-endsnippet
-context "math()"
-snippet Big "myUltiSnips" i
-\Bigl${1:(}${3:${VISUAL}}\Bigr${2:)}$0
-endsnippet
-context "math()"
-snippet bigg "myUltiSnips" i
-\biggl${1:(}${3:${VISUAL}}\biggr${2:)}$0
-endsnippet
-context "math()"
-snippet Bigg "myUltiSnips" i
-\Biggl${1:(}${3:${VISUAL}}\Biggr${2:)}$0
-endsnippet
-context "math()"
-snippet \{ "myUltiSnips" i
-\\{${1:${VISUAL}}\\}$0
-endsnippet
-context "math()"
-snippet "([A-Za-z'])(\d)" "auto subscript" wrA
-`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
-endsnippet
-context "math()"
-snippet "([A-Za-z'])_(\d\d)" "auto subscript2" wrA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
-endsnippet
-context "math()"
-snippet "([A-Za-z'])_" "auto subscript2" wr
-`!p snip.rv = match.group(1)`_{${1:${VISUAL}}}$0
-endsnippet
-context "math()"
-snippet ^ "auto subscript2" w
-^{${1:${VISUAL}}}$0
-endsnippet
-context "math()"
-snippet '([A-Za-z])\^(\d\d)' "auto subscript2" wrA
-`!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}
-endsnippet
-context "math()"
-snippet sq "myUltiSnips" i
-\sqrt{${1:${VISUAL}}}$0
-endsnippet
-context "math()"
-snippet __ "myUltiSnips" iA
-_\mathrm{${VISUAL}$1}$0
-endsnippet
-context "math()"
-snippet lim "myUltiSnips" i
-\lim_{${1:n} \to ${2:\infty}}$0
-endsnippet
-context "math()"
-snippet fr "myUltiSnips" i
-\frac{${VISUAL}$1}{$2}$0
-endsnippet
-context "math()"
-snippet case "myUltiSnips" b
-\begin{cases}
-	$1
-\end{cases}
-$0
-endsnippet
-context "math()"
-snippet ali "myUltiSnips" b
-\begin{aligned}
-	$1
-\end{aligned}
-$0
-endsnippet
-context "math()"
-snippet dcase "myUltiSnips" b
-\begin{dcases}
-	$1
-\end{dcases}
-$0
-endsnippet
-context "math()"
-snippet over "myUltiSnips" i
-\overline{${1:${VISUAL}}}$0
-endsnippet
-# 1}}} latex-math-function #
+# 1}}} fake #
 
 # latex-math-font {{{1 #
-context "math()"
-snippet mb "myUltiSnips" i
-\mathbb{${1:${VISUAL}}}$0
-endsnippet
-context "math()"
 snippet mf "myUltiSnips" i
 \mathfrak{${1:${VISUAL}}}$0
 endsnippet
-context "math()"
 snippet mc "myUltiSnips" i
 \mathcal{${1:${VISUAL}}}$0
 endsnippet
-context "math()"
 snippet ms "myUltiSnips" i
 \mathscr{${1:${VISUAL}}}$0
 endsnippet
-context "math()"
 snippet mr "myUltiSnips" i
 \mathrm{${1:${VISUAL}}}$0
 endsnippet
-context "math()"
-snippet mo "myUltiSnips" i
-\mathop{${1:${VISUAL}}}$0
+snippet mi "myUltiSnips" i
+\mathit{${1:${VISUAL}}}$0
+endsnippet
+snippet mb "myUltiSnips" i
+\mathbb{${1:${VISUAL}}}$0
+endsnippet
+snippet mbm "myUltiSnips" i
+\mathbbm{${1:${VISUAL}}}$0
 endsnippet
 # 1}}} latex-math-font #
-
-# matrix {{{1 #
-context "math()"
-snippet mat "myUltiSnips" b
-\begin{matrix}
-$0
-\end{matrix}
-endsnippet
-context "math()"
-snippet bmat "myUltiSnips" b
-\begin{bmatrix}
-$0
-\end{bmatrix}
-endsnippet
-context "math()"
-snippet Bmat "myUltiSnips" b
-\begin{Bmatrix}
-$0
-\end{Bmatrix}
-endsnippet
-context "math()"
-snippet pmat "myUltiSnips" b
-\begin{pmatrix}
-$0
-\end{pmatrix}
-endsnippet
-context "math()"
-snippet vmat "myUltiSnips" b
-\begin{vmatrix}
-$0
-\end{vmatrix}
-endsnippet
-context "math()"
-snippet Vmat "myUltiSnips" b
-\begin{Vmatrix}
-$0
-\end{Vmatrix}
-endsnippet
-# 1}}} matrix #
-
-# latex-math-space {{{1 #
-snippet "([^A-Za-z0-9\}\)\]']) - " "myUltiSnips" irA
-`!p snip.rv = match.group(1)`-$0
-endsnippet
-context "math()"
-snippet '(\s) & ' "myUltiSnips" irA
-`!p snip.rv = match.group(1)`& $0
-endsnippet
-context "math()"
-snippet '(\s) = ' "myUltiSnips" irA
-`!p snip.rv = match.group(1)`= $0
-endsnippet
-# 1}}} latex-math-space #
 

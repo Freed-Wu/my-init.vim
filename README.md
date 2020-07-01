@@ -14,7 +14,9 @@ Configure vim.
 ```{bash}
 git clone git@github.com:Freed-Wu/my-init.vim.git ~/.config/nvim
 # vimim need it
-aria2c https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/vimim/vimim.pinyin_quote_sogou.txt -d ~/.config/nvim/.VimIM
+aria2c https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/vimim/vimim.pinyin_quote_sogou.txt -d ~/.cache/nvim/.VimIM
+# unicode.vim need it
+aria2c http://www.unicode.org/Public/UNIDATA/UnicodeData.txt -d ~/.vim/repos/github.com/chrisbra/unicode.vim/autoload/unicode/UnicodeTable.txt
 # for GNU
 # config others first
 # disable system vimrc next

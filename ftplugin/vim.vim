@@ -32,6 +32,7 @@ call vim#map#main()
 call init#set#main()
 
 setlocal foldmethod=marker
+setlocal makeprg=:source\ %
 
 omap <buffer> aL <Plug>(textobj-continuous-vim-a)
 xmap <buffer> aL <Plug>(textobj-continuous-vim-a)

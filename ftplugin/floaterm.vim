@@ -1,16 +1,13 @@
 call init#map#main()
 
-if !has('nvim')
-	AnsiEsc
-endif
-
+setlocal nonumber
+setlocal norelativenumber
 setlocal nowrap
-setlocal readonly
 setlocal scrolloff=0
 setlocal nofoldenable
 setlocal colorcolumn=
-setlocal cursorline
-setlocal cursorcolumn
+setlocal nocursorline
+setlocal nocursorcolumn
 
 if expand('%:p:t') ==# '!octave'
 	if exists('$OCTAVERUNTIME')
@@ -34,9 +31,18 @@ nnoremap <buffer> ZQ i<C-u><C-d>
 nnoremap <buffer> ZZ :<C-u>hide<CR>
 nnoremap <buffer> o :<C-u>execute 'wincmd W\|'.expand('<cword>')<CR>
 nnoremap <buffer> O :<C-u>execute 'wincmd W\|/'.expand('<cword>')<CR>
-nnoremap <buffer> K i<C-p><CR>
-nnoremap <buffer> p i<C-w>"+
-nnoremap <buffer> P i<C-w>"
+nnoremap <buffer> J i<C-p><CR>
+nnoremap <buffer> [[ ?❯<CR>:let @/ = ''<CR>
+nnoremap <buffer> ]] /❯<CR>:let @/ = ''<CR>
+nnoremap <buffer> [] /❯<CR>:let @/ = ''<CR>2k
+nnoremap <buffer> [] ?❯<CR>:let @/ = ''<CR>2j
+if has('nvim')
+	nnoremap <buffer> p i<C-\><C-N>"+pi
+	nnoremap <buffer> <expr> P 'i<C-\><C-N>"'.nr2char(getchar()).'pi'
+else
+	nnoremap <buffer> p i<C-w>"+
+	nnoremap <buffer> P i<C-w>"
+endif
 if !exists('g:terminal_map')
 	if has('nvim')
 		tnoremap <Esc> <C-\><C-N>

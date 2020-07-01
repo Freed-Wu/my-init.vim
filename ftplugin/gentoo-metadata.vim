@@ -1,1 +1,1 @@
-command! -buffer -nargs=? Template NewMetadata
+nnoremap <LocalLeader>ll :<C-u>NewMetadata<CR>

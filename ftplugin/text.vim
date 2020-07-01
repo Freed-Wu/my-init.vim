@@ -2,23 +2,21 @@ if expand('%:e') ==# 'gitmodules'
 	let b:fswitchdst = 'gitignore'
 endif
 
-setlocal colorcolumn=
-setlocal nofoldenable
-if expand('%:t') ==# 'requirements.txt'
-	setlocal makeprg=pip\ install\ -r\ %
-elseif expand('%:t') ==# 'aria2c.txt'
+if expand('%:t') ==# 'aria2.session'
 	setlocal makeprg=aria2c\ -i\ %
 elseif expand('%:t')[-4:-1] ==# '.txt'
 	setlocal makeprg=pandoc\ -o\ %:r.pdf\ --latex-engine=lualatex\ %
 endif
+setlocal colorcolumn=
+setlocal nofoldenable
+setlocal formatexpr=bucky#md#format()
+setlocal expandtab
+setlocal textwidth=0
+setlocal noautoindent
 
 if expand('%:t')[0:8] ==# 'FencView_'
 	call init#map#main()
 	finish
-endif
-
-if expand('%:t') ==# 'LICENSE'
-	command! -buffer -nargs=? Template call init#quickui#license#main(1)
 endif
 
 if expand('%') ==# '[duzzle]'
@@ -27,7 +25,7 @@ if expand('%') ==# '[duzzle]'
 	finish
 endif
 
-if expand('%') ==# 'highlight test'
+if expand('%') ==# 'Highlight test'
 	call init#map#main()
 	finish
 endif

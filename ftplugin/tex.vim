@@ -7,6 +7,7 @@ if expand('%:e') ==# 'tex'
 	let b:fswitchlocs = 'bib'
 elseif expand('%:e') ==# 'mtx'
 	let b:fswitchlocs = 'tex'
+	setlocal autochdir
 endif
 let b:clean_temp = [
 			\ 'missfont.log', 'texput.log', 'mylatexformat.log',
@@ -14,15 +15,8 @@ let b:clean_temp = [
 			\ '**/*.dia~',
 			\ ]
 
-if expand('%:p') =~# '/usr/share/texmf'
-	setlocal nomodifiable
-	setlocal readonly
-	call init#map#main()
-else
-	nmap <buffer> dsc <Plug>(vimtex-cmd-delete)
-	nmap <buffer> dsd <Plug>(vimtex-delim-delete)
-	nmap <buffer> dse <Plug>(vimtex-env-delete)
-endif
+setlocal iskeyword-=:
+
 nmap <buffer> crf <Plug>(vimtex-cmd-toggle-frac)
 nmap <buffer> crj <Plug>(vimtex-delim-toggle-modifier)
 nmap <buffer> crk <Plug>(vimtex-delim-toggle-modifier-reverse)
@@ -34,12 +28,11 @@ xmap <buffer> crk <Plug>(vimtex-delim-toggle-modifier-reverse)
 
 augroup tex "{{{
 	autocmd!
+	autocmd BufWinEnter *.tex,*.dtx,*.cls,*.sty,*.ins setlocal iskeyword-=:
 	autocmd User VimtexEventQuit call s:close()
 				\| call init#clean#main(b:clean_temp)
 	autocmd User VimtexEventTocCreated setfiletype latextoc
 				\| call b:toc.set_syntax()
-	autocmd BufWinEnter *.tex,*.dtx,*.cls,*.sty,*.ins setlocal concealcursor=
-				\| setlocal iskeyword-=:
 augroup END "}}}
 
 function! s:close() "{{{
@@ -61,11 +54,11 @@ elseif expand('%:e') ==# 'mtx'
 				\ ]
 	setlocal makeprg=musixtex\ -t\ -F\ "xetex"\ %
 elseif expand('%:e') ==# 'dtx'
-	setlocal makeprg=latexmk\ %<.ins
+	setlocal makeprg=latexmk\ %:r.ins
 elseif expand('%:e') ==# 'ins'
 	setlocal makeprg=latexmk\ %
 elseif expand('%:e') ==# 'tex'
-	setlocal makeprg=lualatex\ -initialize\ -shell-escape\ \"&xelatex\"\ mylatexformat.ltx\ \"\"%\"\"
+	setlocal makeprg=:VimtexCompile
 endif
 setlocal keywordprg=:silent\ !texdoc
 setlocal isfname-={,}
@@ -73,6 +66,7 @@ setlocal indentexpr=BuckyTexIndent()
 setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
+setlocal path+=fig
 if exists('$TEXWORKSPACE')
 	setlocal path+=$TEXWORKSPACE/**1
 elseif has('unix')
@@ -88,10 +82,6 @@ elseif has('win42')
 	setlocal path+=C:/Program\ Files/texlive/2019/texmf-dist/**4
 endif
 
-inoremap <buffer> -- <Space>--<Space>
-inoremap <buffer> - -
-inoremap <buffer> > >
-inoremap <buffer> < <
 nmap <buffer> [[ <plug>(vimtex-[[)
 nmap <buffer> [] <plug>(vimtex-[])
 nmap <buffer> ][ <plug>(vimtex-][)

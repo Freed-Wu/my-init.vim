@@ -1,1 +1,1 @@
-command! -buffer -nargs=? Template NewInitd
+nnoremap <LocalLeader>ll :<C-u>NewInitd<CR>

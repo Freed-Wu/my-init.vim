@@ -14,25 +14,4 @@ function! tex#map#main() "{{{
 	xmap <buffer> iq <Plug>(textobj-latex-quote-i)
 	xmap <buffer> aQ <Plug>(textobj-latex-double-quote-a)
 	xmap <buffer> iQ <Plug>(textobj-latex-double-quote-i)
-	if exists('$TEXMFDIST')
-		execute 'nnoremap <buffer> <LocalLeader>l1 :<C-u>Leaderf file '.$TEXMFDIST.' --input=.pdf<CR>'
-	elseif has('unix')
-		nnoremap <buffer> <LocalLeader>l1 :<C-u>Leaderf file /usr/share/texmf-dist --input=.pdf<CR>
-	elseif has('win32')
-		nnoremap <buffer> <LocalLeader>l1 :<C-u>Leaderf file C:/Program files/texlive/texmf-dist --input=.pdf<CR>
-	endif
-	if exists('$TEXMFSITE')
-		execute 'nnoremap <buffer> <LocalLeader>l2 :<C-u>Leaderf file '.$TEXMFSITE.' --input=.pdf<CR>'
-	elseif has('unix')
-		nnoremap <buffer> <LocalLeader>l2 :<C-u>Leaderf file /usr/share/texmf-site --input=.pdf<CR>
-	elseif has('win32')
-		nnoremap <buffer> <LocalLeader>l2 :<C-u>Leaderf file C:/Program files/texlive/texmf-site --input=.pdf<CR>
-	endif
-	if exists('$TEXMFLOCAL')
-		execute 'nnoremap <buffer> <LocalLeader>l3 :<C-u>Leaderf file '.$TEXMFLOCAL.' --input=.pdf<CR>'
-	elseif has('unix')
-		execute 'nnoremap <buffer> <LocalLeader>l3 :<C-u>Leaderf file '.$HOME.'/.texlive --input=.pdf<CR>'
-	elseif has('win32')
-		nnoremap <buffer> <LocalLeader>l3 :<C-u>Leaderf file C:/Program files/texlive/texmf-local --input=.pdf<CR>
-	endif
 endfunction "}}}

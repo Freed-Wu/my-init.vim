@@ -1,3 +1,7 @@
+if expand('%:t') ==# 'Gemfile'
+	nnoremap <LocalLeader>ll :<C-u>%!bundle init<CR>
+endif
+
 omap <buffer> aF <Plug>(textobj-ruby-block-a)
 omap <buffer> iF <Plug>(textobj-ruby-block-i)
 xmap <buffer> aF <Plug>(textobj-ruby-block-a)

@@ -16,11 +16,7 @@ xnoremap <buffer> <LocalLeader>ot !toilet<CR>
 nnoremap <buffer> <LocalLeader>of :.!figlet<CR>
 xnoremap <buffer> <LocalLeader>of !figlet<CR>
 nnoremap <buffer> <LocalLeader>ov :put =vanner#string(getline('.'),{})<CR>
-nnoremap <buffer> <LocalLeader>o- :call init#banner#main('-')<CR>
-nnoremap <buffer> <LocalLeader>o_ :call init#banner#main('_')<CR>
-nnoremap <buffer> <LocalLeader>o= :call init#banner#main('=')<CR>
-nnoremap <buffer> <LocalLeader>o+ :call init#banner#main('+')<CR>
-nnoremap <buffer> <LocalLeader>o* :call init#banner#main('*')<CR>
+nnoremap <buffer> <LocalLeader>oo :CommentBanner --pattern -,1,-
 xmap <buffer> [[ <Plug>(textobj-help-link-p)
 xmap <buffer> ]] <Plug>(textobj-help-link-n)
 xmap <buffer> [] <Plug>(textobj-help-link-P)

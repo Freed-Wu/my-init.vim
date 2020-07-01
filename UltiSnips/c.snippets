@@ -1,33 +1,7 @@
 priority -30
 
-# data {{{1 #
-snippet ' "myUltiSnips" i
-'\0$0
-endsnippet
-snippet char "myUltiSnips" i
-char ${1:string}[$2]="${3:\0}";
-$0
-endsnippet
-snippet int "myUltiSnips" i
-int ${1:f} = ${2:atof(${3:string})};
-endsnippet
-snippet u "myUltiSnips" i
-unsigned ${1:c}${1/(c)$|(i)$|(.*)/(?1:har)(?2:nt)/}$0
-endsnippet
-# 1}}} data #
-
 # command {{{1 #
 snippet asm "myUltiSnips" b
 __asm("${1:ESTOP0}");$0
 endsnippet
 # 1}}} command #
-
-# embeded {{{1 #
-snippet & "myUltiSnips" i
- &= ~$0
-endsnippet
-snippet | "myUltiSnips" i
- |= $0
-endsnippet
-# 1}}} embeded #
-

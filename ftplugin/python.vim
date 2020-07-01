@@ -26,7 +26,7 @@ nnoremap <buffer> <LocalLeader>c :PymodeRopeModuleToPackage<CR>
 nnoremap <buffer> <LocalLeader>n :PymodeRopeNewProject<CR>
 nnoremap <buffer> <LocalLeader>R :PymodeRopeRenameModule<CR>
 nnoremap <buffer> <LocalLeader>G :PymodeRopeRegenerate<CR>
-nnoremap <buffer> gS :<C-u>REPLDebugStopAtCurrentLine<Cr>
-nnoremap <buffer> gsn :<C-u>REPLPDBN<Cr>
-nnoremap <buffer> gss :<C-u>REPLPDBS<Cr>
+nnoremap <buffer> <LocalLeader>ll :<C-u>REPLDebugStopAtCurrentLine<Cr>
+nnoremap <buffer> <LocalLeader>lv :<C-u>REPLPDBN<Cr>
+nnoremap <buffer> <LocalLeader>lV :<C-u>REPLPDBS<Cr>
 

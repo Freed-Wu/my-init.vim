@@ -1,28 +1,6 @@
 priority -30
 
-global !p
-texMathZones = [
-	'texMathZone'+x for x in [
-		'A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F', 'FS', 'G',
-		'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS', 'DS', 'V',
-		'W', 'X', 'Y', 'Z'
-	]
-]
-texIgnoreMathZones = ['texMathText']
-texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
-texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
-ignore = texIgnoreMathZoneIds[0]
-def math():
-	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
-	try:
-		first = next(
-			i for i in reversed(synstackids)
-			if i in texIgnoreMathZoneIds or i in texMathZoneIds
-		)
-		return first != ignore
-	except StopIteration:
-		return False
-endglobal
+extends all
 
 # table {{{1 #
 global !p
@@ -61,7 +39,7 @@ endsnippet
 pre_expand "add_row(snip)"
 snippet "tr(\d+)" "Add table row of dimension ..." r
 endsnippet
-snippet csv "myUltiSnips" b
+snippet csvreader "myUltiSnips" b
 \csvreader[
   head to column names,
   tabular=cc$1,
@@ -71,9 +49,6 @@ snippet csv "myUltiSnips" b
   table foot=\bottomrule
   late after line=\\\\
 ]{tab/$3.csv}{}{ \a&\b&\c&\d&\e&\f&\g&\h&\i&\j&\k&\l$3 }$0
-endsnippet
-snippet csvau "myUltiSnips" b
-\csvauto${1:book}${2:t}${2/(t)$|(l)$|(.*)/(?1:abular)(?2:ongtable)/}{tab/$0.csv}
 endsnippet
 snippet timeline "myUltiSnips" b
 \csvreader[
@@ -118,26 +93,26 @@ snippet subt "myUltiSnips" b
   \centering
   \caption{$1}%
   \label{tab:$1}
-  $2
+  \csvautobooktabular[respect percent]{tab/$2.csv}
 \end{subtable}
 ${0:\quad}
 endsnippet
 # 1}}} table #
 
 # picture {{{1 #
-snippet subfig "myUltiSnips" b
+snippet subf "myUltiSnips" b
 \begin{subfigure}[htbp]{${1:0.45}\linewidth}
   \centering
   \includegraphics[
-  width = \linewidth,
+    width = \linewidth,
   ]{$2}
   \caption{${3:$2}}%
-  \label{fig:$3}
+  \label{fig:$2}
 \end{subfigure}
-${0:\quad}
+\quad$0
 endsnippet
 snippet pdf "myUltiSnips" b
-\includepdf[scale=1,pages={${1:1-2}}]{${2:data}}
+\includepdf[scale = 1, pages = {${1:1-2}}]{${2:data}}
 $0
 endsnippet
 snippet isbn "myUltiSnips" b
@@ -164,13 +139,6 @@ snippet ov "myUltiSnips" b
   ]{$1}
   put$0
 \end{overpic}
-endsnippet
-endsnippet
-#circuitikz
-snippet circuit "myUltiSnips" b
-\begin{circuitikz}
-draw$1
-\end{circuitikz}$0
 endsnippet
 #tikz
 snippet node "myUltiSnips" b
@@ -213,49 +181,12 @@ $5 & $6
 
 $0
 endsnippet
-snippet zi "myUltiSnips" i
-\zihao{${1:4}}$0
-endsnippet
-#证明
-snippet theo "myUltiSnips" b
-\begin{theorem}[$1]
-$2
-\end{theorem}
-
-$0
-endsnippet
-snippet proof "myUltiSnips" b
-\begin{proof}[$1]
-$2
-\end{proof}
-
-$0
-endsnippet
 # 1}}} formula #
 
 # code {{{1 #
 #代码宏包
-snippet ver "myUltiSnips" i
-\verb|$1|$0
-endsnippet
-snippet dec "myUltiSnips" b
-\DeclareMathOperator{\\$1}{$1}
-$0
-endsnippet
-snippet stack "myUltiSnips" i
-\stackrel{$1}{$2}$0
-endsnippet
 snippet lang "myUltiSnips" b
-\lang${1:C}${1/(C)$|(P)$|(.*)/(?1:V)(?2:y)/}file{$2}{lst/$2}
-
-$0
-endsnippet
-snippet file "myUltiSnips" b
-\begin{filecontents}{${1:main}.${2:b}${2/(b)$|(c)$|(.*)/(?1:ib)(?2:sv)/}}
-$1
-\end{filecontents}
-
-$0
+\langCVfile[$1][lst:$2][$1]{$0}{lst/$2}
 endsnippet
 # 1}}} code #
 
@@ -272,140 +203,48 @@ ${2:${VISUAL}}
 
 $0
 endsnippet
-snippet tab "myUltiSnips" b
+snippet csv "myUltiSnips" b
 \begin{table}[${1:htbp}]
-\centering
-\caption{$2}%
-\label{tab:$2}
-csvau$3
+  \centering
+  \caption{$2}%
+  \label{tab:$2}
+  \csvautobooktabular[respect percent]{tab/$0.csv}
 \end{table}
-
-$0
 endsnippet
 snippet fig "myUltiSnips" b
-\begin{figure}[${2:htbp}]
+\begin{figure}[${1:htbp}]
   \centering
   \includegraphics[
-    width = ${3:0.8}\linewidth,
-  ]{$4}
-  \caption{$5}%
-  \label{fig:$4}
+    width = ${2:0.8}\linewidth,
+  ]{$3}
+  \caption{$0}%
+  \label{fig:$3}
 \end{figure}
-
-$0
 endsnippet
 # 2}}} label #
-# ref {{{2 #
-snippet eqr "myUltiSnips" i
-\eqref{$1}$0
-endsnippet
-snippet refa "myUltiSnips" i
-\refAnswer{$1}$0
-endsnippet
-# 2}}} ref #
 # 1}}} reference #
 
 # debug {{{1 #
-snippet atbeg "myUltiSnips" b
-% Fakesubsection 条件编译
-\usepackage{atbegshi}
-$0
-endsnippet
-snippet showkey "myUltiSnips" b
-\usepackage[notref,notcite]{showkeys}$0
-endsnippet
-snippet syn "myUltiSnips" b
-\usepackage{syntonly}
-\syntaxonly
-$0
-endsnippet
 snippet draft "myUltiSnips" b
 \usepackage[timestamp,first]{draftcopy}
 \draftcopyVersion{Version ${1:1.0.0}}$0
 endsnippet
-snippet show "myUltiSnips" b
-\showthe\baselineskip$0
-endsnippet
 # 1}}} debug #
 
 # style {{{1 #
-#行距
-snippet spa "myUltiSnips" b
-\begin{spacing}{${1:1}}
-${VISUAL}$0
-\end{spacing}
-endsnippet
-snippet flush "myUltiSnips" b
-\begin{flushright}
-${VISUAL}${1:日期：}
-\end{flushright}
-
-$0
-endsnippet
-snippet makebox "myUltiSnips" i
-\makebox[${1:12}\ccwd][${2:c}]{$3}$0
-endsnippet
 #页面
 snippet geo "myUltiSnips" b
-\newgeometry{${1:l}${1/(l)$|(r)$|(t)$|(b)$|(h)$|(f)$|(.*)/(?1:eft)(?2:ight)(?3:op)(?4:ottom)(?5:ead)(?6:oot)/}=${2:2}cm}
+\newgeometry{$1 = ${2:2}cm}
 
-${VISUAL}$3
+${VISUAL}$0
 
 \restoregeometry
-
-$0
-endsnippet
-snippet chngpage "myUltiSnips" b
-\changetext{正文高度}{正文宽度}{偶数页左边空}{奇数页左边空}{栏距}
-$0
-endsnippet
-snippet label "myUltiSnips" b
-\usepackage{labels}
-\LabelGridtrue
-$0
-endsnippet
-snippet labelfile "myUltiSnips" b
-\sf\labelfile{$1.csv}$0
 endsnippet
 # 颜色
-snippet xdefcolor "myUltiSnips" b
+snippet xdef "myUltiSnips" b
 \xdefinecolor{$1}{rgb}{$2,$3,$4}
 $0
 endsnippet
-# 文本框
-snippet boxed "myUltiSnips" b
-\begin{boxedminipage}{${1:\linewidth}}
-$2
-\end{boxedminipage}
-
-$0
-endsnippet
-#特殊符号输入
-snippet string "myUltiSnips" b
-\string"$1\string"$0
-endsnippet
-# exercise {{{2 #
-snippet exe "myUltiSnips" b
-\begin{Exercise}
-${VISUAL}$1
-\end{Exercise}
-
-$0
-endsnippet
-snippet ans "myUltiSnips" b
-\begin{Answer}
-${VISUAL}$0
-\end{Answer}
-endsnippet
-snippet pro "myUltiSnips" b
-\begin{Problem}
-${1:${VISUAL}}
-\begin{answer}
-$0
-\end{answer}
-\end{Problem}
-endsnippet
-# 2}}} exercise #
 # 1}}} style #
 
 # body {{{1 #
@@ -424,137 +263,52 @@ snippet subfp1 "myUltiSnips" b
 
 endsnippet
 # 2}}} 计数 #
-# 添加目录 {{{2 #
-snippet fake "myUltiSnips" b
-% Fake${1:s}${1/(c)$|(s)$|(su)$|(sub)$|(.*)/(?1:hapter)(?2:ection)(?3:bsection)(?4:subsection)/} $2
-$0
-endsnippet
-snippet add "myUltiSnips" b
-\addcontentsline{toc}{${1:s}${1/(s)$|(c)$|(.*)/(?1:ection)(?2:hapter)/}}{$2}
-
-$0
-endsnippet
-snippet qu "myUltiSnips" b
-\begin{quote}
-  $0
-\end{quote}
-endsnippet
-snippet quo "myUltiSnips" b
-\begin{quotation}
-  $0
-\end{quotation}
-endsnippet
-# 2}}} 添加目录 #
 # 1}}} body #
 
-# latex-text-font {{{1 #
-snippet ita "myUltiSnips" i
-\textit{${1:${VISUAL:text}}}$0
+# command {{{1 #
+snippet lua "myUltiSnips" b
+\directlua{dofile("${1:${VISUAL}}")}$0
 endsnippet
-snippet bf "myUltiSnips" i
-\textbf{${1:${VISUAL}}}$0
+# 1}}} command #
+
+# preamble {{{1 #
+snippet answer "myUltiSnips" b
+\usepackage{answers}
+\newtheorem{Problem}{Problem}${1:[chapter]}
+\Newassociation{answer}{Answer}{Answer}$0
 endsnippet
-snippet ul "myUltiSnips" i
-\uline{${1:${VISUAL}}}$0
-endsnippet
-snippet sc "myUltiSnips" i
-\textsc{${1:${VISUAL}}}$0
-endsnippet
-snippet sf "myUltiSnips" i
-\textsf{${1:${VISUAL}}}$0
-endsnippet
-snippet rm "myUltiSnips" i
-\textrm{${1:${VISUAL}}}$0
-endsnippet
-snippet tt "myUltiSnips" i
-\texttt{${1:${VISUAL}}}$0
-endsnippet
-snippet tsub "myUltiSnips" i
-\textsubscript{${1:${VISUAL}}}$0
-endsnippet
-snippet tsup "myUltiSnips" i
-\textsuperscript{${1:${VISUAL}}}$0
-endsnippet
-# 1}}} latex-text-font #
+# 1}}} preamble #
 
 global !p
 texMathZones = [
-  'texMathZone'+x for x in [
-    'A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F',
-    'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS',
-    'L', 'LS', 'DS', 'V', 'W', 'X', 'Y', 'Z'
-  ]
+	'texMathZone'+x for x in [
+		'A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F', 'FS', 'G',
+		'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS', 'DS', 'V',
+		'W', 'X', 'Y', 'Z'
+	]
 ]
 texIgnoreMathZones = ['texMathText']
 texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
 texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
 ignore = texIgnoreMathZoneIds[0]
 def math():
-  synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
-  try:
-    first = next(
-      i for i in reversed(synstackids)
-      if i in texIgnoreMathZoneIds or i in texMathZoneIds
-    )
-    return first != ignore
-  except StopIteration:
-    return False
+	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+	try:
+		first = next(
+			i for i in reversed(synstackids)
+			if i in texIgnoreMathZoneIds or i in texMathZoneIds
+		)
+		return first != ignore
+	except StopIteration:
+		return False
 endglobal
 
-context "math()"
-snippet sum "myUltiSnips" i
-\sum_{${1:i} = ${2:-\infty}}^${3:\infty} $0
-endsnippet
-
-# latex-math-font {{{1 #
-context "math()"
-snippet mf "myUltiSnips" i
-\mathfrak{${1:${VISUAL}}}$0
-endsnippet
-context "math()"
-snippet mc "myUltiSnips" i
-\mathcal{${1:${VISUAL}}}$0
-endsnippet
-context "math()"
-snippet ms "myUltiSnips" i
-\mathscr{${1:${VISUAL}}}$0
-endsnippet
-# 1}}} latex-math-font #
-
-# comment {{{1 #
-snippet root "myUltiSnips" b
-%! TEX root = ${1:../*.tex}
-$0
-endsnippet
-snippet prog "myUltiSnips" i
-%! TEX program = ${1:lualatex}
-$0
-endsnippet
-# 1}}} comment #
-
-# command {{{1 #
-snippet lua "myUltiSnips" b
-\directlua{dofile("${1:${VISUAL}}")}$0
-endsnippet
-snippet str "myUltiSnips" i
-\string"${1:${VISUAL}}\string"$0
-endsnippet
-# 1}}} command #
-
-# template {{{1 #
-# preamble {{{2 #
-snippet answer "myUltiSnips" b
-\usepackage{answers}
-\newtheorem{Problem}{Problem}${1:[chapter]}
-\Newassociation{answer}{Answer}{Answer}$0
-endsnippet
-# 2}}} preamble #
-
 # latex-math-python {{{1 #
+context "math()"
 snippet sympy "sympy block " w
 sympy $1 endsympy$0
 endsnippet
-
+context "math()"
 snippet 'sympy(.*)endsympy' "evaluate sympy" wr
 `!p
 from sympy import *
@@ -563,16 +317,16 @@ k, m, n = symbols('k m n', integer=True)
 f, g, h = symbols('f g h', cls=Function)
 init_printing()
 snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
-					.replace('^', '**') \
-					.replace('{', '(') \
-			 .replace('}', ')') + ')')
+		      .replace('^', '**') \
+		      .replace('{', '(') \
+		   .replace('}', ')') + ')')
 `
 endsnippet
-
+context "math()"
 snippet math "mathematica block" w
 math $1 endmath$0
 endsnippet
-
+context "math()"
 snippet 'math(.*)endmath' "evaluate mathematica" wr
 `!p
 import subprocess
@@ -583,170 +337,45 @@ endsnippet
 # 1}}} latex-math-python #
 
 # latex-math-function {{{1 #
-snippet int "myUltiSnips" i
-\int\nolimits_{${1:-\infty}}^${2:\infty} $0
-endsnippet
-
-snippet sum "myUltiSnips" i
-\sum_{${1:i} = ${2:-\infty}}^${3:\infty} $0
-endsnippet
-
-snippet pro "myUltiSnips" i
-\prod_{${1:i} = ${2:-\infty}}^${3:\infty} $0
-endsnippet
-
-snippet lef "myUltiSnips" i
-\left${1:(}${3:${VISUAL}}\right${2:)}$0
-endsnippet
-
-snippet big "myUltiSnips" i
-\bigl${1:(}${3:${VISUAL}}\bigr${2:)}$0
-endsnippet
-
-snippet Big "myUltiSnips" i
-\Bigl${1:(}${3:${VISUAL}}\Bigr${2:)}$0
-endsnippet
-
-snippet bigg "myUltiSnips" i
-\biggl${1:(}${3:${VISUAL}}\biggr${2:)}$0
-endsnippet
-
-snippet Bigg "myUltiSnips" i
-\Biggl${1:(}${3:${VISUAL}}\Biggr${2:)}$0
-endsnippet
-
-snippet "([A-Za-z'])(\d)" "auto subscript" wrA
-`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
-endsnippet
-
-snippet "([A-Za-z'])_(\d\d)" "auto subscript2" wrA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
-endsnippet
-
-snippet "([A-Za-z'])_" "auto subscript2" wr
-`!p snip.rv = match.group(1)`_{${1:${VISUAL}}}$0
-endsnippet
-
-snippet ^ "auto subscript2" w
-^{${1:${VISUAL}}}$0
-endsnippet
-
-snippet '([A-Za-z])\^(\d\d)' "auto subscript2" wrA
-`!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}
-endsnippet
-
-snippet sq "myUltiSnips" i
-\sqrt{${1:${VISUAL}}}$0
-endsnippet
-
-snippet __ "myUltiSnips" iA
-_\mathrm{${VISUAL}$1}$0
-endsnippet
-
+context "math()"
 snippet lim "myUltiSnips" i
 \lim_{${1:n} \to ${2:\infty}}$0
 endsnippet
-
-snippet fr "myUltiSnips" i
-\frac{${VISUAL}$1}{$2}$0
+context "math()"
+snippet int "myUltiSnips" i
+\int\nolimits_{${1:-\infty}}^${2:\infty} $0
 endsnippet
-
-snippet case "myUltiSnips" b
-\begin{cases}
-  $1
-\end{cases}
-$0
+context "math()"
+snippet sum "myUltiSnips" i
+\sum_{${1:i} = ${2:-\infty}}^${3:\infty} $0
 endsnippet
-
-snippet ali "myUltiSnips" b
-\begin{aligned}
-  $1
-\end{aligned}
-$0
+context "math()"
+snippet pro "myUltiSnips" i
+\prod_{${1:i} = ${2:-\infty}}^${3:\infty} $0
 endsnippet
-
-snippet dcase "myUltiSnips" b
-\begin{dcases}
-  $1
-\end{dcases}
-$0
+context "math()"
+snippet "([A-Za-z'])(\d)" "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
-
-# latex-math-font {{{1 #
-snippet mb "myUltiSnips" i
-\mathbb{${1:${VISUAL}}}$0
+context "math()"
+snippet "([A-Za-z'])_(\d\d)" "auto subscript2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
-
-snippet mf "myUltiSnips" i
-\mathfrak{${1:${VISUAL}}}$0
+context "math()"
+snippet "([A-Za-z'])_" "auto subscript2" wr
+`!p snip.rv = match.group(1)`_{${1:${VISUAL}}}$0
 endsnippet
-
-snippet mc "myUltiSnips" i
-\mathcal{${1:${VISUAL}}}$0
+context "math()"
+snippet ^ "auto subscript2" w
+^{${1:${VISUAL}}}$0
 endsnippet
-
-snippet ms "myUltiSnips" i
-\mathscr{${1:${VISUAL}}}$0
+context "math()"
+snippet '([A-Za-z])\^(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}
 endsnippet
-
-snippet mr "myUltiSnips" i
-\mathrm{${1:${VISUAL}}}$0
+context "math()"
+snippet __ "myUltiSnips" iA
+_\mathrm{${VISUAL}$1}$0
 endsnippet
+# 1}}} latex-math-function #
 
-snippet mo "myUltiSnips" i
-\mathop{${1:${VISUAL}}}$0
-endsnippet
-# 1}}} latex-math-font #
-
-# matrix {{{1 #
-
-snippet mat "myUltiSnips" b
-\begin{matrix}
-$0
-\end{matrix}
-endsnippet
-
-snippet bmat "myUltiSnips" b
-\begin{bmatrix}
-$0
-\end{bmatrix}
-endsnippet
-
-snippet Bmat "myUltiSnips" b
-\begin{Bmatrix}
-$0
-\end{Bmatrix}
-endsnippet
-
-snippet pmat "myUltiSnips" b
-\begin{pmatrix}
-$0
-\end{pmatrix}
-endsnippet
-
-snippet vmat "myUltiSnips" b
-\begin{vmatrix}
-$0
-\end{vmatrix}
-endsnippet
-
-snippet Vmat "myUltiSnips" b
-\begin{Vmatrix}
-$0
-\end{Vmatrix}
-endsnippet
-# 1}}} matrix #
-
-# latex-math-space {{{1 #
-snippet "([^A-Za-z0-9\}\)\]']) - " "myUltiSnips" irA
-`!p snip.rv = match.group(1)`-$0
-endsnippet
-
-snippet '(\s) & ' "myUltiSnips" irA
-`!p snip.rv = match.group(1)`& $0
-endsnippet
-
-snippet '(\s) = ' "myUltiSnips" irA
-`!p snip.rv = match.group(1)`= $0
-endsnippet
-# 1}}} latex-math-space #

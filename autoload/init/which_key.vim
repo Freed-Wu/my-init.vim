@@ -137,7 +137,7 @@ function! init#which_key#main() "{{{
 				\ },
 				\ }
 	call which_key#register('a', 'g:which_key_map_a')
-	" }}} i "
+	" }}} a "
 	" I {{{ "
 	let g:which_key_map_I = {
 				\ 'name': 'choose a key about Inner text object',
@@ -149,7 +149,7 @@ function! init#which_key#main() "{{{
 				\ 'name': 'choose a key about Around text object',
 				\ }
 	call which_key#register('A', 'g:which_key_map_A')
-	" }}} I "
+	" }}} A "
 	call which_key#register('.', 'g:which_key_map_startify_dot')
 	call which_key#register('c', 'g:which_key_map_fugitive_c')
 	call which_key#register('d', 'g:which_key_map_fugitive_d')

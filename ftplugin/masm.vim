@@ -1,7 +1,7 @@
-nnoremap <buffer> gS :sfind $HOME/.dosbox/*.conf<CR>
-if exists('$DOSBOXWORKSPACE')
-	nnoremap <buffer> gs :Defx `$DOSBOXWORKSPACE`<CR>
-else
-	nnoremap <buffer> gs :Defx `$HOME`/.dosbox<CR>
-endif
+let g:dosbox_conf = split(system('dosbox -printconf'))[0]
+
+nnoremap <buffer> <LocalLeader>ll :split g:dosbox_conf<CR>
+nnoremap <buffer> <LocalLeader>lL :Defx `fnamemodify(g:dosbox_conf, ':p:h')`<CR>
+
+setlocal keywordprg=:Help
 
