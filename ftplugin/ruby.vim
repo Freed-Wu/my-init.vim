@@ -1,5 +1,5 @@
 if expand('%:t') ==# 'Gemfile'
-	nnoremap <LocalLeader>ll :<C-u>%!bundle init<CR>
+	nnoremap <LocalLeader>ll :<C-u>!bundle init<CR>
 endif
 
 omap <buffer> aF <Plug>(textobj-ruby-block-a)

@@ -1,5 +1,3 @@
-call init#map#main()
-
 setlocal expandtab
 setlocal shiftwidth=3
 setlocal tabstop=3

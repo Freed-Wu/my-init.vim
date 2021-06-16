@@ -8,5 +8,3 @@ else
 	setlocal makeprg=7z\ x\ %
 endif
 
-call init#map#main()
-

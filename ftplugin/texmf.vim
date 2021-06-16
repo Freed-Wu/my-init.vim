@@ -3,7 +3,6 @@ let b:fswitchdst = 'cnf'
 if expand('%:p:h:t') !=# 'web2c'
 	setlocal nomodifiable
 	setlocal readonly
-	call init#map#main()
 	if has('unix')
 		let b:fswitchlocs = '~/.texlive/texmf-config'
 	else

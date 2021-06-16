@@ -1,31 +1,31 @@
 function! init#help#main(word) "{{{
+	let l:word = shellescape(a:word)
 	let s:temp = '/tmp/' . &filetype . '.log'
 	call delete(s:temp)
 	if &filetype ==# 'octave'
-		call writefile(split(system('octave --eval "help '.a:word.'"'), "\n"), s:temp)
+		let l:cmd = ['octave --eval', shellescape('help ' . l:word)]
 	elseif &filetype ==# 'gnuplot'
-		call writefile(split(system('gnuplot -e "help '.a:word.'"'), "\n"), s:temp)
+		let l:cmd = ['gnuplot -e', shellescape('help ' . l:word)]
 	elseif &filetype ==# 'python'
-		call writefile(split(system('python -c "help('''.a:word.''')"'), "\n"), s:temp)
+		let l:cmd = ['python -c', shellescape('help(' . l:word . ')')]
 	elseif &filetype ==# 'c'
-		call writefile(split(system('man 3 --pager=cat '.a:word), "\n"), s:temp)
+		let l:cmd = ['man 3 --pager=cat', l:word]
 	elseif &filetype =~# 'sh\|bash\|fish\|zsh\|ksh\|csh\|tcsh'
-		call writefile(split(system('man 1 --pager=cat '.a:word), "\n"), s:temp)
+		let l:cmd = ['man 1 --pager=cat', l:word]
 	elseif &filetype =~# 'dosbatch\|ps1'
-		call writefile(split(system('help '.a:word), "\n"), s:temp)
+		let l:cmd = ['help', ]
 	elseif &filetype ==# 'cpp'
-		call writefile(split(system('cppman "'.a:word.'"'), "\n"), s:temp)
+		let l:cmd = ['cppman', l:word]
 	elseif &filetype ==# 'masm'
-		call writefile(split(system('cgasm "'.a:word.'"'), "\n"), s:temp)
+		let l:cmd = ['cgasm', l:word]
 	elseif &filetype ==# 'mysql'
-		call writefile(split(system('mysql -e "help '.a:word.'"'), "\n"), s:temp)
+		let l:cmd = ['mysql -e', shellescape('help ' . l:word)]
 	elseif &filetype ==# 'sql'
-		call writefile(split(system('mysql -e "help '.a:word.'"'), "\n"), s:temp)
+		let l:cmd = ['sqlite3 -e', shellescape('help ' . l:word)]
 	elseif &filetype ==# 'julia'
-		call writefile(split(system('julia -E "? '.a:word.'"'), "\n"), s:temp)
-	else
-		call writefile(split('No found!'), s:temp, "\n")
+		let l:cmd = ['julia -E', shellescape('? ' . l:word)]
 	endif
-	call quickui#preview#open(s:temp, {'title': a:word})
+	call writefile(trim(system(l:cmd)), s:temp)
+	call quickui#preview#open(s:temp, {'title': l:word})
 endfunction "}}}
 

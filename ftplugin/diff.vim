@@ -1,5 +1,3 @@
-call init#map#main()
-
 nmap <buffer> [M <Plug>(textobj-diff-file-P)
 nmap <buffer> ]M <Plug>(textobj-diff-file-N)
 nmap <buffer> [m <Plug>(textobj-diff-file-p)

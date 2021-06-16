@@ -1,4 +1,4 @@
-call init#map#main()
+scriptencoding utf-8
 
 setlocal nonumber
 setlocal norelativenumber
@@ -43,33 +43,32 @@ else
 	nnoremap <buffer> p i<C-w>"+
 	nnoremap <buffer> P i<C-w>"
 endif
-if !exists('g:terminal_map')
-	if has('nvim')
-		tnoremap <Esc> <C-\><C-N>
-	else
-		tnoremap <nowait> <C-w> <C-w>.
-		tnoremap <C-^> <C-w>N
-		tnoremap <C-\> <C-w>
-		if has('gui_running')
-			for s:i in range(char2nr('0'), char2nr('9')) + range(char2nr('a'), char2nr('z'))
-				execute 'tnoremap <M-' . nr2char(s:i) . '> <Esc>' . nr2char(s:i)
-			endfor
-			let s:map = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']
-			for s:i in range(10)
-				execute 'tnoremap <M-S-' . s:i . '> <Esc>' . s:map[s:i]
-			endfor
-			for s:i in range(char2nr('a'), char2nr('z'))
-				execute 'tnoremap <M-S-' . nr2char(s:i) . '> <Esc><S-' . nr2char(s:i) . '>'
-			endfor
-		else
-			for s:i in range(char2nr('0'), char2nr('9')) + range(char2nr('a'), char2nr('z')) + range(char2nr('A'), char2nr('Z'))
-				execute 'tnoremap <Esc>' . nr2char(s:i) . ' <Esc>' . nr2char(s:i)
-			endfor
-			for s:i in ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']
-				execute 'tnoremap <Esc>' . s:i . ' <Esc>' . s:i
-			endfor
-		endif
-	endif
-	let g:terminal_map = 1
+if exists('g:terminal_map')
+	finish
 endif
-
+let g:terminal_map = 1
+if has('nvim')
+	tnoremap <Esc> <C-\><C-N>
+	finish
+endif
+tnoremap <nowait> <C-w> <C-w>.
+tnoremap <Esc> <C-w>N
+if has('gui_running')
+	for s:i in range(char2nr('0'), char2nr('9')) + range(char2nr('a'), char2nr('z'))
+		execute 'tnoremap <M-' . nr2char(s:i) . '> <Esc>' . nr2char(s:i)
+	endfor
+	let s:map = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']
+	for s:i in range(10)
+		execute 'tnoremap <M-S-' . s:i . '> <Esc>' . s:map[s:i]
+	endfor
+	for s:i in range(char2nr('a'), char2nr('z'))
+		execute 'tnoremap <M-S-' . nr2char(s:i) . '> <Esc><S-' . nr2char(s:i) . '>'
+	endfor
+else
+	for s:i in range(char2nr('0'), char2nr('9')) + range(char2nr('a'), char2nr('z')) + range(char2nr('A'), char2nr('Z'))
+		execute 'tnoremap <Esc>' . nr2char(s:i) . ' <Esc>' . nr2char(s:i)
+	endfor
+	for s:i in ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']
+		execute 'tnoremap <Esc>' . s:i . ' <Esc>' . s:i
+	endfor
+endif

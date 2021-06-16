@@ -2,20 +2,29 @@ scriptencoding utf-8
 function! init#smartinput#main() "{{{
 	inoremap <expr><C-p> pumvisible()?"\<C-p>": "\<Up>"
 	inoremap <expr><C-n> pumvisible()?"\<C-n>": "\<Down>"
+	inoremap <expr><Tab> pumvisible()?"\<C-y>": "\<Tab>"
+	inoremap <expr><S-Tab> pumvisible()?"\<C-e>": "\<S-Tab>"
 	inoremap <C-j> <C-e>
 	inoremap <C-l> <C-y>
-	inoremap <C-\> <C-k>
-	inoremap <C-q> <End><C-u>
-	inoremap <C-s> <C-o>/
-	inoremap <C-_> <C-o>u
-	inoremap <M-h> <C-o>K
-	inoremap <M-s> <C-g>u<Esc>[s1z=`]a<C-g>u
-	inoremap <M-g> <Home><C-o>y<End>
-	inoremap <M-a> <End><CR>
-	inoremap <M-e> <Up><End><CR>
 	inoremap <silent><expr> <TAB>
 				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
 				\ "\<TAB>" . coc#refresh()
+	" readline
+	inoremap <C-s> <C-o>/
+	inoremap <C-_> <C-o>u
+	inoremap <M-a> <C-o>(
+	inoremap <M-e> <C-o>)
+	" zle
+	inoremap <M-m> <C-o>^
+	inoremap <M-x> <C-o>:
+	inoremap <M-s> <C-g>u<Esc>[s1z=`]a<C-g>u
+	inoremap <M-Bar> <C-o><Bar>
+	inoremap <M-?> <C-o>?
+	inoremap <M-h> <C-o>K
+	inoremap <M-<> <C-o>gg
+	inoremap <M->> <C-o>G
+	imap <M-'> <C-o>val'
+	imap <M-"> <C-o>viw'
 	if !exists('$WINDOWID')
 		inoremap ：： ；
 	endif
@@ -68,7 +77,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '=',
 				\ 'input': '=',
-				\ 'filetype': ['sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch'],
+				\ 'filetype': ['sh', 'bash', 'fish', 'zsh', 'ksh', 'csh', 'tcsh', 'ps1', 'dosbatch', 'html', 'xml', 'xhtml', 'fstab', 'dot', 'tex', 'plaintex', 'context', 'tmux'],
 				\ })
 	call smartinput#map_to_trigger('i', '<<', '<<', '<<')
 	call smartinput#define_rule({
@@ -219,7 +228,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '<Bar>',
 				\ 'input': '<Bar><Bar><Left>',
-				\ 'filetype': ['ruby'],
+				\ 'filetype': ['ruby', 'markdown', 'pandoc'],
 				\ })
 	call smartinput#map_to_trigger('i', '<Bar><Bar>', '<Bar><Bar>', '<Bar><Bar>')
 	call smartinput#define_rule({
@@ -233,30 +242,6 @@ function! init#smartinput#main() "{{{
 				\ 'char': '%=',
 				\ 'input': ' %= ',
 				\ 'filetype': ['c', 'julia', 'python', 'vim'],
-				\ })
-	call smartinput#map_to_trigger('i', '/*', '/*', '/*')
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '/*',
-				\ 'input': ' /* ',
-				\ })
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '/*',
-				\ 'input': '/*',
-				\ 'filetype': ['gitignore'],
-				\ })
-	call smartinput#map_to_trigger('i', '*/', '*/', '*/')
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '*/',
-				\ 'input': ' */ ',
-				\ })
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '*/',
-				\ 'input': '*/',
-				\ 'filetype': ['gitignore'],
 				\ })
 	" }}} c "
 	" ruby {{{ "
@@ -284,6 +269,13 @@ function! init#smartinput#main() "{{{
 				\ 'char': '==',
 				\ 'input': ' == ',
 				\ })
+	call smartinput#map_to_trigger('i', '==', '==', '==')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '==',
+				\ 'input': '==',
+				\ 'filetype': ['tmux'],
+				\ })
 	call smartinput#map_to_trigger('i', '!=', '!=', '!=')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -300,7 +292,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '<',
 				\ 'input': '<lt>><Left>',
-				\ 'filetype': ['vim', 'html', 'xhtml', 'pandoc', 'markdown', 'gfimarkdown', 'liquid', 'txt', 'text', 'tex', 'plaintex', 'context'],
+				\ 'filetype': ['vim', 'html', 'xml', 'xhtml', 'dot', 'pandoc', 'markdown', 'gfimarkdown', 'liquid', 'txt', 'text', 'tex', 'plaintex', 'context'],
 				\ })
 	call smartinput#map_to_trigger('i', '>', '>', '>')
 	call smartinput#define_rule({
@@ -318,7 +310,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '>',
 				\ 'input': '>',
-				\ 'filetype': ['vim', 'html', 'xhtml', 'liquid', 'txt', 'text'],
+				\ 'filetype': ['vim', 'html', 'xml', 'xhtml', 'liquid', 'txt', 'text'],
 				\ })
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -488,12 +480,12 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '?',
 				\ 'input': ' ?  : <Left><Left><Left>',
+				\ 'filetype': ['c', 'cpp', 'julia'],
 				\ })
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '?',
 				\ 'input': '? ',
-				\ 'filetype': ['tex', 'plaintex', 'context', 'text', 'txt'],
 				\ })
 	call smartinput#define_rule({
 				\ 'at': '\%#',
@@ -511,33 +503,33 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': ',',
 				\ 'input': ',',
-				\ 'filetype': ['csv', 'json', 'muttrc'],
-				\ })
-	call smartinput#map_to_trigger('i', '.', '.', '.')
-	call smartinput#define_rule({
-				\ 'at': '\%#',
-				\ 'char': '.',
-				\ 'input': ' . ',
-				\ 'filetype': ['vim'],
+				\ 'filetype': ['csv', 'json', 'muttrc', 'fstab'],
 				\ })
 	call smartinput#map_to_trigger('i', '..', '..', '..')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': '..',
-				\ 'input': '..',
+				\ 'input': ' . ',
+				\ 'filetype': ['vim'],
 				\ })
-	call smartinput#map_to_trigger('i', '...', '...', '...')
+	call smartinput#map_to_trigger('i', '..=', '..=', '..=')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
-				\ 'char': '...',
-				\ 'input': ' ... ',
+				\ 'char': '..=',
+				\ 'input': ' ..= ',
+				\ })
+	call smartinput#map_to_trigger('i', '=<<', '=<<', '=<<')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '=<<',
+				\ 'input': ' =<< ',
 				\ })
 	call smartinput#map_to_trigger('i', ':', ':', ':')
 	call smartinput#define_rule({
 				\ 'at': '\%#',
 				\ 'char': ':',
 				\ 'input': ': ',
-				\ 'filetype': ['text', 'txt', 'json'],
+				\ 'filetype': ['text', 'txt', 'json', 'python'],
 				\ })
 	" }}} text "
 	" tex {{{ "
@@ -546,7 +538,7 @@ function! init#smartinput#main() "{{{
 				\ 'at': '\%#',
 				\ 'char': '$',
 				\ 'input': '$$<Left>',
-				\ 'filetype': ['tex', 'plaintex', 'context', 'pandoc', 'markdown', 'gfimarkdown', 'csv'],
+				\ 'filetype': ['tex', 'plaintex', 'context', 'pandoc', 'markdown', 'gfimarkdown', 'csv', 'octave', 'matlab'],
 				\ })
 	call smartinput#map_to_trigger('i', '$$', '$$', '$$')
 	call smartinput#define_rule({
@@ -554,6 +546,27 @@ function! init#smartinput#main() "{{{
 				\ 'char': '$$',
 				\ 'input': '$$$$<Left><Left>',
 				\ 'filetype': ['tex', 'plaintex', 'context', 'pandoc', 'markdown', 'gfimarkdown'],
+				\ })
+	call smartinput#map_to_trigger('i', '<bar>-', '<bar>-', '<bar>-')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '<bar>-',
+				\ 'input': ' <bar>- ',
+				\ 'filetype': ['tex', 'plaintex', 'context'],
+				\ })
+	call smartinput#map_to_trigger('i', '-<bar>', '-<bar>', '-<bar>')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '-<bar>',
+				\ 'input': ' -<bar> ',
+				\ 'filetype': ['tex', 'plaintex', 'context'],
+				\ })
+	call smartinput#map_to_trigger('i', '--', '--', '--')
+	call smartinput#define_rule({
+				\ 'at': '\%#',
+				\ 'char': '--',
+				\ 'input': ' -- ',
+				\ 'filetype': ['tex', 'plaintex', 'context'],
 				\ })
 	" }}} tex "
 endfunction "}}}

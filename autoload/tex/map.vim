@@ -1,5 +1,12 @@
 function! tex#map#main() "{{{
-	nnoremap <buffer> <LocalLeader>/ :<C-u>silent !texdoc<Space>
+	nmap <buffer> crf <Plug>(vimtex-cmd-toggle-frac)
+	nmap <buffer> crj <Plug>(vimtex-delim-toggle-modifier)
+	nmap <buffer> crk <Plug>(vimtex-delim-toggle-modifier-reverse)
+	nmap <buffer> cre <Plug>(vimtex-env-toggle-star)
+	nmap <buffer> crr <Plug>(vimtex-cmd-toggle-star)
+	xmap <buffer> crf <Plug>(vimtex-cmd-toggle-frac)
+	xmap <buffer> crj <Plug>(vimtex-delim-toggle-modifier)
+	xmap <buffer> crk <Plug>(vimtex-delim-toggle-modifier-reverse)
 	nmap <buffer> yse <plug>(vimtex-cmd-toggle-star)
 	nmap <buffer> ysc <plug>(vimtex-env-toggle-star)
 	nmap <buffer> ysd <plug>(vimtex-delim-toggle-modifier)

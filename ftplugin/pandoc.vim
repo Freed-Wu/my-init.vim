@@ -1,14 +1,8 @@
 let b:fswitchdst = 'bib'
 let b:fswitchlocs = 'bib'
-let b:clean = ['%<.docx', '%<.html', '%<.doc', '%<.htm', '%<.pdf']
 
 call vimtex#init()
 call tex#map#main()
-call init#set#main()
-
-if expand('%:p:h') =~# 'vim'
-	call vim#map#main()
-endif
 
 setlocal nospell
 setlocal foldexpr=pandoc#folding#FoldExpr()
@@ -17,20 +11,25 @@ setlocal foldlevel=1
 if glob(expand('%:p:h') . '/_config.yml') !=# ''
 	setlocal makeprg=jekyll\ server
 else
-	setlocal makeprg=:Pandoc\ pdf\ %\ --filter\ pandoc-csv2table\ --filter\ pandoc-xnos\ --filter\ pandoc-docx-pagebreakpy
+	setlocal makeprg=:Pandoc!\ beamer
 endif
 setlocal include=^\\s*!
 setlocal iskeyword+=-
-setlocal tabstop=2
-setlocal shiftwidth=2
+setlocal tabstop=4
+setlocal shiftwidth=4
 setlocal expandtab
 
-nmap <buffer> <LocalLeader>ll <Plug>MarkdownPreview
-nnoremap <buffer> <LocalLeader>lt :TOC<CR><C-w>L:execute 'vertical resize '.&columns / 4<CR>
+nnoremap <buffer> gf gf
+if exists('g:started_by_firenvim')
+	nmap <buffer> <LocalLeader>ll :<C-u>call firenvim#eval_js('document.getElementById("partial-new-comment-form-actions").getElementsByClassName("btn btn-primary")[0].click()')<CR>
+else
+	nmap <buffer> <LocalLeader>ll <Plug>MarkdownPreview
+endif
+nnoremap <buffer> <LocalLeader>lt :TOC<CR>
 nnoremap <buffer> <LocalLeader>= :CommentBanner -w auto -1 spaces:0 -p 1,=<CR>
 nnoremap <buffer> <LocalLeader>- :CommentBanner -w auto -1 spaces:0 -p 1,-<CR>
-nnoremap <buffer> <LocalLeader>oo :.read !tree<CR>
-nnoremap <buffer> <LocalLeader>oO :.read !gh-md-toc %<CR>
+nnoremap <buffer> <LocalLeader>o :.read !tree<CR>
+nnoremap <buffer> <LocalLeader>O :.read !gh-md-toc %<CR>
 inoremap <buffer> <C-x><C-x> <Plug>(github-complete-manual-completion)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
 nmap <buffer> <LocalLeader>e <Plug>(pandoc-keyboard-toggle-emphasis)
@@ -99,4 +98,6 @@ omap <buffer> [m <plug>(textobj-markdown-chunk-p)
 omap <buffer> ]m <plug>(textobj-markdown-chunk-n)
 omap <buffer> [M <plug>(textobj-markdown-Bchunk-p)
 omap <buffer> ]M <plug>(textobj-markdown-Bchunk-n)
-
+nnoremap <Buffer> dsc <Plug>(vimtex-cmd-delete)
+nnoremap <Buffer> dsd <Plug>(vimtex-delim-delete)
+nnoremap <Buffer> dse <Plug>(vimtex-env-delete)

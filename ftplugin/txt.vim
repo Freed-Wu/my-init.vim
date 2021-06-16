@@ -8,4 +8,3 @@ setlocal noautoindent
 setlocal nolinebreak
 
 call cn#map#main()
-

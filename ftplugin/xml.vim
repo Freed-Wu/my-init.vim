@@ -1,4 +1,2 @@
-if &filetype ==# 'xml'
-	EmmetInstall
-endif
+EmmetInstall
 

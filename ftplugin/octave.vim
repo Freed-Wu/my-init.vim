@@ -5,8 +5,8 @@ setlocal foldtext=MatlabFoldText()
 setlocal makeprg=octave\ %
 setlocal keywordprg=:Help
 setlocal iskeyword-=:
-execute 'setlocal path+=' . split(system('octave-config -p DATAROOTDIR'))[0] . '/octave/' . split(system('octave-config -p VERSION'))[0] . '/m/**2'
-execute 'setlocal path+=' . split(system('octave-config --m-site-dir'))[0] . '/**2'
+execute 'setlocal path+=' . trim(system('octave-config -p DATAROOTDIR')) . '/octave/' . trim(system('octave-config -p VERSION')) . '/m/**2'
+execute 'setlocal path+=' . trim(system('octave-config --m-site-dir')) . '/**2'
 if filereadable('.octave_packages')
 	let s:list = readfile('.octave_packages')
 	let s:i = 0

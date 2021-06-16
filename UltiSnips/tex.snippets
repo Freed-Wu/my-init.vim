@@ -31,24 +31,11 @@ def add_row(snip):
 	snip.expand_anon(final_str)
 
 endglobal
-#表格环境
-#代码展开
 pre_expand "create_tabu(snip)"
 snippet "tb(\d+)x(\d+)" "myUltiSnips" r
 endsnippet
 pre_expand "add_row(snip)"
 snippet "tr(\d+)" "Add table row of dimension ..." r
-endsnippet
-snippet csvreader "myUltiSnips" b
-\csvreader[
-  head to column names,
-  tabular=cc$1,
-  table head=\toprule
-  $2
-  \midrule,
-  table foot=\bottomrule
-  late after line=\\\\
-]{tab/$3.csv}{}{ \a&\b&\c&\d&\e&\f&\g&\h&\i&\j&\k&\l$3 }$0
 endsnippet
 snippet timeline "myUltiSnips" b
 \csvreader[
@@ -58,23 +45,13 @@ snippet timeline "myUltiSnips" b
   \time & \item
 }$0
 endsnippet
-snippet timelin "myUltiSnips" b
-\begin{table}
+snippet csv "myUltiSnips" b
+\begin{table}[htbp]
   \centering
-  \caption{时间线}%
-  \label{tab:时间线}
-  \begin{tabular}
-    {@{\,}r <{\hskip 2pt} !{\color{LightSteelBlue3}\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}} >{\raggedright\arraybackslash}p{5cm}}
-    $0
-  \end{tabular}
+  \caption{$1}%
+  \label{tab:$1}
+  \csvautobooktabular[respect percent]{tables/$2.csv}
 \end{table}
-endsnippet
-#表格
-snippet rule "myUltiSnips" b
-\toprule$0
-\midrule
-${VISUAL}
-\bottomrule
 endsnippet
 snippet diag "myUltiSnips" i
 \diagbox[
@@ -87,32 +64,41 @@ endsnippet
 snippet mulc "myUltiSnips" i
 \multicolumn{${1:2}}{c}{${VISUAL}$2}$0
 endsnippet
-#子表
 snippet subt "myUltiSnips" b
 \begin{subtable}[htbp]{0.45\linewidth}
   \centering
   \caption{$1}%
-  \label{tab:$1}
-  \csvautobooktabular[respect percent]{tab/$2.csv}
+  \label{tab:$2}
+  \csvautobooktabular[respect percent]{tables/$2.csv}
 \end{subtable}
 ${0:\quad}
 endsnippet
 # 1}}} table #
 
 # picture {{{1 #
+snippet fig "myUltiSnips" b
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[
+    width = ${1:0.8}\linewidth,
+  ]{images/$2.png}
+  \caption{$3}%
+  \label{fig:$4}
+\end{figure}
+endsnippet
 snippet subf "myUltiSnips" b
 \begin{subfigure}[htbp]{${1:0.45}\linewidth}
   \centering
   \includegraphics[
     width = \linewidth,
-  ]{$2}
-  \caption{${3:$2}}%
+  ]{images/$2.png}
+  \caption{$3}%
   \label{fig:$2}
 \end{subfigure}
 \quad$0
 endsnippet
 snippet pdf "myUltiSnips" b
-\includepdf[scale = 1, pages = {${1:1-2}}]{${2:data}}
+\includepdf[pages = {$1}]{$2}
 $0
 endsnippet
 snippet isbn "myUltiSnips" b
@@ -132,7 +118,6 @@ snippet wrap "myUltiSnips" b
 \end{wrapfigure}
 $0
 endsnippet
-#子图
 snippet ov "myUltiSnips" b
 \begin{overpic}[
   width = \linewidth,
@@ -140,38 +125,9 @@ snippet ov "myUltiSnips" b
   put$0
 \end{overpic}
 endsnippet
-#tikz
-snippet node "myUltiSnips" b
-\node($1) [$2] {$4};
-node$0
-endsnippet
-snippet draw "myUltiSnips" b
-\draw()$2;
-draw$0
-endsnippet
-snippet .. "myUltiSnips" i
-.. controls ($1) and ($2) .. ($0)
-endsnippet
-snippet cir "myUltiSnips" i
-circle (${0:10pt})
-endsnippet
-snippet ell "myUltiSnips" i
-ellipse ($1 and $0)
-endsnippet
-snippet rect "myUltiSnips" i
-rectangle ($0)
-endsnippet
-snippet drawgrid "myUltiSnips" b
-\draw[step=$1, gray, very thin] ($2) grid ($3);
-$0
-endsnippet
-snippet arc "myUltiSnips" i
-arc ($1:$2:$3)$0
-endsnippet
 # 1}}} picture #
 
 # formula {{{1 #
-#文字符号
 snippet subn "myUltiSnips" b
 \begin{subnumcases}{$1}%
 \label{eq:$2}
@@ -184,14 +140,9 @@ endsnippet
 # 1}}} formula #
 
 # code {{{1 #
-#代码宏包
 snippet lang "myUltiSnips" b
 \langCVfile[$1][lst:$2][$1]{$0}{lst/$2}
 endsnippet
-# 1}}} code #
-
-# reference {{{1 #
-# label {{{2 #
 snippet "mint(ed)?( (\S+))?" "myUltiSnips" br
 \begin{listing}
 \begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{${1:`!p snip.rv = match.group(3) if match.group(2) is not None else "language"`}}
@@ -203,36 +154,16 @@ ${2:${VISUAL}}
 
 $0
 endsnippet
-snippet csv "myUltiSnips" b
-\begin{table}[${1:htbp}]
-  \centering
-  \caption{$2}%
-  \label{tab:$2}
-  \csvautobooktabular[respect percent]{tab/$0.csv}
-\end{table}
-endsnippet
-snippet fig "myUltiSnips" b
-\begin{figure}[${1:htbp}]
-  \centering
-  \includegraphics[
-    width = ${2:0.8}\linewidth,
-  ]{$3}
-  \caption{$0}%
-  \label{fig:$3}
-\end{figure}
-endsnippet
-# 2}}} label #
-# 1}}} reference #
+# 1}}} code #
 
 # debug {{{1 #
 snippet draft "myUltiSnips" b
-\usepackage[timestamp,first]{draftcopy}
-\draftcopyVersion{Version ${1:1.0.0}}$0
+\usepackage[timestamp, first]{draftcopy}
+\draftcopyVersion{Version 1.0.0}$0
 endsnippet
 # 1}}} debug #
 
 # style {{{1 #
-#页面
 snippet geo "myUltiSnips" b
 \newgeometry{$1 = ${2:2}cm}
 
@@ -240,30 +171,11 @@ ${VISUAL}$0
 
 \restoregeometry
 endsnippet
-# 颜色
 snippet xdef "myUltiSnips" b
 \xdefinecolor{$1}{rgb}{$2,$3,$4}
 $0
 endsnippet
 # 1}}} style #
-
-# body {{{1 #
-# 计数 {{{2 #
-snippet subfp1 "myUltiSnips" b
-\end{figure}
-
-  \addtocounter{figure}{-1}
-  \newcounter{subf}
-  \begin{figure}[htpb]
-  endsnippet
-  snippet subfp2 "myUltiSnips" b
-  \setcounter{subf}{\value{subfigure}}
-  ${VISUAL}
-  \setcounter{subfigure}{\value{subf}}
-
-endsnippet
-# 2}}} 计数 #
-# 1}}} body #
 
 # command {{{1 #
 snippet lua "myUltiSnips" b

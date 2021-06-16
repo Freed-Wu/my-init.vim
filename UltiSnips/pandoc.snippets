@@ -6,19 +6,6 @@ extends tex
 snippet url "myUltiSnips" i
 <${VISUAL}http://${1:url}>$0
 endsnippet
-snippet src "myUltiSnips" i
-<img src="${VISUAL}$1" width="${2:100}" align=${3:center} />$0
-endsnippet
-snippet img "Image"
-![${1:${VISUAL}}](images/$2${1/.+/ "/}$1${1/.+/"/})
-
-$0
-endsnippet
-snippet tab "Table"
-![${1:${VISUAL}}](tab/$2${1/.+/ "/}$1${1/.+/"/})
-
-$0
-endsnippet
 
 snippet sec "Section" b
 # ${1:${VISUAL}} #
@@ -106,5 +93,9 @@ $0
 endsnippet
 snippet fa "myUltiSnips" i
 fa:fa-$0
+endsnippet
+
+snippet img "myUltiSnips"
+![${3:$1}](${2:path}${1/.+/ "/}${1:opt title}${1/.+/"/})$0
 endsnippet
 

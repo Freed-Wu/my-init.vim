@@ -1,5 +1,3 @@
-call init#map#main()
-
 nnoremap <buffer> <C-j> <nop>
 nnoremap <buffer> <C-k> <nop>
 nunmap <buffer> <C-j>

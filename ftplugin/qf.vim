@@ -1,12 +1,6 @@
-wincmd J
-
-call init#map#main()
-
 setlocal previewwindow
-setlocal nomodifiable
-setlocal conceallevel=2
-setlocal concealcursor=nv
 setlocal norelativenumber
+setlocal textwidth=0
 
 nnoremap <buffer><silent> <CR> <CR>
 nnoremap <buffer> o yiw<C-w>W:<C-r>0<CR>

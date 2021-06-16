@@ -1,8 +1,6 @@
-call init#map#main()
-
 setlocal nowrap
 setlocal colorcolumn=
-if matchstr(getline(1), 'Gentoo System Manager''s Manual') ==# ''
+if empty(matchstr(getline(1), 'Gentoo System Manager''s Manual'))
 	setlocal shiftwidth=7
 	setlocal tabstop=7
 else

@@ -1,7 +1,9 @@
-" File: $XDG_CONFIG_HOME/nvim/test.vim
-" OS: linux v5.4.13
-" Vi: nvim v0.4.3
-" Py: cpython v3.6.10
-" Term: guake v3.7.0
+" ❯ uname -r
+" 5.11.7-gentoo-x86_64
+" ❯ has nvim python
+" ✓ nvim 0.4.4
+" ✓ python 3.8.5
+" ❯ vi $XDG_CONFIG_HOME/nvim/test.vim
+scriptencoding utf-8
 set runtimepath=$VIMRUNTIME,$GITHUBWORKSPACE/%HERE%
-" vi -u $XDG_CONFIG_HOME/nvim/test.vim
+" ❯ vi -u $XDG_CONFIG_HOME/nvim/test.vim

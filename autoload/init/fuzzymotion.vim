@@ -1,5 +1,5 @@
 function! init#fuzzymotion#main(...) abort "{{{
-	return extend(copy({
+	return extend({
 				\   'converters': [
 				\ incsearch#config#fuzzy#converter(),
 				\ incsearch#config#fuzzyspell#converter()
@@ -8,7 +8,7 @@ function! init#fuzzymotion#main(...) abort "{{{
 				\ 'keymap': {"\<CR>": '<Over>(easymotion)'},
 				\ 'is_expr': 0,
 				\ 'is_stay': 1
-				\ }),
+				\ },
 				\ get(a:, 1, {}))
 endfunction "}}}
 

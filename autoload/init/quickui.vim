@@ -1,16 +1,13 @@
-let g:quickui_color_schemes = []
-for s:file in split(glob($GITHUBWORKSPACE . '/skywind3000/vim-quickui/colors/quickui/*.vim'))
-	let g:quickui_color_schemes += [fnamemodify(s:file, ':t:r')]
-endfor
+let g:quickui_color_schemes = map(glob($GITHUBWORKSPACE . '/skywind3000/vim-quickui/colors/quickui/*.vim', 0, 1), {_, v -> fnamemodify(v, ':t:r')})
+
 function! init#quickui#main() "{{{
 	let g:quickui_color_scheme = g:quickui_color_schemes[localtime() % len(g:quickui_color_schemes)]
 	call QuickThemeChange(g:quickui_color_scheme)
 	let g:quickui_show_tip = 1
 	call quickui#menu#reset()
-	call quickui#menu#install('&File', [
+	call quickui#menu#install('&File', map([
 				\ ['&File', 'Leaderf file'],
 				\ ['&Buffer', 'Leaderf buffer'],
-				\ ['&Window', 'Leaderf window'],
 				\ ['&Type', 'Leaderf filetype'],
 				\ ['&MRU', 'Leaderf mru'],
 				\ ['Fileencoding &view', 'Leaderf fencview'],
@@ -21,8 +18,8 @@ function! init#quickui#main() "{{{
 				\ ['&Delete', 'Delete'],
 				\ ['Chow&n', 'Chown ' . $USER . ':' . $USER . ' %'],
 				\ ['E&xtern Open', 'call pandoc#hypertext#OpenSystem(expand("%"))'],
-				\ ])
-	call quickui#menu#install('&Edit', [
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&Edit', map([
 				\ ['&Neoformat', 'Neoformat'],
 				\ ['&Trail fix', 'TrailGuide fix'],
 				\ ['&Checkpath', 'checkpath'],
@@ -30,66 +27,44 @@ function! init#quickui#main() "{{{
 				\ ['&Draw', 'DIstart'],
 				\ ['&Sketch', 'call ToggleSketch()'],
 				\ ['--', ''],
-				\ ['P&ick color', 'call CocAction("pickColor")'],
-				\ ['Ch&ange color', 'call CocAction("colorPresentation")'],
-				\ ['--', ''],
 				\ ['Ht&ml', 'TOhtml'],
-				\ ['Pd&f', 'hardcopy'],
-				\ ])
-	call quickui#menu#install('&View', [
-				\ ['&View', 'new | Startify'],
-				\ ['V&ista', 'Vista'],
-				\ ['&ALEDetail', 'ALEDetail'],
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&View', map([
+				\ ['&Vista', 'Vista'],
 				\ ['&Undotree', 'UndotreeToggle | UndotreeFocus'],
 				\ ['E&xplore', 'ToggleDefxVista'],
 				\ ['&Calendar', 'Calendar -split=horizontal'],
 				\ ['--', ''],
 				\ ['&Filetype', 'execute "split $XDG_CONFIG_HOME/nvim/ftplugin/" . split(&filetype, ''\.'')[0] . ".vim"'],
-				\ ['--', ''],
-				\ ['&Preview tag', 'call quickui#tools#preview_tag(expand("<cword>"))'],
-				\ ])
-	call quickui#menu#install('&Git', [
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&Git', map([
 				\ ['&Git', 'G'],
 				\ ['&View', 'Agit'],
 				\ ['View &file', 'AgitFile'],
 				\ ['L&og', 'Gclog!'],
-				\ ['&Clone', 'execute "AsyncRun git clone " . @+|copen'],
-				\ ['&Submodule', 'execute "AsyncRun git submodule add " . @+|copen'],
-				\ ['Sv&n', 'execute "AsyncRun svn checkout " . substitute(@+, "tree/master", "trunk", "g")|copen'],
+				\ ['&Clone', 'execute "AsyncRun git clone" @+|copen'],
+				\ ['&Submodule', 'execute "AsyncRun git submodule add" @+|copen'],
+				\ ['Sv&n', 'execute "AsyncRun svn checkout" substitute(@+, "tree/master", "trunk", "g")|copen'],
 				\ ['--', ''],
 				\ ['Iss&ues', 'Gissues'],
 				\ ['A&dd an issue', 'Giadd'],
 				\ ['Mil&estones', 'Gmiles'],
 				\ ['--', ''],
-				\ ['Git&Messenger', 'GitMessenger'],
 				\ ['&Dashboard', 'GHDashboard'],
 				\ ['&Activity', 'GHActivity'],
 				\ ['S&tars', 'Leaderf stars'],
-				\ ])
-	call quickui#menu#install('&Quickfix', [
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&Quickfix', map([
 				\ ['&Quickfix', 'copen'],
 				\ ['L&ocation', 'lopen'],
-				\ ['As&yncRun', 'execute "AsyncRun " . &makeprg|execute &makeprg[0] ==# ":" ? "copen" : ""'],
+				\ ['As&yncRun', 'execute "AsyncRun" &makeprg|execute &makeprg[0] ==# ":" ? "copen" : ""'],
 				\ ['--', ''],
-				\ ['Todo &XXX', 'TODO'],
+				\ ['&Todo', 'TODO'],
 				\ ['&Message', 'Message'],
 				\ ['Scri&ptnames', 'Scriptnames'],
-				\ ['--', ''],
-				\ ['&Assignment', 'GscopeFind a'],
-				\ ['&Calling', 'GscopeFind c'],
-				\ ['Calle&d', 'GscopeFind d'],
-				\ ['&Egrep', 'GscopeFind e'],
-				\ ['&File', 'GscopeFind f'],
-				\ ['&Global definition', 'GscopeFind g'],
-				\ ['&Including', 'GscopeFind i'],
-				\ ['&Symbol', 'GscopeFind s'],
-				\ ['&Text', 'GscopeFind t'],
-				\ ['--', ''],
-				\ ['Lfi&nd', 'execute "Lfind! " . expand("<cfile>")'],
-				\ ['Llocate &/', 'execute "Llocate! " . expand("<cfile>")'],
-				\ ])
-	call quickui#menu#install('E&xplore', [
-				\ ['E&xplore', 'execute "Defx" . substitute((expand("%:t")[0] ==# "!" || stridx(expand("%:p"), "://") > -1)? "" : expand("%:p:h"), " ", "\\\\ ", "g")'],
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('E&xplore', map([
+				\ ['E&xplore', 'execute "Defx" fnameescape(split(expand("%:p:h"), "://")[-1])'],
 				\ ['C&WD', 'Defx'],
 				\ ['--', ''],
 				\ ['&Downloads', 'Defx ~/Downloads'],
@@ -110,23 +85,20 @@ function! init#quickui#main() "{{{
 				\ ['&Vim data', 'Defx ' . $XDG_DATA_HOME . '/nvim'],
 				\ ['--', ''],
 				\ ['&UDISK', 'Defx /run/media/' . $USER],
-				\ ['&Mount', 'Defx /mnt/cdrom'],
-				\ ])
-	call quickui#menu#install('&Snippet', [
+				\ ['&Mount', 'Defx /mnt'],
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&Snippet', map([
 				\ ['&Snippet', 'CocCommand snippets.editSnippets'],
 				\ ['S&nippets', 'CocCommand snippets.openSnippetFiles'],
-				\ ['Te&mplate', 'CocCommand template.template'],
-				\ ['Template&Top', 'CocCommand template.templateTop'],
-				\ ['Template&Bottom', 'CocCommand template.templateBottom'],
-				\ ['T&emplates', 'CocList templates'],
-				\ ['G&itignore', 'CocList gitignore'],
+				\ ['&Template', 'TemplateHere'],
+				\ ['&Gitignore', 'CocList gitignore'],
 				\ ['--', ''],
 				\ ['Stu&b', 'Leaderf license'],
 				\ ['L&ic', 'DoxLic'],
 				\ ['&Author', 'DoxAuthor'],
 				\ ['&Dox', 'Dox'],
-				\ ])
-	call quickui#menu#install('&Increase', [
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&Increase', map([
 				\ ['&Increase', 'I'],
 				\ ['&Alpha', 'IA'],
 				\ ['&Binary', 'IB'],
@@ -138,8 +110,8 @@ function! init#quickui#main() "{{{
 				\ ['&Data-month-year', 'IDMY'],
 				\ ['&Month-data-year', 'IMDY'],
 				\ ['&Year-month-data', 'IYMD'],
-				\ ])
-	call quickui#menu#install('&Z-fold', [
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&Z-fold', map([
 				\ ['&Z-fold Last pattern', 'Fl'],
 				\ ['&Word', 'Fw'],
 				\ ['&Find search', 'Fs'],
@@ -152,17 +124,17 @@ function! init#quickui#main() "{{{
 				\ ['&End', 'Fe'],
 				\ ['--', ''],
 				\ ['&AnyFoldActivate', 'AnyFoldActivate'],
-				\ ])
-	call quickui#menu#install('&UI', [
-				\ ['&UI config', 'echo join([split(execute("colorscheme"))[0], split(execute("AirlineTheme"))[0], g:quickui_color_scheme, g:Lf_StlColorscheme, &guifont], ":")'],
-				\ ['Hi&ghlight', 'source $VIMRUNTIME/syntax/hitest.vim'],
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&UI', map([
+				\ ['&UI config', 'echo init#getui#main()'],
+				\ ['&Options', 'Leaderf options'],
 				\ ['--', ''],
 				\ ['&Colorscheme', 'Leaderf colorscheme'],
 				\ ['&Thematic', 'Leaderf thematic'],
 				\ ['Thematic&Random', 'ThematicRandom'],
 				\ ['&Quickui theme', 'Leaderf quickui_themes'],
-				\ ])
-	call quickui#menu#install('&Plugins', [
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('&Plugins', map([
 				\ ['&Update', 'SPUpdate'],
 				\ ['&Install', 'SPInstall'],
 				\ ['--', ''],
@@ -175,10 +147,8 @@ function! init#quickui#main() "{{{
 				\ ['--', ''],
 				\ ['&Find', 'Leaderf self'],
 				\ ['H&elp', 'Leaderf help'],
-				\ ])
-	call quickui#menu#install('Pla&y', [
-				\ ['Pla&y', 'PP'],
-				\ ['--', ''],
+				\ ] , {_, v -> v + [get(v, 1)]}))
+	call quickui#menu#install('Pla&y', map([
 				\ ['&Breakout', 'VimGameCodeBreak'],
 				\ ['&Snake', 'VimGameSnake'],
 				\ ['&2048', 'NewGame2048'],
@@ -195,5 +165,6 @@ function! init#quickui#main() "{{{
 				\ ['--', ''],
 				\ ['Bad&Apple', has('gui_running') ? 'ZBadApple' : 'BadApple'],
 				\ ['&Splash', 'Leaderf splash'],
-				\ ])
+				\ ['&Calibre', 'Leaderf calibre'],
+				\ ] , {_, v -> v + [get(v, 1)]}))
 endfunction "}}}

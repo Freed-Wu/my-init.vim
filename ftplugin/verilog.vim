@@ -6,7 +6,5 @@ elseif expand('%:e') ==# 'v'
 	let b:fswitchlocs = '../testbench'
 endif
 
-let b:clean = ['*.vvp']
-
 setlocal makeprg=iverilog\ -o\ %<.vo\ %<.vt\|\ vvp\ %<.vo
 

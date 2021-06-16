@@ -1,5 +1,3 @@
-let b:clean = ['*.html','*.css']
-
 nmap <buffer> gs <Plug>Vimwiki2HTMLBrowse
 nmap <buffer> gS <Plug>Vimwiki2HTML
 nmap <buffer> <LocalLeader>g <Plug>VimwikiDiaryGenerateLinks

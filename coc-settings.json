@@ -18,7 +18,8 @@
 		"source": {
 			"bibtex": {
 				"files": [
-					"*.bib"
+					"*.bib",
+					"refs/*.bib"
 				],
 				"citation": {
 					"before": "\\cite{",
@@ -94,19 +95,20 @@
 		"gS": "searchRecursive",
 		"gf": "gotoSource:file",
 		"gF": "gotoSource:buffer",
+		"<": "gitStage",
+		">": "gitUnstage",
+		"]]": "sourceNext",
+		"]d": "diagnosticNext",
+		"]g": "gitNext",
 		"[[": "sourcePrev",
-			"]]": "sourceNext",
 			"[d": "diagnosticPrev",
-				"]d": "diagnosticNext",
-				"[g": "gitPrev",
-					"]g": "gitNext",
-					"<": "gitStage",
-					">": "gitUnstage"
+				"[g": "gitPrev"
 	},
 	"snippets.ultisnips.directories": [
 		"UltiSnips",
-		"gosnippets/UltiSnips",
+		"gosnippets/UltiSnips"
 	],
-	"git.enableGutters": true
+	"git.enableGutters": true,
+	"python.jediEnabled": false
 }
 

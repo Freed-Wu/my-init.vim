@@ -18,8 +18,6 @@ for b:startify_bookmarks in get(g:, 'startify_bookmarks', [])
 	endfor
 endfor
 
-call init#map#main()
-
 augroup startify "{{{
 	autocmd!
 	autocmd User Startified call s:startify()
@@ -67,6 +65,7 @@ setlocal tabstop=3
 setlocal expandtab
 setlocal foldlevel=9
 AnyFoldActivate
+" call glyph_palette#apply()
 
 let b:startify_lists = []
 for b:startify_list in g:startify_lists
