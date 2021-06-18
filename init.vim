@@ -274,9 +274,11 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ })
 	call dein#add('mattn/webapi-vim', {
 				\ 'on_source': ['airline-weather.vim', 'excelview-vim', 'vim-splash'],
-				\ 'if': executable('wget') || executable('curl'),
+				\ 'if': expand('$OSTYPE') !=# 'linux-android' && (executable('wget') || executable('curl')),
 				\ })
-	call dein#add('Wildog/airline-weather.vim')
+	call dein#add('Wildog/airline-weather.vim', {
+				\ 'if': expand('$OSTYPE') !=# 'linux-android' && (executable('wget') || executable('curl')),
+				\ })
 	call dein#add('enricobacis/vim-airline-clock')
 	call dein#add('Zuckonit/vim-airline-todo')
 	call dein#add('lambdalisue/battery.vim')
@@ -303,7 +305,9 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('Kjwon15/vim-transparent', {
 				\ 'on_if': !has('gui_running'),
 				\ })
-	call dein#add('Freed-Wu/vim-splash')
+	call dein#add('Freed-Wu/vim-splash', {
+				\ 'if': expand('$OSTYPE') !=# 'linux-android' && (executable('wget') || executable('curl')),
+				\ })
 	" 5}}} Display "
 
 	" SyntaxMarkUp {{{5 "
@@ -499,9 +503,6 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'xmap s <Plug>VSurround',
 				\ 'xmap S <Plug>VgSurround',
 				\ ], "\n"),
-				\ })
-	call dein#add('https://git.telemachus.me/vim-textobj-curly', {
-				\ 'on_map': '<Plug>(textobj-curly-',
 				\ })
 	call dein#add('reedes/vim-textobj-sentence', {
 				\ 'on_map': {'o': ['is', 'as'], 'x': ['is', 'as',], 'n': 'g'},
@@ -973,6 +974,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	call dein#add('mechatroner/rainbow_csv')
 	call dein#add('mattn/excelview-vim', {
 				\ 'on_cmd': 'ExcelView',
+				\ 'if': expand('$OSTYPE') !=# 'linux-android' && (executable('wget') || executable('curl')),
 				\ })
 	call dein#add('dhruvasagar/vim-table-mode', {
 				\ 'on_cmd': ['TableModeToggle', 'Tableize', 'TableAddFormula'],
@@ -1251,7 +1253,7 @@ if has('pythonx')
 endif
 " 3}}} skywind3000/vim-quickui "
 " mhinz/vim-startify {{{3 "
-if executable('neofetch') && filereadable($PREFIX . '/etc/issue')
+if filereadable($PREFIX . '/etc/issue')
 	let g:startify_custom_header = map(readfile($PREFIX . '/etc/issue'), {_, v -> substitute(v, "\x1b\[[0-9;\?]\\{-}\\a", '', 'g')})
 endif
 let g:startify_session_dir = $XDG_CACHE_HOME . '/nvim/vim-startify'
@@ -2628,20 +2630,6 @@ let g:textobj#quote#singleMotion = 'jj'
 xmap sj <Plug>SurroundWithSingle
 xmap sJ <Plug>SurroundWithDouble
 " 3}}} reedes/vim-textobj-quote "
-" https://git.telemachus.me/vim-textobj-curly {{{3 "
-nmap ]v <Plug>(textobj-curly-double-n)
-nmap [v <Plug>(textobj-curly-double-p)
-nmap ]V <Plug>(textobj-curly-single-n)
-nmap [V <Plug>(textobj-curly-single-p)
-xmap ]v <Plug>(textobj-curly-double-n)
-xmap [v <Plug>(textobj-curly-double-p)
-xmap ]V <Plug>(textobj-curly-single-n)
-xmap [V <Plug>(textobj-curly-single-p)
-omap ]v <Plug>(textobj-curly-double-n)
-omap [v <Plug>(textobj-curly-double-p)
-omap ]V <Plug>(textobj-curly-single-n)
-omap [V <Plug>(textobj-curly-single-p)
-" 3}}} https://git.telemachus.me/vim-textobj-curly "
 " 2}}} TextObjChar "
 
 " TextObjSymbol {{{2 "
