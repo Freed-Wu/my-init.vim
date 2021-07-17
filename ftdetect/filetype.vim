@@ -5,8 +5,6 @@ augroup init_filetypedetect "{{{
 	autocmd BufNewFile,BufRead {github.com,www.cnblogs.com,www.jianshu.com}_*.txt setfiletype pandoc
 	autocmd BufNewFile,BufRead www.bitahub.com_*.txt setfiletype sh
 	autocmd BufNewFile,BufRead forums.gentoo.org_*.txt setfiletype bbcode
-	autocmd BufNewFile,BufRead newsboat-article.* setfiletype mail
-	execute 'autocmd BufNewFile,BufRead *.' . expand('$HOST') 'setfiletype mail'
 
 	" Binary {{{2 "
 	autocmd BufNewFile,BufRead *.ihex setfiletype hex
@@ -26,13 +24,13 @@ augroup init_filetypedetect "{{{
 
 	" Data_Exchange {{{2 "
 	autocmd BufNewFile,BufRead *.conf setfiletype conf
-	autocmd BufNewFile,BufRead *tmux.conf* set filetype=tmux
 	autocmd BufNewFile,BufRead *{gitignore,.snippet} setfiletype gitignore
 	autocmd BufNewFile,BufRead .mysql_history setfiletype mysql
 	autocmd BufNewFile,BufRead pip.conf,layman.conf,qt-settings,lang.dat,.nethackrc*,*astylerc,*.{editorconfig,trashinfo,nmconnection} setfiletype dosini
 	autocmd BufNewFile,BufRead zathura-*,zathurarc*,wpa_supplicant*.conf,*{.ctags,doxyfile,latexmkrc} setfiletype conf
 	autocmd BufNewFile,BufRead *gitconfig setfiletype gitconfig
 	autocmd BufNewFile,BufRead tags,tags-*,*.{tags,tags.temp} setfiletype tags
+	autocmd BufNewFile,BufRead *.jupyterlab-settings setfiletype jsonc
 	autocmd BufNewFile,BufRead *.{sublime-project,vsconfig,jscsrc,jshintrc,plan,ccls,sublime-workspace,css.map} setfiletype json
 	autocmd BufNewFile,BufRead *.{mdl,clang-format} setfiletype yaml
 	autocmd BufNewFile,BufRead SumatraPDF-settings.txt,getmailrc,khard.conf,*.{opensslconf,qdocconf,eclipseproduct,DsnWrk,PrjPCB,PrjMbdStructure,PrjMbd,PrjMbdStructure,LIBPKG,OutJob,BomDoc,Harness,wspos,jlink,dni,pjt,mac,qws} setfiletype toml
@@ -51,9 +49,10 @@ augroup init_filetypedetect "{{{
 	" 2}}} Mark_Up "
 
 	" Script {{{2 "
-	autocmd BufNewFile,BufRead .xprofile,~/bin/termux-* setfiletype sh
+	autocmd BufNewFile,BufRead .xprofile setfiletype sh
 	autocmd BufNewFile,BufRead .bash_history setfiletype bash
 	autocmd BufNewFile,BufRead .zsh_history,*.{zsh-theme,gentoo-config} setfiletype zsh
+	autocmd BufNewFile,BufRead .visidatarc setfiletype python
 	autocmd BufNewFile,BufRead .netrwhist setfiletype vim
 	autocmd BufNewFile,BufRead *.nut setfiletype squirrel
 	autocmd BufNewFile,BufRead *.{jsfl,xs,xdc,bld,fe,edc,xtext} setfiletype javascript

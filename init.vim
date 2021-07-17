@@ -273,7 +273,7 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 				\ 'if': &encoding ==# 'utf-8',
 				\ })
 	call dein#add('mattn/webapi-vim', {
-				\ 'on_source': ['airline-weather.vim', 'excelview-vim', 'vim-splash'],
+				\ 'on_source': ['airline-weather.vim', 'vim-splash'],
 				\ 'if': expand('$OSTYPE') !=# 'linux-android' && (executable('wget') || executable('curl')),
 				\ })
 	call dein#add('Wildog/airline-weather.vim', {
@@ -794,6 +794,9 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 
 	" File {{{4 "
 	" FileExplore {{{5 "
+	call dein#add('antoinemadec/FixCursorHold.nvim', {
+				\ 'if': !has('nvim'),
+				\ })
 	call dein#add('lambdalisue/fern.vim', {
 				\ 'on_cmd': 'Fern',
 				\ })
@@ -972,10 +975,6 @@ if dein#load_state(fnamemodify($GITHUBWORKSPACE, ':p:h:h:h'))
 	" Office {{{5 "
 	" call dein#add('chrisbra/csv.vim')
 	call dein#add('mechatroner/rainbow_csv')
-	call dein#add('mattn/excelview-vim', {
-				\ 'on_cmd': 'ExcelView',
-				\ 'if': expand('$OSTYPE') !=# 'linux-android' && (executable('wget') || executable('curl')),
-				\ })
 	call dein#add('dhruvasagar/vim-table-mode', {
 				\ 'on_cmd': ['TableModeToggle', 'Tableize', 'TableAddFormula'],
 				\ })
@@ -1535,6 +1534,14 @@ nnoremap <C-w><C-F> :<C-u>tabfind <C-r><C-f><CR>
 xnoremap <C-w><C-F> y:tabfind <C-r>0<CR>
 " 4}}} tabMoveCursor "
 " windowMoveCursor {{{4 "
+nnoremap <C-w>j <C-w>j
+nnoremap <C-w>k <C-w>k
+nnoremap <C-w>h <C-w>h
+nnoremap <C-w>l <C-w>l
+xnoremap <C-w>j <C-w>j
+xnoremap <C-w>k <C-w>k
+xnoremap <C-w>h <C-w>h
+xnoremap <C-w>l <C-w>l
 nnoremap <C-w>w <C-w>w
 nnoremap <C-w>W <C-w>W
 nnoremap <C-j> <C-w>j
@@ -1562,14 +1569,14 @@ nnoremap <C-w>: :Leaderf command<CR>
 xnoremap <C-w>: :<C-u>Leaderf command<CR>
 " 4}}} windowMoveCursor "
 " cursorMoveWindow {{{4 "
-nnoremap <C-w>j <C-w>J
-nnoremap <C-w>k <C-w>K
-nnoremap <C-w>h <C-w>H
-nnoremap <C-w>l <C-w>L
-xnoremap <C-w>j <C-w>J
-xnoremap <C-w>k <C-w>K
-xnoremap <C-w>h <C-w>H
-xnoremap <C-w>l <C-w>L
+nnoremap <C-w>J <C-w>J
+nnoremap <C-w>K <C-w>K
+nnoremap <C-w>H <C-w>H
+nnoremap <C-w>L <C-w>L
+xnoremap <C-w>J <C-w>J
+xnoremap <C-w>K <C-w>K
+xnoremap <C-w>H <C-w>H
+xnoremap <C-w>L <C-w>L
 " 4}}} cursorMoveWindow "
 " windowModify {{{4 "
 nnoremap <C-w>+ <C-w>+

@@ -175,24 +175,19 @@ let b:content_toggle = [
 
 nnoremap <buffer><expr> !
 			\ defx#do_action('execute_command')
-nnoremap <buffer><expr> g!
-			\ defx#do_action('call', 'defx#command#main')
 nnoremap <nowait><buffer> <LocalLeader> :<C-u>call quickui#context#open(b:content, {})<CR>
 let b:content = map([
 			\ ['&Adb push', 'call defx#call_action("execute_command", "adb push % /sdcard/Download")'],
 			\ ['&Bluetooth-sendto', 'call defx#call_action("execute_command", "bluetooth-sendto %")'],
-			\ ['7&z a', 'call defx#call_action("execute_command", "7z a %.7z %")'],
-			\ ['7z &x', 'call defx#call_action("execute_command", "7z x % -otemp")'],
+			\ ['&Convert png', 'call defx#call_action("execute_command", "convert % %.png")'],
 			\ ['&Git init', 'call defx#call_action("execute_command", "git init %")'],
-			\ ['&Ssconvert csv', 'call defx#call_action("execute_command", "ssconvert % %.csv")'],
-			\ ['S&office convert-to pdf', 'call defx#call_action("execute_command", "soffice --convert-to pdf %")'],
-			\ ['&Calibredb add', 'call defx#call_action("execute_command", "calibredb add %")'],
+			\ ['&Soffice convert-to pdf', 'call defx#call_action("execute_command", "soffice --convert-to pdf %")'],
+			\ ['&Vd', 'call defx#call_action("execute_command", "vd -b % -o %.tsv")'],
+			\ ['7z &x', 'call defx#call_action("execute_command", "7z x % -otemp")'],
+			\ ['7&z a', 'call defx#call_action("execute_command", "7z a %.7z %")'],
 			\ ['&Pdfcrop', 'call defx#call_action("execute_command", "pdfcrop %")'],
-			\ ['Pdf2s&vg', 'call defx#call_action("execute_command", "pdf2svg % %.svg")'],
 			\ ['Pdfto&text', 'call defx#call_action("execute_command", "pdftotext %")'],
-			\ ['Co&nvert png', 'call defx#call_action("execute_command", "convert % %.png")'],
-			\ ['Latex&mk', 'call defx#call_action("execute_command", "latexmk -pvc- %")'],
-			\ ['J&abref -n -o bib', 'call defx#call_action("execute_command", "jabref -n -o %.bib %")'],
+			\ ['Pdf&2svg', 'call defx#call_action("execute_command", "pdf2svg % %.svg")'],
 			\ ] , {_, v -> v + [get(split(get(v, 1), '"'), -2)]})
 
 command! -buffer -nargs=* -range -bar -complete=customlist,defx#util#complete
